@@ -1,149 +1,103 @@
 'use client';
 
-import { Button, Card, Input } from '@pwa-easy-rental/shared-ui';
-import { useOfflineSync } from '@pwa-easy-rental/shared-services';
-import { useState, useEffect } from 'react';
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-interface Rental {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  location: string;
-}
-
-const mockRentals: Rental[] = [
-  {
-    id: '1',
-    title: 'Modern City Apartment',
-    description: 'A beautiful apartment in the heart of the city',
-    price: 150,
-    location: 'Downtown',
-  },
-  {
-    id: '2',
-    title: 'Cozy Beach House',
-    description: 'Relax by the ocean in this charming beach house',
-    price: 200,
-    location: 'Seaside',
-  },
-  {
-    id: '3',
-    title: 'Mountain Cabin',
-    description: 'Escape to nature in this peaceful mountain retreat',
-    price: 175,
-    location: 'Highland',
-  },
-];
-
-export default function ClientPage() {
-  const { isInitialized, isOnline, queueStats, addToQueue, cacheData, getCachedData } = useOfflineSync();
-  const [rentals, setRentals] = useState<Rental[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
-
-  useEffect(() => {
-    // Load rentals from cache or use mock data
-    const loadRentals = async () => {
-      if (isInitialized) {
-        const cached = await getCachedData<Rental[]>('rentals');
-        if (cached) {
-          setRentals(cached);
-        } else {
-          setRentals(mockRentals);
-          await cacheData('rentals', 'rental', mockRentals);
-        }
-      }
-    };
-    loadRentals();
-  }, [isInitialized, getCachedData, cacheData]);
-
-  const handleBooking = async (rental: Rental) => {
-    await addToQueue({
-      type: 'CREATE',
-      entity: 'booking',
-      data: {
-        rentalId: rental.id,
-        rentalTitle: rental.title,
-        bookedAt: new Date().toISOString(),
-      },
+export default function LoginPage() {
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+    type FormData = {
+      name: string,
+      email: string,
+      phone: string,
+      password: string
+    }
+    const [, setFormData] = useState<FormData>({
+      name: '',
+      email: '',
+      phone: "",
+      password: ""
     });
-    alert(`Booking added for ${rental.title}!${!isOnline ? ' (Will sync when online)' : ''}`);
-  };
-
-  const filteredRentals = rentals.filter(
-      (rental) =>
-          rental.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          rental.location.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
+     const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      setIsSubmitting(true);
+  
+      const data = {
+        name: "",
+        email: "",
+        phone: "",
+        password: ""
+      };
+  
+      setFormData(data); // <-- Save the object in state
+      console.log('Form data:', data);
+      
+      try{
+        // await reportService.createReport(reportData);
+        console.log("Compte créé avec succes!")
+        router.push('/vehicles')
+      }catch(error){
+        console.error("Un problème est survenu lors de la création de compte.")
+        console.log(error)
+      }
+     
+      setIsSubmitting(false);
+    };
   return (
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-secondary-800 mb-4">
-            Browse Available Rentals
-          </h2>
-
-          <div className="flex items-center gap-4 mb-4">
-            <div className="flex-1">
-              <Input
-                  placeholder="Search by title or location..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-              />
+    <div className=" flex items-center justify-center ">
+      {/* Main Card */}
+      <div className="relative w-full max-w-2xl h-[420px] bg-white rounded-xl shadow-xl overflow-hidden grid grid-cols-2">
+        {/* Left side – Form */}
+        <div className="relative flex flex-col items-center justify-center bg-primary text-white px-10">
+          <div className="text-center space-y-4">
+            <div className="w-16 h-16 mx-auto rounded-full bg-white/20 flex items-center justify-center text-xl font-bold">
+              LOGO
             </div>
-            <div className="text-sm text-secondary-600">
-              {isOnline ? (
-                  <span className="text-green-600">● Online</span>
-              ) : (
-                  <span className="text-yellow-600">● Offline</span>
-              )}
-            </div>
+            <h1 className="text-3xl font-extrabold">MyApp</h1>
+            <p className="text-sm opacity-90">
+              A simple and modern platform to manage your ideas and projects
+              efficiently.
+            </p>
           </div>
-
-          {queueStats.pending > 0 && (
-              <div className="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-md mb-4">
-                {queueStats.pending} pending sync item(s)
-              </div>
-          )}
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {filteredRentals.map((rental) => (
-              <Card key={rental.id} className="hover:shadow-lg transition-shadow">
-                <h3 className="text-lg font-semibold text-secondary-800 mb-2">
-                  {rental.title}
-                </h3>
-                <p className="text-secondary-600 mb-2">{rental.description}</p>
-                <div className="flex items-center justify-between mb-4">
-              <span className="text-primary-600 font-bold">
-                ${rental.price}/night
-              </span>
-                  <span className="text-secondary-500 text-sm">{rental.location}</span>
-                </div>
-                <Button
-                    variant="primary"
-                    onClick={() => handleBooking(rental)}
-                    className="w-full"
-                >
-                  Book Now
-                </Button>
-              </Card>
-          ))}
+        {/* Right side – Branding */}
+        <div className="z-10 flex flex-col justify-center px-10">
+          <h2 className="text-2xl font-bold mb-2">Login to your account</h2>
+
+          <form className="space-y-4 mb-8 text-sm" onSubmit={handleSubmit}>
+            <input
+              type="email"
+              placeholder="Email address"
+              className="w-full rounded-xl border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="w-full rounded-xl border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full rounded-xl bg-secondary py-3 text-white font-semibold hover:opacity-90 transition focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition disabled:opacity-70 disabled:cursor-not-allowed"
+            >
+              {isSubmitting ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-2 h-4 w-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Connecting...
+                </>
+              ) : 'Login'}
+            </button>
+          </form>
+          <p className="text-sm ">You don't have an account? <a href="/client/register" className="text-primary"> {" Create an account"} </a> </p> 
         </div>
 
-        {filteredRentals.length === 0 && (
-            <Card className="text-center py-8">
-              <p className="text-secondary-600">
-                No rentals found matching your search.
-              </p>
-            </Card>
-        )}
-
-        {!isInitialized && (
-            <Card className="text-center py-8">
-              <p className="text-secondary-600">Initializing offline sync...</p>
-            </Card>
-        )}
+    
       </div>
+    </div>
   );
 }

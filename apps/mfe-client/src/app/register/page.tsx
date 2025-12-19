@@ -37,44 +37,91 @@
 //         </div>
 //     )
 // };
+'use client'
+
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
 export default function RegisterPage() {
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  type FormData = {
+    email: string,
+    password: string
+  }
+  const [, setFormData] = useState<FormData>({
+    email: '',
+    password: ""
+  });
+   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const data = {
+      email: "",
+      password: ""
+    };
+
+    setFormData(data); // <-- Save the object in state
+    console.log('Form data:', data);
+    
+    try{
+      // await reportService.createReport(reportData);
+      console.log("Compte créé avec succes!")
+      router.push('/')
+    }catch(error){
+      console.error("Un problème est survenu lors de la création de compte.")
+      console.log(error)
+    }
+   
+    setIsSubmitting(false);
+  };
   return (
     <div className=" flex items-center justify-center ">
       {/* Main Card */}
-      <div className="relative w-full max-w-4xl h-[520px] bg-white rounded-3xl shadow-xl overflow-hidden grid grid-cols-2">
+      <div className="relative w-full max-w-2xl h-[420px] bg-white rounded-3xl shadow-xl overflow-hidden grid grid-cols-2">
         {/* Left side – Form */}
         <div className="z-10 flex flex-col justify-center px-10">
           <h2 className="text-2xl font-bold mb-2">Create account</h2>
           {/* <p className="text-sm text-gray-500 mb-6">Join us and get started</p> */}
 
-          <form className="space-y-4 mb-8">
+          <form className="space-y-4 mb-8 text-sm" onSubmit={handleSubmit}>
             <input
               type="text"
               placeholder="Full name"
-              className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-primary"
             />
             <input
               type="email"
               placeholder="Email address"
-              className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-primary"
             />
             <input
               type="password"
               placeholder="Password"
-              className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-primary"
             />
 
             <input
               type="password"
               placeholder="Confirm password"
-              className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-primary"
             />
 
             <button
               type="submit"
-              className="w-full rounded-xl bg-primary py-3 text-white font-semibold hover:opacity-90 transition"
+              disabled={isSubmitting}
+              className="w-full rounded-xl bg-secondary py-3 text-white font-semibold hover:opacity-90 transition focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              Register
+              {isSubmitting ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-2 h-4 w-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Doing register...
+                </>
+              ) : 'Register'}
             </button>
           </form>
           <p className="text-sm ">You already have an account? <a href="/client" className="text-primary"> {" Let's login"} </a> </p> 
