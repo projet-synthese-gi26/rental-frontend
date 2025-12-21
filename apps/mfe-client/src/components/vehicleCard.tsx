@@ -3,6 +3,7 @@
 import { Users, Fuel, Star, ChevronRight } from "lucide-react";
 import { Vehicle } from "@/types/vehicleType";
 import Link from "next/link";
+import Image from "next/image";
 
 
 const VehicleCard = (vehicle: Vehicle) => {
@@ -12,11 +13,12 @@ const VehicleCard = (vehicle: Vehicle) => {
                 className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 group"
               >
                 {/* Image du véhicule */}
-                <div className="relative h-48 overflow-hidden">
-                  <img 
+                <div className="relative h-48  overflow-hidden">
+                  <Image
                     src={vehicle.image} 
                     alt={vehicle.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    fill
+                    className="w-full h-full object-cover"
                   />
                   <div className="absolute top-3 left-3">
                     <span className="px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-sm font-medium">
@@ -79,7 +81,7 @@ const VehicleCard = (vehicle: Vehicle) => {
 
                   {/* Bouton réservation */}
                   <Link href={`/vehicles/${vehicle.id}`} className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-3 rounded-lg font-medium flex items-center justify-center group/btn transition-all duration-300 hover:shadow-lg">
-                    Book now
+                    Book this car
                     <ChevronRight size={18} className="ml-2 group-hover/btn:translate-x-1 transition-transform" />
                   </Link>
                 </div>

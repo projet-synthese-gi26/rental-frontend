@@ -24,6 +24,7 @@ import {
 import { vehicleService } from '@/services/vehicleService';
 import { Vehicle } from '@/types/vehicleType';
 import NoElementFound from '@/components/NoElementFound';
+import Image from 'next/image';
 // import Link from 'next/link';
 
 interface VehiclePageProps {
@@ -49,7 +50,7 @@ export default function VehiclePage({ params }: VehiclePageProps) {
 
   useEffect(() => {
     loadVehicle();
-  }, [vehicleId]);
+  }, []);
 
   const loadVehicle = async () => {
     try {
@@ -82,7 +83,7 @@ export default function VehiclePage({ params }: VehiclePageProps) {
 
       if (success) {
         alert('Réservation effectuée avec succès !');
-        router.push('/reservations');
+        router.push('/rental-process/policy');
       } else {
         alert('Ce véhicule n\'est plus disponible pour ces dates.');
       }
@@ -99,9 +100,9 @@ export default function VehiclePage({ params }: VehiclePageProps) {
 
   const images = vehicle ? [
     vehicle.image,
-    'https://images.unsplash.com/photo-1485291571150-772bcfc10da5?w=800&h=600&fit=crop',
-    'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=800&h=600&fit=crop',
-    'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=600&fit=crop'
+    vehicle.image,
+    vehicle.image,
+    vehicle.image,
   ] : [];
 
   if (loading) {
@@ -166,9 +167,10 @@ export default function VehiclePage({ params }: VehiclePageProps) {
             {/* Image principale */}
             <div className="bg-white rounded-2xl overflow-hidden shadow-lg mb-6">
               <div className="relative h-96">
-                <img
+                <Image
                   src={images[selectedImage]}
                   alt={vehicle.name}
+                  fill
                   className="w-full h-full object-cover"
                 />
                 {!vehicle.available && (
@@ -193,9 +195,10 @@ export default function VehiclePage({ params }: VehiclePageProps) {
                       selectedImage === index ? 'border-blue-500' : 'border-transparent'
                     }`}
                   >
-                    <img
+                    <Image
                       src={img}
                       alt={`${vehicle.name} vue ${index + 1}`}
+                      fill
                       className="w-full h-full object-cover"
                     />
                   </button>
@@ -401,7 +404,7 @@ export default function VehiclePage({ params }: VehiclePageProps) {
                       : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                   }`}
                 >
-                  {vehicle.available ? 'Réserver maintenant' : 'Non disponible'}
+                  {vehicle.available ? 'Proceed booking' : 'Non disponible'}
                 </button>
 
                 <button onClick={() => router.push("/drivers")} className="w-full py-3 border-2 border-blue-600 text-blue-600 hover:bg-blue-50 rounded-lg font-medium transition-colors">
@@ -440,7 +443,7 @@ export default function VehiclePage({ params }: VehiclePageProps) {
 
             {/* Contact */}
             <div className="mt-6 bg-white rounded-2xl shadow-lg p-6">
-              <h3 className="font-semibold text-gray-800 mb-4">Besoin d'aide ?</h3>
+              <h3 className="font-semibold text-gray-800 mb-4">Need help ?</h3>
               <p className="text-sm text-gray-600 mb-4">
                 Notre équipe est disponible 7j/7 pour répondre à vos questions.
               </p>

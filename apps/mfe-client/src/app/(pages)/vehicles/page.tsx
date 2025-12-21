@@ -153,7 +153,7 @@ export default function VehiclesPage() {
           {/* Grille des véhicules */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredVehicles.map((vehicle) => (
-            <VehicleCard key={vehicle.id} {...vehicle}/>
+                <VehicleCard  key={vehicle.id} {...vehicle}/>
             ))}
           </div>
 

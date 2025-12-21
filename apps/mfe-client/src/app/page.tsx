@@ -93,7 +93,7 @@ export default function LoginPage() {
               ) : 'Login'}
             </button>
           </form>
-          <p className="text-sm ">You don't have an account? <a href="/client/register" className="text-primary"> {" Create an account"} </a> </p> 
+          <p className="text-sm ">{"You don't have an account?"} <a href="/client/register" className="text-primary"> {" Create an account"} </a> </p> 
         </div>
 
     

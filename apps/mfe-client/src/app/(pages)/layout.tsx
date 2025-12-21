@@ -2,7 +2,7 @@ import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/Navbar";
 
 
-export default function RootLayout({
+export default function PageLayout({
   children,
 }: {
   children: React.ReactNode;

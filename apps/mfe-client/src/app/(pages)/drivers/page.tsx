@@ -5,7 +5,6 @@ import { Driver } from "@/types/driverType";
 import DriverCard from "@/components/driverCard";
 import NoElementFound from "@/components/NoElementFound";
 import { driverService } from "@/services/driverService";
-import { resolve } from "path";
 
 export default function DriversPage() {
 const [drivers, setDrivers] = useState<Driver[]>([]);

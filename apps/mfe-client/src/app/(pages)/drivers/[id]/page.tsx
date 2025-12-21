@@ -16,7 +16,7 @@ import {
 import { driverService } from '@/services/driverService';
 import { Driver } from '@/types/driverType';
 import NoElementFound from '@/components/NoElementFound';
-// import Link from 'next/link';
+import Image from 'next/image';
 
 interface DriverPageProps {
   params: {
@@ -101,11 +101,12 @@ export default function DriverPage({ params }: DriverPageProps) {
           <div className="lg:col-span-2">
             {/* Image principale */}
             <div className="bg-white rounded-2xl overflow-hidden shadow-lg mb-6">
-              <div className="relative h-96">
-                <img
+              <div className="relative h-96 ">
+                <Image
                   src={driver.image}
                   alt={driver.name}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
                 />
                 {!driver.available && (
                   <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
