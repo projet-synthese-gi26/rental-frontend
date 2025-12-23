@@ -17,6 +17,7 @@ import { driverService } from '@/services/driverService';
 import { Driver } from '@/types/driverType';
 import NoElementFound from '@/components/NoElementFound';
 import Image from 'next/image';
+import ReservationCard from '@/components/reservationCard';
 
 interface DriverPageProps {
   params: {
@@ -33,11 +34,7 @@ export default function DriverPage({ params }: DriverPageProps) {
   const router = useRouter();
   const driverId = parseInt(params.id);
 
-  useEffect(() => {
-    loadDriver();
-  }, [driverId]);
-
-  const loadDriver = async () => {
+ const loadDriver = async () => {
     try {
       setLoading(true);
       const data = await driverService.getDriverById(driverId);
@@ -56,6 +53,10 @@ export default function DriverPage({ params }: DriverPageProps) {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    loadDriver();
+  }, [loadDriver, driverId]);
 
 
   if (loading) {
@@ -98,6 +99,7 @@ export default function DriverPage({ params }: DriverPageProps) {
 
       {/* Contenu principal */}
       <div className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
             {/* Image principale */}
             <div className="bg-white rounded-2xl overflow-hidden shadow-lg mb-6">
@@ -183,8 +185,11 @@ export default function DriverPage({ params }: DriverPageProps) {
               </button>
             </div>
           </div>
+          <div>
+            <ReservationCard/>
+          </div>
         </div>
-     
+      </div>
     </div>
   );
 }

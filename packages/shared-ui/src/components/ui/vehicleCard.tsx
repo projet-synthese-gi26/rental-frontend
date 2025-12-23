@@ -1,15 +1,12 @@
 'use client'
 
-import { useReservationStore } from "@/store/workflow.store";
-
 import { Users, Fuel, Star, ChevronRight } from "lucide-react";
-import { Vehicle } from "@/types/vehicleType";
+import { Vehicle } from "../../types/vehicleType";
 import Link from "next/link";
 import Image from "next/image";
 
 
 const VehicleCard = (vehicle: Vehicle) => {
-  const setVehicle = useReservationStore((s) => s.setVehicle);
   return (
     <div 
                 
@@ -83,11 +80,9 @@ const VehicleCard = (vehicle: Vehicle) => {
                   </div>
 
                   {/* Bouton réservation */}
-                  <Link href={`/vehicles/${vehicle.id}`} >
-                    <button onClick={() => setVehicle(vehicle)} className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-3 rounded-lg font-medium flex items-center justify-center group/btn transition-all duration-300 hover:shadow-lg">
-                      Book this car
+                  <Link href={`/vehicles/${vehicle.id}`} className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-3 rounded-lg font-medium flex items-center justify-center group/btn transition-all duration-300 hover:shadow-lg">
+                    Book this car
                     <ChevronRight size={18} className="ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                    </button>
                   </Link>
                 </div>
               </div>
