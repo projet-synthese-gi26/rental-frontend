@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class', // <--- IMPORTANT : Active le mode classe
   content: [
     './src/**/*.{js,ts,jsx,tsx}',
     '../../apps/**/*.{js,ts,jsx,tsx}',
@@ -7,14 +8,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#0528d6",   // Bleu électrique
-        secondary: "#F76513", // Orange vif
-        dark: "#0f1323",      // Noir bleuté
-        light: "#FAFAFA",     // Gris très clair
+        primary: "#0528d6",
+        secondary: "#F76513",
+        dark: "#0f1323",
+        light: "#FAFAFA",
       },
       borderRadius: {
-        'modern': '2rem',     // 32px
-        'huge': '3rem',       // 48px
+        'modern': '2rem',
+        'huge': '3rem',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

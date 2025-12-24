@@ -1,359 +1,314 @@
 'use client';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
-  CheckCircle2, 
-  PlayCircle, 
-  ArrowRight, 
-  WifiOff, 
-  MapPin, 
-  FileText, 
-  Zap, 
-  Users, 
-  ShieldCheck, 
-  Smartphone,
-  Globe,
-  BarChart3,
-  Check
+  PlayCircle, Zap, Users, ShieldCheck, Globe, 
+  BarChart3, Check, Moon, Sun, Languages, ChevronDown, 
+  ArrowRight, WifiOff, FileText, MapPin, Smartphone, LayoutGrid,
+  Mail, Instagram, Twitter, Facebook, HelpCircle
 } from 'lucide-react';
 
+// --- DICTIONNAIRE DE TRADUCTION COMPLET ---
+const translations = {
+  FR: {
+    nav: { features: "Fonctionnalités", solutions: "Solutions", pricing: "Tarifs", login: "Connexion", register: "S'inscrire", reserve: "Réserver" },
+    hero: {
+      badge: "Écosystème de location nouvelle génération",
+      title: "La Mobilité Digitale. Sans",
+      titleAccent: "Frontières.",
+      desc: "Une plateforme unique pour gérer votre flotte, vos agences et offrir une expérience premium à vos clients. Partout dans le monde.",
+      cta: "Réserver un véhicule",
+      demo: "Démo Live"
+    },
+    stakeholders: {
+      title: "Conçu pour chaque acteur",
+      subtitle: "Une interface sur-mesure pour chaque utilisateur",
+      org: "Organisation",
+      orgDesc: "Centralisez votre flotte globale avec des contrôles avancés.",
+      agency: "Agence",
+      agencyDesc: "Optimisez les réservations et gérez les stocks en un clic.",
+      client: "Client",
+      clientDesc: "Réservez et payez votre location depuis votre smartphone.",
+    },
+    features: {
+      title: "Technologie PWA",
+      desc: "L'expérience d'une application native directement dans votre navigateur.",
+      f1: "Mode Offline", f1d: "Travaillez sans réseau, synchro au retour.",
+      f2: "GPS Temps Réel", f2d: "Suivez votre flotte sur carte interactive.",
+      f3: "Facturation Auto", f3d: "Générez des factures après chaque trajet.",
+      f4: "Sync Instantanée", f4d: "Dashboard mis à jour en temps réel."
+    },
+    pricing: {
+      title: "Tarifs Flexibles",
+      subtitle: "Des plans adaptés à votre croissance",
+      starter: "Débutant", pro: "Professionnel", enterprise: "Entreprise",
+      perMonth: "/mois",
+      cta: "Choisir ce plan",
+      f1: "Jusqu'à 5 véhicules", f2: "Support standard", f3: "Analytiques de base",
+      f4: "Véhicules illimités", f5: "Support 24/7", f6: "Multi-agences",
+      f7: "Marque blanche", f8: "API dédiée", f9: "Gestionnaire de compte"
+    },
+    faq: { title: "Questions Fréquentes", q1: "C'est quoi une PWA ?", a1: "C'est une application web qui s'installe sans passer par les stores." },
+    footer: { desc: "La nouvelle référence du logiciel de location. Agile et digital.", copy: "© 2025 PWA EASY RENTAL. TOUS DROITS RÉSERVÉS." }
+  },
+  EN: {
+    nav: { features: "Features", solutions: "Solutions", pricing: "Pricing", login: "Login", register: "Sign Up", reserve: "Book Now" },
+    hero: {
+      badge: "Next-gen rental ecosystem",
+      title: "Digital Mobility. Without",
+      titleAccent: "Borders.",
+      desc: "A unique platform to manage your fleet, your agencies and offer a premium experience to your clients. Worldwide.",
+      cta: "Reserve a vehicle",
+      demo: "Live Demo"
+    },
+    stakeholders: {
+      title: "Built for everyone",
+      subtitle: "Tailor-made interfaces for every user type",
+      org: "Organization",
+      orgDesc: "Centralize your global fleet with advanced controls.",
+      agency: "Agency",
+      agencyDesc: "Optimize bookings and manage inventory in one click.",
+      client: "Client",
+      clientDesc: "Book and pay for your rental right from your phone.",
+    },
+    features: {
+      title: "PWA Technology",
+      desc: "The speed of a native app directly in your browser.",
+      f1: "Works Offline", f1d: "Keep working without network, sync later.",
+      f2: "Real-time GPS", f2d: "Track your fleet on interactive maps.",
+      f3: "Auto Invoicing", f3d: "Generate invoices automatically after trips.",
+      f4: "Instant Sync", f4d: "Real-time dashboard updates."
+    },
+    pricing: {
+      title: "Flexible Pricing",
+      subtitle: "Plans that scale with your business",
+      starter: "Starter", pro: "Professional", enterprise: "Enterprise",
+      perMonth: "/mo",
+      cta: "Choose plan",
+      f1: "Up to 5 vehicles", f2: "Standard support", f3: "Basic analytics",
+      f4: "Unlimited vehicles", f5: "24/7 priority support", f6: "Multi-agency management",
+      f7: "White-label PWA", f8: "Dedicated API", f9: "Account Manager"
+    },
+    faq: { title: "FAQ", q1: "What is a PWA?", a1: "It's a web app that can be installed without using app stores." },
+    footer: { desc: "The new standard in rental software. Agile and digital.", copy: "© 2025 PWA EASY RENTAL. ALL RIGHTS RESERVED." }
+  }
+};
+
 export default function LandingPage() {
+  const [darkMode, setDarkMode] = useState(false);
+  const [lang, setLang] = useState<'FR' | 'EN'>('FR');
+  const [isLangOpen, setIsLangOpen] = useState(false);
+  const t = translations[lang];
+
+  useEffect(() => {
+    if (darkMode) document.documentElement.classList.add('dark');
+    else document.documentElement.classList.remove('dark');
+  }, [darkMode]);
+
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900">
+    <div className="min-h-screen bg-white dark:bg-[#0f1323] text-slate-900 dark:text-white transition-colors duration-300">
       
       {/* --- NAVBAR --- */}
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
+      <nav className="fixed top-0 w-full z-[100] bg-white/90 dark:bg-[#0f1323]/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-200">
+            <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg">
               <Zap size={24} fill="currentColor" />
             </div>
-            <span className="text-xl font-black tracking-tighter uppercase italic text-blue-900">
+            <span className="text-xl font-black tracking-tighter uppercase italic text-blue-900 dark:text-white">
               PWA <span className="text-blue-600">Easy Rental</span>
             </span>
           </div>
           
-          <div className="hidden md:flex items-center gap-8 text-sm font-bold uppercase tracking-widest text-slate-500">
-            <a href="#features" className="hover:text-blue-600 transition-colors">Features</a>
-            <a href="#solutions" className="hover:text-blue-600 transition-colors">Solutions</a>
-            <a href="#pricing" className="hover:text-blue-600 transition-colors">Pricing</a>
+          <div className="hidden lg:flex items-center gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
+            <a href="#features" className="hover:text-blue-600 transition-colors">{t.nav.features}</a>
+            <a href="#solutions" className="hover:text-blue-600 transition-colors">{t.nav.solutions}</a>
+            <a href="#pricing" className="hover:text-blue-600 transition-colors">{t.nav.pricing}</a>
           </div>
 
-          <div className="flex items-center gap-4">
-            <div className="hidden sm:flex text-xs font-black uppercase tracking-widest text-slate-400 gap-4 mr-4">
-              <a href="/client" className="hover:text-blue-600 transition-colors">Client</a>
-              <a href="/agency" className="hover:text-blue-600 transition-colors">Agency</a>
-              <a href="/organisation" className="hover:text-blue-600 transition-colors">Org</a>
+          <div className="flex items-center gap-3">
+            {/* Connexion / Inscription */}
+            <div className="hidden sm:flex items-center gap-4 mr-4 text-[10px] font-black uppercase tracking-widest">
+              <button className="hover:text-blue-600">{t.nav.login}</button>
+              <button className="px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-xl hover:bg-blue-600 hover:text-white transition-all">{t.nav.register}</button>
             </div>
-            <button className="bg-blue-600 text-white px-6 py-3 rounded-2xl font-black uppercase tracking-tighter text-sm shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all hover:-translate-y-0.5 active:translate-y-0">
-              Get Started
+
+            {/* Lang & Mode */}
+            <div className="relative">
+              <button onClick={() => setIsLangOpen(!isLangOpen)} className="flex items-center gap-1 px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 text-[10px] font-black uppercase">
+                <Languages size={14} /> {lang}
+              </button>
+              {isLangOpen && (
+                <div className="absolute right-0 mt-2 w-32 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-100 dark:border-slate-700">
+                  <button onClick={() => { setLang('FR'); setIsLangOpen(false); }} className="w-full px-4 py-2 text-left text-xs font-bold hover:bg-blue-50 dark:hover:bg-blue-900/20">Français</button>
+                  <button onClick={() => { setLang('EN'); setIsLangOpen(false); }} className="w-full px-4 py-2 text-left text-xs font-bold hover:bg-blue-50 dark:hover:bg-blue-900/20">English</button>
+                </div>
+              )}
+            </div>
+
+            <button onClick={() => setDarkMode(!darkMode)} className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-yellow-400">
+              {darkMode ? <Sun size={18} /> : <Moon size={18} />}
             </button>
           </div>
         </div>
       </nav>
 
-      {/* --- HERO SECTION --- */}
-      <section className="relative pt-16 pb-24 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
-          <div className="relative z-10">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-50 text-orange-600 text-[10px] font-black uppercase tracking-[0.2em] mb-8 border border-orange-100 animate-fade-in">
-              <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
-              New: Offline Mode V2.0 Available
-            </div>
-            
-            <h1 className="text-6xl md:text-7xl font-[900] italic leading-[0.9] tracking-tighter text-slate-900 mb-8 uppercase">
-              Rentals Managed <br />
-              <span className="text-blue-600">Anywhere.</span> <br />
-              Even <span className="text-orange-500 underline decoration-orange-200 underline-offset-8">Offline.</span>
-            </h1>
-            
-            <p className="text-xl text-slate-500 font-medium leading-relaxed max-w-lg mb-10">
-              The all-in-one PWA for managing fleets and goods. Seamless syncing for Organizations, Agencies, and Clients. No internet? No problem.
-            </p>
-            
-            <div className="flex flex-wrap gap-4 mb-8">
-              <button className="bg-blue-600 text-white px-8 py-4 rounded-2xl font-black uppercase tracking-tighter shadow-2xl shadow-blue-200 hover:bg-blue-700 transition-all hover:scale-105">
-                Start Free Trial
-              </button>
-              <button className="bg-white border-2 border-slate-100 text-slate-900 px-8 py-4 rounded-2xl font-black uppercase tracking-tighter flex items-center gap-2 hover:bg-slate-50 transition-all">
-                <PlayCircle size={20} /> View Demo
-              </button>
-            </div>
-            
-            <div className="flex items-center gap-6 text-slate-400 font-bold text-[10px] uppercase tracking-widest">
-              <div className="flex items-center gap-2"><CheckCircle2 size={16} className="text-green-500" /> No credit card required</div>
-              <div className="flex items-center gap-2"><CheckCircle2 size={16} className="text-green-500" /> Install on any device</div>
-            </div>
+      {/* --- HERO --- */}
+      <section className="relative pt-32 pb-24 px-6 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 text-[10px] font-black uppercase tracking-[0.2em] mb-8 border border-blue-100 dark:border-blue-900">
+            <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" /> {t.hero.badge}
           </div>
-
-          {/* Hero Visual Mockup */}
-          <div className="relative">
-            <div className="absolute -top-20 -right-20 w-96 h-96 bg-blue-50 rounded-full blur-3xl opacity-60" />
-            <div className="relative bg-slate-900 rounded-[3rem] p-4 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)] border-8 border-slate-800 rotate-2 hover:rotate-0 transition-transform duration-700">
-               <div className="bg-white rounded-[2.2rem] overflow-hidden aspect-video relative group">
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent" />
-                  <img 
-                    src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop" 
-                    alt="Dashboard Preview" 
-                    className="w-full h-full object-cover grayscale-[0.2]"
-                  />
-                  {/* Floating Sync Card */}
-                  <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur shadow-2xl p-4 rounded-2xl border border-slate-100">
-                    <div className="flex items-center justify-between mb-2">
-                       <span className="text-[10px] font-black text-blue-600 uppercase italic">Offline Syncing...</span>
-                       <span className="text-[10px] font-black text-slate-400">75%</span>
-                    </div>
-                    <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                       <div className="w-3/4 h-full bg-orange-500 rounded-full" />
-                    </div>
-                  </div>
-               </div>
-            </div>
+          <h1 className="text-6xl md:text-8xl font-[900] italic leading-[0.85] tracking-tighter text-slate-900 dark:text-white mb-8 uppercase">
+            {t.hero.title} <br /> <span className="text-blue-600">Digitale.</span> <br /> {t.hero.titleAccent}
+          </h1>
+          <p className="text-xl text-slate-500 dark:text-slate-400 font-medium leading-relaxed max-w-lg mb-10">{t.hero.desc}</p>
+          <div className="flex flex-wrap gap-4">
+            <a href="/client" className="bg-blue-600 text-white px-10 py-5 rounded-[2rem] font-black uppercase text-sm shadow-2xl shadow-blue-200 dark:shadow-none hover:scale-105 transition-transform">{t.hero.cta}</a>
+            <button className="bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 text-slate-900 dark:text-white px-10 py-5 rounded-[2rem] font-black uppercase text-sm flex items-center gap-2 hover:bg-slate-50">{t.hero.demo}</button>
+          </div>
+        </div>
+        <div className="relative group lg:block hidden">
+          <div className="absolute inset-0 bg-blue-600/20 rounded-full blur-[120px] opacity-20 group-hover:opacity-40 transition-opacity"></div>
+          <div className="relative bg-slate-900 rounded-[4rem] p-4 shadow-2xl border-8 border-slate-800 rotate-2 group-hover:rotate-0 transition-all duration-700">
+             <div className="bg-white rounded-[3.2rem] overflow-hidden aspect-video">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop" alt="Dashboard" className="w-full h-full object-cover" />
+             </div>
           </div>
         </div>
       </section>
 
-      {/* --- STATS SECTION (Added) --- */}
-      <section className="py-12 border-y border-slate-50 bg-slate-50/30">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
+      {/* --- SOLUTIONS (STAKEHOLDERS) --- */}
+      <section id="solutions" className="py-32 max-w-7xl mx-auto px-6 scroll-mt-20">
+        <div className="text-center mb-20">
+          <h2 className="text-5xl font-[900] italic tracking-tighter uppercase text-slate-900 dark:text-white mb-4">{t.stakeholders.title}</h2>
+          <p className="text-slate-400 text-xs font-black uppercase tracking-widest">{t.stakeholders.subtitle}</p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-10">
           {[
-            { label: 'Organizations', value: '500+' },
-            { label: 'Vehicles Managed', value: '12k+' },
-            { label: 'Offline Sessions', value: '1.2M' },
-            { label: 'Uptime', value: '99.9%' },
-          ].map((stat, i) => (
-            <div key={i} className="text-center">
-              <div className="text-3xl font-black text-blue-600 italic tracking-tighter mb-1 uppercase">{stat.value}</div>
-              <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{stat.label}</div>
+            { img: "https://images.unsplash.com/photo-1542362567-b05eef11f94d", label: "HQ View", title: t.stakeholders.org, desc: t.stakeholders.orgDesc, path: "/organisation" },
+            { img: "https://images.unsplash.com/photo-1556740758-90de374c12ad", label: "Manager View", title: t.stakeholders.agency, desc: t.stakeholders.agencyDesc, path: "/agency" },
+            { img: "https://images.unsplash.com/photo-1512428559087-560fa5ceab42", label: "User App", title: t.stakeholders.client, desc: t.stakeholders.clientDesc, path: "/client" },
+          ].map((item, i) => (
+            <div key={i} className="group card-pwa p-5 dark:bg-slate-800 dark:border-slate-700 hover:border-blue-600">
+              <div className="h-72 rounded-[2.5rem] overflow-hidden mb-8 bg-slate-100 relative shadow-inner">
+                <img src={item.img} className="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500" alt="img" />
+                <div className="absolute top-4 left-4 bg-white/90 px-3 py-1 rounded-full text-[10px] font-black uppercase italic">{item.label}</div>
+              </div>
+              <h3 className="text-2xl font-black uppercase italic text-slate-900 dark:text-white mb-3">{item.title}</h3>
+              <p className="text-slate-500 dark:text-slate-400 text-sm font-medium mb-8 leading-relaxed">{item.desc}</p>
+              <a href={item.path} className="text-blue-600 font-black text-xs uppercase italic flex items-center gap-2 group-hover:gap-4 transition-all">Accéder <ArrowRight size={14}/></a>
             </div>
           ))}
         </div>
       </section>
 
-      {/* --- STAKEHOLDERS SECTION --- */}
-      <section id="solutions" className="py-24 max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-black italic tracking-tighter uppercase text-slate-900 mb-4">Designed for every stakeholder</h2>
-          <p className="text-slate-500 font-medium uppercase tracking-widest text-xs">Select your role to see how it works for you</p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          {/* Organization */}
-          <div className="group cursor-pointer">
-            <div className="relative h-[300px] rounded-[2.5rem] overflow-hidden mb-6 shadow-xl transition-all group-hover:-translate-y-2">
-              <img src="https://images.unsplash.com/photo-1542362567-b05eef11f94d?w=800&auto=format&fit=crop" className="w-full h-full object-cover" alt="Organization" />
-              <div className="absolute inset-0 bg-blue-900/40 group-hover:bg-blue-900/20 transition-all" />
-              <div className="absolute top-6 left-6 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-black text-white uppercase italic">HQ View</div>
-            </div>
-            <h3 className="text-2xl font-black italic uppercase tracking-tighter text-slate-900 mb-2">Organization</h3>
-            <p className="text-slate-500 text-sm font-medium mb-4 leading-relaxed">Centralize your entire fleet globally with advanced controls and live analytics dashboards.</p>
-            <a href="/organisation" className="inline-flex items-center gap-2 text-blue-600 font-black text-xs uppercase italic group-hover:gap-4 transition-all">
-              Explore Admin Tools <ArrowRight size={16} />
-            </a>
-          </div>
-
-          {/* Agency */}
-          <div className="group cursor-pointer">
-            <div className="relative h-[300px] rounded-[2.5rem] overflow-hidden mb-6 shadow-xl transition-all group-hover:-translate-y-2">
-              <img src="https://images.unsplash.com/photo-1556740758-90de374c12ad?w=800&auto=format&fit=crop" className="w-full h-full object-cover" alt="Agency" />
-              <div className="absolute inset-0 bg-orange-900/40 group-hover:bg-orange-900/20 transition-all" />
-              <div className="absolute top-6 left-6 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-black text-white uppercase italic">Manager View</div>
-            </div>
-            <h3 className="text-2xl font-black italic uppercase tracking-tighter text-slate-900 mb-2">Agency</h3>
-            <p className="text-slate-500 text-sm font-medium mb-4 leading-relaxed">Streamline client bookings, inventory management, and generate invoices in a single tap.</p>
-            <a href="/agency" className="inline-flex items-center gap-2 text-blue-600 font-black text-xs uppercase italic group-hover:gap-4 transition-all">
-              See Agency Features <ArrowRight size={16} />
-            </a>
-          </div>
-
-          {/* Client */}
-          <div className="group cursor-pointer">
-            <div className="relative h-[300px] rounded-[2.5rem] overflow-hidden mb-6 shadow-xl transition-all group-hover:-translate-y-2 border-2 border-transparent group-hover:border-blue-100">
-              <img src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?w=800&auto=format&fit=crop" className="w-full h-full object-cover" alt="Client" />
-              <div className="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/20 transition-all" />
-              <div className="absolute top-6 left-6 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-black text-white uppercase italic">User App</div>
-            </div>
-            <h3 className="text-2xl font-black italic uppercase tracking-tighter text-slate-900 mb-2">Client</h3>
-            <p className="text-slate-500 text-sm font-medium mb-4 leading-relaxed">Book vehicles, check-in status, and manage active rentals from any smartphone, anywhere.</p>
-            <a href="/client" className="inline-flex items-center gap-2 text-blue-600 font-black text-xs uppercase italic group-hover:gap-4 transition-all">
-              View Client Experience <ArrowRight size={16} />
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* --- FEATURES GRID --- */}
-      <section id="features" className="py-24 bg-slate-50/50">
-        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20">
+      {/* --- FEATURES --- */}
+      <section id="features" className="py-32 bg-slate-50 dark:bg-slate-900/50 scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
           <div>
-             <h2 className="text-5xl font-black italic leading-none tracking-tighter text-slate-900 mb-6 uppercase">Powerful <br /><span className="text-blue-600">PWA</span> Features</h2>
-             <p className="text-lg text-slate-500 font-medium mb-10 leading-relaxed">Experience the speed of a native app directly in your browser. Install it on your home screen and work without interruption.</p>
-             <button className="flex items-center gap-2 text-blue-600 font-black uppercase italic text-sm group">
-               See Full Technical Specs <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
-             </button>
+            <h2 className="text-6xl font-[900] italic leading-none tracking-tighter text-slate-900 dark:text-white mb-8 uppercase">Technologie <br /><span className="text-blue-600">PWA First</span></h2>
+            <p className="text-xl text-slate-500 dark:text-slate-400 font-medium mb-12 leading-relaxed">{t.features.desc}</p>
+            <button className="bg-slate-900 text-white dark:bg-white dark:text-slate-900 px-10 py-5 rounded-[2rem] font-black uppercase text-sm flex items-center gap-3">
+              Voir Spécifications <LayoutGrid size={20}/>
+            </button>
           </div>
-
-          <div className="grid sm:grid-cols-2 gap-6">
+          <div className="grid sm:grid-cols-2 gap-8">
             {[
-              { icon: <WifiOff className="text-blue-600" />, title: 'Works Offline', desc: 'Manage data in dead zones. Everything syncs when you reconnect.' },
-              { icon: <MapPin className="text-orange-500" />, title: 'Real-time GPS', desc: 'Integrated maps to monitor assets health and locations globally.' },
-              { icon: <FileText className="text-blue-600" />, title: 'Auto Invoicing', desc: 'Streamline billing with automated generation based on usage.' },
-              { icon: <Zap className="text-orange-500" />, title: 'Instant Sync', desc: 'Cloud background syncing ensures data is always current.' },
+              { icon: <WifiOff className="text-blue-600"/>, t: t.features.f1, d: t.features.f1d },
+              { icon: <MapPin className="text-orange-500"/>, t: t.features.f2, d: t.features.f2d },
+              { icon: <FileText className="text-blue-600"/>, t: t.features.f3, d: t.features.f3d },
+              { icon: <Zap className="text-orange-500"/>, t: t.features.f4, d: t.features.f4d },
             ].map((f, i) => (
-              <div key={i} className="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 hover:shadow-xl transition-all">
-                <div className="bg-slate-50 w-12 h-12 rounded-2xl flex items-center justify-center mb-6">
-                  {f.icon}
-                </div>
-                <h4 className="text-lg font-black uppercase italic tracking-tighter mb-2">{f.title}</h4>
-                <p className="text-slate-500 text-xs font-medium leading-relaxed">{f.desc}</p>
+              <div key={i} className="bg-white dark:bg-slate-800 p-10 rounded-[3rem] shadow-sm hover:shadow-2xl transition-all border border-transparent hover:border-slate-100">
+                <div className="w-14 h-14 bg-slate-50 dark:bg-slate-900 rounded-2xl flex items-center justify-center mb-8 shadow-inner">{f.icon}</div>
+                <h4 className="text-xl font-black uppercase italic text-slate-900 dark:text-white mb-3">{f.t}</h4>
+                <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest leading-relaxed">{f.d}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* --- STEP BY STEP SECTION (Added) --- */}
-      <section className="py-24 max-w-7xl mx-auto px-6">
-        <div className="bg-slate-900 rounded-[3.5rem] p-12 lg:p-20 text-white relative overflow-hidden">
-           <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-600/10 skew-x-12 translate-x-32" />
-           
-           <div className="relative z-10 grid lg:grid-cols-2 gap-16 items-center">
-              <div>
-                <h2 className="text-4xl lg:text-5xl font-black italic tracking-tighter uppercase mb-6 leading-none">How to <span className="text-blue-400">Launch</span> your fleet in 3 steps</h2>
-                <div className="space-y-12 mt-12">
-                   {[
-                     { step: '01', title: 'Register Org', desc: 'Create your master account and define your global fleet parameters.' },
-                     { step: '02', title: 'Connect Agencies', desc: 'Add local branches and give agents mobile access instantly.' },
-                     { step: '03', title: 'Start Renting', desc: 'Go live! Clients can book via URL or install the PWA on their phone.' },
-                   ].map((item, i) => (
-                     <div key={i} className="flex gap-6">
-                        <div className="text-4xl font-black italic text-blue-500 opacity-50">{item.step}</div>
-                        <div>
-                           <h4 className="text-xl font-black uppercase italic tracking-tighter mb-2">{item.title}</h4>
-                           <p className="text-slate-400 text-sm font-medium">{item.desc}</p>
-                        </div>
-                     </div>
-                   ))}
-                </div>
-              </div>
-              <div className="hidden lg:block">
-                 <div className="bg-slate-800 rounded-3xl p-8 aspect-square border border-slate-700 flex items-center justify-center">
-                    <Smartphone size={300} className="text-slate-700" />
-                 </div>
-              </div>
-           </div>
+      {/* --- PRICING --- */}
+      <section id="pricing" className="py-32 max-w-7xl mx-auto px-6 scroll-mt-20">
+        <div className="text-center mb-20">
+          <h2 className="text-5xl font-[900] italic tracking-tighter uppercase text-slate-900 dark:text-white mb-4">{t.pricing.title}</h2>
+          <p className="text-slate-400 text-xs font-black uppercase tracking-widest">{t.pricing.subtitle}</p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-10">
+          {/* Card Starter */}
+          <div className="p-12 bg-slate-50 dark:bg-slate-900 rounded-[3.5rem] border border-slate-100 dark:border-slate-800 transition-all hover:scale-105">
+            <h4 className="text-xl font-black uppercase italic mb-8">{t.pricing.starter}</h4>
+            <div className="text-5xl font-black mb-10 italic">0€ <span className="text-sm font-normal text-slate-400 tracking-normal">{t.pricing.perMonth}</span></div>
+            <ul className="space-y-5 mb-12 text-sm font-bold text-slate-500 uppercase tracking-widest">
+              <li className="flex gap-2 items-center text-green-500"><Check size={16}/> {t.pricing.f1}</li>
+              <li className="flex gap-2 items-center opacity-40"><Check size={16}/> {t.pricing.f2}</li>
+              <li className="flex gap-2 items-center opacity-40"><Check size={16}/> {t.pricing.f3}</li>
+            </ul>
+            <button className="w-full py-5 bg-white dark:bg-slate-800 rounded-3xl font-black uppercase text-xs shadow-sm">{t.pricing.cta}</button>
+          </div>
+          {/* Card PRO - Highlighted */}
+          <div className="p-12 bg-blue-600 rounded-[4rem] text-white shadow-[0_40px_80px_-15px_rgba(5,40,214,0.4)] relative overflow-hidden transition-all hover:scale-110 z-10 scale-105">
+            <div className="absolute top-8 right-8 rotate-12 opacity-10"><Zap size={120} fill="currentColor"/></div>
+            <h4 className="text-xl font-black uppercase italic mb-8">{t.pricing.pro}</h4>
+            <div className="text-5xl font-black mb-10 italic">49€ <span className="text-sm font-normal text-blue-200 tracking-normal">{t.pricing.perMonth}</span></div>
+            <ul className="space-y-5 mb-12 text-sm font-bold uppercase tracking-widest">
+              <li className="flex gap-2 items-center"><Check size={16}/> {t.pricing.f4}</li>
+              <li className="flex gap-2 items-center"><Check size={16}/> {t.pricing.f5}</li>
+              <li className="flex gap-2 items-center"><Check size={16}/> {t.pricing.f6}</li>
+            </ul>
+            <button className="w-full py-5 bg-white text-blue-600 rounded-3xl font-black uppercase text-xs shadow-xl">{t.pricing.cta}</button>
+          </div>
+          {/* Card Enterprise */}
+          <div className="p-12 bg-slate-50 dark:bg-slate-900 rounded-[3.5rem] border border-slate-100 dark:border-slate-800 transition-all hover:scale-105">
+            <h4 className="text-xl font-black uppercase italic mb-8">{t.pricing.enterprise}</h4>
+            <div className="text-5xl font-black mb-10 italic">Sur devis</div>
+            <ul className="space-y-5 mb-12 text-sm font-bold text-slate-500 uppercase tracking-widest">
+              <li className="flex gap-2 items-center text-green-500"><Check size={16}/> {t.pricing.f7}</li>
+              <li className="flex gap-2 items-center text-green-500"><Check size={16}/> {t.pricing.f8}</li>
+              <li className="flex gap-2 items-center text-green-500"><Check size={16}/> {t.pricing.f9}</li>
+            </ul>
+            <button className="w-full py-5 bg-white dark:bg-slate-800 rounded-3xl font-black uppercase text-xs shadow-sm">{t.pricing.cta}</button>
+          </div>
         </div>
       </section>
 
-      {/* --- PRICING SECTION (Added Simple) --- */}
-      <section id="pricing" className="py-24 max-w-7xl mx-auto px-6">
-         <div className="text-center mb-16">
-            <h2 className="text-4xl font-black italic tracking-tighter uppercase text-slate-900 mb-4">Scalable Pricing</h2>
-            <p className="text-slate-500 font-medium text-sm">Choose the plan that fits your volume</p>
-         </div>
-         <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { name: 'Starter', price: '$49', features: ['Up to 10 vehicles', 'Basic Analytics', 'Offline Core'] },
-              { name: 'Pro', price: '$199', features: ['Unlimited vehicles', 'Advanced GPS', 'Multi-Agency Support'], highlight: true },
-              { name: 'Enterprise', price: 'Custom', features: ['White-label PWA', 'API Access', 'Dedicated Support'] },
-            ].map((plan, i) => (
-              <div key={i} className={`p-10 rounded-[2.5rem] border ${plan.highlight ? 'border-blue-600 bg-blue-50/30' : 'border-slate-100'} flex flex-col`}>
-                <h4 className="text-xl font-black uppercase italic tracking-tighter mb-4">{plan.name}</h4>
-                <div className="text-4xl font-black text-slate-900 italic tracking-tighter mb-8">{plan.price} <span className="text-sm font-normal text-slate-400">/mo</span></div>
-                <ul className="space-y-4 mb-10 flex-1">
-                  {plan.features.map((f, j) => (
-                    <li key={j} className="flex items-center gap-3 text-sm font-medium text-slate-600">
-                      <Check size={16} className="text-green-500" /> {f}
-                    </li>
-                  ))}
-                </ul>
-                <button className={`w-full py-4 rounded-2xl font-black uppercase tracking-tighter text-sm transition-all ${plan.highlight ? 'bg-blue-600 text-white shadow-xl shadow-blue-200' : 'bg-slate-100 text-slate-900 hover:bg-slate-200'}`}>
-                  Select Plan
-                </button>
-              </div>
-            ))}
-         </div>
-      </section>
-
-      {/* --- CTA BANNER --- */}
-      <section className="py-20 px-6">
-        <div className="max-w-7xl mx-auto bg-blue-600 rounded-[3rem] p-16 text-center text-white relative overflow-hidden shadow-2xl shadow-blue-200">
-          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px]" />
+      {/* --- CTA --- */}
+      <section className="py-24 px-6 max-w-7xl mx-auto">
+        <div className="bg-dark rounded-[4rem] p-16 text-center text-white relative overflow-hidden shadow-2xl">
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px]" />
           <div className="relative z-10">
-            <h2 className="text-5xl font-black italic tracking-tighter uppercase mb-6">Ready to modernize your fleet?</h2>
-            <p className="text-blue-100 text-lg font-medium mb-10 max-w-xl mx-auto">Join 500+ organizations using PWA Easy Rental to cut costs and improve efficiency.</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-blue-600 px-10 py-5 rounded-2xl font-black uppercase tracking-tighter text-sm shadow-xl hover:scale-105 transition-all">
-                Get Started Now
-              </button>
-              <button className="bg-blue-700/50 backdrop-blur-sm border border-blue-400 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-tighter text-sm hover:bg-blue-700 transition-all">
-                Contact Sales
-              </button>
+            <h2 className="text-6xl font-black italic tracking-tighter uppercase mb-10">Passez à la vitesse <span className="text-blue-500 italic">Supérieure.</span></h2>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <a href="/client" className="bg-blue-600 text-white px-12 py-6 rounded-[2.5rem] font-black uppercase shadow-xl hover:scale-105 transition-all">Démarrer gratuitement</a>
+              <button className="bg-white/10 backdrop-blur-md border border-white/20 px-12 py-6 rounded-[2.5rem] font-black uppercase hover:bg-white/20 transition-all">Parler à un expert</button>
             </div>
           </div>
         </div>
       </section>
 
       {/* --- FOOTER --- */}
-      <footer className="pt-24 pb-12 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-20">
-            <div className="col-span-2">
-              <div className="flex items-center gap-2 mb-6">
-                <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white">
-                  <Zap size={18} fill="currentColor" />
-                </div>
-                <span className="text-lg font-black tracking-tighter uppercase italic text-blue-900">
-                  PWA <span className="text-blue-600">Easy Rental</span>
-                </span>
-              </div>
-              <p className="text-slate-400 text-sm font-medium leading-relaxed max-w-xs mb-6">
-                The next generation of rental management. Built for the modern web with offline-first architecture.
-              </p>
-              <div className="flex gap-4">
-                <div className="w-8 h-8 bg-slate-50 rounded-full border border-slate-100 flex items-center justify-center text-slate-400 hover:text-blue-600 cursor-pointer transition-colors"><Globe size={16} /></div>
-                <div className="w-8 h-8 bg-slate-50 rounded-full border border-slate-100 flex items-center justify-center text-slate-400 hover:text-blue-600 cursor-pointer transition-colors"><BarChart3 size={16} /></div>
-                <div className="w-8 h-8 bg-slate-50 rounded-full border border-slate-100 flex items-center justify-center text-slate-400 hover:text-blue-600 cursor-pointer transition-colors"><Users size={16} /></div>
-              </div>
-            </div>
-            
-            <div>
-              <h5 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-900 mb-6 italic">Product</h5>
-              <ul className="space-y-4 text-xs font-bold text-slate-400">
-                <li className="hover:text-blue-600 cursor-pointer">Features</li>
-                <li className="hover:text-blue-600 cursor-pointer">Pricing</li>
-                <li className="hover:text-blue-600 cursor-pointer">API</li>
-                <li className="hover:text-blue-600 cursor-pointer">Download App</li>
-              </ul>
-            </div>
-            
-            <div>
-              <h5 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-900 mb-6 italic">Resources</h5>
-              <ul className="space-y-4 text-xs font-bold text-slate-400">
-                <li className="hover:text-blue-600 cursor-pointer">Documentation</li>
-                <li className="hover:text-blue-600 cursor-pointer">Help Center</li>
-                <li className="hover:text-blue-600 cursor-pointer">Community</li>
-                <li className="hover:text-blue-600 cursor-pointer">Status</li>
-              </ul>
-            </div>
-            
-            <div>
-              <h5 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-900 mb-6 italic">Company</h5>
-              <ul className="space-y-4 text-xs font-bold text-slate-400">
-                <li className="hover:text-blue-600 cursor-pointer">About</li>
-                <li className="hover:text-blue-600 cursor-pointer">Blog</li>
-                <li className="hover:text-blue-600 cursor-pointer">Careers</li>
-                <li className="hover:text-blue-600 cursor-pointer">Contact</li>
-              </ul>
-            </div>
+      <footer className="pt-32 pb-16 px-6 max-w-7xl mx-auto border-t border-slate-50 dark:border-slate-800 mt-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-16 mb-24 text-xs font-black uppercase tracking-[0.3em] text-slate-400">
+          <div className="col-span-2">
+             <div className="flex items-center gap-2 mb-10">
+                <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white shadow-lg shadow-blue-500/20"><Zap size={18} fill="currentColor"/></div>
+                <span className="text-lg font-black tracking-tighter uppercase italic text-blue-900 dark:text-white">PWA <span className="text-blue-600">Easy Rental</span></span>
+             </div>
+             <p className="normal-case tracking-normal font-medium leading-relaxed max-w-xs text-slate-500 dark:text-slate-400 mb-10">{t.footer.desc}</p>
+             <div className="flex gap-6">
+                {[Facebook, Twitter, Instagram, Mail].map((Icon, i) => (
+                  <div key={i} className="p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl hover:bg-blue-600 hover:text-white transition-all cursor-pointer shadow-sm"><Icon size={20}/></div>
+                ))}
+             </div>
           </div>
-          
-          <div className="pt-12 border-t border-slate-50 flex flex-col md:row justify-between items-center gap-6">
-            <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest">© 2025 PWA EASY RENTAL. ALL RIGHTS RESERVED.</span>
-            <div className="flex gap-8 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-              <span className="hover:text-slate-900 cursor-pointer transition-colors">Privacy Policy</span>
-              <span className="hover:text-slate-900 cursor-pointer transition-colors">Terms of Service</span>
-            </div>
-          </div>
+          <div><h5 className="text-slate-900 dark:text-white mb-10 italic">Produit</h5><ul className="space-y-5"><li>Features</li><li>Solutions</li><li>API</li></ul></div>
+          <div><h5 className="text-slate-900 dark:text-white mb-10 italic">Ressources</h5><ul className="space-y-5"><li>Docs</li><li>Support</li><li>Status</li></ul></div>
+          <div><h5 className="text-slate-900 dark:text-white mb-10 italic">Société</h5><ul className="space-y-5"><li>Blog</li><li>Carrières</li><li>Contact</li></ul></div>
+        </div>
+        <div className="flex flex-col md:flex-row justify-between items-center pt-12 border-t border-slate-50 dark:border-slate-800 text-[9px] font-[900] text-slate-300 dark:text-slate-700 tracking-[0.5em] uppercase italic">
+          <span>{t.footer.copy}</span>
+          <div className="flex gap-10 mt-8 md:mt-0"><span>Privacy Policy</span><span>Terms & Conditions</span></div>
         </div>
       </footer>
     </div>

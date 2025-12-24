@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Navbar } from '@/components/Navbar';
-import { Footer } from '@/components/footer';
 import { OfflineIndicator } from '@/components/OfflineIndicator';
 
 export const metadata: Metadata = {
@@ -16,12 +14,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-secondary-50">
-        <Navbar />
+    <html lang="fr">
+      {/* On enlève les classes de marges/paddings ici pour laisser la page gérer son propre espace */}
+      <body className="min-h-screen bg-white dark:bg-[#0f1323] transition-colors duration-300">
         <OfflineIndicator />
-        <main className="container mx-auto px-4 py-8">{children}</main>
-        <Footer />
+        {/* On retire la Navbar générique et le main container car la Landing Page a sa propre structure full-width */}
+        <main>{children}</main>
       </body>
     </html>
   );
