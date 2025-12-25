@@ -1,22 +1,27 @@
 export const fr = {
-  nav: { install: "Installer l'App" },
-  installNotice: "Essayez de changer de navigateur pour pouvoir l'installer en tant qu'application (Chrome ou Edge recommandé).",
-  sidebar: {
-    dash: "Dashboard", listings: "Annonces", bookings: "Réservations", calendar: "Calendrier", settings: "Paramètres", status: "En ligne & Synchro"
+  nav: { install: "Installer l'app", backHome: "Accueil Global", logout: "Déconnexion" },
+  auth: {
+    title: "Portail Agence",
+    subtitle: "Connectez-vous pour gérer les activités de votre agence.",
+    email: "Identifiant (Email)",
+    password: "Mot de passe",
+    submit: "Accéder au Dashboard",
+    error: "Identifiants incorrects (personnel@gmail.com / personnel)",
+    verifying: "Vérification de la session...",
+    installNotice: "Utilisez Chrome ou Edge pour installer l'application."
   },
-  header: {
-    greet: "Bonjour,", sub: "Voici les dernières activités de votre agence aujourd'hui.", search: "Rechercher une réservation..."
+  sidebar: { 
+    menu: "Menu Principal",
+    ops: "Opérations",
+    dash: "Dashboard", 
+    listings: "Annonces", 
+    bookings: "Réservations", 
+    calendar: "Calendrier",
+    account: "Mon Compte",
+    status: "Connecté" 
   },
-  kpi: {
-    pending: "Réservations en attente", active: "Locations Actives", inventory: "Stock Total", offline: "Modifications Offline"
-  },
-  table: {
-    title: "Réservations Récentes", sub: "Gérez les demandes entrantes", filter: "Filtrer", add: "Nouvelle Réservation",
-    id: "ID", customer: "Client", vehicle: "Véhicule", dates: "Dates", status: "Statut", actions: "Actions",
-    viewAll: "Voir toutes les réservations"
-  },
-  side: {
-    addTitle: "Ajouter un véhicule", addSub: "Créez une annonce. Fonctionne offline.", addCta: "Créer l'annonce",
-    availTitle: "Disponible actuellement", availCta: "Voir tout"
-  }
+  header: { greet: "Bonjour,", sub: "Activités Downtown Branch.", search: "Rechercher..." },
+  kpi: { pending: "En attente", active: "Locations Actives", inventory: "Stock Total", offline: "Modifs Offline" },
+  table: { title: "Réservations Récentes", sub: "Demandes entrantes", filter: "Filtrer", add: "Nouveau", viewAll: "Voir toutes les réservations", customer: "Client", vehicle: "Véhicule", status: "Statut" },
+  side: { addTitle: "Ajouter véhicule", addSub: "Fonctionne offline.", addCta: "Créer l'annonce", availTitle: "Disponible" }
 };

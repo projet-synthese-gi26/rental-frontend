@@ -1,55 +1,55 @@
 export const en = {
-  nav: { features: "Features", solutions: "Solutions", pricing: "Pricing", login: "Login", register: "Sign Up", reserve: "Book Now" },
+  nav: { 
+    features: "Features", 
+    solutions: "Solutions", 
+    pricing: "Pricing", 
+    login: "Pro Space", 
+    reserve: "Book Now",
+    install: "Install"
+  },
   hero: {
     badge: "Next-gen rental ecosystem",
     title: "Digital Mobility. Without",
     titleAccent: "Borders.",
-    desc: "A unique platform to manage your fleet, your agencies and offer a premium experience to your clients. Worldwide.",
-    cta: "Book a vehicle",
+    desc: "Rent a vehicle in one click or digitize your own fleet. A unique platform for all your mobility needs.",
+    ctaReserve: "Book a vehicle",
+    ctaManager: "Become Manager",
     ctaInstall: "Install App",
     ctaInstallSub: "Desktop & Mobile",
     installNotice: "Try changing your browser to be able to install it as an application (Chrome or Edge recommended)."
   },
-  auth: {
-    chooseRole: "Login as...",
-    loginTitle: "Login",
-    email: "Email Address",
-    password: "Password",
-    submitLogin: "Login",
-    error: "Incorrect credentials.",
-    roles: { client: "Client", agency: "Staff", org: "Organization" }
-  },
   stakeholders: {
-    title: "Designed for every stakeholder",
-    subtitle: "Select your role to explore the interface",
+    title: "Access your portal",
+    subtitle: "Select your profile to continue",
     org: "Organization",
-    orgDesc: "Centralize your global fleet with advanced controls.",
+    orgDesc: "For fleet owners looking to create their network.",
     agency: "Staff",
-    agencyDesc: "Optimize bookings and manage inventory in one click.",
+    agencyDesc: "For agents managing agency pickups and returns.",
     client: "Client",
-    clientDesc: "Book and pay for your rental right from your smartphone.",
-    cta: "Go to workspace"
+    clientDesc: "To browse the catalog and book instantly.",
+    cta: "Enter"
   },
-  features: {
-    title: "PWA First Technology",
-    desc: "The experience of a native app directly in your browser.",
-    f1: "Offline Mode", f1d: "Keep working without a network, sync when back online.",
-    f2: "Real-time GPS", f2d: "Track your fleet on an interactive map.",
-    f3: "Auto Invoicing", f3d: "Generate invoices automatically after each trip.",
-    f4: "Instant Sync", f4d: "Dashboard updated in real-time.",
-    cta: "Specifications"
+  features: { 
+    title: "PWA First Technology", 
+    desc: "The speed of a native app directly in your browser.", 
+    f1: "Offline Mode", f1d: "Sync when back.", 
+    f2: "Real-time GPS", f2d: "Map tracking.", 
+    f3: "Auto Invoicing", f3d: "Auto billing.", 
+    f4: "Instant Sync", f4d: "Real-time." 
   },
-  pricing: {
-    title: "Flexible Pricing",
-    subtitle: "Plans that scale with your growth",
-    starter: "Starter", pro: "Professional", enterprise: "Enterprise",
-    perMonth: "/month", cta: "Choose this plan", onDemand: "On demand",
-    f1: "Up to 5 vehicles", f2: "Standard support", f3: "Basic analytics",
-    f4: "Unlimited vehicles", f5: "24/7 support", f6: "Multi-agency support"
+  pricing: { 
+    title: "Flexible Pricing", 
+    perMonth: "/mo", 
+    cta: "Choose plan", 
+    starter: "Starter", 
+    pro: "Professional", 
+    enterprise: "Enterprise", 
+    onDemand: "On demand" 
   },
-  footer: {
-    desc: "The new standard in rental software. Agile, digital and limitless.",
-    copy: "© 2025 PWA EASY RENTAL. ALL RIGHTS RESERVED.",
-    privacy: "Privacy Policy", terms: "Terms & Conditions"
+  footer: { 
+    desc: "The new standard in rental software. Agile and digital.", 
+    copy: "© 2025 PWA EASY RENTAL. ALL RIGHTS RESERVED.", 
+    privacy: "Privacy Policy", 
+    terms: "Terms" 
   }
 };

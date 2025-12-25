@@ -1,22 +1,27 @@
 export const en = {
-  nav: { install: "Install App" },
-  installNotice: "Try changing your browser to be able to install it as an application (Chrome or Edge recommended).",
-  sidebar: {
-    dash: "Dashboard", listings: "Listings", bookings: "Bookings", calendar: "Calendar", settings: "Settings", status: "Online & Synced"
+  nav: { install: "Install App", backHome: "Global Home", logout: "Sign Out" },
+  auth: {
+    title: "Agency Portal",
+    subtitle: "Login to manage your agency activities.",
+    email: "ID (Email)",
+    password: "Password",
+    submit: "Access Dashboard",
+    error: "Invalid credentials (personnel@gmail.com / personnel)",
+    verifying: "Verifying session...",
+    installNotice: "Use Chrome or Edge to install the application."
   },
-  header: {
-    greet: "Good morning,", sub: "Here's what's happening at your agency today.", search: "Search bookings..."
+  sidebar: { 
+    menu: "Main Menu",
+    ops: "Operations",
+    dash: "Dashboard", 
+    listings: "Listings", 
+    bookings: "Bookings", 
+    calendar: "Calendar",
+    account: "Account",
+    status: "Online" 
   },
-  kpi: {
-    pending: "Pending Bookings", active: "Active Rentals", inventory: "Total Inventory", offline: "Offline Changes"
-  },
-  table: {
-    title: "Recent Bookings", sub: "Manage incoming reservation requests", filter: "Filter", add: "New Booking",
-    id: "ID", customer: "Customer", vehicle: "Vehicle", dates: "Dates", status: "Status", actions: "Actions",
-    viewAll: "View all bookings"
-  },
-  side: {
-    addTitle: "Add New Listing", addSub: "Create a new vehicle listing. Works offline.", addCta: "Create Listing",
-    availTitle: "Available Now", availCta: "View All"
-  }
+  header: { greet: "Good morning,", sub: "Downtown Branch activity.", search: "Search..." },
+  kpi: { pending: "Pending", active: "Active Rentals", inventory: "Total Inventory", offline: "Offline Changes" },
+  table: { title: "Recent Bookings", sub: "Incoming requests", filter: "Filter", add: "New Booking", viewAll: "View all bookings", customer: "Customer", vehicle: "Vehicle", status: "Status" },
+  side: { addTitle: "Add Listing", addSub: "Works offline.", addCta: "Create Listing", availTitle: "Available" }
 };
