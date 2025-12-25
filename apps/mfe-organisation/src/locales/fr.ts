@@ -65,5 +65,6 @@ export const fr = {
     colStatus: "Statut PWA", 
     colRentals: "Locations", 
     colRev: "Revenu" 
-  }
+  },
+  installNotice: "Essayez de changer de navigateur pour pouvoir l'installer en tant qu'application (Chrome ou Edge recommandé)."
 };

@@ -1,8 +1,8 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { 
-  Search, MapPin, Calendar, Heart, Star, Bell, Download, 
-  ChevronRight, Key, Moon, Sun, Languages, Menu, X, 
+  Search, MapPin, Calendar, Heart, Star, Download, 
+  ChevronRight, Key, Moon, Sun, X, 
   LogIn, LogOut, Loader2, Lock, Home
 } from 'lucide-react';
 import { authService } from '@pwa-easy-rental/shared-services';
@@ -25,6 +25,7 @@ export default function ClientPortal() {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
   const [activeCat, setActiveCat] = useState('all');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   
   // Auth Form States
@@ -51,6 +52,7 @@ export default function ClientPortal() {
       if (isDark) document.documentElement.classList.add('dark');
 
       // PWA Prompt capture
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const handler = (e: any) => {
         e.preventDefault();
         setDeferredPrompt(e);
@@ -80,7 +82,7 @@ export default function ClientPortal() {
           setShowAuthModal(false);
         } else { setAuthError(t.auth.error); }
       }
-    } catch (err) { setAuthError(t.auth.error); }
+    } catch { setAuthError(t.auth.error); }
     finally { setAuthLoading(false); }
   };
 
