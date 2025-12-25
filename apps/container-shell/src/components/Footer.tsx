@@ -1,6 +1,7 @@
 import React from 'react';
 import { Zap, Facebook, Twitter, Instagram, Mail } from 'lucide-react';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const Footer = ({ t, nav }: any) => (
   <footer className="pt-32 pb-16 px-6 max-w-7xl mx-auto border-t border-slate-50 dark:border-slate-800 mt-20">
     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-16 mb-24 text-xs font-black uppercase tracking-[0.3em] text-slate-400">

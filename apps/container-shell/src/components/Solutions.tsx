@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { MFE_URLS } from '../config/mfe-urls';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const Solutions = ({ t }: any) => {
   const cards = [
     { img: "https://images.unsplash.com/photo-1542362567-b05eef11f94d", label: "HQ View", title: t.org, desc: t.orgDesc, url: MFE_URLS.organisation },

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Check, Zap } from 'lucide-react';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const Pricing = ({ t }: any) => (
   <section id="pricing" className="py-32 max-w-7xl mx-auto px-6 scroll-mt-20">
     <div className="text-center mb-20">

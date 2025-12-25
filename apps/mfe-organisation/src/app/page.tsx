@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { 
   LayoutDashboard, Store, BarChart3, Users, LogOut,
   Zap, ShieldCheck, Database, Plus, MoreHorizontal,
-  Menu, X, Home, Lock, Loader2, Download, Languages, Sun, Moon
+  Menu, X, Home, Lock, Loader2, Download, Sun, Moon
 } from 'lucide-react';
 import { authService } from '@pwa-easy-rental/shared-services';
 
@@ -18,6 +18,7 @@ export default function OrganisationDashboard() {
   const [lang, setLang] = useState<'FR' | 'EN'>('FR');
   const [darkMode, setDarkMode] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
 
   // Form States
@@ -45,6 +46,7 @@ export default function OrganisationDashboard() {
       setIsLoading(false);
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handler = (e: any) => {
       e.preventDefault();
       setDeferredPrompt(e);
@@ -59,7 +61,7 @@ export default function OrganisationDashboard() {
     setIsAuth(true);
     return;
 
-    
+
     e.preventDefault();
     setAuthLoading(true);
     setAuthError('');

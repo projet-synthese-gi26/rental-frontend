@@ -12,6 +12,7 @@ import { en } from '../locales/en';
 export default function LandingPage() {
   const [darkMode, setDarkMode] = useState(false);
   const [lang, setLang] = useState<'FR' | 'EN'>('FR');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   
   const t = lang === 'FR' ? fr : en;
@@ -23,6 +24,7 @@ export default function LandingPage() {
     if (isDark) document.documentElement.classList.add('dark');
 
     // 2. PWA Logic
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handler = (e: any) => {
       e.preventDefault();
       setDeferredPrompt(e);

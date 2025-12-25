@@ -2,6 +2,7 @@
 import { Zap, Languages, Sun, Moon, DownloadCloud } from 'lucide-react';
 import { MFE_URLS } from '../config/mfe-urls';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const Navbar = ({ t, lang, onLangToggle, darkMode, onThemeToggle, onInstall }: any) => (
   <nav className="fixed top-0 w-full z-[100] bg-white/90 dark:bg-[#0f1323]/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 h-20 transition-all">
     <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">

@@ -1,6 +1,7 @@
 import React from 'react';
 import { WifiOff, MapPin, FileText, Zap, LayoutGrid } from 'lucide-react';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const Features = ({ t }: any) => (
   <section id="features" className="py-32 bg-slate-50 dark:bg-slate-900/50 scroll-mt-20">
     <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">

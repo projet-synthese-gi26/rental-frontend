@@ -3,6 +3,7 @@ import React from 'react';
 import { DownloadCloud } from 'lucide-react';
 import { MFE_URLS } from '../config/mfe-urls';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const Hero = ({ t, onInstall }: any) => (
   <section className="relative pt-40 pb-24 px-6 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
     <div>

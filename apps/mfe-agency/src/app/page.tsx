@@ -1,10 +1,9 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { 
-  LayoutDashboard, List, Calendar as CalIcon, Settings, Search, Bell, 
-  PlusCircle, Filter, MoreVertical, WifiOff, Car, Key, Boxes, 
-  Menu, X, Sun, Moon, Languages, Download, LogOut, Loader2, Lock, Home, User, ChevronRight,
-  Plus
+  LayoutDashboard, List, Calendar as CalIcon, 
+  PlusCircle, Filter, WifiOff, Car, Key, Boxes, 
+  Menu, X, Sun, Moon, Languages, Download, LogOut, Loader2, Lock, Home, User, Plus
 } from 'lucide-react';
 import { authService } from '@pwa-easy-rental/shared-services';
 
@@ -18,6 +17,7 @@ export default function AgencyDashboard() {
   const [lang, setLang] = useState<'FR' | 'EN'>('FR');
   const [darkMode, setDarkMode] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
 
   const [email, setEmail] = useState('');
@@ -43,6 +43,7 @@ export default function AgencyDashboard() {
       setIsLoading(false);
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handler = (e: any) => { e.preventDefault(); setDeferredPrompt(e); };
     window.addEventListener('beforeinstallprompt', handler);
     checkAuth();
@@ -50,9 +51,6 @@ export default function AgencyDashboard() {
   }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
-    setIsAuth(true);
-    return;
-
     e.preventDefault();
     setAuthLoading(true);
     setAuthError('');
