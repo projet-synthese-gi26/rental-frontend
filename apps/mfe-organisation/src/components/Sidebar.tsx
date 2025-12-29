@@ -3,7 +3,9 @@ import React from 'react';
 import { 
   LayoutDashboard, Store, Users, CreditCard, 
   Download, LogOut, X, ShieldCheck, UserCircle,
-  ChevronRight, Activity
+  ChevronRight, Activity,
+  Car,
+  LayoutGrid
 } from 'lucide-react';
 
 export const Sidebar = ({ 
@@ -68,6 +70,18 @@ export const Sidebar = ({
           <div className="space-y-1.5">
             <SidebarItem icon={<ShieldCheck size={20}/>} label={t.sidebar.roles} active={currentView === 'ROLES'} onClick={() => setCurrentView('ROLES')} />
             <SidebarItem icon={<UserCircle size={20}/>} label={t.sidebar.staff} active={currentView === 'STAFF'} onClick={() => setCurrentView('STAFF')} />
+            <SidebarItem 
+              icon={<Car size={20}/>} 
+              label={t.sidebar.vehicles || "Véhicules"} 
+              active={currentView === 'VEHICLES'} 
+              onClick={() => setCurrentView('VEHICLES')} 
+            />
+            <SidebarItem 
+              icon={<LayoutGrid size={20}/>} 
+              label={t.sidebar.categories || "Catégories"} 
+              active={currentView === 'CATEGORIES'} 
+              onClick={() => setCurrentView('CATEGORIES')} 
+            />
             <SidebarItem icon={<CreditCard size={20}/>} label={t.sidebar.subscription} active={currentView === 'SUBSCRIPTION'} onClick={() => setCurrentView('SUBSCRIPTION')} />
           </div>
         </div>

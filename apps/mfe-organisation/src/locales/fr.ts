@@ -5,18 +5,58 @@ export const fr = {
     logout: "Déconnexion" 
   },
   auth: {
-    title: "Console Manager",
-    subtitle: "Pilotez votre réseau de location et analysez vos performances mondiales.",
-    email: "Email Professionnel",
+    title: "Accès Manager",
+    titleRegister: "Créer l'Espace",
+    subtitle: "Expertise en Mobilité Digitale.",
+    email: "Email professionnel",
     password: "Mot de passe",
+    firstname: "Prénom",
+    lastname: "Nom",
     orgName: "Nom de l'organisation",
     submitLogin: "Accéder au Hub",
-    submitRegister: "Créer l'organisation",
-    error: "Erreur d'authentification (organisation@gmail.com / organisation)",
-    verifying: "Vérification de la session...",
-    noAccount: "Pas encore de réseau ? Créez votre compte manager.",
-    hasAccount: "Déjà manager ? Connectez-vous ici.",
+    submitRegister: "Lancer l'organisation",
+    error: "Identifiants incorrects ou serveur indisponible.",
+    noAccount: "Nouveau ? Créer un compte organisation",
+    hasAccount: "Déjà manager ? Se connecter",
     installNotice: "Utilisez Chrome ou Edge pour installer l'application."
+  },
+  onboarding: {
+    step: "Étape",
+    of: "sur",
+    mainTitle: "Configuration",
+    accentTitle: "Initiale.",
+    step1Title: "Identité",
+    step1Sub: "Branding & Vision",
+    step2Title: "Contact",
+    step2Sub: "Localisation & Siège",
+    step3Title: "Légal",
+    step3Sub: "Conformité & Temps",
+    form: {
+      who: "Qui êtes-vous ?",
+      whoSub: "Définissez l'image de marque de votre réseau",
+      orgName: "Dénomination Sociale",
+      vision: "Vision de l'entreprise",
+      visionPlaceholder: "Décrivez vos services et votre zone de couverture...",
+      website: "Site Internet",
+      where: "Où vous trouver ?",
+      whereSub: "Siège social et coordonnées publiques",
+      city: "Ville",
+      region: "Région / État",
+      address: "Adresse Postale",
+      phone: "Téléphone",
+      email: "Email de contact",
+      legal: "Légalité",
+      legalSub: "Dernière étape pour activer le dashboard",
+      rccm: "Registre du Commerce (RCCM)",
+      niu: "Numéro Contribuable (NIU)",
+      timezone: "Fuseau Horaire",
+      zip: "Code Postal"
+    },
+    btns: {
+      next: "Étape Suivante",
+      prev: "Précédent",
+      finish: "Activer le Dashboard"
+    }
   },
   sidebar: { 
     systemSubtitle: "Système de Gestion",
@@ -207,5 +247,50 @@ export const fr = {
     colRentals: "Locations", 
     colRev: "Revenu" 
   },
-  installNotice: "Essayez de changer de navigateur pour pouvoir l'installer en tant qu'application (Chrome ou Edge recommandé)."
+  installNotice: "Essayez de changer de navigateur pour pouvoir l'installer en tant qu'application (Chrome ou Edge recommandé).",
+  vehicles: {
+    title: "Gestion de la Flotte",
+    addBtn: "Ajouter un véhicule",
+    searchPlaceholder: "Rechercher marque, modèle ou plaque...",
+    allAgencies: "Toutes les agences",
+    allCategories: "Toutes les catégories",
+    empty: "Aucun véhicule trouvé dans la flotte.",
+    stats: {
+      total: "Véhicules",
+      available: "Disponibles",
+      maintenance: "En Maintenance"
+    },
+    modal: {
+      titleAdd: "Nouveau Véhicule",
+      titleEdit: "Modifier Véhicule",
+      marque: "Marque (ex: Toyota)",
+      modele: "Modèle (ex: Camry)",
+      plate: "Plaque d'immatriculation",
+      km: "Kilométrage actuel",
+      places: "Nombre de places",
+      agency: "Agence d'affectation",
+      category: "Catégorie",
+      submit: "Ajouter à la flotte",
+      cancel: "Annuler"
+    }
+  },
+  categories: {
+    title: "Typologie de Flotte",
+    subtitle: "Gérez les catégories de véhicules et les standards du réseau",
+    searchPlaceholder: "Rechercher une catégorie (Luxe, Citadine...)",
+    filterAll: "Tous les types",
+    filterSystem: "Standards Rental",
+    filterCustom: "Mes Catégories",
+    addBtn: "Créer une catégorie",
+    systemLabel: "Standard Système",
+    customLabel: "Personnalisé",
+    deleteConfirm: "Supprimer cette catégorie ? Les véhicules associés devront être réaffectés.",
+    modal: {
+      add: "Nouvelle Catégorie",
+      edit: "Modifier la catégorie",
+      name: "Nom de la catégorie",
+      desc: "Description des caractéristiques",
+      submit: "Enregistrer la catégorie"
+    }
+  },
 };

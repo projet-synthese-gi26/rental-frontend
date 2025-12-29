@@ -5,18 +5,58 @@ export const en = {
     logout: "Logout" 
   },
   auth: {
-    title: "Manager Console",
-    subtitle: "Drive your rental network and analyze global performance.",
+    title: "Manager Access",
+    titleRegister: "Create Space",
+    subtitle: "Digital Mobility Expertise.",
     email: "Professional Email",
     password: "Password",
+    firstname: "First name",
+    lastname: "Last name",
     orgName: "Organization Name",
     submitLogin: "Access Hub",
-    submitRegister: "Create Organization",
-    error: "Auth error (organisation@gmail.com / organisation)",
-    verifying: "Verifying session...",
-    noAccount: "No network yet? Create your manager account.",
-    hasAccount: "Already a manager? Login here.",
+    submitRegister: "Launch Organization",
+    error: "Invalid credentials or server unavailable.",
+    noAccount: "New? Create an organization account",
+    hasAccount: "Already a manager? Sign in",
     installNotice: "Use Chrome or Edge to install the application."
+  },
+  onboarding: {
+    step: "Step",
+    of: "of",
+    mainTitle: "Initial",
+    accentTitle: "Setup.",
+    step1Title: "Identity",
+    step1Sub: "Branding & Vision",
+    step2Title: "Contact",
+    step2Sub: "Location & HQ",
+    step3Title: "Legal",
+    step3Sub: "Compliance & Time",
+    form: {
+      who: "Who are you?",
+      whoSub: "Define your network's brand image",
+      orgName: "Corporate Name",
+      vision: "Company Vision",
+      visionPlaceholder: "Describe your services and coverage area...",
+      website: "Website",
+      where: "Where to find you?",
+      whereSub: "Headquarters and public contact info",
+      city: "City",
+      region: "Region / State",
+      address: "Postal Address",
+      phone: "Phone",
+      email: "Contact Email",
+      legal: "Legality",
+      legalSub: "Final step to activate the dashboard",
+      rccm: "Trade Register (RCCM)",
+      niu: "Taxpayer Number (NIU)",
+      timezone: "Timezone",
+      zip: "Zip Code"
+    },
+    btns: {
+      next: "Next Step",
+      prev: "Previous",
+      finish: "Activate Dashboard"
+    }
   },
   sidebar: { 
     systemSubtitle: "Management System",
@@ -81,10 +121,10 @@ export const en = {
       name: "Position Name",
       description: "Description",
       privilegesTitle: "Access Privileges",
-      deselect: "Deselect All",
-      selectAll: "Select All",
-      submitEdit: "Confirm Changes",
-      submitAdd: "Save Role"
+      deselect: "Deselect all",
+      selectAll: "Select all",
+      submitEdit: "Confirm changes",
+      submitAdd: "Save role"
     }
   },
   staff: {
@@ -96,7 +136,7 @@ export const en = {
     },
     searchPlaceholder: "Search by name or email...",
     allAgencies: "All agencies",
-    addBtn: "Recruit Member",
+    addBtn: "Recruit member",
     noPoste: "No role",
     viewProfile: "View profile",
     deleteConfirm: "Delete this staff member? Access to the platform will be revoked.",
@@ -117,7 +157,7 @@ export const en = {
       title: "Staff Details",
       email: "Email",
       agency: "Agency",
-      id: "Staff ID",
+      id: "Employee ID",
       privileges: "System Privileges",
       noPrivileges: "No specific privileges",
       editContract: "Edit contract"
@@ -146,7 +186,7 @@ export const en = {
     stats: {
       total: "Agencies",
       vehicles: "Vehicles",
-      active: "In Use"
+      active: "In Circulation"
     },
     empty: {
       title: "No agencies",
@@ -179,8 +219,8 @@ export const en = {
       submit: "Confirm Agency"
     },
     alerts: {
-      errorSubmit: "Server rejected creation. Check that all fields are filled.",
-      errorConn: "Server connection error."
+      errorSubmit: "The server rejected the creation. Check that all fields are filled.",
+      errorConn: "Error connecting to the server."
     }
   },
   charts: { 
@@ -207,5 +247,50 @@ export const en = {
     colRentals: "Rentals", 
     colRev: "Revenue" 
   },
-  installNotice: "Try changing your browser to be able to install it as an application (Chrome or Edge recommended)."
+  installNotice: "Try changing your browser to be able to install it as an application (Chrome or Edge recommended).",
+  vehicles: {
+    title: "Fleet Management",
+    addBtn: "Add Vehicle",
+    searchPlaceholder: "Search brand, model or plate...",
+    allAgencies: "All agencies",
+    allCategories: "All categories",
+    empty: "No vehicles found in the fleet.",
+    stats: {
+      total: "Total Vehicles",
+      available: "Available",
+      maintenance: "In Maintenance"
+    },
+    modal: {
+      titleAdd: "New Vehicle",
+      titleEdit: "Edit Vehicle",
+      marque: "Brand (e.g., Toyota)",
+      modele: "Model (e.g., Camry)",
+      plate: "License Plate",
+      km: "Current Mileage",
+      places: "Number of seats",
+      agency: "Assigned Agency",
+      category: "Category",
+      submit: "Add to fleet",
+      cancel: "Cancel"
+    }
+  },
+  categories: {
+    title: "Fleet Typology",
+    subtitle: "Manage vehicle categories and network standards",
+    searchPlaceholder: "Search a category (Luxury, City car...)",
+    filterAll: "All types",
+    filterSystem: "Rental Standards",
+    filterCustom: "My Categories",
+    addBtn: "Create Category",
+    systemLabel: "System Standard",
+    customLabel: "Custom",
+    deleteConfirm: "Delete this category? Associated vehicles will need to be reassigned.",
+    modal: {
+      add: "New Category",
+      edit: "Edit Category",
+      name: "Category Name",
+      desc: "Characteristics description",
+      submit: "Save Category"
+    }
+  },
 };

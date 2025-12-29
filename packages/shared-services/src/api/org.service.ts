@@ -9,7 +9,7 @@ export const orgService = {
   // ================================================
   // 1. AUTHENTICATION (auth-controller)
   // ================================================
-  getMe: () => client.get<any>('/auth/me'),
+  getMe: () => client.get<any>('/api/org/auth/me'),
   login: (data: any) => client.post<any>('/auth/login', data),
   registerOrg: (data: any) => client.post<any>('/auth/register/organizationOwner', data),
   registerClient: (data: any) => client.post<any>('/auth/register/client', data),
@@ -118,4 +118,44 @@ export const orgService = {
   // ================================================
   /** Upload d'un fichier */
   uploadMedia: (formData: FormData) => client.post<any>('/api/media/upload', formData),
+
+  // ================================================
+  // 4. VEHICLE MANAGEMENT
+  // ================================================
+  /** Lister tous les véhicules d'une organisation */
+  getVehiclesByOrg: (orgId: string) => client.get<any[]>(`/api/vehicles/org/${orgId}`),
+  
+  /** Lister les véhicules d'une agence spécifique */
+  getVehiclesByAgency: (agencyId: string) => client.get<any[]>(`/api/vehicles/agency/${agencyId}`),
+  
+  /** Ajouter un véhicule à la flotte d'une organisation */
+  createVehicle: (orgId: string, data: any) => client.post<any>(`/api/vehicles/org/${orgId}`, data),
+  
+  /** Obtenir les détails d'un véhicule */
+  getVehicleDetails: (id: string) => client.get<any>(`/api/vehicles/${id}`),
+  
+  /** Mettre à jour les informations d'un véhicule */
+  updateVehicle: (id: string, data: any) => client.put<any>(`/api/vehicles/${id}`, data),
+  
+  /** Changer le statut du véhicule (MAINTENANCE, AVAILABLE, RENTED) */
+  updateVehicleStatus: (id: string, status: string) => 
+    client.patch<any>(`/api/vehicles/${id}/status?status=${status}`, {}),
+  
+  /** Supprimer un véhicule */
+  deleteVehicle: (id: string) => client.delete(`/api/vehicles/${id}`),
+
+  // ================================================
+  // 5. VEHICLE CATEGORIES
+  // ================================================
+  /** Lister les catégories de véhicules d'une organisation */
+  getVehicleCategories: (orgId: string) => client.get<any[]>(`/api/vehicles/categories/org/${orgId}`),
+  
+  /** Créer une nouvelle catégorie */
+  createCategory: (orgId: string, data: any) => client.post<any>(`/api/vehicles/categories/org/${orgId}`, data),
+  
+  /** Mettre à jour une catégorie */
+  updateCategory: (id: string, data: any) => client.put<any>(`/api/vehicles/categories/${id}`, data),
+  
+  /** Supprimer une catégorie */
+  deleteCategory: (id: string) => client.delete(`/api/vehicles/categories/${id}`),
 };
