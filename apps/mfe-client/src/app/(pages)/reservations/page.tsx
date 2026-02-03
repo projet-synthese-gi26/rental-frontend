@@ -22,7 +22,7 @@ export default function ReservationsPage() {
           const fetchedReservations = await reservationService.getAllReservations();
           setReservations(fetchedReservations);
         } catch (err) {
-          console.error("Erreur lors du chargement des utilisateurs.");
+          console.error("Erreur lors du chargement des utilisateurs.", err);
         } 
       };
 

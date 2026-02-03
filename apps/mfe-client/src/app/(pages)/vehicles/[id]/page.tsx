@@ -41,7 +41,8 @@ export default function VehiclePage({ params }: VehiclePageProps) {
   const router = useRouter();
   const vehicleId = parseInt(params.id);
 
-  const loadVehicle = async () => {
+  useEffect(() => {
+     const loadVehicle = async () => {
     try {
       setLoading(true);
       const data = await vehicleService.getVehicleById(vehicleId);
@@ -60,10 +61,8 @@ export default function VehiclePage({ params }: VehiclePageProps) {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
     loadVehicle();
-  }, [loadVehicle]);
+  }, []);
 
   // const calculateTotalPrice = () => {
   //   const days = bookingDates.days || 1;

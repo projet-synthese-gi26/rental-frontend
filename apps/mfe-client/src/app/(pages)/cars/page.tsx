@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Search, Filter, Star, Car, Users, Fuel, Settings2, ChevronDown, X } from 'lucide-react';
+import { Search, Filter, Car, Users, Fuel, Settings2, ChevronDown, X } from 'lucide-react';
 import { Vehicle } from '@/types/vehicleType';
 import { vehicleService } from '@/services/vehicleService';
 import { StarRating } from '@/components/StarRating';

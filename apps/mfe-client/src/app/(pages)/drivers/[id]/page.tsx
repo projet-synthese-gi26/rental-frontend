@@ -34,7 +34,8 @@ export default function DriverPage({ params }: DriverPageProps) {
   const router = useRouter();
   const driverId = parseInt(params.id);
 
- const loadDriver = async () => {
+  useEffect(() => {
+    const loadDriver = async () => {
     try {
       setLoading(true);
       const data = await driverService.getDriverById(driverId);
@@ -53,10 +54,8 @@ export default function DriverPage({ params }: DriverPageProps) {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
     loadDriver();
-  }, [loadDriver, driverId]);
+  }, [driverId]);
 
 
   if (loading) {
