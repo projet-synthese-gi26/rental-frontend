@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { X, Loader2, Clock } from 'lucide-react';
+import { Portal } from '@/components/Portal';
 
 export const AgencyForm = ({ editingAgency, initialData, onSubmit, onClose, modalLoading }: any) => {
   const [formData, setFormData] = useState(initialData);
@@ -31,6 +32,7 @@ export const AgencyForm = ({ editingAgency, initialData, onSubmit, onClose, moda
   };
 
   return (
+    <Portal>
     <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6">
       {/* Overlay avec z-index supérieur au Header */}
       <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onClick={onClose} />
@@ -120,6 +122,7 @@ export const AgencyForm = ({ editingAgency, initialData, onSubmit, onClose, moda
         </div>
       </form>
     </div>
+    </Portal>
   );
 };
 

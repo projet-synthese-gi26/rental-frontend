@@ -77,7 +77,9 @@ export default function AgencyDashboard() {
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
       if (outcome === 'accepted') setDeferredPrompt(null);
-    } else alert(t.auth.installNotice);
+    } else {
+      alert("Essayez de changer de navigateur pour pouvoir l'installer en tant qu'application (Chrome ou Edge recommandé).");
+    }
   };
 
   const toggleTheme = () => {

@@ -144,6 +144,8 @@ export default function OrganisationDashboard() {
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
       if (outcome === 'accepted') setDeferredPrompt(null);
+    } else {
+      alert(t.installNotice);
     }
   };
 
@@ -211,7 +213,7 @@ export default function OrganisationDashboard() {
         <div className="flex-1 overflow-y-auto p-6 md:p-10 bg-[#f4f7fe] dark:bg-[#0f1323] custom-scrollbar">
           <div className="max-w-[1600px] mx-auto">
             {currentView === 'DASHBOARD' && <DashboardView orgData={orgData} agencies={agencies} t={t} />}
-            {currentView === 'AGENCIES' && <AgenciesView orgData={orgData} t={t} />}
+            {currentView === 'AGENCIES' && <AgenciesView orgData={orgData} setCurrentView={setCurrentView} t={t} />}
             {currentView === 'ROLES' && <RolesView orgData={orgData} t={t} />}
             {currentView === 'STAFF' && <StaffView orgData={orgData} t={t} />}
             {currentView === 'VEHICLES' && <VehiclesView orgData={orgData} t={t} />}

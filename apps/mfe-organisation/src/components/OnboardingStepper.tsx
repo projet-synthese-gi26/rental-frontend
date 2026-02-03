@@ -7,6 +7,9 @@ import {
   LogOut
 } from 'lucide-react';
 import { orgService } from '@pwa-easy-rental/shared-services';
+import { StepperInput } from './StepperInput';
+import { StepperArea } from './StepperArea';
+import { LogoUpload } from './LogoUpload';
 
 export const OnboardingStepper = ({ orgId, initialName, onComplete, onLogout, t }: any) => {
   const [step, setStep] = useState(1);
@@ -24,7 +27,7 @@ export const OnboardingStepper = ({ orgId, initialName, onComplete, onLogout, t 
     email: '',
     website: '', 
     timezone: 'Africa/Douala', 
-    logoUrl: 'https://ui-avatars.com/api/?name=Org&background=0528d6&color=fff', // Requis par DTO
+    logoUrl: '', // Force upload
     registrationNumber: '', 
     taxNumber: ''
   });
@@ -35,7 +38,7 @@ export const OnboardingStepper = ({ orgId, initialName, onComplete, onLogout, t 
   const isStepValid = () => {
     const isFull = (val: string) => val && val.trim() !== '' && val !== 'string';
     
-    if (step === 1) return isFull(formData.name) && isFull(formData.description) && isFull(formData.website) && isFull(formData.logoUrl);
+    if (step === 1) return isFull(formData.name) && isFull(formData.description) && isFull(formData.website);// && isFull(formData.logoUrl);
     if (step === 2) return isFull(formData.city) && isFull(formData.region) && isFull(formData.address) && isFull(formData.phone) && isFull(formData.email);
     if (step === 3) return isFull(formData.registrationNumber) && isFull(formData.taxNumber) && isFull(formData.timezone) && isFull(formData.postalCode);
     return false;
@@ -116,15 +119,27 @@ export const OnboardingStepper = ({ orgId, initialName, onComplete, onLogout, t 
         <div className="lg:col-span-8 p-8 md:p-14 flex flex-col">
             <div className="flex-1">
                 {step === 1 && (
-                <div className="space-y-6 animate-in slide-in-from-right-4 duration-500">
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">Identité de l'organisation</h2>
-                    <StepperInput label="Dénomination sociale" name="name" value={formData.name} onChange={handleChange} icon={Building2} placeholder="ex: Rental Prestige Ltd" />
-                    <StepperArea label="Vision & Description" name="description" value={formData.description} onChange={handleChange} icon={AlignLeft} placeholder="Décrivez vos services de location..." />
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <StepperInput label="Site Internet" name="website" placeholder="https://www.monsite.com" value={formData.website} onChange={handleChange} icon={Globe} />
-                        <StepperInput label="Lien Logo (URL)" name="logoUrl" placeholder="https://lien-vers-mon-logo.png" value={formData.logoUrl} onChange={handleChange} icon={ImageIcon} />
-                    </div>
-                </div>
+                  <div className="space-y-6 animate-in slide-in-from-right-4 duration-500">
+                      <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 border-b border-slate-50 pb-4">Identité de l'organisation</h2>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                          {/* Section Upload à gauche (1/3) */}
+                          <div className="md:col-span-1">
+                              <LogoUpload 
+                                  value={formData.logoUrl} 
+                                  onUploadSuccess={(url) => setFormData({ ...formData, logoUrl: url })} 
+                              />
+                          </div>
+
+                          {/* Champs textes à droite (2/3) */}
+                          <div className="md:col-span-2 space-y-6">
+                              <StepperInput label="Dénomination sociale" name="name" value={formData.name} onChange={handleChange} icon={Building2} placeholder="ex: Rental Prestige Ltd" />
+                              <StepperInput label="Site Internet" name="website" placeholder="https://www.monsite.com" value={formData.website} onChange={handleChange} icon={Globe} />
+                          </div>
+                      </div>
+
+                      <StepperArea label="Vision & Description" name="description" value={formData.description} onChange={handleChange} icon={AlignLeft} placeholder="Décrivez vos services de location, vos valeurs et votre zone de couverture..." />
+                  </div>
                 )}
 
                 {step === 2 && (
@@ -178,52 +193,3 @@ export const OnboardingStepper = ({ orgId, initialName, onComplete, onLogout, t 
     </div>
   );
 };
-
-const StepperInput = ({ label, name, placeholder, value, onChange, type = "text", icon: Icon, required = true }: any) => (
-  <div className="space-y-1.5 group">
-    <label className="text-[11px] font-bold uppercase text-slate-400 dark:text-slate-500 tracking-wider ml-1 flex justify-between italic">
-      <span>{label}</span>
-      {required && <span className="text-[#0528d6]">*</span>}
-    </label>
-    <div className="relative group">
-      {Icon && (
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#0528d6] transition-colors">
-          <Icon size={18} />
-        </div>
-      )}
-      <input 
-        type={type}
-        name={name}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        className={`w-full bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-xl py-3 pr-4 ${Icon ? 'pl-11' : 'pl-4'} text-sm font-medium text-slate-700 dark:text-white outline-none focus:border-[#0528d6] transition-all shadow-sm`}
-        required={required}
-      />
-    </div>
-  </div>
-);
-
-const StepperArea = ({ label, name, placeholder, value, onChange, icon: Icon }: any) => (
-  <div className="space-y-1.5 group">
-    <label className="text-[11px] font-bold uppercase text-slate-400 tracking-wider ml-1 italic">
-      {label} <span className="text-[#0528d6]">*</span>
-    </label>
-    <div className="relative">
-      {Icon && (
-        <div className="absolute left-4 top-4 text-slate-300 group-focus-within:text-[#0528d6] transition-colors">
-          <Icon size={18} />
-        </div>
-      )}
-      <textarea 
-        name={name}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        rows={3}
-        className={`w-full bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-xl py-3 pr-4 ${Icon ? 'pl-11' : 'pl-4'} text-sm font-medium text-slate-700 dark:text-white outline-none focus:border-[#0528d6] transition-all shadow-sm`}
-        required
-      />
-    </div>
-  </div>
-);

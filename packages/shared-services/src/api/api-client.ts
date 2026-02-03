@@ -56,22 +56,28 @@ export class ApiClient {
 
     // 1. On récupère le token soit dans les headers de l'instance, soit dans le localStorage
     const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
-    
     const requestHeaders: Record<string, string> = { ...this.headers };
-
-    if (data instanceof FormData) {
-      delete requestHeaders['Content-Type'];
-    }
 
     if (token) {
       requestHeaders['Authorization'] = `Bearer ${token}`;
+    }
+
+    // 2. LOGIQUE CRUCIALE POUR L'UPLOAD
+    let body: any;
+    if (data instanceof FormData) {
+      // Pour un upload, on supprime le Content-Type JSON
+      // Le navigateur va mettre "multipart/form-data; boundary=..."
+      delete requestHeaders['Content-Type'];
+      body = data; 
+    } else if (data) {
+      body = JSON.stringify(data);
     }
 
     try {
       const response = await fetch(url, {
         method,
         headers: requestHeaders,
-        body: data ? JSON.stringify(data) : undefined,
+        body: body,
       });
 
       // Gestion du cas "No Content" (ex: DELETE ou PUT sans retour)

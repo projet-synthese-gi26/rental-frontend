@@ -5,12 +5,15 @@ import { orgService } from '@pwa-easy-rental/shared-services';
 import { StatCard } from '../components/StatCard';
 import { AgencyCard } from './agencies/AgencyCard';
 import { AgencyForm } from './agencies/AgencyForm';
+import { QuotaAlertModal } from '@/components/QuotaAlertModal';
 
-export const AgenciesView = ({ orgData }: { orgData: any }) => {
+export const AgenciesView = ({ orgData, setCurrentView }: { orgData: any, setCurrentView: any }) => {
   const [agencies, setAgencies] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [subscription, setSubscription] = useState<any>(null);
+  const [showQuotaModal, setShowQuotaModal] = useState(false);
   const [editingAgency, setEditingAgency] = useState<any>(null);
   const [modalLoading, setModalLoading] = useState(false);
   const [backendError, setBackendError] = useState<string | null>(null);
@@ -34,6 +37,32 @@ export const AgenciesView = ({ orgData }: { orgData: any }) => {
   }, [orgData?.id]);
 
   useEffect(() => { loadAgencies(); }, [loadAgencies]);
+
+  useEffect(() => {
+    if (orgData?.id) {
+        // Charger les agences ET les détails du plan (pour les limites)
+        Promise.all([
+            orgService.getAgencies(orgData.id),
+            orgService.getSubscription(orgData.id)
+        ]).then(([agRes, subRes]) => {
+            if (agRes.ok) setAgencies(agRes.data);
+            if (subRes.ok) setSubscription(subRes.data);
+        });
+    }
+  }, [orgData?.id]);
+
+  const handleAddClick = () => {
+    // 1. Vérification du quota basé sur le SubscriptionResponseDTO du Swagger
+    // currentAgencies vient de OrgResponseDTO, maxAgencies vient de SubscriptionResponseDTO
+    const current = orgData?.currentAgencies || agencies.length;
+    const limit = subscription?.maxAgencies || 1; // Fallback à 1 si non chargé
+
+    if (current >= limit) {
+      setShowQuotaModal(true); // Affiche la popup d'alerte
+    } else {
+      setIsModalOpen(true); // Ouvre le formulaire de création
+    }
+  };
 
   const handleSubmit = async (finalData: any) => {
     setModalLoading(true);
@@ -83,12 +112,25 @@ export const AgenciesView = ({ orgData }: { orgData: any }) => {
           />
         </div>
         <button 
-          onClick={() => { setEditingAgency(null); setIsModalOpen(true); }}
+          onClick={handleAddClick}
           className="w-full md:w-auto px-6 py-3 bg-[#0528d6] text-white rounded-xl font-bold text-sm shadow-lg hover:scale-[1.02] transition-all flex items-center justify-center gap-2"
         >
           <Plus size={18} /> Ajouter une agence
         </button>
       </div>
+
+      {/* POPUP D'ALERTE QUOTA (Avec Portal et Full Blur) */}
+      {showQuotaModal && (
+        <QuotaAlertModal
+          limit={subscription?.maxAgencies || 1}
+          type="agence(s)"
+          onClose={() => setShowQuotaModal(false)}
+          onUpgrade={() => {
+            setShowQuotaModal(false);
+            setCurrentView('SUBSCRIPTION'); // Redirige vers la page des plans
+          }}
+        />
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         {filteredAgencies.map(agency => (

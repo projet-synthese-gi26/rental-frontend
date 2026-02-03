@@ -41,6 +41,8 @@ export default function LandingPage() {
   };
 
   const handleInstallApp = async () => {
+    console.log('Install App clicked');
+    
     if (deferredPrompt) {
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;

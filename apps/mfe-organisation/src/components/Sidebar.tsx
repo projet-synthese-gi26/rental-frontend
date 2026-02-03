@@ -27,7 +27,7 @@ export const Sidebar = ({
     {/* Overlay pour mobile */}
     {sidebarOpen && (
       <div 
-        className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm lg:hidden" 
+        className="absolute inset-0 backdrop-blur-sm lg:hidden" 
         onClick={() => setSidebarOpen(false)} 
       />
     )}
@@ -81,7 +81,7 @@ export const Sidebar = ({
         
         {/* BOUTON INSTALLER */}
         <button 
-          onClick={handleInstall} 
+          onClick={handleInstall}
           className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800 transition-all duration-200 group"
         >
           <Download size={18} className="text-[#0528d6] group-hover:scale-110 transition-transform"/>
