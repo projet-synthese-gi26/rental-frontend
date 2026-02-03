@@ -34,7 +34,7 @@ export default function TeamPage() {
     const TeamMembers = [
         { 
             name : "P. DJOTIO T.",
-            role: "Lead Developer" , 
+            role: "Lead of project" , 
             img: "/team/worker.jpg", 
             icon: <Code size={14}/>,
             linkedin: "",

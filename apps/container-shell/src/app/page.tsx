@@ -1,11 +1,9 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { Navbar } from '../components/Navbar';
 import { Hero } from '../components/Hero';
 import { Solutions } from '../components/Solutions';
 import { Features } from '../components/Features';
-import { Pricing } from '../components/Pricing';
-import { Footer } from '../components/Footer';
+// import { Pricing } from '../components/Pricing';
 import { fr } from '../locales/fr';
 import { en } from '../locales/en';
 
@@ -52,13 +50,6 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#0f1323] text-slate-900 dark:text-white font-sans transition-colors duration-300">
-      
-      <Navbar 
-        t={t} lang={lang} 
-        onLangToggle={() => setLang(l => l === 'FR' ? 'EN' : 'FR')}
-        darkMode={darkMode} onThemeToggle={toggleTheme}
-        onInstall={handleInstallApp}
-      />
 
       <Hero t={t.hero} onInstall={handleInstallApp} />
 
@@ -66,9 +57,8 @@ export default function LandingPage() {
 
       <Features t={t.features} />
 
-      <Pricing t={t.pricing} />
+      {/* <Pricing t={t.pricing} /> */}
 
-      <Footer t={t.footer} nav={t.nav} />
 
     </div>
   );

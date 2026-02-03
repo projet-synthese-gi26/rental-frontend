@@ -41,7 +41,7 @@ export default function HelpPage() {
     <main className="min-h-screen bg-gray-50 text-slate-800 font-sans">
 
       {/* Hero Search */}
-      <section className="bg-gradient-to-r from-blue-700 to-blue-600 py-20 px-4 text-center">
+      <section className="bg-white/90 dark:bg-[#0f1323]/90 py-20 px-4 text-center">
         <h1 className="text-3xl md:text-5xl font-bold text-white mb-6">Comment pouvons-nous vous aider ?</h1>
         <div className="max-w-2xl mx-auto relative">
             <input 

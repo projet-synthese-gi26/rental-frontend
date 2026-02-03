@@ -133,7 +133,7 @@ const [drivers, setDrivers] = useState<Driver[]>([]);
               <div className="flex justify-between items-center mb-6">
                 <div>
                   <h2 className="text-2xl font-bold text-gray-800">Ours drivers</h2>
-                  <p className="text-gray-600">{filteredDrivers.length} available(s) véhicle(s) </p>
+                  <p className="text-gray-600">{filteredDrivers.length} available(s) driver(s) </p>
                 </div>
                 <div className="flex items-center space-x-2 text-sm">
                   <Filter size={18} className="text-gray-500" />

@@ -1,16 +1,21 @@
+import { headers } from "next/headers";
+
 export const en = {
   nav: { 
     features: "Features", 
     solutions: "Solutions", 
-    pricing: "Pricing", 
+    pricing: "Pricing",
+    team: "Team",
+    feedback: "Feedback",
+    help: "Help", 
     login: "Pro Space", 
     reserve: "Book Now",
     install: "Install"
   },
   hero: {
     badge: "Next-gen rental ecosystem",
-    title: "Digital Mobility. Without",
-    titleAccent: "Borders.",
+    title: "Digital Mobility Without",
+    titleAccent: "Borders",
     desc: "Rent a vehicle in one click or digitize your own fleet. A unique platform for all your mobility needs.",
     ctaReserve: "Book a vehicle",
     ctaManager: "Become Manager",
