@@ -5,26 +5,23 @@ import { useRouter } from 'next/navigation';
 import { 
   ArrowLeft, 
   Car, 
-  Users, 
   Fuel, 
   Settings, 
 //   Calendar, 
-  MapPin, 
-  Star, 
-  Shield, 
+  MapPin,  
   Wifi, 
   Music, 
   Snowflake,
   CheckCircle,
 //   CreditCard,
   Share2,
-  Heart,
-  UserPlus2
+  Heart
 } from 'lucide-react';
 import { vehicleService } from '@/services/vehicleService';
 import { Vehicle } from '@/types/vehicleType';
 import NoElementFound from '@/components/NoElementFound';
 import Image from 'next/image';
+import ReservationCard from '@/components/reservationCard';
 // import Link from 'next/link';
 
 interface VehiclePageProps {
@@ -39,18 +36,10 @@ export default function VehiclePage({ params }: VehiclePageProps) {
   const [error, setError] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [bookingDates, setBookingDates] = useState({
-    start: '',
-    end: '',
-    days: 1
-  });
+ 
   
   const router = useRouter();
   const vehicleId = parseInt(params.id);
-
-  useEffect(() => {
-    loadVehicle();
-  }, []);
 
   const loadVehicle = async () => {
     try {
@@ -72,31 +61,14 @@ export default function VehiclePage({ params }: VehiclePageProps) {
     }
   };
 
-  const handleBooking = async () => {
-    if (!vehicle) return;
+  useEffect(() => {
+    loadVehicle();
+  }, [loadVehicle]);
 
-    try {
-      const success = await vehicleService.bookVehicle(vehicle.id, {
-        start: new Date(bookingDates.start),
-        end: new Date(bookingDates.end)
-      });
-
-      if (success) {
-        alert('Réservation effectuée avec succès !');
-        router.push('/rental-process/policy');
-      } else {
-        alert('Ce véhicule n\'est plus disponible pour ces dates.');
-      }
-    } catch (err) {
-      alert('Erreur lors de la réservation');
-      console.error(err);
-    }
-  };
-
-  const calculateTotalPrice = () => {
-    const days = bookingDates.days || 1;
-    return vehicle ? vehicle.pricePerDay * days : 0;
-  };
+  // const calculateTotalPrice = () => {
+  //   const days = bookingDates.days || 1;
+  //   return vehicle ? vehicle.pricePerDay * days : 0;
+  // };
 
   const images = vehicle ? [
     vehicle.image,
@@ -283,163 +255,9 @@ export default function VehiclePage({ params }: VehiclePageProps) {
 
           {/* Colonne droite - Réservation */}
           <div>
+            <ReservationCard/>
             {/* Carte de réservation */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-6">
-              <div className="mb-6">
-                <div className="flex justify-between items-start mb-2">
-                  <div>
-                    <h1 className="text-2xl font-bold text-gray-800">{vehicle.name}</h1>
-                    <p className="text-gray-500">{vehicle.brand} {vehicle.model} • {vehicle.year}</p>
-                  </div>
-                  <div className="flex items-center bg-blue-50 text-blue-600 px-3 py-1 rounded-full">
-                    <Star size={16} className="fill-current mr-1" />
-                    <span className="font-semibold">{vehicle.rating}</span>
-                  </div>
-                </div>
-                
-                <div className="flex items-center text-gray-600 text-sm mb-4">
-                  <span className="flex items-center mr-4">
-                    <Users size={16} className="mr-1" />
-                    {vehicle.passengers} personnes
-                  </span>
-                  <span className="flex items-center">
-                    <Fuel size={16} className="mr-1" />
-                    {vehicle.fuelType}
-                  </span>
-                </div>
-              </div>
-
-              {/* Prix */}
-              <div className="mb-6 p-4 bg-blue-50 rounded-lg">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-gray-600">Prix par jour</span>
-                  <span className="text-3xl font-bold text-blue-600">
-                    ${vehicle.pricePerDay}
-                  </span>
-                </div>
-                <p className="text-sm text-gray-500">
-                  Taxes et frais inclus
-                </p>
-              </div>
-
-              {/* Formulaire de réservation */}
-              <div className="space-y-4 mb-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Dates de location
-                  </label>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <input
-                        type="date"
-                        value={bookingDates.start}
-                        onChange={(e) => {
-                          setBookingDates(prev => ({
-                            ...prev,
-                            start: e.target.value,
-                            days: e.target.value && bookingDates.end 
-                              ? Math.ceil((new Date(bookingDates.end).getTime() - new Date(e.target.value).getTime()) / (1000 * 3600 * 24))
-                              : prev.days
-                          }));
-                        }}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        min={new Date().toISOString().split('T')[0]}
-                      />
-                      <span className="text-xs text-gray-500 mt-1 block">Début</span>
-                    </div>
-                    <div>
-                      <input
-                        type="date"
-                        value={bookingDates.end}
-                        onChange={(e) => {
-                          setBookingDates(prev => ({
-                            ...prev,
-                            end: e.target.value,
-                            days: bookingDates.start && e.target.value
-                              ? Math.ceil((new Date(e.target.value).getTime() - new Date(bookingDates.start).getTime()) / (1000 * 3600 * 24))
-                              : prev.days
-                          }));
-                        }}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        min={bookingDates.start || new Date().toISOString().split('T')[0]}
-                      />
-                      <span className="text-xs text-gray-500 mt-1 block">Fin</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Détails du prix */}
-                <div className="border-t border-gray-200 pt-4">
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-gray-600">
-                      <span>${vehicle.pricePerDay} × {bookingDates.days} jour(s)</span>
-                      <span>${vehicle.pricePerDay * bookingDates.days}</span>
-                    </div>
-                    <div className="flex justify-between text-gray-600">
-                      <span>Assurance</span>
-                      <span>Gratuite</span>
-                    </div>
-                    <div className="flex justify-between text-gray-600">
-                      <span>Frais de service</span>
-                      <span>$10</span>
-                    </div>
-                    <div className="border-t border-gray-200 pt-2">
-                      <div className="flex justify-between text-lg font-bold">
-                        <span>Total</span>
-                        <span className="text-blue-600">${calculateTotalPrice() + 10}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Boutons d'action */}
-              <div className="space-y-3">
-                <button
-                  onClick={handleBooking}
-                  disabled={!vehicle.available || !bookingDates.start || !bookingDates.end}
-                  className={`w-full py-4 rounded-lg font-semibold text-lg transition-colors ${
-                    vehicle.available && bookingDates.start && bookingDates.end
-                      ? 'bg-blue-600 hover:bg-blue-700 text-white'
-                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                  }`}
-                >
-                  {vehicle.available ? 'Proceed booking' : 'Non disponible'}
-                </button>
-
-                <button onClick={() => router.push("/drivers")} className="w-full py-3 border-2 border-blue-600 text-blue-600 hover:bg-blue-50 rounded-lg font-medium transition-colors">
-                  <UserPlus2 size={20} className="inline mr-2" />
-                  Add a driver
-                </button>
-                
-                {/* <button className="w-full py-3 border-2 border-blue-600 text-blue-600 hover:bg-blue-50 rounded-lg font-medium transition-colors">
-                  <CreditCard size={20} className="inline mr-2" />
-                  Payer plus tard
-                </button> */}
-              </div>
-
-              {/* Garanties */}
-              <div className="mt-6 pt-6 border-t border-gray-200">
-                <div className="flex items-center text-sm text-gray-600 mb-3">
-                  <Shield size={16} className="text-green-500 mr-2" />
-                  <span className="font-medium">Garanties incluses</span>
-                </div>
-                <div className="space-y-2 text-sm text-gray-500">
-                  <div className="flex items-center">
-                    <CheckCircle size={14} className="text-green-500 mr-2" />
-                    <span>Assurance tous risques</span>
-                  </div>
-                  <div className="flex items-center">
-                    <CheckCircle size={14} className="text-green-500 mr-2" />
-                    <span>Assistance 24h/24</span>
-                  </div>
-                  <div className="flex items-center">
-                    <CheckCircle size={14} className="text-green-500 mr-2" />
-                    <span>Kilométrage illimité</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+           
 
             {/* Contact */}
             <div className="mt-6 bg-white rounded-2xl shadow-lg p-6">

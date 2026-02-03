@@ -3,13 +3,12 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Menu, X, Bell,  Car, Users, Calendar, KeySquare, UserCircle2} from 'lucide-react';
+import { Menu, X, Bell, Car, Building2, Info, Phone, UserCircle2, Home } from 'lucide-react';
 
 const mainNavItems = [
-  { href: '/vehicles', label: 'Vehicles', icon: Car },
-  { href: '/drivers', label: 'Drivers', icon: Users },
-  { href: '/reservations', label: 'Reservations', icon: Calendar },
-  { href: '/locations', label: 'Locations', icon: KeySquare },
+  { href: '/', label: 'Accueil', icon: Home },
+  { href: '/cars', label: 'Véhicules', icon: Car },
+  { href: '/agencies', label: 'Agences', icon: Building2 },
 ];
 
 export function Navbar() {
