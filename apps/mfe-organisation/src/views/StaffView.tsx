@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { Users, Plus, Search, Loader2, MapPin, ShieldCheck, UserCheck } from 'lucide-react';
+import { Users, Plus, Search, Loader2, MapPin, UserCheck } from 'lucide-react';
 import { orgService } from '@pwa-easy-rental/shared-services';
 import { StatCard } from '../components/StatCard';
 import { StaffCard } from './staff/StaffCard';

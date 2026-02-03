@@ -160,7 +160,6 @@ export default function OrganisationDashboard() {
   if (!isAuth) return (
     <AuthView 
       onAuth={handleAuthAction}
-      t={t}
       lang={lang}
       setLang={setLang}
       darkMode={darkMode}

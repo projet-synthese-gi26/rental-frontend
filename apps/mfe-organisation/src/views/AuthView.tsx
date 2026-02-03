@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useState } from 'react';
 import { Mail, Lock, User, Building, ShieldCheck, ArrowRight, Loader2, Languages, Sun, Moon } from 'lucide-react';
 import { AuthInput } from '../components/AuthInput';
 
-export const AuthView = ({ onAuth, t, lang, setLang, darkMode, toggleTheme }: any) => {
+export const AuthView = ({ onAuth, lang, setLang, darkMode, toggleTheme }: any) => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');

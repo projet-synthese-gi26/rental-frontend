@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useState } from 'react';
 import { X, Loader2, Lock, CheckSquare, Square, Check } from 'lucide-react';

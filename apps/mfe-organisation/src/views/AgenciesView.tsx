@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Store, Plus, Search, Loader2, CarFront, Users } from 'lucide-react';
@@ -16,6 +17,7 @@ export const AgenciesView = ({ orgData, setCurrentView }: { orgData: any, setCur
   const [showQuotaModal, setShowQuotaModal] = useState(false);
   const [editingAgency, setEditingAgency] = useState<any>(null);
   const [modalLoading, setModalLoading] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [backendError, setBackendError] = useState<string | null>(null);
 
   const initialForm = useMemo(() => ({
@@ -81,7 +83,7 @@ export const AgenciesView = ({ orgData, setCurrentView }: { orgData: any, setCur
         const errorMsg = res.data?.message || "Une erreur est survenue lors de l'enregistrement.";
         setBackendError(errorMsg);
       }
-    } catch (err) {
+    } catch {
       setBackendError("Impossible de contacter le serveur.");
     } finally {
       setModalLoading(false);

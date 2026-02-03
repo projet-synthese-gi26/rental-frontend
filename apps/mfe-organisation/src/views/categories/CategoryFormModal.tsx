@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useState } from 'react';
-import { X, Loader2, LayoutGrid, Info } from 'lucide-react';
+import { X, Loader2, Info } from 'lucide-react';
 import { Portal } from '../../components/Portal';
 
 export const CategoryFormModal = ({ editingCat, initialData, onSubmit, onClose, modalLoading }: any) => {
