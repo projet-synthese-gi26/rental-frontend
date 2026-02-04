@@ -146,7 +146,7 @@ const getDynamicBaseUrl = () => {
   }
 
   // Fallback si on est à la racine ou sur une app inconnue
-  return 'https://apirental5gi-v2.onrender.com';
+  return 'https://apirental5gi-v2.onrender.comhttps://apirental5gi-v2.onrender.com';
 };
 
 export const defaultClient = new ApiClient({
