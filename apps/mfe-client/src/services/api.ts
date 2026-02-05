@@ -90,6 +90,7 @@ export const authApi = {
             firstName: string;
             lastName: string;
             role: string;
+            phone: string;
         }>('/auth/me');
     },
 
