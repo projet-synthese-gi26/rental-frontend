@@ -2,7 +2,7 @@
 'use client';
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Plus, Search, Loader2, ShieldCheck, Key, Lock } from 'lucide-react';
-import { orgService } from '@pwa-easy-rental/shared-services';
+import { extraService, staffService } from '@pwa-easy-rental/shared-services';
 import { RoleCard } from './roles/RoleCard';
 import { RoleFormModal } from './roles/RoleFormModal';
 import { StatCard } from '../components/StatCard'; // Import du composant partagé
@@ -23,8 +23,8 @@ export const RolesView = ({ orgData }: { orgData: any }) => {
     setLoading(true);
     try {
       const [postesRes, permsRes] = await Promise.all([
-        orgService.getPostes(orgData.id),
-        orgService.getPermissions()
+        staffService.getPostes(orgData.id),
+        extraService.getPermissions()
       ]);
       if (postesRes.ok) setPostes(postesRes.data || []);
       if (permsRes.ok) setAllPermissions(permsRes.data || []);
@@ -53,8 +53,8 @@ export const RolesView = ({ orgData }: { orgData: any }) => {
     setModalLoading(true);
     try {
       const res = editingPoste 
-        ? await orgService.updatePoste(editingPoste.id, formData)
-        : await orgService.createPoste(orgData.id, formData);
+        ? await staffService.updatePoste(editingPoste.id, formData)
+        : await staffService.createPoste(orgData.id, formData);
       if (res.ok) { 
         setIsModalOpen(false); 
         loadData(); 

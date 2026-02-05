@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { Loader2, UploadCloud, CheckCircle2 } from 'lucide-react';
-import { orgService } from '@pwa-easy-rental/shared-services';
+import { extraService } from '@pwa-easy-rental/shared-services';
 
 export const LogoUpload = ({ value, onUploadSuccess }: { value: string, onUploadSuccess: (url: string) => void }) => {
   const [uploading, setUploading] = useState(false);
@@ -33,7 +33,7 @@ export const LogoUpload = ({ value, onUploadSuccess }: { value: string, onUpload
     setUploading(true);
     try {
       console.log("📡 Envoi vers le serveur...");
-      const res = await orgService.uploadMedia(formData);
+      const res = await extraService.uploadMedia(formData);
       console.log("✅ Réponse serveur :", res);
 
       if (res.ok && res.data?.url) {

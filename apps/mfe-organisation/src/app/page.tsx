@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useState, useEffect } from 'react';
-import { authService, orgService } from '@pwa-easy-rental/shared-services';
+import { agencyService, authService } from '@pwa-easy-rental/shared-services';
 
 // Components & Views
 import { Sidebar } from '../components/Sidebar';
@@ -65,7 +65,7 @@ export default function OrganisationDashboard() {
   // --- RÉCUPÉRATION DES DONNÉES (ZÉRO MOCKUP) ---
   const fetchProfile = async () => {
     try {
-      const meRes = await orgService.getMe();
+      const meRes = await authService.getMe();
       if (meRes.ok && meRes.data) {
         // meRes.data = { user, organization } selon OrgUserResponseDTO
         const { user, organization } = meRes.data;
@@ -78,7 +78,7 @@ export default function OrganisationDashboard() {
           setIsOnboarded(organization.city && organization.city !== "string");
           
           // Chargement des données périphériques
-          const agRes = await orgService.getAgencies(organization.id);
+          const agRes = await agencyService.getAgencies(organization.id);
           if (agRes.ok) setAgencies(agRes.data || []);
           
           setIsAuth(true);

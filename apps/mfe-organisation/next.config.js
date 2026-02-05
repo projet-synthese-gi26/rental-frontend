@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   basePath: '/organisation',
-  trailingSlash: true,
+  trailingSlash: false,
   transpilePackages: ['@pwa-easy-rental/shared-ui', '@pwa-easy-rental/shared-services'],
   async rewrites() {
     return [

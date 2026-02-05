@@ -2,7 +2,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { Shield, LayoutGrid, Loader2, AlertCircle, Clock, Zap } from 'lucide-react';
-import { orgService } from '@pwa-easy-rental/shared-services';
+import { agencyService, extraService, orgService } from '@pwa-easy-rental/shared-services';
 import { PlanCard } from './subscription/PlanCard';
 
 export const SubscriptionView = ({ orgData }: any) => {
@@ -19,9 +19,9 @@ export const SubscriptionView = ({ orgData }: any) => {
     setLoading(true);
     try {
       const [plansRes, subRes, agenciesRes] = await Promise.all([
-        orgService.getPlans(),
+        extraService.getPlans(),
         orgService.getSubscription(orgData.id),
-        orgService.getAgencies(orgData.id)
+        agencyService.getAgencies(orgData.id)
       ]);
       
       if (plansRes.ok) setPlans(plansRes.data);

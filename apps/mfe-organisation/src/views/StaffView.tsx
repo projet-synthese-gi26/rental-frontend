@@ -2,7 +2,7 @@
 'use client';
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Users, Plus, Search, Loader2, MapPin, UserCheck } from 'lucide-react';
-import { orgService } from '@pwa-easy-rental/shared-services';
+import { agencyService, staffService } from '@pwa-easy-rental/shared-services';
 import { StatCard } from '../components/StatCard';
 import { StaffCard } from './staff/StaffCard';
 import { StaffFormModal } from './staff/StaffFormModal';
@@ -24,9 +24,9 @@ export const StaffView = ({ orgData }: { orgData: any }) => {
     setLoading(true);
     try {
       const [staffRes, agRes, postRes] = await Promise.all([
-        orgService.getStaffByOrg(orgData.id),
-        orgService.getAgencies(orgData.id),
-        orgService.getPostes(orgData.id)
+        staffService.getStaffByOrg(orgData.id),
+        agencyService.getAgencies(orgData.id),
+        staffService.getPostes(orgData.id)
       ]);
       if (staffRes.ok) setStaffList(staffRes.data || []);
       if (agRes.ok) setAgencies(agRes.data || []);
@@ -40,14 +40,14 @@ export const StaffView = ({ orgData }: { orgData: any }) => {
     setModalLoading(true);
     try {
       const res = editingStaff 
-        ? await orgService.updateStaff(editingStaff.id, {
+        ? await staffService.updateStaff(editingStaff.id, {
             firstname: formData.firstname,
             lastname: formData.lastname,
             agencyId: formData.agencyId,
             posteId: formData.posteId,
             status: formData.status
           })
-        : await orgService.addStaff(orgData.id, {
+        : await staffService.addStaff(orgData.id, {
             firstname: formData.firstname,
             lastname: formData.lastname,
             email: formData.email,
@@ -103,7 +103,7 @@ export const StaffView = ({ orgData }: { orgData: any }) => {
         {filteredStaff.map(staff => (
           <StaffCard key={staff.id} staff={staff} agencies={agencies}
                      onEdit={(s: any) => { setEditingStaff(s); setIsModalOpen(true); }} 
-                     onDelete={async (id: string) => { if(confirm('Supprimer cet accès ?')) { await orgService.deleteStaff(id); loadData(); } }}
+                     onDelete={async (id: string) => { if(confirm('Supprimer cet accès ?')) { await staffService.deleteStaff(id); loadData(); } }}
                      onView={(s: any) => alert(`Détails de ${s.firstname} (Fonctionnalité en cours)`)} />
         ))}
       </div>

@@ -2,7 +2,7 @@
 'use client';
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Car, Plus, Search, Loader2, CheckCircle2, Settings2 } from 'lucide-react';
-import { orgService } from '@pwa-easy-rental/shared-services';
+import { agencyService, orgService, vehicleService } from '@pwa-easy-rental/shared-services';
 import { StatCard } from '../components/StatCard';
 import { VehicleCard } from './vehicles/VehicleCard';
 import { VehicleFormModal } from './vehicles/VehicleFormModal';
@@ -26,9 +26,9 @@ export const VehiclesView = ({ orgData, setCurrentView }: any) => {
     setLoading(true);
     try {
       const [vehRes, agRes, catRes, subRes] = await Promise.all([
-        orgService.getVehiclesByOrg(orgData.id),
-        orgService.getAgencies(orgData.id),
-        orgService.getVehicleCategories(orgData.id),
+        vehicleService.getVehiclesByOrg(orgData.id),
+        agencyService.getAgencies(orgData.id),
+        vehicleService.getVehicleCategories(orgData.id),
         orgService.getSubscription(orgData.id)
       ]);
       if (vehRes.ok) setVehicles(vehRes.data || []);
@@ -51,8 +51,8 @@ export const VehiclesView = ({ orgData, setCurrentView }: any) => {
     setModalLoading(true);
     try {
       const res = editingVehicle 
-        ? await orgService.updateVehicle(editingVehicle.id, formData)
-        : await orgService.createVehicle(orgData.id, formData);
+        ? await vehicleService.updateVehicle(editingVehicle.id, formData)
+        : await vehicleService.createVehicle(orgData.id, formData);
       if (res.ok) { setIsModalOpen(false); loadData(); }
     } finally { setModalLoading(false); }
   };
@@ -88,7 +88,7 @@ export const VehiclesView = ({ orgData, setCurrentView }: any) => {
                        agencyName={agencies.find(a => a.id === v.agencyId)?.name}
                        categoryName={categories.find(c => c.id === v.categoryId)?.name}
                        onEdit={(veh: any) => { setEditingVehicle(veh); setIsModalOpen(true); }}
-                       onDelete={async (id: string) => { if(confirm('Supprimer de la flotte ?')) { await orgService.deleteVehicle(id); loadData(); } }} />
+                       onDelete={async (id: string) => { if(confirm('Supprimer de la flotte ?')) { await vehicleService.deleteVehicle(id); loadData(); } }} />
         ))}
       </div>
 

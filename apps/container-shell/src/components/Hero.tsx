@@ -18,12 +18,12 @@ export const Hero = ({ t, onInstall }: any) => (
       
       <div className="flex flex-wrap gap-4 items-center">
         {/* BOUTON RÉSERVER */}
-        <button onClick={() => window.location.href = MFE_URLS.client} className="bg-blue-600 text-white px-6 py-3 rounded-[2rem] font-black  text-sm shadow-2xl shadow-blue-200 dark:shadow-none hover:scale-105 transition-transform italic">
+        <button onClick={() => window.open(MFE_URLS.client, "_blank", "noopener,noreferrer")} className="bg-blue-600 text-white px-6 py-3 rounded-[2rem] font-black  text-sm shadow-2xl shadow-blue-200 dark:shadow-none hover:scale-105 transition-transform italic">
           {t.ctaReserve}
         </button>
 
         {/* BOUTON MANAGER */}
-        <button onClick={() => window.location.href = MFE_URLS.organisation} className="bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 text-slate-900 dark:text-white px-6 py-3 rounded-[2rem] font-black  text-sm hover:scale-105 transition-transform italic">
+        <button onClick={() => window.open(MFE_URLS.organisation, "_blank", "noopener,noreferrer")} className="bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 text-slate-900 dark:text-white px-6 py-3 rounded-[2rem] font-black  text-sm hover:scale-105 transition-transform italic">
           {t.ctaManager}
         </button>
 

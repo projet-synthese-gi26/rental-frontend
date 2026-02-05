@@ -61,23 +61,41 @@ export default function LandingPage() {
       <Testimonial/>
 
       {/* Final CTA */}
-      <section className="py-20 bg-blue-600 ">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Prêt à prendre la route?
-          </h2>
-          <p className="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">
-            Réservez votre véhicule dès maintenant et profitez de tarifs exceptionnels.
-          </p>
-          <Link
-            href={MFE_URLS.client}
-            className="inline-block bg-white text-blue-600 px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-colors"
-          >
-            Explorer nos véhicules
-          </Link>
+      <section className="py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="relative bg-blue-600 rounded-[3rem] md:rounded-[4rem] p-10 md:p-20 overflow-hidden shadow-[0_40px_80px_-15px_rgba(5,40,214,0.3)]">
+            {/* Décoration d'arrière-plan */}
+            <div className="absolute top-0 right-0 w-1/3 h-full bg-white/10 -skew-x-12 translate-x-1/2" />
+            <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-orange-500 rounded-full blur-[80px] opacity-50" />
+
+            <div className="relative z-10 grid lg:grid-cols-2 gap-10 items-center">
+              <div className="text-left">
+                <h2 className="text-4xl md:text-6xl font-[900] italic leading-[0.9] tracking-tighter text-white mb-6 uppercase">
+                  Prêt à prendre <br /> la <span className="text-orange-400">Route ?</span>
+                </h2>
+                <p className="text-blue-100 text-lg font-medium max-w-md leading-relaxed">
+                  Réservez votre véhicule en moins de 2 minutes et profitez de l&apos;expérience PWA Easy Rental.
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4 lg:justify-end">
+                <Link
+                  href={MFE_URLS.client}
+                  className="inline-flex items-center justify-center bg-white text-blue-600 px-10 py-5 rounded-[2rem] font-black text-sm uppercase italic hover:scale-105 transition-transform shadow-xl"
+                >
+                  Explorer le catalogue
+                </Link>
+                <Link
+                  href="/help"
+                  className="inline-flex items-center justify-center bg-blue-700 text-white border border-blue-500 px-10 py-5 rounded-[2rem] font-black text-sm uppercase italic hover:bg-blue-800 transition-colors"
+                >
+                  Besoin d&apos;aide ?
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
-
 
     </div>
   );

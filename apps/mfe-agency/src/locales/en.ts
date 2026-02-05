@@ -1,5 +1,5 @@
 export const en = {
-  nav: { install: "Install App", backHome: "Global Home", login: "Sign in", logout: "Sign Out" },
+  nav: { install: "Install App", backHome: "Global Home", logout: "Sign Out" },
   auth: {
     title: "Staff Portal",
     subtitle: "Manage pickups, returns and agency stock in real-time.",

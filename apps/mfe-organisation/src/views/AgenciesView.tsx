@@ -2,7 +2,7 @@
 'use client';
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Store, Plus, Search, Loader2, CarFront, Users } from 'lucide-react';
-import { orgService } from '@pwa-easy-rental/shared-services';
+import { agencyService, orgService } from '@pwa-easy-rental/shared-services';
 import { StatCard } from '../components/StatCard';
 import { AgencyCard } from './agencies/AgencyCard';
 import { AgencyForm } from './agencies/AgencyForm';
@@ -33,7 +33,7 @@ export const AgenciesView = ({ orgData, setCurrentView }: { orgData: any, setCur
     if (!orgData?.id) return;
     setLoading(true);
     try {
-      const res = await orgService.getAgencies(orgData.id);
+      const res = await agencyService.getAgencies(orgData.id);
       if (res.ok) setAgencies(res.data || []);
     } finally { setLoading(false); }
   }, [orgData?.id]);
@@ -44,7 +44,7 @@ export const AgenciesView = ({ orgData, setCurrentView }: { orgData: any, setCur
     if (orgData?.id) {
         // Charger les agences ET les détails du plan (pour les limites)
         Promise.all([
-            orgService.getAgencies(orgData.id),
+            agencyService.getAgencies(orgData.id),
             orgService.getSubscription(orgData.id)
         ]).then(([agRes, subRes]) => {
             if (agRes.ok) setAgencies(agRes.data);
@@ -72,8 +72,8 @@ export const AgenciesView = ({ orgData, setCurrentView }: { orgData: any, setCur
 
     try {
       const res = editingAgency 
-        ? await orgService.updateAgency(editingAgency.id, finalData) 
-        : await orgService.createAgency(orgData.id, finalData);
+        ? await agencyService.updateAgency(editingAgency.id, finalData) 
+        : await agencyService.createAgency(orgData.id, finalData);
       
       if (res.ok) { 
         setIsModalOpen(false); 
@@ -140,7 +140,7 @@ export const AgenciesView = ({ orgData, setCurrentView }: { orgData: any, setCur
             key={agency.id} 
             agency={agency} 
             onEdit={(a: any) => { setEditingAgency(a); setIsModalOpen(true); }} 
-            onDelete={async (id: string) => { if(confirm('Supprimer cette agence ?')) { await orgService.deleteAgency(id); loadAgencies(); } }} 
+            onDelete={async (id: string) => { if(confirm('Supprimer cette agence ?')) { await agencyService.deleteAgency(id); loadAgencies(); } }} 
           />
         ))}
       </div>

@@ -16,10 +16,13 @@ export interface ApiError {
   code?: string;
 }
 
-/**
- * Client API de base pour effectuer des requêtes HTTP.
- * Gère automatiquement l'injection du jeton Authorization via localStorage ou setAuthToken.
- */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export interface ApiResponse<T> {
+  data: T;
+  status: number;
+  ok: boolean;
+}
+
 export class ApiClient {
   private baseUrl: string;
   private headers: Record<string, string>;
@@ -31,20 +34,8 @@ export class ApiClient {
     };
   }
 
-  /**
-   * Injecte manuellement un jeton dans les headers de l'instance
-   */
   setAuthToken(token: string): void {
-    this.headers['Authorization'] = `Bearer ${token}`;
-  }
-
-  /**
-   * Supprime le jeton des headers de l'instance
-   */
-  clearAuthToken(): void {
-    if (this.headers['Authorization']) {
-      delete this.headers['Authorization'];
-    }
+    this.headers['Authorization'] = `Bearer ${token.trim()}`;
   }
 
   private async request<T>(
@@ -52,21 +43,26 @@ export class ApiClient {
     endpoint: string,
     data?: unknown
   ): Promise<ApiResponse<T>> {
-    const url = `${this.baseUrl}${endpoint}`;
+    // 1. Construction de l'URL
+    // Si l'endpoint commence par /, on l'enlève pour éviter les doubles slashs
+    const cleanEndpoint = endpoint.startsWith('/') ? endpoint.substring(1) : endpoint;
+    const url = `${this.baseUrl}/${cleanEndpoint}`;
 
-    // 1. On récupère le token soit dans les headers de l'instance, soit dans le localStorage
+    // 2. Récupération dynamique du token
     const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
-    const requestHeaders: Record<string, string> = { ...this.headers };
+    
+    const requestHeaders: Record<string, string> = { 
+      ...this.headers,
+      'Accept': '*/*', // Aligné sur Swagger
+    };
 
     if (token) {
-      requestHeaders['Authorization'] = `Bearer ${token}`;
+      console.log('Adding auth token to request:', token);
+      requestHeaders['Authorization'] = `Bearer ${token.trim()}`;
     }
 
-    // 2. LOGIQUE CRUCIALE POUR L'UPLOAD
     let body: any;
     if (data instanceof FormData) {
-      // Pour un upload, on supprime le Content-Type JSON
-      // Le navigateur va mettre "multipart/form-data; boundary=..."
       delete requestHeaders['Content-Type'];
       body = data; 
     } else if (data) {
@@ -80,10 +76,7 @@ export class ApiClient {
         body: body,
       });
 
-      // Gestion du cas "No Content" (ex: DELETE ou PUT sans retour)
-      if (response.status === 204) {
-        return { data: {} as T, status: 204, ok: true };
-      }
+      if (response.status === 204) return { data: {} as T, status: 204, ok: true };
 
       const responseData = await response.json().catch(() => null);
 
@@ -93,65 +86,36 @@ export class ApiClient {
         ok: response.ok,
       };
     } catch (error) {
-      console.error(`[API Error] ${method} ${endpoint}:`, error);
-      return {
-        data: null as any,
-        status: 0,
-        ok: false,
-      };
+      console.error(`[API Error] ${method} ${url}:`, error);
+      return { data: null as any, status: 0, ok: false };
     }
   }
 
-  // --- Méthodes HTTP ---
-
-  async get<T>(endpoint: string): Promise<ApiResponse<T>> {
-    return this.request<T>('GET', endpoint);
-  }
-
-  async post<T>(endpoint: string, data: unknown): Promise<ApiResponse<T>> {
-    return this.request<T>('POST', endpoint, data);
-  }
-
-  async put<T>(endpoint: string, data: unknown): Promise<ApiResponse<T>> {
-    return this.request<T>('PUT', endpoint, data);
-  }
-
-  async patch<T>(endpoint: string, data: unknown): Promise<ApiResponse<T>> {
-    return this.request<T>('PATCH', endpoint, data);
-  }
-
-  async delete<T>(endpoint: string): Promise<ApiResponse<T>> {
-    return this.request<T>('DELETE', endpoint);
-  }
+  async get<T>(e: string) { return this.request<T>('GET', e); }
+  async post<T>(e: string, d: unknown) { return this.request<T>('POST', e, d); }
+  async put<T>(e: string, d: unknown) { return this.request<T>('PUT', e, d); }
+  async patch<T>(e: string, d: unknown) { return this.request<T>('PATCH', e, d); }
+  async delete<T>(e: string) { return this.request<T>('DELETE', e); }
 }
 
 /**
- * Détecte dynamiquement la base URL en fonction de l'application (MFE) active.
- * Si on est sur /agency/..., il utilisera /agency/api-rental
+ * Détecte si on est sur /agency ou /organisation pour taper le bon proxy local
  */
 const getDynamicBaseUrl = () => {
-  if (typeof window === 'undefined') {
-    return 'https://apirental5gi-v2.onrender.com';
-  }
-
-  const path = window.location.pathname;
+  if (typeof window === 'undefined') return 'https://apirental5gi-v2.onrender.com';
   
-  // On cherche si l'URL commence par l'un de nos segments MFE connus
-  const mfeApps = ['organisation', 'agency', 'client'];
-  const currentApp = mfeApps.find(app => path.startsWith(`/${app}`));
-
-  if (currentApp) {
-    // Retourne par exemple: "/organisation/api-rental" ou "/agency/api-rental"
-    return `/${currentApp}/api-rental`;
-  }
-
-  // Fallback si on est à la racine ou sur une app inconnue
-  return 'https://apirental5gi-v2.onrender.comhttps://apirental5gi-v2.onrender.com';
+  const path = window.location.pathname;
+  if (path.startsWith('/client')) return '/client/api-rental';
+  if (path.startsWith('/agency')) return '/agency/api-rental';
+  if (path.startsWith('/organisation')) return '/organisation/api-rental';
+  
+  return '/api-rental';
 };
 
 export const defaultClient = new ApiClient({
   baseUrl: getDynamicBaseUrl()
 });
+
 /**
  * Fonction utilitaire pour créer de nouvelles instances si nécessaire
  */

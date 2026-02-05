@@ -73,7 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang={lang.toLowerCase()} className="scroll-smooth">
-      <body className="min-h-screen bg-white dark:bg-[#0f1323] transition-colors duration-300">
+      <body className="bg-white dark:bg-[#0f1323] transition-colors duration-300 overflow-y-auto">
         <Navbar 
           t={t} 
           lang={lang} 

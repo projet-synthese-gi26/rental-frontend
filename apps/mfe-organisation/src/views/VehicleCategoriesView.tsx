@@ -2,7 +2,7 @@
 'use client';
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { LayoutGrid, Plus, Search, Loader2, ShieldCheck, Box } from 'lucide-react';
-import { orgService } from '@pwa-easy-rental/shared-services';
+import { vehicleService } from '@pwa-easy-rental/shared-services';
 import { StatCard } from '../components/StatCard';
 import { CategoryCard } from './categories/CategoryCard';
 import { CategoryFormModal } from './categories/CategoryFormModal';
@@ -21,7 +21,7 @@ export const VehicleCategoriesView = ({ orgData }: { orgData: any }) => {
     if (!orgData?.id) return;
     setLoading(true);
     try {
-      const res = await orgService.getVehicleCategories(orgData.id);
+      const res = await vehicleService.getVehicleCategories(orgData.id);
       if (res.ok) setCategories(res.data || []);
     } finally {
       setLoading(false);
@@ -46,8 +46,8 @@ export const VehicleCategoriesView = ({ orgData }: { orgData: any }) => {
     setModalLoading(true);
     try {
       const res = editingCat 
-        ? await orgService.updateCategory(editingCat.id, formData)
-        : await orgService.createCategory(orgData.id, formData);
+        ? await vehicleService.updateCategory(editingCat.id, formData)
+        : await vehicleService.createCategory(orgData.id, formData);
       
       if (res.ok) {
         setIsModalOpen(false);
@@ -60,7 +60,7 @@ export const VehicleCategoriesView = ({ orgData }: { orgData: any }) => {
 
   const handleDelete = async (id: string) => {
     if (window.confirm("Supprimer cette catégorie ? Les véhicules associés devront être réaffectés.")) {
-      await orgService.deleteCategory(id);
+      await vehicleService.deleteCategory(id);
       loadData();
     }
   };

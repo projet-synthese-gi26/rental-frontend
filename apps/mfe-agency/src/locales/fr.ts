@@ -1,5 +1,5 @@
 export const fr = {
-  nav: { install: "Installer l'app", backHome: "Accueil Global", login: "Connexion" , logout: "Déconnexion" },
+  nav: { install: "Installer l'app", backHome: "Accueil Global", logout: "Déconnexion" },
   auth: {
     title: "Portail Personnel",
     subtitle: "Gérez les départs, les retours et le stock de votre agence en temps réel.",
