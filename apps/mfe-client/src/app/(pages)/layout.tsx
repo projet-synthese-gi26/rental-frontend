@@ -1,31 +1,16 @@
-import { Footer } from "@/components/footer";
-import { Navbar } from "@/components/Navbar";
-
+import {AppFooter} from "@/components/AppNavbar";
 
 export default function PageLayout({
-  children,
-}: {
-  children: React.ReactNode;
+                                       children,
+                                   }: {
+    children: React.ReactNode;
 }) {
-  return (
-    <html lang="en">
-      <body className="min-h-screen bg-secondary-50">
-        <Navbar/>
-        <main className=" mx-auto ">{children}</main>
-        <Footer/>
-      </body>
-    </html>
-  );
+    return (
+        <>
+            <div className="min-h-screen bg-secondary-50">
+                <main className="mx-auto">{children}</main>
+                <AppFooter />
+            </div>
+        </>
+    );
 }
-
-// export default function RootLayout({
-//   children,
-// }: {
-//   children: React.ReactNode;
-// }) {
-//   return (
-//     <html lang="en">
-//       <body>{children}</body>
-//     </html>
-//   );
-// }

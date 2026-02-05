@@ -1,396 +1,631 @@
+// // 'use client';
+// // import React, { useState, useEffect } from 'react';
+// // import {
+// //   Search, MapPin, Calendar, Heart, Star,
+// //   ChevronRight
+// // } from 'lucide-react';
+// //
+// // import { fr } from '../locales/fr';
+// // import { en } from '../locales/en';
+// // import { AppFooter } from '../components/AppNavbar';
+// //
+// // const ALL_VEHICLES = [
+// //   { id: 1, cat: 'sport', title: "Porsche 911 GT3", price: 299, img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600", rating: 4.9, tag: "Hits" },
+// //   { id: 2, cat: 'electric', title: "Tesla Model 3", price: 85, img: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=600", rating: 4.8, tag: "Eco" },
+// //   { id: 3, cat: 'suv', title: "Range Rover Sport", price: 150, img: "https://images.unsplash.com/photo-1506469717960-433cebe3f181?w=600", rating: 4.7, tag: "Popular" },
+// //   { id: 4, cat: 'compact', title: "Mini Cooper S", price: 55, img: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=600", rating: 4.5, tag: "City" },
+// // ];
+// //
+// // export default function ClientPortal() {
+// //   const [isLoading, setIsLoading] = useState(true);
+// //   const [lang] = useState<'FR' | 'EN'>('FR');
+// //   const [activeCat, setActiveCat] = useState('all');
+// //
+// //   const t = lang === 'FR' ? fr : en;
+// //
+// //   useEffect(() => {
+// //     setIsLoading(false);
+// //   }, []);
+// //
+// //   const filteredVehicles = activeCat === 'all' ? ALL_VEHICLES : ALL_VEHICLES.filter(v => v.cat === activeCat);
+// //
+// //   if (isLoading) return <div className="h-screen w-full flex items-center justify-center bg-white dark:bg-[#0f1323] font-semibold text-blue-600 animate-pulse tracking-wide text-sm">{t.auth.verifying}</div>;
+// //
+// //   return (
+// //       <div className="w-full min-h-screen bg-white dark:bg-[#0f1323] text-slate-900 dark:text-white font-sans transition-colors duration-300 overflow-x-hidden">
+// //
+// //         {/* --- HERO SECTION --- */}
+// //         <section className="w-full px-4 md:px-10 py-4 md:py-6">
+// //           <div className="w-full max-w-[1440px] mx-auto relative rounded-[2rem] md:rounded-[3.5rem] overflow-hidden min-h-[420px] lg:h-[480px] flex items-center justify-center text-center px-4">
+// //             <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2000" className="absolute inset-0 w-full h-full object-cover" alt="road" />
+// //             <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/30 to-black/80" />
+// //             <div className="relative z-10 w-full max-w-4xl">
+// //               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight tracking-tight mb-4 drop-shadow-2xl">
+// //                 {t.hero.title} <br /><span className="text-blue-400">{t.hero.accent}</span>
+// //               </h1>
+// //               <p className="text-white/70 font-medium text-sm md:text-base tracking-wide mb-10 max-w-xl mx-auto">{t.hero.sub}</p>
+// //               <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-[2rem] md:rounded-full p-1.5 shadow-2xl flex flex-col lg:flex-row items-center max-w-4xl mx-auto border-2 border-white/10">
+// //                 <div className="flex-1 flex items-center gap-3 px-6 py-3 lg:border-r border-slate-100 dark:border-slate-800">
+// //                   <MapPin size={22} className="text-blue-600 shrink-0" />
+// //                   <div className="text-left w-full">
+// //                     <label className="block text-xs font-semibold text-slate-400 tracking-wide leading-none mb-1">{t.hero.loc}</label>
+// //                     <input className="bg-transparent outline-none font-medium text-slate-900 dark:text-white w-full text-sm" placeholder={t.hero.locPlace} />
+// //                   </div>
+// //                 </div>
+// //                 <div className="flex-1 flex items-center gap-3 px-6 py-3">
+// //                   <Calendar size={22} className="text-blue-600 shrink-0" />
+// //                   <div className="text-left flex-1">
+// //                     <label className="block text-xs font-semibold text-slate-400 tracking-wide leading-none mb-1">{t.hero.dates}</label>
+// //                     <input className="bg-transparent outline-none font-medium text-slate-900 dark:text-white w-full text-sm" placeholder={t.hero.datesPlace} />
+// //                   </div>
+// //                   <button className="hidden lg:flex bg-blue-600 text-white px-8 py-4 rounded-full font-semibold text-sm items-center gap-2 hover:bg-blue-700 transition-all shadow-lg">
+// //                     <Search size={18} strokeWidth={3} /> {t.hero.cta}
+// //                   </button>
+// //                 </div>
+// //                 <button className="lg:hidden w-full bg-blue-600 text-white py-4 rounded-2xl font-semibold text-sm flex items-center justify-center gap-2">
+// //                   <Search size={18} strokeWidth={3} /> {t.hero.cta}
+// //                 </button>
+// //               </div>
+// //             </div>
+// //           </div>
+// //         </section>
+// //
+// //         {/* --- CATEGORIES --- */}
+// //         <div className="w-full flex gap-3 md:gap-4 overflow-x-auto px-6 md:px-10 py-8 no-scrollbar max-w-7xl mx-auto md:justify-center">
+// //           {Object.keys(t.cats).map((key, i) => (
+// //               <button
+// //                   key={i}
+// //                   onClick={() => setActiveCat(key)}
+// //                   className={`px-8 py-3.5 rounded-full whitespace-nowrap font-semibold text-sm tracking-wide border transition-all flex items-center gap-3 ${
+// //                       activeCat === key
+// //                           ? 'bg-blue-600 text-white border-blue-600 shadow-xl shadow-blue-500/20'
+// //                           : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-400 hover:border-blue-600'
+// //                   }`}
+// //               >
+// //                 {t.cats[key as keyof typeof t.cats]}
+// //               </button>
+// //           ))}
+// //         </div>
+// //
+// //         {/* --- LISTING --- */}
+// //         <section className="w-full px-6 md:px-10 py-12 max-w-7xl mx-auto">
+// //           <div className="flex justify-between items-end mb-16">
+// //             <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white leading-none">{t.rentals.title}</h2>
+// //             <a href="/client/cars" className="text-blue-600 font-semibold text-sm flex items-center gap-2">{t.rentals.viewAll} <ChevronRight size={14} /></a>
+// //           </div>
+// //           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+// //             {filteredVehicles.map((item) => (
+// //                 <div key={item.id} className="group bg-white dark:bg-slate-800 rounded-[2.5rem] p-4 border border-slate-50 dark:border-slate-800 hover:shadow-2xl transition-all">
+// //                   <div className="aspect-square rounded-[2rem] overflow-hidden mb-6 relative shadow-inner bg-slate-50 dark:bg-[#0f1323]">
+// //                     <div className="absolute top-4 left-4 bg-white/95 dark:bg-[#0f1323]/95 px-3 py-1 rounded-full text-xs font-semibold text-blue-600 z-10 shadow-sm">{item.tag}</div>
+// //                     <div className="absolute top-4 right-4 z-10 p-2.5 bg-white/60 backdrop-blur rounded-full text-slate-900 cursor-pointer hover:bg-red-500 hover:text-white transition-all"><Heart size={16} /></div>
+// //                     <img src={item.img} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="v" />
+// //                   </div>
+// //                   <div className="flex justify-between items-start mb-2 px-1 text-slate-900 dark:text-white">
+// //                     <h3 className="font-bold text-base tracking-tight leading-none">{item.title}</h3>
+// //                     <div className="flex items-center gap-1 text-sm font-semibold text-orange-500 shrink-0"><Star size={12} fill="currentColor" /> {item.rating}</div>
+// //                   </div>
+// //                   <p className="text-xs font-medium text-slate-400 tracking-wide mb-8 px-1 leading-none">Full Insurance • Bastos Hub</p>
+// //                   <div className="flex items-center justify-between px-1">
+// //                     <div className="text-slate-900 dark:text-white">
+// //                       <span className="text-2xl font-bold text-blue-600 leading-none">${item.price}</span>
+// //                       <span className="text-xs font-medium text-slate-300 ml-1">/ {t.rentals.day}</span>
+// //                     </div>
+// //                     <button className="bg-slate-50 dark:bg-[#1a1d2d] text-blue-600 dark:text-blue-400 px-6 py-2.5 rounded-2xl font-semibold text-xs hover:bg-blue-600 hover:text-white transition-all">{t.rentals.book}</button>
+// //                   </div>
+// //                 </div>
+// //             ))}
+// //           </div>
+// //         </section>
+// //
+// //         {/* --- FOOTER --- */}
+// //         <AppFooter />
+// //       </div>
+// //   );
+// // }
+//
+// 'use client';
+// import React, { useState, useEffect } from 'react';
+// import {
+//   Search, MapPin, Calendar, Heart, Star, ChevronRight
+// } from 'lucide-react';
+//
+// import { fr } from '../locales/fr';
+// import { en } from '../locales/en';
+// import { AppFooter } from '../components/AppNavbar';
+// import { catalogService } from '@/services/catalogService';
+// import { ApiVehicle, VehicleCategory } from '@/types/apiVehicleType';
+// import Link from 'next/link';
+//
+// export default function ClientPortal() {
+//   const [isLoading, setIsLoading] = useState(true);
+//   const [lang] = useState<'FR' | 'EN'>('FR');
+//   const [activeCat, setActiveCat] = useState('all');
+//   const [vehicles, setVehicles] = useState<ApiVehicle[]>([]);
+//   const [categories, setCategories] = useState<VehicleCategory[]>([]);
+//
+//   const t = lang === 'FR' ? fr : en;
+//
+//   useEffect(() => {
+//     loadData();
+//   }, []);
+//
+//   const loadData = async () => {
+//     setIsLoading(true);
+//     try {
+//       const [vehiclesData, categoriesData] = await Promise.all([
+//         catalogService.getAvailableVehicles(),
+//         catalogService.getAllCategories()
+//       ]);
+//       setVehicles(vehiclesData);
+//       setCategories(categoriesData);
+//     } catch (error) {
+//       console.error('Error loading data:', error);
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   };
+//
+//   const getCategoryName = (categoryId: string) => {
+//     const category = categories.find(cat => cat.id === categoryId);
+//     return category ? category.name : 'Unknown';
+//   };
+//
+//   // Filter vehicles by category and limit to 4 items for landing page
+//   const filteredVehicles = activeCat === 'all'
+//       ? vehicles.slice(0, 4)
+//       : vehicles.filter(v => v.categoryId === activeCat).slice(0, 4);
+//
+//   // Get vehicle tag based on price and year
+//   const getVehicleTag = (vehicle: ApiVehicle) => {
+//     const price = vehicle.pricing?.pricePerDay || 0;
+//     const year = new Date(vehicle.yearProduction).getFullYear();
+//     const currentYear = new Date().getFullYear();
+//
+//     if (year >= currentYear - 1) return lang === 'FR' ? 'Nouveau' : 'New';
+//     if (price > 100000) return lang === 'FR' ? 'Premium' : 'Premium';
+//     if (vehicle.functionalities?.air_condition && vehicle.functionalities?.gps) return 'Popular';
+//     return lang === 'FR' ? 'Économique' : 'Eco';
+//   };
+//
+//   // Calculate average rating from functionalities (mock rating based on features)
+//   const getVehicleRating = (vehicle: ApiVehicle) => {
+//     if (!vehicle.functionalities) return 4.5;
+//
+//     const features = Object.values(vehicle.functionalities).filter(Boolean).length;
+//     const totalFeatures = Object.keys(vehicle.functionalities).length;
+//     const rating = 3.5 + (features / totalFeatures) * 1.5;
+//
+//     return Math.min(5, Math.round(rating * 10) / 10);
+//   };
+//
+//   if (isLoading) {
+//     return (
+//         <div className="h-screen w-full flex items-center justify-center bg-white dark:bg-[#0f1323] font-semibold text-blue-600 animate-pulse tracking-wide text-sm">
+//           {t.auth.verifying}
+//         </div>
+//     );
+//   }
+//
+//   return (
+//       <div className="w-full min-h-screen bg-white dark:bg-[#0f1323] text-slate-900 dark:text-white font-sans transition-colors duration-300 overflow-x-hidden">
+//
+//         {/* --- HERO SECTION --- */}
+//         <section className="w-full px-4 md:px-10 py-4 md:py-6">
+//           <div className="w-full max-w-[1440px] mx-auto relative rounded-[2rem] md:rounded-[3.5rem] overflow-hidden min-h-[420px] lg:h-[480px] flex items-center justify-center text-center px-4">
+//             <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2000" className="absolute inset-0 w-full h-full object-cover" alt="road" />
+//             <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/30 to-black/80" />
+//             <div className="relative z-10 w-full max-w-4xl">
+//               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight tracking-tight mb-4 drop-shadow-2xl">
+//                 {t.hero.title} <br /><span className="text-blue-400">{t.hero.accent}</span>
+//               </h1>
+//               <p className="text-white/70 font-medium text-sm md:text-base tracking-wide mb-10 max-w-xl mx-auto">{t.hero.sub}</p>
+//               <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-[2rem] md:rounded-full p-1.5 shadow-2xl flex flex-col lg:flex-row items-center max-w-4xl mx-auto border-2 border-white/10">
+//                 <div className="flex-1 flex items-center gap-3 px-6 py-3 lg:border-r border-slate-100 dark:border-slate-800">
+//                   <MapPin size={22} className="text-blue-600 shrink-0" />
+//                   <div className="text-left w-full">
+//                     <label className="block text-xs font-semibold text-slate-400 tracking-wide leading-none mb-1">{t.hero.loc}</label>
+//                     <input className="bg-transparent outline-none font-medium text-slate-900 dark:text-white w-full text-sm" placeholder={t.hero.locPlace} />
+//                   </div>
+//                 </div>
+//                 <div className="flex-1 flex items-center gap-3 px-6 py-3">
+//                   <Calendar size={22} className="text-blue-600 shrink-0" />
+//                   <div className="text-left flex-1">
+//                     <label className="block text-xs font-semibold text-slate-400 tracking-wide leading-none mb-1">{t.hero.dates}</label>
+//                     <input className="bg-transparent outline-none font-medium text-slate-900 dark:text-white w-full text-sm" placeholder={t.hero.datesPlace} />
+//                   </div>
+//                   <Link href="/client/cars" className="hidden lg:flex bg-blue-600 text-white px-8 py-4 rounded-full font-semibold text-sm items-center gap-2 hover:bg-blue-700 transition-all shadow-lg">
+//                     <Search size={18} strokeWidth={3} /> {t.hero.cta}
+//                   </Link>
+//                 </div>
+//                 <Link href="/client/cars" className="lg:hidden w-full bg-blue-600 text-white py-4 rounded-2xl font-semibold text-sm flex items-center justify-center gap-2">
+//                   <Search size={18} strokeWidth={3} /> {t.hero.cta}
+//                 </Link>
+//               </div>
+//             </div>
+//           </div>
+//         </section>
+//
+//         {/* --- CATEGORIES --- */}
+//         <div className="w-full flex gap-3 md:gap-4 overflow-x-auto px-6 md:px-10 py-8 no-scrollbar max-w-7xl mx-auto md:justify-center">
+//           <button
+//               onClick={() => setActiveCat('all')}
+//               className={`px-8 py-3.5 rounded-full whitespace-nowrap font-semibold text-sm tracking-wide border transition-all flex items-center gap-3 ${
+//                   activeCat === 'all'
+//                       ? 'bg-blue-600 text-white border-blue-600 shadow-xl shadow-blue-500/20'
+//                       : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-400 hover:border-blue-600'
+//               }`}
+//           >
+//             {lang === 'FR' ? 'Tous' : 'All'}
+//           </button>
+//           {categories.slice(0, 6).map((category) => (
+//               <button
+//                   key={category.id}
+//                   onClick={() => setActiveCat(category.id)}
+//                   className={`px-8 py-3.5 rounded-full whitespace-nowrap font-semibold text-sm tracking-wide border transition-all flex items-center gap-3 ${
+//                       activeCat === category.id
+//                           ? 'bg-blue-600 text-white border-blue-600 shadow-xl shadow-blue-500/20'
+//                           : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-400 hover:border-blue-600'
+//                   }`}
+//               >
+//                 {category.name}
+//               </button>
+//           ))}
+//         </div>
+//
+//         {/* --- LISTING --- */}
+//         <section className="w-full px-6 md:px-10 py-12 max-w-7xl mx-auto">
+//           <div className="flex justify-between items-end mb-16">
+//             <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white leading-none">{t.rentals.title}</h2>
+//             <Link href="/client/cars" className="text-blue-600 font-semibold text-sm flex items-center gap-2">
+//               {t.rentals.viewAll} <ChevronRight size={14} />
+//             </Link>
+//           </div>
+//
+//           {filteredVehicles.length === 0 ? (
+//               <div className="text-center py-12">
+//                 <p className="text-slate-400 text-sm">
+//                   {lang === 'FR' ? 'Aucun véhicule disponible dans cette catégorie' : 'No vehicles available in this category'}
+//                 </p>
+//               </div>
+//           ) : (
+//               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+//                 {filteredVehicles.map((vehicle) => (
+//                     <Link key={vehicle.id} href={`/client/cars/${vehicle.id}`}>
+//                       <div className="group bg-white dark:bg-slate-800 rounded-[2.5rem] p-4 border border-slate-50 dark:border-slate-800 hover:shadow-2xl transition-all cursor-pointer">
+//                         <div className="aspect-square rounded-[2rem] overflow-hidden mb-6 relative shadow-inner bg-slate-50 dark:bg-[#0f1323]">
+//                           <div className="absolute top-4 left-4 bg-white/95 dark:bg-[#0f1323]/95 px-3 py-1 rounded-full text-xs font-semibold text-blue-600 z-10 shadow-sm">
+//                             {getVehicleTag(vehicle)}
+//                           </div>
+//                           <div className="absolute top-4 right-4 z-10 p-2.5 bg-white/60 backdrop-blur rounded-full text-slate-900 cursor-pointer hover:bg-red-500 hover:text-white transition-all">
+//                             <Heart size={16} />
+//                           </div>
+//                           <img
+//                               src={vehicle.images?.[0] || 'https://via.placeholder.com/600x600/e2e8f0/64748b?text=No+Image'}
+//                               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+//                               alt={`${vehicle.brand} ${vehicle.model}`}
+//                               onError={(e) => {
+//                                 e.currentTarget.src = 'https://via.placeholder.com/600x600/e2e8f0/64748b?text=No+Image';
+//                               }}
+//                           />
+//                         </div>
+//                         <div className="flex justify-between items-start mb-2 px-1 text-slate-900 dark:text-white">
+//                           <h3 className="font-bold text-base tracking-tight leading-none">
+//                             {vehicle.brand} {vehicle.model}
+//                           </h3>
+//                           <div className="flex items-center gap-1 text-sm font-semibold text-orange-500 shrink-0">
+//                             <Star size={12} fill="currentColor" /> {getVehicleRating(vehicle)}
+//                           </div>
+//                         </div>
+//                         <p className="text-xs font-medium text-slate-400 tracking-wide mb-8 px-1 leading-none">
+//                           {getCategoryName(vehicle.categoryId)} • {vehicle.transmission}
+//                         </p>
+//                         <div className="flex items-center justify-between px-1">
+//                           <div className="text-slate-900 dark:text-white">
+//                       <span className="text-2xl font-bold text-blue-600 leading-none">
+//                         {vehicle.pricing?.pricePerDay?.toLocaleString() || 'N/A'} FCFA
+//                       </span>
+//                             <span className="text-xs font-medium text-slate-300 ml-1">/ {t.rentals.day}</span>
+//                           </div>
+//                           <button className="bg-slate-50 dark:bg-[#1a1d2d] text-blue-600 dark:text-blue-400 px-6 py-2.5 rounded-2xl font-semibold text-xs group-hover:bg-blue-600 group-hover:text-white transition-all">
+//                             {t.rentals.book}
+//                           </button>
+//                         </div>
+//                       </div>
+//                     </Link>
+//                 ))}
+//               </div>
+//           )}
+//         </section>
+//
+//         {/* --- FOOTER --- */}
+//         <AppFooter />
+//       </div>
+//   );
+// }
+
 'use client';
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  Search, MapPin, Calendar, Heart, Star, ChevronRight, ChevronLeft
+} from 'lucide-react';
 
-import { useEffect, useState } from 'react';
+import { fr } from '../locales/fr';
+import { en } from '../locales/en';
+import { AppFooter } from '../components/AppNavbar';
+import { catalogService } from '@/services/catalogService';
+import { ApiVehicle, VehicleCategory } from '@/types/apiVehicleType';
 import Link from 'next/link';
-import Image from 'next/image';
-import { Play, Car, Shield, Clock, CreditCard, Users, Star, ChevronRight, MapPin } from 'lucide-react';
-import { Navbar } from '@/components/Navbar';
-import { Footer } from '@/components/footer';
-import { LocationFilter } from '@/components/LocationFilter';
-import { StarRating } from '@/components/StarRating';
-import { TestimonialCard } from '@/components/TestimonialCard';
-import { vehicleService } from '@/services/vehicleService';
-import { Vehicle } from '@/types/vehicleType';
 
-// Rental steps data
-const rentalSteps = [
-  {
-    number: '01',
-    title: 'Choisissez votre véhicule',
-    description: 'Parcourez notre large sélection de véhicules et trouvez celui qui correspond à vos besoins.',
-    icon: Car,
-  },
-  {
-    number: '02',
-    title: 'Réservez en ligne',
-    description: 'Sélectionnez vos dates, votre lieu de prise en charge et confirmez votre réservation.',
-    icon: Clock,
-  },
-  {
-    number: '03',
-    title: 'Paiement sécurisé',
-    description: 'Payez en toute sécurité via nos différentes options de paiement.',
-    icon: CreditCard,
-  },
-  {
-    number: '04',
-    title: 'Profitez de votre trajet',
-    description: 'Récupérez votre véhicule et partez à l\'aventure!',
-    icon: Shield,
-  },
-];
+export default function ClientPortal() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [lang] = useState<'FR' | 'EN'>('FR');
+  const [activeCat, setActiveCat] = useState('all');
+  const [vehicles, setVehicles] = useState<ApiVehicle[]>([]);
+  const [categories, setCategories] = useState<VehicleCategory[]>([]);
+  const [currentCategoryPage, setCurrentCategoryPage] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
-// Testimonials data
-const testimonials = [
-  {
-    name: 'Jean-Pierre Nguema',
-    photo: '/client/images/users/user-1.jpg',
-    rating: 5,
-    comment: 'Service impeccable! La voiture était en parfait état et le personnel très professionnel. Je recommande vivement EasyRent pour tous vos besoins de location.',
-    date: '2024-01-15',
-  },
-  {
-    name: 'Marie Atangana',
-    rating: 4.5,
-    comment: 'Très satisfaite de mon expérience. Le processus de réservation était simple et le véhicule correspondait parfaitement à mes attentes.',
-    date: '2024-01-10',
-  },
-  {
-    name: 'Paul Kamga',
-    photo: '/client/images/users/user-3.jpg',
-    rating: 5,
-    comment: 'Excellente agence! Prix compétitifs et service client au top. Je suis client régulier maintenant.',
-    date: '2024-01-08',
-  },
-];
+  const t = lang === 'FR' ? fr : en;
 
-// Services data
-const services = [
-  {
-    icon: Car,
-    title: 'Large choix de véhicules',
-    description: 'Des citadines aux SUV de luxe, trouvez le véhicule parfait pour chaque occasion.',
-  },
-  {
-    icon: Shield,
-    title: 'Assurance complète',
-    description: 'Roulez en toute tranquillité avec nos options d\'assurance tous risques.',
-  },
-  {
-    icon: Clock,
-    title: 'Service 24/7',
-    description: 'Notre équipe est disponible à tout moment pour vous assister.',
-  },
-  {
-    icon: Users,
-    title: 'Chauffeurs professionnels',
-    description: 'Optez pour nos chauffeurs expérimentés pour un confort optimal.',
-  },
-];
-
-// Stats data
-const stats = [
-  { value: '500+', label: 'Véhicules disponibles' },
-  { value: '10K+', label: 'Clients satisfaits' },
-  { value: '15+', label: 'Villes couvertes' },
-  { value: '4.8', label: 'Note moyenne' },
-];
-
-export default function HomePage() {
-  const [featuredVehicles, setFeaturedVehicles] = useState<Vehicle[]>([]);
-  const [loading, setLoading] = useState(true);
+  // Categories carousel settings
+  const CATEGORIES_PER_PAGE = 4;
+  const allCategories = [
+    { id: 'all', name: lang === 'FR' ? 'Tous' : 'All' },
+    ...categories
+  ];
+  const totalCategoryPages = Math.ceil(allCategories.length / CATEGORIES_PER_PAGE);
+  const visibleCategories = allCategories.slice(
+      currentCategoryPage * CATEGORIES_PER_PAGE,
+      (currentCategoryPage + 1) * CATEGORIES_PER_PAGE
+  );
 
   useEffect(() => {
-    const loadVehicles = async () => {
-      try {
-        const vehicles = await vehicleService.getAllAvailableVehicles();
-        setFeaturedVehicles(vehicles.slice(0, 4));
-      } catch (error) {
-        console.error('Error loading vehicles:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadVehicles();
+    loadData();
   }, []);
 
-  return (
-    <div className="min-h-screen">
-      <Navbar />
+  const loadData = async () => {
+    setIsLoading(true);
+    try {
+      const [vehiclesData, categoriesData] = await Promise.all([
+        catalogService.getAvailableVehicles(),
+        catalogService.getAllCategories()
+      ]);
+      setVehicles(vehiclesData);
+      setCategories(categoriesData);
+    } catch (error) {
+      console.error('Error loading data:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-      {/* Hero Section */}
-      <section className="relative min-h-[90vh] bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
-          }} />
+  const getCategoryName = (categoryId: string) => {
+    const category = categories.find(cat => cat.id === categoryId);
+    return category ? category.name : 'Unknown';
+  };
+
+  // Filter vehicles by category and limit to 4 items for landing page
+  const filteredVehicles = activeCat === 'all'
+      ? vehicles.slice(0, 4)
+      : vehicles.filter(v => v.categoryId === activeCat).slice(0, 4);
+
+  // Get vehicle tag based on price and year
+  const getVehicleTag = (vehicle: ApiVehicle) => {
+    const price = vehicle.pricing?.pricePerDay || 0;
+    const year = new Date(vehicle.yearProduction).getFullYear();
+    const currentYear = new Date().getFullYear();
+
+    if (year >= currentYear - 1) return lang === 'FR' ? 'Nouveau' : 'New';
+    if (price > 100000) return lang === 'FR' ? 'Premium' : 'Premium';
+    if (vehicle.functionalities?.air_condition && vehicle.functionalities?.gps) return 'Popular';
+    return lang === 'FR' ? 'Économique' : 'Eco';
+  };
+
+  // Calculate average rating from functionalities (mock rating based on features)
+  const getVehicleRating = (vehicle: ApiVehicle) => {
+    if (!vehicle.functionalities) return 4.5;
+
+    const features = Object.values(vehicle.functionalities).filter(Boolean).length;
+    const totalFeatures = Object.keys(vehicle.functionalities).length;
+    const rating = 3.5 + (features / totalFeatures) * 1.5;
+
+    return Math.min(5, Math.round(rating * 10) / 10);
+  };
+
+  const nextCategoryPage = () => {
+    if (currentCategoryPage < totalCategoryPages - 1) {
+      setCurrentCategoryPage(prev => prev + 1);
+    }
+  };
+
+  const prevCategoryPage = () => {
+    if (currentCategoryPage > 0) {
+      setCurrentCategoryPage(prev => prev - 1);
+    }
+  };
+
+  if (isLoading) {
+    return (
+        <div className="h-screen w-full flex items-center justify-center bg-white dark:bg-[#0f1323] font-semibold text-blue-600 animate-pulse tracking-wide text-sm">
+          {t.auth.verifying}
         </div>
+    );
+  }
 
-        <div className="relative container mx-auto px-4 py-20 lg:py-32">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
-            <div className="text-white space-y-8">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                Fast & Easy Way To <span className="text-orange-400">Rent A Car</span>
+  return (
+      <div className="w-full min-h-screen bg-white dark:bg-[#0f1323] text-slate-900 dark:text-white font-sans transition-colors duration-300 overflow-x-hidden">
+
+        {/* --- HERO SECTION --- */}
+        <section className="w-full px-4 md:px-10 py-4 md:py-6">
+          <div className="w-full max-w-[1440px] mx-auto relative rounded-[2rem] md:rounded-[3.5rem] overflow-hidden min-h-[420px] lg:h-[480px] flex items-center justify-center text-center px-4">
+            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2000" className="absolute inset-0 w-full h-full object-cover" alt="road" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/30 to-black/80" />
+            <div className="relative z-10 w-full max-w-4xl">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight tracking-tight mb-4 drop-shadow-2xl">
+                {t.hero.title} <br /><span className="text-blue-400">{t.hero.accent}</span>
               </h1>
-              <p className="text-xl text-blue-100 max-w-xl">
-                Découvrez la liberté de la route avec EasyRent. Des véhicules de qualité, des prix transparents et un service client exceptionnel.
-              </p>
-
-              {/* Play Button */}
-              <div className="flex items-center gap-4">
-                <button className="flex items-center gap-3 bg-white/10 hover:bg-white/20 px-6 py-3 rounded-full transition-colors">
-                  <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
-                    <Play size={20} className="text-white ml-1" />
+              <p className="text-white/70 font-medium text-sm md:text-base tracking-wide mb-10 max-w-xl mx-auto">{t.hero.sub}</p>
+              <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-[2rem] md:rounded-full p-1.5 shadow-2xl flex flex-col lg:flex-row items-center max-w-4xl mx-auto border-2 border-white/10">
+                <div className="flex-1 flex items-center gap-3 px-6 py-3 lg:border-r border-slate-100 dark:border-slate-800">
+                  <MapPin size={22} className="text-blue-600 shrink-0" />
+                  <div className="text-left w-full">
+                    <label className="block text-xs font-semibold text-slate-400 tracking-wide leading-none mb-1">{t.hero.loc}</label>
+                    <input className="bg-transparent outline-none font-medium text-slate-900 dark:text-white w-full text-sm" placeholder={t.hero.locPlace} />
                   </div>
-                  <span className="text-lg font-medium">Comment ça marche</span>
-                </button>
+                </div>
+                <div className="flex-1 flex items-center gap-3 px-6 py-3">
+                  <Calendar size={22} className="text-blue-600 shrink-0" />
+                  <div className="text-left flex-1">
+                    <label className="block text-xs font-semibold text-slate-400 tracking-wide leading-none mb-1">{t.hero.dates}</label>
+                    <input className="bg-transparent outline-none font-medium text-slate-900 dark:text-white w-full text-sm" placeholder={t.hero.datesPlace} />
+                  </div>
+                  <Link href="/client/cars" className="hidden lg:flex bg-blue-600 text-white px-8 py-4 rounded-full font-semibold text-sm items-center gap-2 hover:bg-blue-700 transition-all shadow-lg">
+                    <Search size={18} strokeWidth={3} /> {t.hero.cta}
+                  </Link>
+                </div>
+                <Link href="/client/cars" className="lg:hidden w-full bg-blue-600 text-white py-4 rounded-2xl font-semibold text-sm flex items-center justify-center gap-2">
+                  <Search size={18} strokeWidth={3} /> {t.hero.cta}
+                </Link>
               </div>
+            </div>
+          </div>
+        </section>
 
-              {/* Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-white/20">
-                {stats.map((stat, index) => (
-                  <div key={index}>
-                    <p className="text-3xl font-bold text-orange-400">{stat.value}</p>
-                    <p className="text-blue-200 text-sm">{stat.label}</p>
-                  </div>
+        {/* --- CATEGORIES CAROUSEL --- */}
+        <div className="w-full px-6 md:px-10 py-8 max-w-7xl mx-auto">
+          <div className="relative flex items-center justify-center gap-4">
+            {/* Previous Button */}
+            <button
+                onClick={prevCategoryPage}
+                disabled={currentCategoryPage === 0}
+                className={`p-3 rounded-full border transition-all ${
+                    currentCategoryPage === 0
+                        ? 'border-slate-200 dark:border-slate-700 text-slate-300 dark:text-slate-600 cursor-not-allowed'
+                        : 'border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-blue-600'
+                }`}
+            >
+              <ChevronLeft size={20} />
+            </button>
+
+            {/* Categories Container */}
+            <div className="flex-1 overflow-hidden" ref={carouselRef}>
+              <div className="flex gap-3 md:gap-4 justify-center transition-all duration-300">
+                {visibleCategories.map((category) => (
+                    <button
+                        key={category.id}
+                        onClick={() => setActiveCat(category.id)}
+                        className={`px-8 py-3.5 rounded-full whitespace-nowrap font-semibold text-sm tracking-wide border transition-all flex items-center gap-3 flex-1 justify-center ${
+                            activeCat === category.id
+                                ? 'bg-blue-600 text-white border-blue-600 shadow-xl shadow-blue-500/20'
+                                : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-400 hover:border-blue-600'
+                        }`}
+                    >
+                      {category.name}
+                    </button>
                 ))}
               </div>
             </div>
 
-            {/* Right Content - Car Image */}
-            <div className="relative hidden lg:block">
-              <div className="relative w-full h-[500px]">
-                <Image
-                  src="/client/images/hero-car.png"
-                  alt="Luxury Car"
-                  fill
-                  className="object-contain"
-                  priority
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Search Bar - Positioned at bottom of hero */}
-        <div className="absolute bottom-0 left-0 right-0 transform translate-y-1/2 px-4">
-          <div className="container mx-auto">
-            <LocationFilter className="max-w-5xl mx-auto" />
-          </div>
-        </div>
-      </section>
-
-      {/* Spacer for search bar */}
-      <div className="h-24" />
-
-      {/* How It Works Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Better Way to Rent Your Perfect Cars
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Louez un véhicule en quelques étapes simples. Rapide, facile et sécurisé.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {rentalSteps.map((step, index) => (
-              <div key={index} className="relative">
-                {/* Connector Line */}
-                {index < rentalSteps.length - 1 && (
-                  <div className="hidden lg:block absolute top-12 left-1/2 w-full h-0.5 bg-blue-200" />
-                )}
-
-                <div className="bg-white rounded-xl p-6 shadow-lg relative z-10 hover:shadow-xl transition-shadow">
-                  {/* Step Number */}
-                  <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-4">
-                    <step.icon size={28} className="text-white" />
-                  </div>
-                  <span className="text-sm text-blue-600 font-semibold">Étape {step.number}</span>
-                  <h3 className="text-xl font-bold text-gray-900 mt-2 mb-3">{step.title}</h3>
-                  <p className="text-gray-600">{step.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Vehicles Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-end mb-12">
-            <div>
-              <span className="text-blue-600 font-semibold">What We Offer</span>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2">
-                Featured Vehicles
-              </h2>
-            </div>
-            <Link
-              href="/cars"
-              className="hidden md:flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold"
+            {/* Next Button */}
+            <button
+                onClick={nextCategoryPage}
+                disabled={currentCategoryPage === totalCategoryPages - 1}
+                className={`p-3 rounded-full border transition-all ${
+                    currentCategoryPage === totalCategoryPages - 1
+                        ? 'border-slate-200 dark:border-slate-700 text-slate-300 dark:text-slate-600 cursor-not-allowed'
+                        : 'border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-blue-600'
+                }`}
             >
-              Voir tous les véhicules
               <ChevronRight size={20} />
-            </Link>
+            </button>
           </div>
 
-          {loading ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="bg-gray-200 rounded-xl h-80 animate-pulse" />
-              ))}
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {featuredVehicles.map((vehicle) => (
-                <Link key={vehicle.id} href={`/cars/${vehicle.id}`}>
-                  <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all group">
-                    <div className="relative h-48">
-                      <Image
-                        src={vehicle.image || '/client/images/placeholder-car.jpg'}
-                        alt={vehicle.name}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <span className="absolute top-3 left-3 px-3 py-1 bg-blue-600 text-white text-xs rounded-full font-semibold">
-                        {vehicle.type}
-                      </span>
-                    </div>
-                    <div className="p-4">
-                      <h3 className="font-bold text-gray-900 mb-2">{vehicle.name}</h3>
-                      <div className="flex items-center gap-2 text-gray-500 text-sm mb-3">
-                        <MapPin size={14} />
-                        <span>{vehicle.location}</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <StarRating rating={vehicle.rating} size={14} showValue />
-                        <p className="text-blue-600 font-bold">
-                          {vehicle.pricePerDay.toLocaleString()} FCFA<span className="text-gray-500 font-normal text-sm">/jour</span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
+          {/* Pagination Dots */}
+          {totalCategoryPages > 1 && (
+              <div className="flex justify-center gap-2 mt-4">
+                {[...Array(totalCategoryPages)].map((_, index) => (
+                    <button
+                        key={index}
+                        onClick={() => setCurrentCategoryPage(index)}
+                        className={`w-2 h-2 rounded-full transition-all ${
+                            currentCategoryPage === index
+                                ? 'bg-blue-600 w-6'
+                                : 'bg-slate-300 dark:bg-slate-700 hover:bg-slate-400'
+                        }`}
+                    />
+                ))}
+              </div>
           )}
+        </div>
 
-          <div className="text-center mt-8 md:hidden">
-            <Link
-              href="/cars"
-              className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold"
-            >
-              Voir tous les véhicules
-              <ChevronRight size={20} />
+        {/* --- LISTING --- */}
+        <section className="w-full px-6 md:px-10 py-12 max-w-7xl mx-auto">
+          <div className="flex justify-between items-end mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white leading-none">{t.rentals.title}</h2>
+            <Link href="/client/cars" className="text-blue-600 font-semibold text-sm flex items-center gap-2">
+              {t.rentals.viewAll} <ChevronRight size={14} />
             </Link>
           </div>
-        </div>
-      </section>
 
-      {/* Services Section */}
-      <section className="py-20 bg-blue-900 text-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Nos Services</h2>
-            <p className="text-blue-200 max-w-2xl mx-auto">
-              EasyRent vous offre une expérience de location complète et personnalisée.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className="bg-white/10 backdrop-blur-sm rounded-xl p-6 hover:bg-white/20 transition-colors"
-              >
-                <div className="w-14 h-14 bg-orange-500 rounded-lg flex items-center justify-center mb-4">
-                  <service.icon size={28} className="text-white" />
-                </div>
-                <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-                <p className="text-blue-200">{service.description}</p>
+          {filteredVehicles.length === 0 ? (
+              <div className="text-center py-12">
+                <p className="text-slate-400 text-sm">
+                  {lang === 'FR' ? 'Aucun véhicule disponible dans cette catégorie' : 'No vehicles available in this category'}
+                </p>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+          ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                {filteredVehicles.map((vehicle) => (
+                    <Link key={vehicle.id} href={`/client/cars/${vehicle.id}`}>
+                      <div className="group bg-white dark:bg-slate-800 rounded-[2.5rem] p-4 border border-slate-50 dark:border-slate-800 hover:shadow-2xl transition-all cursor-pointer">
+                        <div className="aspect-square rounded-[2rem] overflow-hidden mb-6 relative shadow-inner bg-slate-50 dark:bg-[#0f1323]">
+                          <div className="absolute top-4 left-4 bg-white/95 dark:bg-[#0f1323]/95 px-3 py-1 rounded-full text-xs font-semibold text-blue-600 z-10 shadow-sm">
+                            {getVehicleTag(vehicle)}
+                          </div>
+                          <div className="absolute top-4 right-4 z-10 p-2.5 bg-white/60 backdrop-blur rounded-full text-slate-900 cursor-pointer hover:bg-red-500 hover:text-white transition-all">
+                            <Heart size={16} />
+                          </div>
+                          <img
+                              src={vehicle.images?.[0] || 'https://via.placeholder.com/600x600/e2e8f0/64748b?text=No+Image'}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                              alt={`${vehicle.brand} ${vehicle.model}`}
+                              onError={(e) => {
+                                e.currentTarget.src = 'https://via.placeholder.com/600x600/e2e8f0/64748b?text=No+Image';
+                              }}
+                          />
+                        </div>
+                        <div className="flex justify-between items-start mb-2 px-1 text-slate-900 dark:text-white">
+                          <h3 className="font-bold text-base tracking-tight leading-none">
+                            {vehicle.brand} {vehicle.model}
+                          </h3>
+                          <div className="flex items-center gap-1 text-sm font-semibold text-orange-500 shrink-0">
+                            <Star size={12} fill="currentColor" /> {getVehicleRating(vehicle)}
+                          </div>
+                        </div>
+                        <p className="text-xs font-medium text-slate-400 tracking-wide mb-8 px-1 leading-none">
+                          {getCategoryName(vehicle.categoryId)} • {vehicle.transmission}
+                        </p>
+                        <div className="flex items-center justify-between px-1">
+                          <div className="text-slate-900 dark:text-white">
+                      <span className="text-2xl font-bold text-blue-600 leading-none">
+                        {vehicle.pricing?.pricePerDay?.toLocaleString() || 'N/A'} FCFA
+                      </span>
+                            <span className="text-xs font-medium text-slate-300 ml-1">/ {t.rentals.day}</span>
+                          </div>
+                          <button className="bg-slate-50 dark:bg-[#1a1d2d] text-blue-600 dark:text-blue-400 px-6 py-2.5 rounded-2xl font-semibold text-xs group-hover:bg-blue-600 group-hover:text-white transition-all">
+                            {t.rentals.book}
+                          </button>
+                        </div>
+                      </div>
+                    </Link>
+                ))}
+              </div>
+          )}
+        </section>
 
-      {/* CTA Section for Drivers */}
-      <section className="py-20 bg-gradient-to-r from-orange-500 to-orange-600">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="text-white">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Devenez chauffeur partenaire
-              </h2>
-              <p className="text-orange-100 text-lg mb-8">
-                Rejoignez notre réseau de chauffeurs professionnels et augmentez vos revenus.
-                Flexibilité, autonomie et accompagnement garanti.
-              </p>
-              <Link
-                href="/contact"
-                className="inline-block bg-white text-orange-600 px-8 py-4 rounded-lg font-bold hover:bg-orange-50 transition-colors"
-              >
-                Nous contacter
-              </Link>
-            </div>
-            <div className="relative h-64 lg:h-80">
-              <Image
-                src="/client/images/driver-cta.png"
-                alt="Become a driver"
-                fill
-                className="object-contain"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Ce que disent nos clients
-            </h2>
-            <div className="flex items-center justify-center gap-2">
-              <Star size={24} className="text-yellow-400 fill-yellow-400" />
-              <span className="text-2xl font-bold">4.8</span>
-              <span className="text-gray-500">basé sur 2,500+ avis</span>
-            </div>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <TestimonialCard key={index} {...testimonial} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-20 bg-blue-600">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Prêt à prendre la route?
-          </h2>
-          <p className="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">
-            Réservez votre véhicule dès maintenant et profitez de tarifs exceptionnels.
-          </p>
-          <Link
-            href="/cars"
-            className="inline-block bg-white text-blue-600 px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-colors"
-          >
-            Explorer nos véhicules
-          </Link>
-        </div>
-      </section>
-
-      <Footer />
-    </div>
+        {/* --- FOOTER --- */}
+        <AppFooter />
+      </div>
   );
 }
