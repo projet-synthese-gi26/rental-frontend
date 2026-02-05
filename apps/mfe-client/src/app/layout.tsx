@@ -5,6 +5,11 @@ import React, { useState, useEffect } from 'react';
 import { AppNavbar, AuthModal } from '@/components/AppNavbar';
 import { authService } from '@/services/authService';
 
+interface BeforeInstallPromptEvent extends Event {
+  prompt(): Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+}
+
 export default function RootLayout({
                                        children,
                                    }: {
@@ -19,7 +24,7 @@ export default function RootLayout({
     const [password, setPassword] = useState('');
     const [authLoading, setAuthLoading] = useState(false);
     const [authError, setAuthError] = useState('');
-    const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+    const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent|null>(null);
 
     // Load preferences from localStorage
     useEffect(() => {
@@ -46,7 +51,7 @@ export default function RootLayout({
     useEffect(() => {
         const handler = (e: Event) => {
             e.preventDefault();
-            setDeferredPrompt(e);
+            setDeferredPrompt(e as BeforeInstallPromptEvent);
         };
         window.addEventListener('beforeinstallprompt', handler);
         return () => window.removeEventListener('beforeinstallprompt', handler);
@@ -131,7 +136,7 @@ export default function RootLayout({
         <main>{children}</main>
         <AuthModal
             show={showAuthModal}
-            isSignUp={isSignUp}
+            // isSignUp={isSignUp}
             email={email}
             password={password}
             authLoading={authLoading}
@@ -141,7 +146,7 @@ export default function RootLayout({
             onEmailChange={setEmail}
             onPasswordChange={setPassword}
             onSubmit={handleAuthSubmit}
-            onToggleMode={() => setIsSignUp(!isSignUp)}
+            // onToggleMode={() => setIsSignUp(!isSignUp)}
         />
         </body>
         </html>
