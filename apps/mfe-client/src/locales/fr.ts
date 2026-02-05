@@ -1,16 +1,16 @@
 export const fr = {
-  nav: { 
-    search: "Rechercher", 
-    bookings: "Réservations", 
-    help: "Aide", 
-    install: "Installer l'app", 
-    login: "Connexion", 
+  nav: {
+    home: "Accueil",
+    vehicles: "Véhicules",
+    agencies: "Agences",
+    install: "Installer l'app",
+    login: "Connexion",
     logout: "Déconnexion",
     backHome: "Accueil Global"
   },
-  hero: { 
-    title: "La location parfaite pour votre", accent: "voyage",
-    sub: "VÉHICULES ET ÉQUIPEMENTS DISPONIBLES INSTANTANÉMENT.",
+  hero: {
+    title: "La Location Parfaite pour votre", accent: "Voyage",
+    sub: "Véhicules et équipements disponibles instantanément.",
     loc: "Lieu", locPlace: "Ville, Aéroport...",
     dates: "Dates", datesPlace: "Choisir...",
     cta: "Chercher"

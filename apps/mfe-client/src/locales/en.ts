@@ -1,17 +1,17 @@
 export const en = {
-  nav: { 
-    search: "Search", 
-    bookings: "My Bookings", 
-    help: "Help", 
-    install: "Install App", 
-    login: "Login", 
+  nav: {
+    home: "Home",
+    vehicles: "Vehicles",
+    agencies: "Agencies",
+    install: "Install App",
+    login: "Login",
     logout: "Logout",
     backHome: "Global Home"
   },
-  hero: { 
-    title: "The perfect rental for your", accent: "journey",
-    sub: "VEHICLES AND EQUIPMENT AVAILABLE INSTANTLY.",
-    loc: "Loc", locPlace: "City, Airport...",
+  hero: {
+    title: "The Perfect Rental for your", accent: "Journey",
+    sub: "Vehicles and equipment available instantly.",
+    loc: "Location", locPlace: "City, Airport...",
     dates: "Dates", datesPlace: "Select...",
     cta: "Search"
   },

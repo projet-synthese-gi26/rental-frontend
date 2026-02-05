@@ -1,5 +1,6 @@
 import { Vehicle } from "@/types/vehicleType";
 
+
 // Mock data des véhicules
 export const mockVehicles: Vehicle[] = [
   {
