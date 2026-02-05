@@ -26,7 +26,7 @@ export const fr = {
     subtitle: "Sélectionnez votre profil pour continuer",
     org: "Organisation",
     orgDesc: "Pour les propriétaires de flottes souhaitant mettre en location leurs véhicules.",
-    agency: "Personnel",
+    agency: "Freelance",
     agencyDesc: "Pour les agents gérant les départs et les retours des véhicules en agence.",
     client: "Client",
     clientDesc: "Pour parcourir le catalogue et réserver un véhicule en 4 étapes.",

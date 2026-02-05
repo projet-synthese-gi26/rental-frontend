@@ -28,7 +28,7 @@ export const en = {
     subtitle: "Select your profile to continue",
     org: "Organization",
     orgDesc: "For fleet owners looking to create their network.",
-    agency: "Staff",
+    agency: "Freelance",
     agencyDesc: "For agents managing agency pickups and returns.",
     client: "Client",
     clientDesc: "To browse the catalog and book instantly.",

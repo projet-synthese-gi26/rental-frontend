@@ -8,7 +8,7 @@ export default function FeedbackPage() {
   const [hover, setHover] = useState(0);
 
   return (
-    <main className="min-h-screen bg-gray-50 text-slate-800 font-sans">
+    <main className="min-h-screen bg-gray-50 text-slate-800 font-sans mt-20">
 
       {/* Hero Section */}
       <section className="bg-blue-600 text-white py-16 text-center">
