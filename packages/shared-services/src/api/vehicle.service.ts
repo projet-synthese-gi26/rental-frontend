@@ -11,6 +11,7 @@ export const vehicleService = {
   updateVehicleStatus: (id: string, status: string) => 
     client.patch<any>(`/api/vehicles/${id}/status?status=${status}`, {}),
   deleteVehicle: (id: string) => client.delete(`/api/vehicles/${id}`),
+  updateVehicleStatusAndPricing: (id: string, data: any) => client.put<any>(`/api/vehicles/${id}/status-pricing`, data),
 
   // categories
   getVehicleCategories: (orgId: string) => client.get<any[]>(`/api/vehicles/categories/org/${orgId}`),

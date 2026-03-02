@@ -6,7 +6,8 @@ import {
   Download, LogOut, X, ShieldCheck, UserCircle,
   ChevronRight, Activity,
   Car,
-  LayoutGrid
+  LayoutGrid,
+  CalendarDays
 } from 'lucide-react';
 
 export const Sidebar = ({ 
@@ -61,6 +62,7 @@ export const Sidebar = ({
           <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-4 px-2">Hub principal</p>
           <div className="space-y-1">
             <SidebarItem icon={<LayoutDashboard size={20}/>} label="Tableau de bord" active={currentView === 'DASHBOARD'} onClick={() => setCurrentView('DASHBOARD')} />
+            <SidebarItem icon={<CalendarDays size={20}/>} label="Gestion Locations" active={currentView === 'RENTALS'} onClick={() => setCurrentView('RENTALS')} />
             <SidebarItem icon={<Store size={20}/>} label="Agences" active={currentView === 'AGENCIES'} onClick={() => setCurrentView('AGENCIES')} />
           </div>
         </div>
@@ -70,8 +72,8 @@ export const Sidebar = ({
           <div className="space-y-1">
             <SidebarItem icon={<ShieldCheck size={20}/>} label="Postes & Rôles" active={currentView === 'ROLES'} onClick={() => setCurrentView('ROLES')} />
             <SidebarItem icon={<UserCircle size={20}/>} label="Gestion du personnel" active={currentView === 'STAFF'} onClick={() => setCurrentView('STAFF')} />
-            <SidebarItem icon={<Car size={20}/>} label="Flotte de véhicules" active={currentView === 'VEHICLES'} onClick={() => setCurrentView('VEHICLES')} />
             <SidebarItem icon={<LayoutGrid size={20}/>} label="Catégories" active={currentView === 'CATEGORIES'} onClick={() => setCurrentView('CATEGORIES')} />
+            <SidebarItem icon={<Car size={20}/>} label="Flotte de véhicules" active={currentView === 'VEHICLES'} onClick={() => setCurrentView('VEHICLES')} />
             <SidebarItem icon={<CreditCard size={20}/>} label="Abonnement & Factures" active={currentView === 'SUBSCRIPTION'} onClick={() => setCurrentView('SUBSCRIPTION')} />
           </div>
         </div>
