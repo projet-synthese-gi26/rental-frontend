@@ -11,7 +11,7 @@
   }
 }
 
-/* Optionnel : masquer la scrollbar mais garder le scroll si tu veux un look app */
+/* Optionnel : masquer la scrollbar mais garder le scroll si tu veux un look app  */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
