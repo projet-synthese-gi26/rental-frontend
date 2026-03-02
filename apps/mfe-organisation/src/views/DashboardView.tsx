@@ -9,7 +9,7 @@ import {
 import { statsService } from '@pwa-easy-rental/shared-services';
 import { KpiCard } from '../components/KpiCard';
 
-export const DashboardView = ({ orgData, t }: any) => {
+export const DashboardView = ({ orgData }: any) => {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 

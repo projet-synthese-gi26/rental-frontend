@@ -34,7 +34,7 @@ export default function OrganisationDashboard() {
   const [isOnboarded, setIsOnboarded] = useState(false);
   const [userData, setUserData] = useState<any>(null);
   const [orgData, setOrgData] = useState<any>(null);
-  const [agencies, setAgencies] = useState<any[]>([]);
+  const [, setAgencies] = useState<any[]>([]);
 
   const t = lang === 'FR' ? fr : en;
 

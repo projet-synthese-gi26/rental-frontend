@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useState, useEffect } from 'react';
-import { X, Loader2, Clock, Globe, ShieldCheck } from 'lucide-react';
+import { X, Loader2, Clock, Globe } from 'lucide-react';
 import { Portal } from '@/components/Portal';
 import { LogoUpload } from '@/components/LogoUpload';
 
@@ -70,7 +70,7 @@ export const AgencyForm = ({ editingAgency, initialData, onSubmit, onClose, moda
 
             <section className="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 space-y-6">
                 <div className="flex items-center justify-between">
-                    <h4 className="text-[10px] font-black text-slate-800 dark:text-white uppercase italic flex items-center gap-2"><Clock size={16}/> Horaires d'ouverture</h4>
+                    <h4 className="text-[10px] font-black text-slate-800 dark:text-white uppercase italic flex items-center gap-2"><Clock size={16}/> {"Horaires d'ouverture"}</h4>
                     <label className="flex items-center gap-3 cursor-pointer group">
                         <input type="checkbox" checked={formData.is24Hours} onChange={e => setFormData({...formData, is24Hours: e.target.checked})} className="size-5 rounded border-slate-300 text-[#0528d6] focus:ring-[#0528d6]" />
                         <span className="text-[10px] font-black uppercase text-slate-500 group-hover:text-[#0528d6] transition-colors">Service 24h/24</span>

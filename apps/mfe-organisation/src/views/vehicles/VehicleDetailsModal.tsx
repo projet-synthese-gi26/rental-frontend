@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useEffect, useState } from 'react';
-import { X, Loader2, Calendar, ShieldCheck, HardDrive, Fuel, Wind, Star, Settings, CheckCircle2 } from 'lucide-react';
+import { X, Loader2, Calendar, ShieldCheck, HardDrive, Wind, Star, Settings, CheckCircle2 } from 'lucide-react';
 import { Portal } from '../../components/Portal';
 import { vehicleService } from '@pwa-easy-rental/shared-services';
 
@@ -24,7 +24,7 @@ export const VehicleDetailsModal = ({ vehicleId, onClose }: any) => {
     </Portal>
   );
 
-  const { vehicle, pricing, schedule, rating, reviews, isDriverBookingRequired } = data;
+  const { vehicle, pricing, schedule, rating, isDriverBookingRequired } = data;
 
   return (
     <Portal>

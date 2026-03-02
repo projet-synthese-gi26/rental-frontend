@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useEffect, useState } from 'react';
-import { X, Loader2, MapPin, Phone, Mail, Clock, ShieldCheck, Globe, Target, BarChart3, Zap } from 'lucide-react';
+import { X, Loader2, MapPin, Clock, ShieldCheck, Globe, Target, BarChart3, Zap } from 'lucide-react';
 import { Portal } from '../../components/Portal';
 import { agencyService, statsService } from '@pwa-easy-rental/shared-services';
 

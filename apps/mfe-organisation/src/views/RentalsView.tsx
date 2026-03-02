@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { Zap, Calendar, Search, Loader2, ChevronLeft, ChevronRight, Filter, History, Activity } from 'lucide-react';
+import { Zap, Calendar, Search, Loader2, ChevronLeft, ChevronRight, History, Activity } from 'lucide-react';
 import { rentalService } from '@pwa-easy-rental/shared-services';
 import { StatCard } from '../components/StatCard';
 import { RentalCard } from './rentals/RentalCard';
