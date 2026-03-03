@@ -14,7 +14,7 @@ export const BookingsView = ({ userData }: { userData: any }) => {
     if (!userData?.agencyId) return;
     setLoading(true);
     try {
-      const res = await rentalService.getByAgency(userData.agencyId);
+      const res = await rentalService.getAgencyRentals(userData.agencyId);
       if (res.ok) setRentals(res.data || []);
     } finally {
       setLoading(false);
