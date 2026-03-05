@@ -1,8 +1,8 @@
 import React from 'react';
-import { User, MapPin, CreditCard, Calendar, Star, Phone, ShieldCheck } from 'lucide-react';
+import { User, CreditCard, Star, Phone, ShieldCheck } from 'lucide-react';
 
 const DriverDetailView = ({ data }: any) => {
-  const { driver, pricing, rating, reviews, schedule } = data;
+  const { driver, pricing, rating, reviews} = data;
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-gray-50 rounded-xl shadow-lg">
@@ -63,7 +63,7 @@ const DriverDetailView = ({ data }: any) => {
               <span className="text-[10px] bg-blue-100 text-blue-700 px-2 py-1 rounded">Voir</span>
             </a>
             <a href={driver.cniUrl} target="_blank" className="p-3 bg-gray-50 rounded border hover:bg-blue-50 transition-colors flex items-center justify-between">
-              <span className="text-sm">Pièce d'identité</span>
+              <span className="text-sm">{"Pièce d'identité"}</span>
               <span className="text-[10px] bg-blue-100 text-blue-700 px-2 py-1 rounded">Voir</span>
             </a>
           </div>
@@ -86,7 +86,7 @@ const DriverDetailView = ({ data }: any) => {
                   </div>
                   <span className="text-[10px] text-gray-400">{new Date(review.createdAt).toLocaleDateString()}</span>
                 </div>
-                <p className="text-gray-600 text-sm mt-1">"{review.comment}"</p>
+                <p className="text-gray-600 text-sm mt-1">{review.comment}</p>
               </div>
             ))}
           </div>
