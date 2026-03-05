@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
-import React from 'react';
-import { Sun, Moon, LogOut, Car, Home } from 'lucide-react';
+import React from 'react';    
+import { Sun, Moon, LogOut, Car, Home, Ticket} from 'lucide-react';
 
 export const Header = ({ isAuth, userData, currentView, setCurrentView, toggleTheme, darkMode, lang, setLang, onLogout }: any) => {
   return (
@@ -19,7 +19,7 @@ export const Header = ({ isAuth, userData, currentView, setCurrentView, toggleTh
         <nav className="hidden lg:flex items-center gap-8">
           <NavLink label="Accueil" active={currentView === 'HOME'} onClick={() => setCurrentView('HOME')} icon={<Home size={16}/>} />
           <NavLink label="Catalogue" active={currentView === 'CATALOG'} onClick={() => setCurrentView('CATALOG')} icon={<Car size={16}/>} />
-          {/* <NavLink label="Mes Trajets" active={currentView === 'MY_BOOKINGS'} onClick={() => setCurrentView('MY_BOOKINGS')} icon={<Ticket size={16}/>} /> */}
+          <NavLink label="Mes Trajets" active={currentView === 'MY_BOOKINGS'} onClick={() => setCurrentView('MY_BOOKINGS')} icon={<Ticket size={16}/>} />
         </nav>
       </div>
 
