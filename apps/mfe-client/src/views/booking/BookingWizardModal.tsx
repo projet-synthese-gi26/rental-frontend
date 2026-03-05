@@ -45,6 +45,7 @@ export const BookingWizardModal = ({ vehicle, userData, isDriverRequired, initia
       if (res.ok) setDriverDetails(res.data || []);
     };
     fetchDriverDetails();
+    console.log("Selected driverId:", form.driverId);
   }, [form.driverId]);
 
   const handleCalculate = async () => {
@@ -130,7 +131,7 @@ export const BookingWizardModal = ({ vehicle, userData, isDriverRequired, initia
             )}
 
             {step === 2 && (
-              <div className="space-y-8 animate-in slide-in-from-right-4">
+              <div className="space-y-8 animate-in slide-in-from-right-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                 <div className="flex justify-between items-center">
                     <h3 className="text-3xl font-[900] italic tracking-tighter leading-none text-[#0528d6]">Chauffeur</h3>
                     <span className="px-4 py-2 bg-slate-900 text-white rounded-2xl text-[10px] font-black  italic tracking-widest">{getDurationLabel()}</span>
@@ -155,8 +156,8 @@ export const BookingWizardModal = ({ vehicle, userData, isDriverRequired, initia
                 <hr className='rotate-90'/>
                 <div className='flex-[2]'>
                   {form.driverId && driverDetails?(
-                    
-                    <DriverDetailView></DriverDetailView>
+                     
+                    <DriverDetailView data = {driverDetails}/>
                   )
                 : (
                   <p> Selectionne un chauffeur parmi ceux de la colonne de gauche</p>
