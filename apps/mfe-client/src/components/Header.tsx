@@ -3,7 +3,6 @@
 
 import React, { useEffect } from "react";
 import {Sun,Moon,LogOut,Car,Home,Ticket,Bell} from "lucide-react";
-import { nb } from "date-fns/locale";
 import { notifService } from "@shared-services/api";
 
 export const Header = ({isAuth,userData,currentView,setCurrentView,toggleTheme,darkMode,lang,setLang,onLogout}: any) => {

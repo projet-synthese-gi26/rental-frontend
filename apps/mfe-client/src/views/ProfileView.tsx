@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useEffect, useState } from 'react';
-import { Mail, ShieldCheck, Clock,  History,  LogOut, ChevronRight, ArrowLeft } from 'lucide-react';
+import { Mail, ShieldCheck, Clock,  History,  LogOut, ArrowLeft } from 'lucide-react';
 import { authService } from '@shared-services/api';
 
 
