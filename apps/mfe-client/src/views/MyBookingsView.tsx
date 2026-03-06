@@ -55,7 +55,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useState, useEffect } from 'react';
-import { Clock, Bell, Loader2, MapPin, Calendar, CreditCard, ChevronRight, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Clock, Bell, Loader2,  Calendar, CreditCard, ChevronRight } from 'lucide-react';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { rentalService } from '@shared-services/api/rental.service';
@@ -187,7 +187,7 @@ export const MyBookingsView = ({ userData }: { userData: any }) => {
               </div>
               <h4 className="text-2xl font-black text-slate-900 mb-2 italic tracking-tighter uppercase">Aucun trajet trouvé</h4>
               <p className="text-slate-400 text-sm font-medium italic leading-relaxed max-w-sm mx-auto">
-                  Vous n'avez pas encore de réservations. Vos futures locations, factures et suivis apparaîtront ici.
+                  Aucune réservation trouvée. Vos futures locations, factures et suivis apparaîtront ici.
               </p>
               <button className="mt-8 bg-[#0528d6] text-white px-8 py-4 rounded-3xl font-black text-sm uppercase tracking-widest hover:shadow-lg hover:shadow-blue-200 transition-all">
                 Louer un véhicule

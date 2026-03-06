@@ -48,7 +48,7 @@ export const VehicleDetailsView = ({ vehicleId, onBack, userData }: any) => {
 
   if (loading) return <div className="h-96 flex items-center justify-center"><Loader2 className="animate-spin text-[#0528d6] size-10" /></div>;
 
-  const { vehicle, pricing, schedule, rating, reviews, isDriverBookingRequired } = details;
+  const { vehicle, pricing, rating, reviews, isDriverBookingRequired } = details;
 
   return (
     <div className="animate-in fade-in duration-500 pb-20 text-left">

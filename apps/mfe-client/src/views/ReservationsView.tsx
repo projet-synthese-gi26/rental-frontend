@@ -2,8 +2,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { 
-  CalendarDays, 
-  Wallet, 
   Car, 
   User as UserIcon, 
   Loader2, 
@@ -27,6 +25,7 @@ export const MyReservationsView = ({ userData }: any) => {
         setReservations(res.data || []);
         setLoading(false);
       } catch (error) {
+        console.error("Erreur lors du chargement des réservations :", error);
         setLoading(false);
       }
     };
@@ -38,6 +37,7 @@ export const MyReservationsView = ({ userData }: any) => {
     try {
       return format(new Date(dateStr), 'dd MMM yyyy', { locale: fr });
     } catch (e) {
+      console.error("Erreur de formatage de date:", e);
       return "Date non définie";
     }
   };
@@ -143,7 +143,7 @@ export const MyReservationsView = ({ userData }: any) => {
               </div>
               <h4 className="text-2xl font-black text-slate-900 italic uppercase tracking-tighter">Silence radio...</h4>
               <p className="text-slate-400 text-sm font-medium max-w-xs mx-auto italic mt-2">
-                  Vous n'avez aucune réservation active pour le moment.
+                  {"Vous n'avez aucune réservation active pour le moment."}
               </p>
               <button className="mt-8 bg-[#0528d6] text-white px-10 py-4 rounded-[2rem] font-black text-xs uppercase tracking-widest shadow-xl hover:shadow-blue-200 transition-all">
                 Lancer une recherche
@@ -156,7 +156,7 @@ export const MyReservationsView = ({ userData }: any) => {
       {reservations && reservations.length > 0 ? (<div className="p-5 bg-slate-900 rounded-[2rem] flex items-start gap-4 text-white/80">
         <Info className="text-blue-400 shrink-0" size={20} />
         <p className="text-[11px] leading-relaxed italic">
-          Les réservations <span className="text-blue-400 font-bold underline italic">PENDING</span> sont en attente de confirmation par l'agence. Vous recevrez une notification par SMS ou via l'application une fois validées.
+          Les réservations <span className="text-blue-400 font-bold underline italic">PENDING</span> {"sont en attente de confirmation par l'agence. Vous recevrez une notification par SMS ou via l'application une fois validées."}
         </p>
       </div>):(<p></p>)}
 
