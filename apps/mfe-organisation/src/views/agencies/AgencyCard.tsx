@@ -1,42 +1,54 @@
+// FILE: apps/mfe-organisation/src/views/agencies/AgencyCard.tsx
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React from 'react';
-import { MapPin, Phone, Mail, Trash2, Edit3, Info } from 'lucide-react';
+import { MapPin, Phone, Mail, Trash2, Edit3, Info, Clock } from 'lucide-react';
 
 export const AgencyCard = ({ agency, onEdit, onDelete, onView }: any) => (
   <div className="bg-white dark:bg-[#1a1d2d] rounded-[2.5rem] p-8 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all group flex flex-col h-full text-left">
     <div className="flex justify-between items-start mb-6">
-      <div className="flex items-center gap-4">
-        <div className="size-14 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center text-[#0528d6] font-black text-xl overflow-hidden border border-slate-100 dark:border-slate-700 shadow-inner">
-          {agency.logoUrl ? <img src={agency.logoUrl} alt="logo" className="w-full h-full object-cover"/> : agency.name.charAt(0)}
+      <div className="flex items-center gap-4 flex-1 min-w-0 pr-4">
+        <div className="w-16 h-16 rounded-2xl bg-[#0528d6] text-white flex items-center justify-center font-black text-2xl italic shadow-lg shadow-blue-600/20 shrink-0 overflow-hidden border-2 border-slate-100 dark:border-slate-700">
+          {agency.logoUrl ? <img src={agency.logoUrl} alt="logo" className="w-full h-full object-cover"/> : agency.name.charAt(0).toUpperCase()}
         </div>
-        <div>
-          <h4 className="font-black text-slate-900 dark:text-white leading-tight uppercase italic tracking-tighter">{agency.name}</h4>
-          <span className="text-[10px] font-bold text-slate-400 uppercase flex items-center gap-1 mt-1 italic tracking-widest">
-            <MapPin size={12} className="text-[#0528d6]"/> {agency.city}
-          </span>
+        <div className="overflow-hidden min-w-0 flex-1">
+          <h4 className="text-lg font-black text-slate-900 dark:text-white leading-tight uppercase italic tracking-tighter truncate" title={agency.name}>
+            {agency.name}
+          </h4>
+          <div className="flex items-center gap-1.5 mt-1 text-[#0528d6]">
+            <MapPin size={12} className="shrink-0" />
+            <span className="text-[10px] font-black uppercase tracking-widest italic truncate">
+              {agency.city}
+            </span>
+          </div>
         </div>
       </div>
-      <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-        <button onClick={() => onView(agency.id)} className="p-2.5 bg-slate-50 dark:bg-slate-800 text-blue-600 hover:bg-blue-600 hover:text-white rounded-xl transition-all shadow-sm"><Info size={16}/></button>
-        <button onClick={() => onEdit(agency)} className="p-2.5 bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-[#0528d6] rounded-xl transition-all shadow-sm"><Edit3 size={16}/></button>
-        <button onClick={() => onDelete(agency.id)} className="p-2.5 bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-red-500 rounded-xl transition-all shadow-sm"><Trash2 size={16}/></button>
+      <div className="flex flex-col gap-2 shrink-0 items-end">
+        <div className={`px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest italic border flex items-center gap-1 ${agency.is24Hours ? 'bg-green-50 text-green-600 border-green-100' : 'bg-slate-50 text-slate-500 border-slate-200'}`}>
+          <Clock size={10} /> {agency.is24Hours ? '24H/24' : 'LIMITÉ'}
+        </div>
+        <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            <button onClick={() => onEdit(agency)} className="p-2 bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-[#0528d6] rounded-xl transition-all shadow-sm"><Edit3 size={14}/></button>
+            <button onClick={() => onDelete(agency.id)} className="p-2 bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-red-500 rounded-xl transition-all shadow-sm"><Trash2 size={14}/></button>
+        </div>
       </div>
     </div>
     
-    <div className="space-y-3 pt-6 border-t border-slate-50 dark:border-slate-800 mt-auto">
-      <div className="flex items-center gap-3 text-xs font-bold text-slate-600 dark:text-slate-400 italic">
-        <Mail size={14} className="text-[#0528d6]/60"/> {agency.email}
+    <div className="space-y-3 mb-8 pt-4 border-t border-slate-50 dark:border-slate-800">
+      <div className="flex items-center gap-3 text-xs font-bold text-slate-600 dark:text-slate-400 italic overflow-hidden">
+        <Mail size={14} className="text-slate-300 shrink-0" /> 
+        <span className="truncate">{agency.email}</span>
       </div>
-      <div className="flex items-center gap-3 text-xs font-bold text-slate-600 dark:text-slate-400 italic">
-        <Phone size={14} className="text-[#0528d6]/60"/> {agency.phone}
+      <div className="flex items-center gap-3 text-xs font-bold text-slate-600 dark:text-slate-400 italic overflow-hidden">
+        <Phone size={14} className="text-slate-300 shrink-0" /> 
+        <span className="truncate">{agency.phone}</span>
       </div>
-      <div className="flex items-center justify-between mt-4">
-        <span className={`text-[9px] font-black px-3 py-1 rounded-full uppercase italic tracking-tighter ${agency.is24Hours ? 'bg-green-100 text-green-700' : 'bg-slate-100 text-slate-500'}`}>
-          {agency.is24Hours ? 'Ouvert 24h/24' : agency.workingHours}
-        </span>
-        <span className="text-[9px] font-black text-slate-300 uppercase tracking-widest">#{agency.id.substring(0,8)}</span>
-      </div>
+    </div>
+
+    <div className="mt-auto pt-4 border-t border-slate-50 dark:border-slate-800">
+      <button onClick={() => onView(agency.id)} className="w-full py-3 bg-slate-900 text-white dark:bg-white dark:text-[#0528d6] rounded-xl text-[10px] font-black uppercase italic tracking-widest hover:scale-[1.02] transition-all flex items-center justify-center gap-2 shadow-md">
+          <Info size={16}/> Détails & Opérations
+      </button>
     </div>
   </div>
 );

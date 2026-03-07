@@ -1,10 +1,12 @@
+// FILE: apps/mfe-agency/src/components/Sidebar.tsx
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React from 'react';
 import { 
   LayoutDashboard, Car, Users, Calendar, 
-  LogOut, X, ChevronRight, Activity
+  LogOut, X, ChevronRight, Activity, CalendarDays, CalendarCheck, Banknote
 } from 'lucide-react';
+import { hasPermission } from '../utils/permissions';
 
 export const Sidebar = ({ 
   currentView, 
@@ -12,7 +14,8 @@ export const Sidebar = ({
   sidebarOpen, 
   setSidebarOpen, 
   handleLogout,
-  parentOrg
+  parentOrg,
+  userData
 }: any) => (
   <aside 
     className={`
@@ -47,16 +50,22 @@ export const Sidebar = ({
         <div>
           <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-4 px-2">Opérations</p>
           <div className="space-y-1">
-            <SidebarItem icon={<LayoutDashboard size={20}/>} label="Vue d'ensemble" active={currentView === 'DASHBOARD'} onClick={() => setCurrentView('DASHBOARD')} />
-            <SidebarItem icon={<Calendar size={20}/>} label="Réservations" active={currentView === 'BOOKINGS'} onClick={() => setCurrentView('BOOKINGS')} />
+            {hasPermission(userData, 'stats:dashboard') && <SidebarItem icon={<LayoutDashboard size={20}/>} label="Vue d'ensemble" active={currentView === 'DASHBOARD'} onClick={() => setCurrentView('DASHBOARD')} />}
+            {hasPermission(userData, 'rental:list') && (
+              <>
+                <SidebarItem icon={<CalendarDays size={20}/>} label="Réservations" active={currentView === 'RESERVATIONS'} onClick={() => setCurrentView('RESERVATIONS')} />
+                <SidebarItem icon={<CalendarCheck size={20}/>} label="Locations" active={currentView === 'RENTALS'} onClick={() => setCurrentView('RENTALS')} />
+              </>
+            )}
+            {hasPermission(userData, 'finance:transactions') && <SidebarItem icon={<Banknote size={20}/>} label="Transactions" active={currentView === 'TRANSACTIONS'} onClick={() => setCurrentView('TRANSACTIONS')} />}
           </div>
         </div>
 
         <div>
           <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-4 px-2">Ressources</p>
           <div className="space-y-1">
-            <SidebarItem icon={<Car size={20}/>} label="Ma Flotte" active={currentView === 'VEHICLES'} onClick={() => setCurrentView('VEHICLES')} />
-            <SidebarItem icon={<Users size={20}/>} label="Mes Chauffeurs" active={currentView === 'DRIVERS'} onClick={() => setCurrentView('DRIVERS')} />
+            {hasPermission(userData, 'vehicle:list') && <SidebarItem icon={<Car size={20}/>} label="Ma Flotte" active={currentView === 'VEHICLES'} onClick={() => setCurrentView('VEHICLES')} />}
+            {hasPermission(userData, 'driver:list') && <SidebarItem icon={<Users size={20}/>} label="Mes Chauffeurs" active={currentView === 'DRIVERS'} onClick={() => setCurrentView('DRIVERS')} />}
           </div>
         </div>
       </nav>
