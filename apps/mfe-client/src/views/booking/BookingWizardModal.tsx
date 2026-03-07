@@ -188,7 +188,7 @@ export const BookingWizardModal = ({ vehicle, userData, isDriverRequired, initia
                   <div className="relative z-10 text-center">
                     <p className="text-[10px] font-bold  opacity-60 mb-1 tracking-widest italic">Devis Global Certifié</p>
                     <h4 className="text-xl font-black italic tracking-tighter leading-none">{initRes.totalAmount?.toLocaleString()} <span className="text-2xl">XAF</span></h4>
-                    <p className="text-xs text-white/80 leading-relaxed mt-2">Pour reserver votre véhicule il vous est demandé d'effectuer un paiement de 60% du montant total.</p>
+                    <p className="text-xs text-white/80 leading-relaxed mt-2">Pour reserver votre véhicule il vous est demandé {"d'effectuer"} un paiement de 60% du montant total.</p>
                     <div className="mt-4 pt-4 border-t border-white/10 grid grid-cols-2 gap-6 text-[10px] font-black  italic">
                         <div className="bg-white/10 p-4 rounded-2xl border border-white/10 shadow-inner"><p className="opacity-60 mb-1">Montant à débiter</p><p>{paymentAmount?.toLocaleString()} XAF</p></div>
                         <div className="bg-white/10 p-4 rounded-2xl border border-white/10 shadow-inner"><p className="opacity-60 mb-1">Reste</p><p>{reste?.toLocaleString()} XAF</p></div>
