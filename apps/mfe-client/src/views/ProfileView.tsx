@@ -2,12 +2,14 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { Mail, ShieldCheck, Clock,  History,  LogOut, ArrowLeft } from 'lucide-react';
-import { authService } from '@shared-services/api';
+import { authService, transactionService } from '@shared-services/api';
+import { TransactionCard } from './profile/TransactionsCard';
 
 
 export const ProfileView = ({ userData, onLogout, onBack }: any) => {
   const [identity, setIdentity] = useState<any>(null);
   const [passwords, setPasswords] = useState<any>({ old: '', new: '' });
+  const [transactions, setTransactions] = useState<any[]>([]);
 
   useEffect(() => { 
     if (userData){
@@ -18,6 +20,19 @@ export const ProfileView = ({ userData, onLogout, onBack }: any) => {
     }
   }, [userData]);
   if (!userData) return null;
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      if (!userData) return;
+      try {
+        const res = await transactionService.getClientTransactions();
+        if (res.ok) setTransactions(res.data);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des transactions :", error);
+      }
+    }
+    fetchTransactions(); 
+  }, [userData]);
 
   const updateProfile = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -83,7 +98,7 @@ export const ProfileView = ({ userData, onLogout, onBack }: any) => {
         <div className="  space-y-3">
           <h3 className="text-sm font-bold tracking-tighter text-slate-800 dark:text-white">Informations du compte</h3>
           <section className="flex-[2] bg-white dark:bg-[#1a1d2d] rounded-[0.5rem] p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-            <form onSubmit={updateProfile} className="flex gap-3">
+            <form onSubmit={updateProfile} className="flex flex-wrap gap-3">
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-400 ">Prénom</label>
                 <input 
@@ -107,7 +122,7 @@ export const ProfileView = ({ userData, onLogout, onBack }: any) => {
                 </button>
               </div>
             </form>
-            <form onSubmit={updatePassword} className="flex gap-3">
+            <form onSubmit={updatePassword} className="flex flex-wrap gap-3">
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-400 ">Nouveau mot de passe</label>
                 <input 
@@ -158,13 +173,21 @@ export const ProfileView = ({ userData, onLogout, onBack }: any) => {
           <section className="bg-white dark:bg-[#1a1d2d] rounded-[0.5rem] p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
               <div className="flex items-center gap-3 border-b border-slate-50 dark:border-slate-800 pb-4 mb-6">
                 <History className="text-[#0528d6]" size={20} />
-                <h4 className="text-sm font-bold    tracking-tighter text-slate-800 dark:text-white  ">Historique de location</h4>
+                <h4 className="text-sm font-bold    tracking-tighter text-slate-800 dark:text-white  ">Historique de mes transactions</h4>
               </div>
-              <div className="py-12 text-center">
+              <p className="text-[10px] font-bold text-slate-400 mt-1">Total des opérations : {transactions.length}</p>
+              <div className="flex flex-col w-full">
+                {transactions.length > 0 ? (
+                  transactions.map((tx) => (
+                    <TransactionCard key={tx.id} tx={tx} />
+                  ))
+                ) : ( 
+                <div className="py-12 text-center">
                  <div className="size-16 bg-slate-50 dark:bg-slate-900 rounded-2xl flex items-center justify-center mx-auto mb-4 text-slate-200">
                     <Clock size={32} />
                  </div>
                  <p className="text-slate-400 text-sm font-medium   ">Aucune activité enregistrée pour le moment.</p>
+              </div> )}
               </div>
             </section>
 
