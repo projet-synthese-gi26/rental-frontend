@@ -14,21 +14,20 @@ import { NotificationsView } from '../views/NotificationsView';
 
 import { Loader2 } from 'lucide-react';
 import { MyReservationsView } from '@/views/ReservationsView';
-// import { fr } from '../locales/fr';
-// import { en } from '../locales/en';
 
 export default function ClientDashboard() {
-  const [currentView, setCurrentView] = useState<string>('HOME');
+  const[currentView, setCurrentView] = useState<string>('HOME');
   const [selectedVehicleId, setSelectedVehicleId] = useState<string | null>(null);
   const [lang, setLang] = useState<'FR' | 'EN'>('FR');
   const [darkMode, setDarkMode] = useState(false);
-  const [, setDeferredPrompt] = useState<any>(null);
+  const[, setDeferredPrompt] = useState<any>(null);
 
-  const [isAuth, setIsAuth] = useState(false);
+  // Ajout de l'état pour gérer le menu mobile du nouveau Header
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const[isAuth, setIsAuth] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState<any>(null);
-
-  // const t = lang === 'FR' ? fr : en;
 
   const fetchProfile = useCallback(async () => {
     try {
@@ -45,17 +44,20 @@ export default function ClientDashboard() {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  },[]);
 
   useEffect(() => {
     const handlePrompt = (e: any) => { e.preventDefault(); setDeferredPrompt(e); };
     window.addEventListener('beforeinstallprompt', handlePrompt);
+
     const isDark = localStorage.getItem('theme') === 'dark';
     setDarkMode(isDark);
     if (isDark) document.documentElement.classList.add('dark');
+
     const token = localStorage.getItem('auth_token');
     if (token) fetchProfile();
     else setIsLoading(false);
+
     return () => window.removeEventListener('beforeinstallprompt', handlePrompt);
   }, [fetchProfile]);
 
@@ -77,38 +79,42 @@ export default function ClientDashboard() {
   };
 
   if (isLoading) return (
-    <div className="h-screen flex items-center justify-center bg-[#f4f7fe] dark:bg-[#080b14]">
-      <Loader2 className="animate-spin text-[#0528d6] size-12" />
-    </div>
+      <div className="h-screen flex items-center justify-center bg-[#f4f7fe] dark:bg-[#080b14]">
+        <Loader2 className="animate-spin text-[#0528d6] size-12" />
+      </div>
   );
 
   if (!isAuth && currentView === 'AUTH') return (
-    <AuthView onAuth={handleAuthAction} lang={lang} setLang={setLang} darkMode={darkMode} toggleTheme={() => setDarkMode(!darkMode)} />
+      <AuthView onAuth={handleAuthAction} lang={lang} setLang={setLang} darkMode={darkMode} toggleTheme={() => setDarkMode(!darkMode)} />
   );
 
   return (
-    <div className="min-h-screen bg-[#f4f7fe] dark:bg-[#0f1323] transition-colors duration-500 font-sans">
-      <Header 
-        isAuth={isAuth}
-        userData={userData}
-        currentView={currentView}
-        setCurrentView={setCurrentView}
-        toggleTheme={() => setDarkMode(!darkMode)}
-        darkMode={darkMode}
-        lang={lang}
-        setLang={setLang}
-        onLogout={() => { localStorage.removeItem('auth_token'); window.location.reload(); }}
-      />
+      <div className="min-h-screen bg-[#f4f7fe] dark:bg-[#0f1323] transition-colors duration-500 font-sans">
+        <Header
+            isAuth={isAuth}
+            userData={userData}
+            currentView={currentView}
+            setCurrentView={setCurrentView}
+            toggleTheme={() => setDarkMode(!darkMode)}
+            darkMode={darkMode}
+            lang={lang}
+            setLang={setLang}
+            setSidebarOpen={setSidebarOpen} // Passé au Header pour le menu mobile
+            onLogout={() => { localStorage.removeItem('auth_token'); window.location.reload(); }}
+        />
 
-      <main className="max-w-7xl mx-auto p-6 md:p-10 pt-64 md:pt-24">
-        {currentView === 'HOME' && <HomeView onSearch={() => setCurrentView('CATALOG')} setViewAll={() => setCurrentView('CATALOG')} onSelectVehicle={(id: string) => { setSelectedVehicleId(id); setCurrentView('DETAILS'); }} />}
-        {currentView === 'CATALOG' && <CatalogView userData={userData} />}
-        {currentView === 'DETAILS' && selectedVehicleId && <VehicleDetailsView vehicleId={selectedVehicleId} isAuth={isAuth} onBack={() => setCurrentView('CATALOG')} onAuthRequired={() => setCurrentView('AUTH')} onStartBooking={() => setCurrentView('CATALOG')} />}
-        {currentView === 'MY_BOOKINGS' && <MyBookingsView userData={userData} />}
-        {currentView === 'MY_RESERVATIONS' && <MyReservationsView userData={userData} />}
-        {currentView === 'PROFILE' && <ProfileView userData={userData} onLogout={() => { localStorage.removeItem('auth_token'); window.location.reload(); }} />}
-        {currentView === 'NOTIFICATIONS' && <NotificationsView userData={userData} />}
-      </main>
-    </div>
+        {/* Ajustement du padding top (pt-28) pour compenser le Header fixed (h-20) */}
+        <main className="max-w-7xl mx-auto p-6 md:p-10 pt-28 md:pt-28">
+          {currentView === 'HOME' && <HomeView onSearch={() => setCurrentView('CATALOG')} setViewAll={() => setCurrentView('CATALOG')} onSelectVehicle={(id: string) => { setSelectedVehicleId(id); setCurrentView('DETAILS'); }} />}
+          {currentView === 'CATALOG' && <CatalogView userData={userData} />}
+          {currentView === 'DETAILS' && selectedVehicleId && <VehicleDetailsView vehicleId={selectedVehicleId} isAuth={isAuth} onBack={() => setCurrentView('CATALOG')} onAuthRequired={() => setCurrentView('AUTH')} onStartBooking={() => setCurrentView('CATALOG')} />}
+          {currentView === 'MY_BOOKINGS' && <MyBookingsView userData={userData} />}
+          {currentView === 'MY_RESERVATIONS' && <MyReservationsView userData={userData} />}
+          {currentView === 'PROFILE' && <ProfileView userData={userData} onLogout={() => { localStorage.removeItem('auth_token'); window.location.reload(); }} />}
+
+          {/* Utilisation de clientId au lieu de userData pour correspondre au composant */}
+          {currentView === 'NOTIFICATIONS' && <NotificationsView clientId={userData?.id} />}
+        </main>
+      </div>
   );
 }
