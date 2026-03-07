@@ -3,6 +3,7 @@ node_modules
 .pnp
 .pnp.js
 
+project_bundle.txt
 # Testing
 coverage
 
