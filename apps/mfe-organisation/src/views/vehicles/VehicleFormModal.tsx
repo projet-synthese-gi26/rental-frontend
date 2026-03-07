@@ -40,7 +40,7 @@ export const VehicleFormModal = ({ editingVehicle, agencies, categories, initial
 
   return (
     <Portal>
-      <div className="fixed inset-0 z-[999] flex items-center justify-center p-4">
+      <div className="fixed inset-0 z-[999] flex items-center justify-center p-4 ">
         <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-xl animate-in fade-in" onClick={onClose} />
         <form onSubmit={(e) => { e.preventDefault(); onSubmit(formData); }} 
               className="relative w-full max-w-5xl bg-white dark:bg-[#1a1d2d] rounded-[3rem] shadow-2xl flex flex-col max-h-[95vh] overflow-hidden border border-white/20 animate-in zoom-in">
@@ -163,7 +163,7 @@ export const VehicleFormModal = ({ editingVehicle, agencies, categories, initial
 
           <div className="px-10 py-8 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 flex gap-4">
             <button type="button" onClick={onClose} className="flex-1 py-4 text-sm font-black text-slate-400 uppercase italic">Annuler</button>
-            <button disabled={modalLoading || uploading} className="flex-[2] py-4 bg-[#0528d6] text-white rounded-2xl font-black text-xs uppercase shadow-xl shadow-blue-600/20 hover:bg-blue-700 transition-all flex items-center justify-center gap-2">
+            <button type="submit" disabled={modalLoading || uploading} className="flex-[2] py-4 bg-[#0528d6] text-white rounded-2xl font-black text-xs uppercase shadow-xl shadow-blue-600/20 hover:bg-blue-700 transition-all flex items-center justify-center gap-2">
               {modalLoading ? <Loader2 className="animate-spin size-4" /> : "Enregistrer les modifications techniques"}
             </button>
           </div>

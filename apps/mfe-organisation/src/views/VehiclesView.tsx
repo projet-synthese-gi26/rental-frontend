@@ -42,15 +42,52 @@ export const VehiclesView = ({ orgData }: any) => {
   useEffect(() => { loadData(); }, [loadData]);
 
   // Handler pour PUT /api/vehicles/{id} (Formulaire complet)
+  // const handleFormSubmit = async (formData: any) => {
+  //   setModalLoading(true);
+  //   try {
+  //     const res = editingVehicle 
+  //       ? await vehicleService.updateVehicle(editingVehicle.id, formData)
+  //       : await vehicleService.createVehicle(orgData.id, formData);
+  //     if (res.ok) { setActiveModal(null); loadData(); }
+  //   } finally { setModalLoading(false); }
+  // };
   const handleFormSubmit = async (formData: any) => {
-    setModalLoading(true);
-    try {
-      const res = editingVehicle 
-        ? await vehicleService.updateVehicle(editingVehicle.id, formData)
-        : await vehicleService.createVehicle(orgData.id, formData);
-      if (res.ok) { setActiveModal(null); loadData(); }
-    } finally { setModalLoading(false); }
-  };
+  setModalLoading(true);
+  try {
+    // Nettoyage des données pour le DTO
+    const cleanData = {
+      ...formData,
+      places: Number(formData.places),
+      kilometrage: Number(formData.kilometrage),
+      yearProduction: formData.yearProduction ? new Date(formData.yearProduction).toISOString() : new Date().toISOString(),
+      engineDetails: {
+        ...formData.engineDetails,
+        horsepower: Number(formData.engineDetails.horsepower),
+        capacity: Number(formData.engineDetails.capacity),
+      },
+      insuranceDetails: {
+        ...formData.insuranceDetails,
+        expiry: formData.insuranceDetails.expiry ? new Date(formData.insuranceDetails.expiry).toISOString() : null
+      }
+    };
+
+    const res = editingVehicle
+      ? await vehicleService.updateVehicle(editingVehicle.id, cleanData)
+      : await vehicleService.createVehicle(orgData.id, cleanData);
+
+    if (res.ok) {
+      setActiveModal(null);
+      loadData();
+    } else {
+      // Affiche l'erreur du serveur pour debug
+      alert(`Erreur: ${res.data?.message || 'Vérifiez les champs'}`);
+    }
+  } catch (err) {
+    console.error("Erreur critique creation:", err);
+  } finally {
+    setModalLoading(false);
+  }
+};
 
   // Handler pour PATCH /api/vehicles/{id}/status-pricing (Quick Switch)
   const handleQuickStatusSubmit = async (id: string, payload: any) => {
