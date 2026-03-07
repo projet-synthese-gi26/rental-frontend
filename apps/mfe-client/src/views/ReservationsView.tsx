@@ -82,6 +82,8 @@ export const MyReservationsView = ({ userData }: any) => {
     </div>
   );
 
+  const selectedId = selectedRes?.rental?.id;
+
   return (
     <div className="w-full mx-auto space-y-8 animate-in fade-in duration-700 pb-20 px-4">
       
@@ -109,14 +111,14 @@ export const MyReservationsView = ({ userData }: any) => {
                 key={res?.id} 
                 onClick={() => handleSelectReservation(res)}
                 className={`cursor-pointer group relative overflow-hidden transition-all duration-300 rounded-[2rem] border ${
-                  selectedRes?.id === res.id 
+                  selectedId === res.id 
                   ? "border-[#0528d6] bg-blue-50/50 ring-2 ring-[#0528d6]/10" 
                   : "bg-white border-slate-100 hover:border-blue-200 shadow-sm"
                 } ${selectedRes ? "p-4" : "p-6"}`}
               >
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex items-center gap-3">
-                    <div className={`rounded-xl flex items-center justify-center transition-colors ${selectedRes?.id === res.id ? 'bg-[#0528d6] text-white' : 'bg-slate-900 text-white'} ${selectedRes ? 'size-10' : 'size-12'}`}>
+                    <div className={`rounded-xl flex items-center justify-center transition-colors ${selectedId === res.id ? 'bg-[#0528d6] text-white' : 'bg-slate-900 text-white'} ${selectedRes ? 'size-10' : 'size-12'}`}>
                       <Car size={selectedRes ? 18 : 24} />
                     </div>
                     <div>
@@ -143,7 +145,7 @@ export const MyReservationsView = ({ userData }: any) => {
                   <p className={`${selectedRes ? 'text-sm' : 'text-lg'} font-black text-slate-900 italic`}>
                     {res?.totalAmount?.toLocaleString()} <span className="text-[10px] opacity-40">XAF</span>
                   </p>
-                  <ChevronRight size={16} className={`text-slate-300 transition-transform ${selectedRes?.id === res.id ? 'rotate-90 text-[#0528d6]' : ''}`} />
+                  <ChevronRight size={16} className={`text-slate-300 transition-transform ${selectedId === res.id ? 'rotate-90 text-[#0528d6]' : ''}`} />
                 </div>
               </div>
             ))
@@ -193,7 +195,7 @@ const EmptyState = () => (
     </div>
     <h4 className="text-3xl font-black text-slate-900 italic uppercase tracking-tighter">Silence radio...</h4>
     <p className="text-slate-400 text-sm font-medium max-w-xs mx-auto italic mt-3 leading-relaxed">
-      {"Vous n'avez aucune réservation active."} Vos futures aventures commencent ici.
+      {"Vous n'avez aucune réservation active. Vos réservations s'afficheront ici."}
     </p>
     <button className="mt-10 bg-[#0528d6] text-white px-12 py-5 rounded-full font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:scale-105 transition-all">
       Louer un véhicule

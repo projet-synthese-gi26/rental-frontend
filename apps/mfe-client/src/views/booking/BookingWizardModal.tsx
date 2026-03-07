@@ -210,6 +210,7 @@ export const BookingWizardModal = ({ vehicle, userData, isDriverRequired, initia
                 <div>
                    <h3 className="text-4xl font-[900] italic tracking-tighter  text-slate-900 dark:text-white leading-tight">Voyage <br/><span className="text-[#0528d6]">Confirmé !</span></h3>
                    <p className="mt-4 text-slate-500 dark:text-slate-400 font-bold italic text-sm max-w-xs mx-auto">Votre dossier est transmis à l&apos;agence. Retrouvez vos détails dans <strong>Mes Réservations</strong>.</p>
+                   <p>Rendez-vous en agence pour récupérer le véhicule</p>
                 </div>
                 <button onClick={onClose} className="w-full py-5 bg-slate-900 dark:bg-white dark:text-[#0528d6] text-white rounded-[2rem] font-black text-xs  italic tracking-widest">Retour au parc</button>
               </div>

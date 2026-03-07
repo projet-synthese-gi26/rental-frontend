@@ -70,7 +70,7 @@ const ReservationDetail = ({ data, onClose, onCancel, cancelling }: any) => {
     ) : null;
 
   return (
-    <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto custom-scrollbar">
+    <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-2xl overflow-hidden max-h-[100vh] overflow-y-auto custom-scrollbar">
       
       {/* HEADER : VISUEL & IDENTITÉ */}
       <div className="relative h-72 bg-slate-900">

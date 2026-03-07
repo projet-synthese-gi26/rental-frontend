@@ -4,7 +4,7 @@ export const vehicleService = {
   // vehicles
   getAvailableVehicles: () => client.get<any[]>('/api/vehicles/available'),
   getVehiclesByOrg: (orgId: string) => client.get<any[]>(`/api/vehicles/org/${orgId}`),
-  getVehiclesByAgency: (agencyId: string) => client.get<any[]>(`/api/vehicles/agency/${agencyId}`),
+  getVehiclesByAgency: (agencyId: string) => client.get<any[]>(`/api/vehicles/agency/${agencyId}/available`),
   getVehicleDetails: (id: string) => client.get<any>(`/api/vehicles/${id}/details`),
   createVehicle: (orgId: string, data: any) => client.post<any>(`/api/vehicles/org/${orgId}`, data),
   updateVehicle: (id: string, data: any) => client.put<any>(`/api/vehicles/${id}`, data),
