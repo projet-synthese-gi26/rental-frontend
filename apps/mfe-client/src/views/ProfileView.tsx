@@ -31,7 +31,7 @@ export const ProfileView = ({ userData, onLogout, onBack }: any) => {
 
   const updatePassword = async (e: React.FormEvent) => {
     e.preventDefault();
-    await authService.updatePassword(passwords.old, passwords.new)
+    await authService.updatePassword({oldPassword : passwords.old,newPassword : passwords.new})
     console.log("Mise à jour mot de passe");
   };
 

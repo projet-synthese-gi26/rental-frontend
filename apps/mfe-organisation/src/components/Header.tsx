@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useEffect, useState } from 'react';
-import { Menu, Sun, Moon, Languages, Download, Bell, Search } from 'lucide-react';
+import { Menu, Sun, Moon, Languages, Download, Bell } from 'lucide-react';
 import { notifService } from '@pwa-easy-rental/shared-services';
 
 export const Header = ({ 
@@ -49,15 +49,6 @@ export const Header = ({
       </div>
 
       <div className="flex items-center gap-3 md:gap-4">
-        <div className="hidden xl:flex items-center bg-slate-100 dark:bg-slate-800 rounded-full px-5 py-2 border border-transparent focus-within:border-[#0528d6]/50 focus-within:bg-white transition-all w-64 shadow-inner">
-          <Search size={16} className="text-slate-400" />
-          <input 
-            type="text" 
-            placeholder="Rechercher..." 
-            className="bg-transparent border-none outline-none text-xs ml-3 w-full font-bold uppercase italic text-slate-500"
-          />
-        </div>
-
         {hasPrompt && (
             <button 
               onClick={onInstall} 

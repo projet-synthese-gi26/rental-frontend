@@ -70,15 +70,15 @@ export const RentalDetailsModal = ({ rental, onClose }: any) => {
                         <div className="flex items-center gap-4 bg-white/10 p-4 rounded-2xl border border-white/10">
                             <Car size={24}/>
                             <div>
-                                <p className="text-[8px] font-bold uppercase opacity-60">Véhicule ID</p>
-                                <p className="text-sm font-black italic">{rental.vehicleId}</p>
+                                <p className="text-[8px] font-bold uppercase opacity-60">Véhicule Licence</p>
+                                <p className="text-sm font-black italic">{rental.licencePlate || 'NON ASSIGNÉ'}</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-4 bg-white/10 p-4 rounded-2xl border border-white/10">
                             <User size={24}/>
                             <div>
-                                <p className="text-[8px] font-bold uppercase opacity-60">Chauffeur ID</p>
-                                <p className="text-sm font-black italic">{rental.driverId || 'NON ASSIGNÉ'}</p>
+                                <p className="text-[8px] font-bold uppercase opacity-60">Chauffeur Name</p>
+                                <p className="text-sm font-black italic">{(rental.firstname + ' ' + rental.lastname) || 'NON ASSIGNÉ'}</p>
                             </div>
                         </div>
                     </div>
