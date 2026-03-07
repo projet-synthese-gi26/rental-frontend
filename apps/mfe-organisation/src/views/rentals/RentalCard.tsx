@@ -25,13 +25,19 @@ export const RentalCard = ({ rental, onView }: any) => {
         </button>
       </div>
 
-      <div className="flex items-center gap-4 mb-6">
-        <div className="size-12 rounded-2xl bg-[#0528d6] text-white flex items-center justify-center font-black text-lg italic shadow-lg">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="flex items-center justify-center size-11 rounded-xl bg-blue-600 text-white font-semibold text-base shadow-md">
           {rental.clientName?.[0]}
         </div>
-        <div className="overflow-hidden">
-          <h4 className="font-black text-slate-900 dark:text-white leading-tight uppercase italic tracking-tighter truncate">{rental.clientName}</h4>
-          <p className="text-[10px] font-bold text-slate-400 uppercase italic mt-1">{rental.clientPhone}</p>
+
+        <div className="min-w-0">
+          <h4 className="text-sm font-semibold text-slate-900 dark:text-white truncate">
+            {rental.clientName}
+          </h4>
+
+          <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
+            {rental.clientPhone}
+          </p>
         </div>
       </div>
 

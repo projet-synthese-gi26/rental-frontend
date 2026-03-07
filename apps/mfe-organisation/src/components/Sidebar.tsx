@@ -1,13 +1,12 @@
+// FILE: apps/mfe-organisation/src/components/Sidebar.tsx
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React from 'react';
 import { 
   LayoutDashboard, Store, CreditCard, 
   Download, LogOut, X, ShieldCheck, UserCircle,
-  ChevronRight, Activity,
-  Car,
-  LayoutGrid,
-  CalendarDays
+  ChevronRight, Activity, Car, LayoutGrid, CalendarDays,
+  CalendarCheck, Banknote
 } from 'lucide-react';
 
 export const Sidebar = ({ 
@@ -26,7 +25,6 @@ export const Sidebar = ({
       dark:bg-[#080b14] dark:border-slate-800 shadow-xl
     `}
   >
-    {/* Overlay pour mobile */}
     {sidebarOpen && (
       <div 
         className="absolute inset-0 backdrop-blur-sm lg:hidden" 
@@ -36,7 +34,6 @@ export const Sidebar = ({
     
     <div className="relative z-10 h-full flex flex-col overflow-hidden">
       
-      {/* --- SECTION LOGO --- */}
       <div className="flex-shrink-0 flex items-center justify-between py-10 px-6 mb-2">
         <div className="flex items-center gap-3 group cursor-pointer">
           <div className="w-10 h-10 bg-[#0528d6] rounded-xl flex items-center justify-center text-white shadow-lg transition-transform group-hover:rotate-6 duration-300">
@@ -56,13 +53,14 @@ export const Sidebar = ({
         </button>
       </div>
 
-      {/* --- NAVIGATION --- */}
       <nav className="flex-1 overflow-y-auto no-scrollbar px-4 space-y-8 pb-8">
         <div>
           <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-4 px-2">Hub principal</p>
           <div className="space-y-1">
             <SidebarItem icon={<LayoutDashboard size={20}/>} label="Tableau de bord" active={currentView === 'DASHBOARD'} onClick={() => setCurrentView('DASHBOARD')} />
-            <SidebarItem icon={<CalendarDays size={20}/>} label="Gestion Locations" active={currentView === 'RENTALS'} onClick={() => setCurrentView('RENTALS')} />
+            <SidebarItem icon={<CalendarDays size={20}/>} label="Réservations" active={currentView === 'RESERVATIONS'} onClick={() => setCurrentView('RESERVATIONS')} />
+            <SidebarItem icon={<CalendarCheck size={20}/>} label="Locations" active={currentView === 'RENTALS'} onClick={() => setCurrentView('RENTALS')} />
+            <SidebarItem icon={<Banknote size={20}/>} label="Transactions" active={currentView === 'TRANSACTIONS'} onClick={() => setCurrentView('TRANSACTIONS')} />
             <SidebarItem icon={<Store size={20}/>} label="Agences" active={currentView === 'AGENCIES'} onClick={() => setCurrentView('AGENCIES')} />
           </div>
         </div>
@@ -79,10 +77,7 @@ export const Sidebar = ({
         </div>
       </nav>
 
-      {/* --- ACTIONS BAS DE PAGE --- */}
       <div className="flex-shrink-0 mt-auto p-4 border-t border-slate-200 dark:border-slate-800 space-y-2">
-        
-        {/* BOUTON INSTALLER */}
         <button 
           onClick={handleInstall}
           className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800 transition-all duration-200 group"
@@ -91,7 +86,6 @@ export const Sidebar = ({
           <span>Installer l&apos;application</span>
         </button>
 
-        {/* BOUTON DÉCONNEXION */}
         <button 
           onClick={handleLogout} 
           className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-all duration-200"
@@ -100,7 +94,6 @@ export const Sidebar = ({
           <span>Déconnexion</span>
         </button>
 
-        {/* STATUT RÉSEAU */}
         <div className="mt-4 p-3 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800/50">
            <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">

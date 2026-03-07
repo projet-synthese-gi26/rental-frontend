@@ -1,3 +1,4 @@
+// FILE: apps/mfe-organisation/src/app/page.tsx
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useState, useEffect } from 'react';
@@ -20,7 +21,9 @@ import { OnboardingStepper } from '../components/OnboardingStepper';
 import { Loader2 } from 'lucide-react';
 import { fr } from '../locales/fr';
 import { en } from '../locales/en';
+import { ReservationsView } from '@/views/ReservationsView';
 import { RentalsView } from '@/views/RentalsView';
+import { TransactionsView } from '@/views/TransactionsView';
 
 export default function OrganisationDashboard() {
   const [currentView, setCurrentView] = useState<string>('DASHBOARD');
@@ -54,7 +57,7 @@ export default function OrganisationDashboard() {
     else setIsLoading(false);
 
     return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-  }, []);
+  },[]);
 
   const fetchProfile = async () => {
     try {
@@ -66,7 +69,7 @@ export default function OrganisationDashboard() {
           setUserData(user);
           setIsOnboarded(organization.city && organization.city !== "string");
           const agRes = await agencyService.getAgencies(organization.id);
-          if (agRes.ok) setAgencies(agRes.data || []);
+          if (agRes.ok) setAgencies(agRes.data ||[]);
           setIsAuth(true);
         }
       } else {
@@ -123,14 +126,16 @@ export default function OrganisationDashboard() {
         <div className="flex-1 overflow-y-auto p-6 md:p-10 bg-[#f4f7fe] dark:bg-[#0f1323] custom-scrollbar text-left">
           <div className="max-w-[1600px] mx-auto">
             {currentView === 'DASHBOARD' && <DashboardView orgData={orgData} t={t} />}
+            {currentView === 'RESERVATIONS' && <ReservationsView orgData={orgData} />}
             {currentView === 'RENTALS' && <RentalsView orgData={orgData} />}
+            {currentView === 'TRANSACTIONS' && <TransactionsView orgData={orgData} />}
             {currentView === 'AGENCIES' && <AgenciesView orgData={orgData} setCurrentView={setCurrentView} />}
             {currentView === 'ROLES' && <RolesView orgData={orgData} />}
             {currentView === 'STAFF' && <StaffView orgData={orgData} />}
             {currentView === 'VEHICLES' && <VehiclesView orgData={orgData} />}
             {currentView === 'CATEGORIES' && <VehicleCategoriesView orgData={orgData} />}
             {currentView === 'SUBSCRIPTION' && <SubscriptionView orgData={orgData} />}
-            {currentView === 'PROFILE' && <ProfileView orgData={orgData} userData={userData} />}
+            {currentView === 'PROFILE' && <ProfileView orgData={orgData} userData={userData} onUpdate={fetchProfile} />}
             {currentView === 'NOTIFICATIONS' && <NotificationsView orgId={orgData?.id} />}
           </div>
         </div>

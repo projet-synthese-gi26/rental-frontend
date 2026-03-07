@@ -1,19 +1,19 @@
-// FILE: apps/mfe-organisation/src/views/NotificationsView.tsx
+// FILE: apps/mfe-agency/src/views/NotificationsView.tsx
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useEffect, useState } from 'react';
 import { Bell, Check, Clock, Info, AlertTriangle, Loader2 } from 'lucide-react';
 import { notifService } from '@pwa-easy-rental/shared-services';
 
-export const NotificationsView = ({ orgId }: { orgId: string }) => {
+export const NotificationsView = ({ agencyId }: { agencyId: string }) => {
   const [notifs, setNotifs] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   const loadNotifs = async (silent = false) => {
-    if (!orgId) return;
+    if (!agencyId) return;
     if (!silent) setLoading(true);
     try {
-      const res = await notifService.getOrgNotifications(orgId);
+      const res = await notifService.getAgencyNotifications(agencyId);
       if (res.ok) setNotifs(res.data ||[]);
     } finally {
       if (!silent) setLoading(false);
@@ -26,7 +26,7 @@ export const NotificationsView = ({ orgId }: { orgId: string }) => {
       loadNotifs(true);
     }, 10000);
     return () => clearInterval(interval);
-  }, [orgId]);
+  }, [agencyId]);
 
   const handleMarkRead = async (id: string) => {
     const res = await notifService.markAsRead(id);
@@ -45,8 +45,8 @@ export const NotificationsView = ({ orgId }: { orgId: string }) => {
     <div className="max-w-4xl mx-auto space-y-6 animate-in fade-in duration-500 text-left">
       <div className="flex justify-between items-center mb-8 px-2">
         <div>
-          <h2 className="text-3xl font-[900] italic tracking-tighter uppercase text-slate-900 dark:text-white">Centre de Notifications</h2>
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1 italic">Suivi des activités réseau en temps réel</p>
+          <h2 className="text-3xl font-[900] italic tracking-tighter uppercase text-slate-900 dark:text-white">Activité de l&apos;agence</h2>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1 italic">Alertes et événements opérationnels</p>
         </div>
         <button onClick={() => loadNotifs(false)} className="p-3 bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:text-[#0528d6] transition-all">
           <Clock size={20}/>
@@ -78,7 +78,7 @@ export const NotificationsView = ({ orgId }: { orgId: string }) => {
               <div className="flex-1">
                 <div className="flex justify-between items-start mb-2">
                   <h4 className="font-black text-slate-900 dark:text-white uppercase text-xs tracking-tight italic">
-                    {n.reason || 'Notification Système'}
+                    {n.reason || 'Information système'}
                   </h4>
                   <span className="text-[9px] font-bold text-slate-400 uppercase">{new Date(n.createdAt).toLocaleString()}</span>
                 </div>
@@ -90,7 +90,7 @@ export const NotificationsView = ({ orgId }: { orgId: string }) => {
                       onClick={() => handleMarkRead(n.id)} 
                       className="text-[9px] font-black uppercase text-[#0528d6] flex items-center gap-1.5 hover:underline"
                     >
-                      <Check size={12}/> Marquer comme lu
+                      <Check size={12}/> Marquer lu
                     </button>
                   )}
                   {n.locationId && (
