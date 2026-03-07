@@ -18,21 +18,35 @@ import {
 const ReservationDetail = ({ data, onClose, onCancel, cancelling }: any) => {
   const { rental, vehicle, driver, agency } = data;
 
-  const formatDate = (date: string) =>
-    new Date(date).toLocaleDateString("fr-FR", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
+  const formatDate = (date: string) => {
+    const options: Intl.DateTimeFormatOptions = {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+    };
 
-  const duration =
-    rental?.startDate && rental?.endDate
-      ? Math.ceil(
-          (new Date(rental.endDate).getTime() -
-            new Date(rental.startDate).getTime()) /
-            (1000 * 60 * 60 * 24)
-        )
-      : 0;
+    if (rental?.rentalType !== "DAILY") {
+        options.hour = "2-digit";
+        options.minute = "2-digit";
+    }
+
+    return new Date(date).toLocaleDateString("fr-FR", options);
+  };
+
+    const start = new Date(rental?.startDate);
+    const end = new Date(rental?.endDate);
+
+    const diffMs = end.getTime() - start.getTime();
+
+    const durationDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+    const durationHours = Math.ceil(diffMs / (1000 * 60 * 60));
+
+    const duration =
+    rental?.rentalType === "DAILY" ? durationDays : durationHours ;
+
+    const durationLabel =
+    rental?.rentalType === "DAILY" ? "Jours" : "Heures" ;
+
 
   const remaining = (rental?.totalAmount || 0) - (rental?.amountPaid || 0);
 
@@ -119,7 +133,7 @@ const ReservationDetail = ({ data, onClose, onCancel, cancelling }: any) => {
 
             <div className="p-5 bg-blue-50 border border-blue-100 rounded-[2rem] flex flex-col justify-center">
               <SectionTitle title="Durée" icon={Clock} />
-              <p className="text-2xl font-black text-[#0528d6] italic">{duration} <span className="text-xs font-black uppercase tracking-tighter">Jours</span></p>
+              <p className="text-2xl font-black text-[#0528d6] italic">{duration} <span className="text-xs font-black uppercase tracking-tighter">{durationLabel}</span></p>
             </div>
 
             <div className="p-5 bg-slate-50 border border-slate-100 rounded-[2rem] flex flex-col justify-center">
