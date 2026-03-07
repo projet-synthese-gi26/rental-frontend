@@ -11,8 +11,6 @@ import {
   Bell,
   X,
   ChevronRight,
-  ShieldCheck,
-  CreditCard,
   MapPin
 } from 'lucide-react';
 import { format } from 'date-fns';
@@ -64,6 +62,7 @@ export const MyReservationsView = ({ userData }: any) => {
       setSelectedRes(null);
       await fetchReservations(); // Refresh la liste
     } catch (error) {
+      console.error("Erreur annulation:", error);
       alert("Erreur lors de l'annulation");
     } finally {
       setCancelling(false);
@@ -74,6 +73,7 @@ export const MyReservationsView = ({ userData }: any) => {
     try {
       return format(new Date(dateStr), 'dd MMM yyyy', { locale: fr });
     } catch (e) {
+      console.error("Erreur formatage date:", e);
       return "Date non définie";
     }
   };
@@ -179,7 +179,7 @@ export const MyReservationsView = ({ userData }: any) => {
         <div className="p-6 bg-slate-900 rounded-[2.5rem] flex items-start gap-4 text-white/80 shadow-2xl">
           <Info className="text-blue-400 shrink-0" size={24} />
           <p className="text-[11px] leading-relaxed italic">
-            Les réservations <span className="text-blue-400 font-bold underline italic">PENDING</span> sont en attente de confirmation par l'agence. Nos agents vérifient la disponibilité du véhicule et du chauffeur.
+            Les réservations <span className="text-blue-400 font-bold underline italic">PENDING</span> sont en attente de confirmation par {" l'agence."} Nos agents vérifient la disponibilité du véhicule et du chauffeur.
           </p>
         </div>
       )}
@@ -188,114 +188,6 @@ export const MyReservationsView = ({ userData }: any) => {
 };
 
 // --- SOUS-COMPOSANTS INTERNES ---
-
-const InfoBlock = ({ icon, label, value, subValue, highlight }: any) => (
-  <div className={`p-5 rounded-[1.8rem] border ${highlight ? 'bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-100' : 'bg-white border-slate-100'}`}>
-    <div className="flex items-center gap-3 mb-3">
-      <div className={`${highlight ? 'text-white/60' : 'text-[#0528d6]'}`}>{icon}</div>
-      <p className={`text-[9px] font-black uppercase tracking-widest ${highlight ? 'text-white/60' : 'text-slate-400'}`}>{label}</p>
-    </div>
-    <p className={`text-xl font-black italic ${highlight ? 'text-white' : 'text-slate-900'}`}>{value}</p>
-    <p className={`text-[10px] font-bold ${highlight ? 'text-white/50' : 'text-slate-400'}`}>{subValue}</p>
-  </div>
-);
-
-const ReservationDetailPanel = ({ data, onClose, onCancel, cancelling }: any) => {
-  const { rental, vehicle, driver, agency } = data;
-
-  const FeatureBadge = ({ label, active }: any) => active ? (
-    <span className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 text-[#0528d6] rounded-xl text-[9px] font-black border border-blue-100 uppercase tracking-tighter">
-      {label}
-    </span>
-  ) : null;
-
-  return (
-    <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl overflow-hidden sticky top-4">
-      {/* Banner */}
-      <div className="relative h-56 bg-slate-900">
-        <img 
-          src={vehicle?.images?.[0] || '/car-placeholder.png'} 
-          className="w-full h-full object-cover opacity-60" 
-          alt="Vehicle"
-        />
-        <button onClick={onClose} className="absolute top-6 right-6 size-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white"><X size={20}/></button>
-        <div className="absolute bottom-6 left-8">
-          <p className="text-blue-400 text-[10px] font-black uppercase tracking-widest mb-1">{vehicle?.brand} {vehicle?.model}</p>
-          <h3 className="text-2xl font-black text-white italic uppercase tracking-tighter">
-            {vehicle?.licencePlate || "Immatriculation en cours"}
-          </h3>
-        </div>
-      </div>
-
-      <div className="p-8 space-y-8">
-        {/* Rapid Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-           <div className="text-center p-3 bg-slate-50 rounded-2xl">
-              <p className="text-[8px] font-black text-slate-400 uppercase">Places</p>
-              <p className="text-sm font-black">{vehicle?.places || 5}</p>
-           </div>
-           <div className="text-center p-3 bg-slate-50 rounded-2xl">
-              <p className="text-[8px] font-black text-slate-400 uppercase">Transmission</p>
-              <p className="text-sm font-black tracking-tighter">{vehicle?.transmission || 'Auto'}</p>
-           </div>
-           <div className="text-center p-3 bg-slate-50 rounded-2xl">
-              <p className="text-[8px] font-black text-slate-400 uppercase">Conso</p>
-              <p className="text-sm font-black">{vehicle?.fuelEfficiency?.highway || '7L'}/100</p>
-           </div>
-           <div className="text-center p-3 bg-slate-50 rounded-2xl">
-              <p className="text-[8px] font-black text-slate-400 uppercase">Année</p>
-              <p className="text-sm font-black">{new Date(vehicle?.yearProduction).getFullYear()}</p>
-           </div>
-        </div>
-
-        {/* Features */}
-        <div>
-          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Équipements inclus</p>
-          <div className="flex flex-wrap gap-2">
-            <FeatureBadge label="Clim" active={vehicle?.functionalities?.air_condition} />
-            <FeatureBadge label="GPS" active={vehicle?.functionalities?.gps} />
-            <FeatureBadge label="Bluetooth" active={vehicle?.functionalities?.bluetooth} />
-            <FeatureBadge label="USB" active={vehicle?.functionalities?.usb_input} />
-            <FeatureBadge label="Siège Enfant" active={vehicle?.functionalities?.child_seat} />
-          </div>
-        </div>
-
-        {/* Agency & Driver */}
-        <div className="flex flex-col md:flex-row gap-6 py-6 border-y border-slate-50">
-          <div className="flex-1 flex items-center gap-3">
-             <div className="size-10 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400">
-                {agency?.logoUrl ? <img src={agency.logoUrl} className="w-full h-full object-cover rounded-xl"/> : <MapPin size={20}/>}
-             </div>
-             <div>
-                <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest leading-none">Agence</p>
-                <p className="text-xs font-bold">{agency?.name}</p>
-             </div>
-          </div>
-          {driver && (
-            <div className="flex-1 flex items-center gap-3">
-              <div className="size-10 bg-blue-50 rounded-xl flex items-center justify-center text-[#0528d6]">
-                {driver?.profilUrl ? <img src={driver.profilUrl} className="w-full h-full object-cover rounded-xl"/> : <UserIcon size={20}/>}
-              </div>
-              <div>
-                <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest leading-none">Chauffeur</p>
-                <p className="text-xs font-bold">{driver?.firstname} {driver?.lastname}</p>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Action button */}
-        <button 
-          disabled={cancelling}
-          onClick={() => onCancel(rental.id)}
-          className="w-full py-5 bg-red-50 text-red-500 rounded-3xl text-[11px] font-black uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all flex items-center justify-center gap-2"
-        >
-          {cancelling ? <Loader2 className="animate-spin" size={18} /> : "Annuler ma demande"}
-        </button>
-      </div>
-    </div>
-  );
-};
 
 const EmptyState = () => (
   <div className="bg-white rounded-[3rem] p-12 border border-slate-100 shadow-sm text-center col-span-full">

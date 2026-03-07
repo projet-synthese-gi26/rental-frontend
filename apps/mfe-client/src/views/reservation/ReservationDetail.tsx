@@ -12,7 +12,6 @@ import {
   Shield,
   CreditCard,
   Gauge,
-  Info,
   ChevronRight,
 } from "lucide-react";
 
