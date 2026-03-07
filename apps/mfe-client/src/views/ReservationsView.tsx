@@ -3,15 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Car, 
-  User as UserIcon, 
   Loader2, 
   ArrowRight, 
   Info,
   Clock,
   Bell,
-  X,
-  ChevronRight,
-  MapPin
+  ChevronRight
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
@@ -196,7 +193,7 @@ const EmptyState = () => (
     </div>
     <h4 className="text-3xl font-black text-slate-900 italic uppercase tracking-tighter">Silence radio...</h4>
     <p className="text-slate-400 text-sm font-medium max-w-xs mx-auto italic mt-3 leading-relaxed">
-      Vous n'avez aucune réservation active. Vos futures aventures commencent ici.
+      {"Vous n'avez aucune réservation active."} Vos futures aventures commencent ici.
     </p>
     <button className="mt-10 bg-[#0528d6] text-white px-12 py-5 rounded-full font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:scale-105 transition-all">
       Louer un véhicule
