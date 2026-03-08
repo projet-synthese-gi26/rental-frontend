@@ -19,7 +19,7 @@ export const ProfileView = ({ userData, onLogout, onBack }: any) => {
       });
     }
   }, [userData]);
-  if (!userData) return null;
+
 
   useEffect(() => {
     const fetchTransactions = async () => {

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { 
   ArrowDownLeft, ArrowUpRight, ChevronDown, 
-  Calendar, Car, User, Store, Receipt, Hash, Loader2, 
+  Car, User, Receipt, Loader2, 
   Copy, CheckCircle2, MapPin, Phone, ShieldCheck, Info, Clock, Tag
 } from 'lucide-react';
 import { transactionService } from '@shared-services/api';
