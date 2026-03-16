@@ -2,7 +2,7 @@
 'use client';
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Store, Plus, Search, Loader2, ChevronLeft, ChevronRight, LayoutGrid, ShieldCheck } from 'lucide-react';
-import { agencyService, orgService, extraService } from '@pwa-easy-rental/shared-services';
+import { agencyService, orgService } from '@pwa-easy-rental/shared-services';
 import { StatCard } from '../components/StatCard';
 import { AgencyCard } from './agencies/AgencyCard';
 import { AgencyForm } from './agencies/AgencyForm';

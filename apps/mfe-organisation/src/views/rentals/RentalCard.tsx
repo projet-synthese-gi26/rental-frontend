@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React from 'react';
-import { User, Calendar, MapPin, ArrowUpRight, Info, Banknote } from 'lucide-react';
+import { Calendar, MapPin, ArrowUpRight, Info, Banknote } from 'lucide-react';
 
 export const RentalCard = ({ rental, onView }: any) => {
   const getStatusStyle = (status: string) => {

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React from 'react';
-import { X, Calendar, User, Car, CreditCard, ShieldCheck, MapPin, Phone, Clock, Banknote, CheckCircle2, AlertTriangle, FileText } from 'lucide-react';
+import { X, Calendar, User, Car, ShieldCheck, Phone, Banknote } from 'lucide-react';
 import { Portal } from '../../components/Portal';
 
 export const RentalDetailsModal = ({ rental, onClose }: any) => {

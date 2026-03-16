@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React from 'react';
-import { Car, MapPin, Gauge, Users, Trash2, Edit3, Info, CalendarClock } from 'lucide-react';
+import { MapPin, Gauge, Users, Trash2, Edit3, Info, CalendarClock } from 'lucide-react';
 
 export const VehicleCard = ({ vehicle, agencyName, categoryName, onEdit, onDelete, onViewDetails, onQuickStatus }: any) => {
   const getStatusColor = (status: string) => {

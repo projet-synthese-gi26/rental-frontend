@@ -2,13 +2,13 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { 
-  Car, Users, Calendar, ArrowRight, Activity, Clock, 
+  Car, Users, ArrowRight, Activity, 
   Building2, BarChart3, PieChart, TrendingUp, Wallet, CheckCircle
 } from 'lucide-react';
 import { statsService } from '@pwa-easy-rental/shared-services';
 import { StatCard } from '../components/StatCard';
 
-export const DashboardView = ({ userData, agencyData }: any) => {
+export const DashboardView = ({ agencyData }: any) => {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 

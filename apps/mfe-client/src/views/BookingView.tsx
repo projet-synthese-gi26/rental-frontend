@@ -2,7 +2,7 @@
 'use client';
 import React, { useState, useEffect, useMemo } from 'react';
 import { ArrowLeft, Calendar, ShieldCheck, Zap, CreditCard, Loader2, CheckCircle2, User, Car, ArrowRight, Star } from 'lucide-react';
-import { driverService, orgService, vehicleService } from '@pwa-easy-rental/shared-services';
+import { driverService, vehicleService } from '@pwa-easy-rental/shared-services';
 
 export const BookingView = ({ vehicleId, onBack, onSuccess }: any) => {
   const [data, setData] = useState<any>(null);

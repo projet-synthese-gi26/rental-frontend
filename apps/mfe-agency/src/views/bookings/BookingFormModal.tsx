@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useState } from 'react';
-import { X, Loader2, User, Phone, Car, Calendar, Briefcase } from 'lucide-react';
+import { X, Loader2, User, Phone, Calendar } from 'lucide-react';
 import { Portal } from '../../components/Portal';
 
 export const BookingFormModal = ({ vehicles, drivers, onClose, onSubmit, loading }: any) => {

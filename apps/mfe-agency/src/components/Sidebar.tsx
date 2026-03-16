@@ -3,7 +3,7 @@
 'use client';
 import React from 'react';
 import { 
-  LayoutDashboard, Car, Users, Calendar, 
+  LayoutDashboard, Car, Users, 
   LogOut, X, ChevronRight, Activity, CalendarDays, CalendarCheck, Banknote
 } from 'lucide-react';
 import { hasPermission } from '../utils/permissions';

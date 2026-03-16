@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useEffect, useState } from 'react';
-import { Menu, Sun, Moon, Languages, Bell, Search, MapPin } from 'lucide-react';
+import { Menu, Sun, Moon, Languages, Bell, MapPin } from 'lucide-react';
 import { notifService } from '@pwa-easy-rental/shared-services';
 
 export const Header = ({ 
