@@ -26,5 +26,5 @@ export const rentalService = {
   
   getClientRentalsHistory: () => client.get<any[]>('/api/rentals/client/rentals/history'),
 
-  getRentalDetails: (id: string) => client.get<any>(`/api/rentals/${id}/details`),
+  getByAgency: (agencyId: string) => client.get<any[]>(`/api/rentals/agency/${agencyId}/rentals`),
 };

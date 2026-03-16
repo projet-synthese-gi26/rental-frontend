@@ -122,7 +122,7 @@ export const VehiclesView = ({ orgData }: any) => {
                  value={searchTerm} onChange={(e) => {setSearchTerm(e.target.value); setCurrentPage(1);}} />
         </div>
         <button onClick={() => { setEditingVehicle(null); setActiveModal('FORM'); }} className="w-full md:w-auto px-6 py-3 bg-[#0528d6] text-white rounded-xl font-black text-xs uppercase shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2 hover:scale-[1.02] transition-all italic">
-          <Plus size={18} /> {"Ajouter à l'inventaire"}
+          <Plus size={18} /> Ajouter à l&apos;inventaire
         </button>
       </div>
 

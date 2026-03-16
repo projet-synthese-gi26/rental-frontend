@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useState } from 'react';
-import {Loader2, DollarSign, Smartphone, CreditCard, Banknote } from 'lucide-react';
+import { Loader2, DollarSign, Smartphone, CreditCard, Banknote } from 'lucide-react';
 import { Portal } from '../../components/Portal';
 
 export const PaymentModal = ({ rental, onClose, onSubmit, loading }: any) => {

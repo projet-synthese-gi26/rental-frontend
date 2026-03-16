@@ -64,7 +64,7 @@ export const VehicleFormModal = ({ editingVehicle, agencies, categories, initial
                 <Input label="Immatriculation" value={formData.licencePlate} onChange={(v:any) => setFormData({...formData, licencePlate: v.toUpperCase()})} required icon={<Hash size={14}/>} />
                 
                 <div className="space-y-1.5">
-                    <label className="text-[9px] font-black text-slate-400 uppercase italic ml-1">{"Agence d'affectation"}</label>
+                    <label className="text-[9px] font-black text-slate-400 uppercase italic ml-1">Agence d&apos;affectation</label>
                     <select required value={formData.agencyId} onChange={e => setFormData({...formData, agencyId: e.target.value})} className="w-full p-3 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-xl text-xs font-bold focus:border-[#0528d6] outline-none transition-all dark:text-white">
                         <option value="">Sélectionner une agence...</option>
                         {agencies.map((a:any) => <option key={a.id} value={a.id}>{a.name}</option>)}
