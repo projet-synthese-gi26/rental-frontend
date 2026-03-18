@@ -16,8 +16,8 @@ export const VehicleHero = ({ vehicle }: any) => (
         <Car size={120} className="text-slate-200" />
       )}
       <div className="absolute bottom-6 left-6 flex gap-2">
-        <span className="px-4 py-2 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-2xl text-[9px] font-black uppercase tracking-widest shadow-sm border border-white/20">Images HD</span>
-        <span className="px-4 py-2 bg-[#0528d6] text-white rounded-2xl text-[9px] font-black uppercase tracking-widest shadow-lg shadow-blue-600/20">Vérifié</span>
+        <span className="px-4 py-2 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-2xl text-[9px] font-black  tracking-widest shadow-sm border border-white/20">Images HD</span>
+        <span className="px-4 py-2 bg-[#0528d6] text-white rounded-2xl text-[9px] font-black  tracking-widest shadow-lg shadow-blue-600/20">Vérifié</span>
       </div>
     </div>
   </section>

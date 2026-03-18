@@ -25,7 +25,7 @@ export const SearchBar = ({ value, onChange, total, onOpenFilters }: any) => {
         </button>
 
         <div className="px-6 border-l-2 border-slate-100 dark:border-slate-800 hidden md:block text-right">
-          <p className="text-[9px] font-bold text-slate-400 uppercase mb-0.5">Résultats</p>
+          <p className="text-[9px] font-bold text-slate-400  mb-0.5">Résultats</p>
           <p className="text-xs font-black text-[#0528d6] whitespace-nowrap">{total} véhicules</p>
         </div>
       </div>

@@ -72,7 +72,7 @@ const MyCalendar: React.FC<CalendarProps> = ({ schedules, onDatesChange, selecte
   return (
     <div className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm mt-4">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-bold text-gray-800 flex items-center gap-2 uppercase tracking-wider">
+        <h3 className="text-sm font-bold text-gray-800 flex items-center gap-2  tracking-wider">
           <CalendarIcon size={16} className="text-blue-600" />
           Disponibilités
         </h3>
@@ -85,7 +85,7 @@ const MyCalendar: React.FC<CalendarProps> = ({ schedules, onDatesChange, selecte
           >
             <ChevronLeft size={14} />
           </button>
-          <span className="text-[10px] font-black text-gray-600 uppercase min-w-[100px] text-center italic">
+          <span className="text-[10px] font-black text-gray-600  min-w-[100px] text-center italic">
             {format(currentMonth, 'MMMM yyyy', { locale: fr })}
           </span>
           <button 

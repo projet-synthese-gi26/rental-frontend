@@ -6,7 +6,7 @@ import { Settings, ShieldCheck, CheckCircle2 } from 'lucide-react';
 export const VehicleSpecs = ({ vehicle }: any) => (
   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-in slide-in-from-bottom-4 duration-500">
     <div className="bg-white dark:bg-[#1a1d2d] p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 space-y-6">
-      <h4 className="font-bold uppercase italic text-[#0528d6] text-xs flex items-center gap-2 tracking-widest">
+      <h4 className="font-bold  italic text-[#0528d6] text-xs flex items-center gap-2 tracking-widest">
         <Settings size={16}/> Motorisation & Type
       </h4>
       <div className="grid grid-cols-2 gap-6">
@@ -18,7 +18,7 @@ export const VehicleSpecs = ({ vehicle }: any) => (
     </div>
 
     <div className="bg-white dark:bg-[#1a1d2d] p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 space-y-6">
-      <h4 className="font-bold uppercase italic text-[#0528d6] text-xs flex items-center gap-2 tracking-widest">
+      <h4 className="font-bold  italic text-[#0528d6] text-xs flex items-center gap-2 tracking-widest">
         <ShieldCheck size={16}/> Équipements inclus
       </h4>
       <div className="grid grid-cols-2 gap-y-4">
@@ -33,8 +33,8 @@ export const VehicleSpecs = ({ vehicle }: any) => (
 
 const DataBox = ({ label, value }: any) => (
   <div className="space-y-1">
-    <p className="text-[9px] font-bold text-slate-300 uppercase tracking-widest italic">{label}</p>
-    <p className="text-sm font-black text-slate-700 dark:text-white italic uppercase tracking-tight">{value || '---'}</p>
+    <p className="text-[9px] font-bold text-slate-300  tracking-widest italic">{label}</p>
+    <p className="text-sm font-black text-slate-700 dark:text-white italic  tracking-tight">{value || '---'}</p>
   </div>
 );
 

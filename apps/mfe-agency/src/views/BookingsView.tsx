@@ -42,7 +42,7 @@ export const BookingsView = ({ userData }: { userData: any }) => {
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         {rentals.length === 0 ? (
           <div className="col-span-full p-20 bg-white dark:bg-[#1a1d2d] rounded-[3rem] text-center border-2 border-dashed border-slate-100">
-             <p className="text-slate-400 font-bold uppercase italic">Aucune réservation détectée pour cette agence</p>
+             <p className="text-slate-400 font-bold  italic">Aucune réservation détectée pour cette agence</p>
           </div>
         ) : (
           rentals.map(rental => (

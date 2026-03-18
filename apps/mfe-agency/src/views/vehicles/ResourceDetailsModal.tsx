@@ -39,7 +39,7 @@ export const ResourceDetailsModal = ({ resourceId, type, onClose }: ResourceDeta
               <h3 className="text-xl font-bold text-slate-900 dark:text-white">
                 Détails Opérationnels
               </h3>
-              <p className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mt-1 italic">
+              <p className="text-[10px] text-slate-400  font-bold tracking-widest mt-1 italic">
                 Consulter le planning et les avis
               </p>
             </div>
@@ -66,7 +66,7 @@ export const ResourceDetailsModal = ({ resourceId, type, onClose }: ResourceDeta
                   </h4>
                   <div className="flex items-center gap-2 mt-1">
                     <span className="text-orange-500 font-black text-sm">★ {details.rating?.toFixed(1) || 'N/A'}</span>
-                    <span className="text-[10px] text-slate-400 uppercase font-bold">({details.reviews?.length || 0} avis)</span>
+                    <span className="text-[10px] text-slate-400  font-bold">({details.reviews?.length || 0} avis)</span>
                   </div>
                 </div>
               </div>
@@ -75,7 +75,7 @@ export const ResourceDetailsModal = ({ resourceId, type, onClose }: ResourceDeta
               <section>
                 <div className="flex items-center gap-3 mb-6">
                   <Calendar className="text-[#0528d6]" size={18} />
-                  <h5 className="text-sm font-black uppercase tracking-tighter">Calendrier d&apos;indisponibilité</h5>
+                  <h5 className="text-sm font-black  tracking-tighter">Calendrier d&apos;indisponibilité</h5>
                 </div>
                 
                 {details.schedule?.length > 0 ? (
@@ -88,7 +88,7 @@ export const ResourceDetailsModal = ({ resourceId, type, onClose }: ResourceDeta
                             Du {new Date(s.startDate).toLocaleDateString()} au {new Date(s.endDate).toLocaleDateString()}
                           </p>
                         </div>
-                        <span className="px-3 py-1 bg-orange-50 text-orange-600 text-[10px] font-bold uppercase rounded-lg">
+                        <span className="px-3 py-1 bg-orange-50 text-orange-600 text-[10px] font-bold  rounded-lg">
                           {s.status}
                         </span>
                       </div>
@@ -105,7 +105,7 @@ export const ResourceDetailsModal = ({ resourceId, type, onClose }: ResourceDeta
               <section>
                 <div className="flex items-center gap-3 mb-6">
                   <Star className="text-[#0528d6]" size={18} />
-                  <h5 className="text-sm font-black uppercase tracking-tighter">Avis des clients</h5>
+                  <h5 className="text-sm font-black  tracking-tighter">Avis des clients</h5>
                 </div>
 
                 <div className="space-y-4">
@@ -120,7 +120,7 @@ export const ResourceDetailsModal = ({ resourceId, type, onClose }: ResourceDeta
                       <p className="text-xs text-slate-500 italic leading-relaxed">
                         &quot;{r.comment}&quot;
                       </p>
-                      <p className="text-[9px] text-slate-400 mt-2 uppercase font-bold tracking-widest">
+                      <p className="text-[9px] text-slate-400 mt-2  font-bold tracking-widest">
                         Posté le {new Date(r.createdAt).toLocaleDateString()}
                       </p>
                     </div>

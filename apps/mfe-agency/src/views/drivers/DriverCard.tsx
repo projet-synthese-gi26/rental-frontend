@@ -31,7 +31,7 @@ export const DriverCard = ({ driver, onEdit, onDelete }: any) => {
         <h4 className="font-bold text-slate-900 dark:text-white leading-tight truncate">
           {driver.firstname} {driver.lastname}
         </h4>
-        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">
+        <p className="text-[10px] font-bold text-slate-400  tracking-widest mt-1">
           {driver.age} ans — {driver.gender === 0 ? 'Homme' : 'Femme'}
         </p>
       </div>
@@ -52,10 +52,10 @@ export const DriverCard = ({ driver, onEdit, onDelete }: any) => {
       </div>
 
       <div className="grid grid-cols-2 gap-2 pt-4 border-t border-slate-50 dark:border-slate-800">
-        <a href={driver.drivingLicenseUrl} target="_blank" className="flex items-center justify-center gap-2 py-2 bg-slate-50 dark:bg-slate-800 text-slate-500 rounded-lg text-[10px] font-bold uppercase hover:bg-blue-50 hover:text-[#0528d6] transition-all">
+        <a href={driver.drivingLicenseUrl} target="_blank" className="flex items-center justify-center gap-2 py-2 bg-slate-50 dark:bg-slate-800 text-slate-500 rounded-lg text-[10px] font-bold  hover:bg-blue-50 hover:text-[#0528d6] transition-all">
           <FileText size={12}/> Permis
         </a>
-        <a href={driver.cniUrl} target="_blank" className="flex items-center justify-center gap-2 py-2 bg-slate-50 dark:bg-slate-800 text-slate-500 rounded-lg text-[10px] font-bold uppercase hover:bg-blue-50 hover:text-[#0528d6] transition-all">
+        <a href={driver.cniUrl} target="_blank" className="flex items-center justify-center gap-2 py-2 bg-slate-50 dark:bg-slate-800 text-slate-500 rounded-lg text-[10px] font-bold  hover:bg-blue-50 hover:text-[#0528d6] transition-all">
           <FileText size={12}/> CNI
         </a>
       </div>

@@ -32,7 +32,7 @@ export function TestimonialCard({
                         />
                     ) : (
                         <div className="w-full h-full flex items-center justify-center text-gray-500 text-xl font-bold">
-                            {name.charAt(0).toUpperCase()}
+                            {name.charAt(0).to()}
                         </div>
                     )}
                 </div>

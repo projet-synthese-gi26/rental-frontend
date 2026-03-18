@@ -42,7 +42,7 @@ export const Header = ({
           <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white tracking-tight leading-none">
             {title}
           </h2>
-          <p className="hidden md:block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] italic mt-1">
+          <p className="hidden md:block text-[10px] font-black text-slate-400  tracking-[0.2em] italic mt-1">
             Console d&apos;administration
           </p>
         </div>
@@ -52,7 +52,7 @@ export const Header = ({
         {hasPrompt && (
             <button 
               onClick={onInstall} 
-              className="hidden sm:flex items-center gap-2 px-5 py-2 bg-orange-50 dark:bg-orange-500/10 text-[#F76513] rounded-full font-black text-[10px] uppercase border border-orange-100 dark:border-orange-500/20 hover:bg-orange-100 transition-colors animate-pulse"
+              className="hidden sm:flex items-center gap-2 px-5 py-2 bg-orange-50 dark:bg-orange-500/10 text-[#F76513] rounded-full font-black text-[10px]  border border-orange-100 dark:border-orange-500/20 hover:bg-orange-100 transition-colors animate-pulse"
             >
                 <Download size={14} /> {t.header.installBtn || "Installer"}
             </button>
@@ -90,7 +90,7 @@ export const Header = ({
             className="flex items-center gap-3 ml-2 pl-4 border-l border-slate-200 dark:border-slate-800 cursor-pointer group"
         >
            <div className="text-right hidden sm:block">
-              <p className="text-[9px] font-black text-slate-400 uppercase tracking-tighter leading-none mb-1 group-hover:text-[#0528d6] transition-colors">
+              <p className="text-[9px] font-black text-slate-400  tracking-tighter leading-none mb-1 group-hover:text-[#0528d6] transition-colors">
                 Administrateur
               </p>
               <p className="text-xs font-black text-slate-700 dark:text-slate-200 max-w-[120px] truncate italic">

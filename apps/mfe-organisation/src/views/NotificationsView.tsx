@@ -45,8 +45,8 @@ export const NotificationsView = ({ orgId }: { orgId: string }) => {
     <div className="max-w-4xl mx-auto space-y-6 animate-in fade-in duration-500 text-left">
       <div className="flex justify-between items-center mb-8 px-2">
         <div>
-          <h2 className="text-3xl font-[900] italic tracking-tighter uppercase text-slate-900 dark:text-white">Centre de Notifications</h2>
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1 italic">Suivi des activités réseau en temps réel</p>
+          <h2 className="text-3xl font-[900] italic tracking-tighter  text-slate-900 dark:text-white">Centre de Notifications</h2>
+          <p className="text-[10px] font-bold text-slate-400  tracking-widest mt-1 italic">Suivi des activités réseau en temps réel</p>
         </div>
         <button onClick={() => loadNotifs(false)} className="p-3 bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:text-[#0528d6] transition-all">
           <Clock size={20}/>
@@ -56,7 +56,7 @@ export const NotificationsView = ({ orgId }: { orgId: string }) => {
       {notifs.length === 0 ? (
         <div className="p-20 text-center bg-white dark:bg-[#1a1d2d] rounded-[3rem] border-2 border-dashed border-slate-100 dark:border-slate-800">
           <Bell className="mx-auto text-slate-200 mb-4" size={48} />
-          <p className="text-slate-400 font-bold italic uppercase text-xs tracking-widest">Aucune notification pour le moment</p>
+          <p className="text-slate-400 font-bold italic  text-xs tracking-widest">Aucune notification pour le moment</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -77,10 +77,10 @@ export const NotificationsView = ({ orgId }: { orgId: string }) => {
               
               <div className="flex-1">
                 <div className="flex justify-between items-start mb-2">
-                  <h4 className="font-black text-slate-900 dark:text-white uppercase text-xs tracking-tight italic">
+                  <h4 className="font-black text-slate-900 dark:text-white  text-xs tracking-tight italic">
                     {n.reason || 'Notification Système'}
                   </h4>
-                  <span className="text-[9px] font-bold text-slate-400 uppercase">{new Date(n.createdAt).toLocaleString()}</span>
+                  <span className="text-[9px] font-bold text-slate-400 ">{new Date(n.createdAt).toLocaleString()}</span>
                 </div>
                 <p className="text-sm text-slate-600 dark:text-slate-300 font-medium leading-relaxed mb-4">{n.details}</p>
                 
@@ -88,13 +88,13 @@ export const NotificationsView = ({ orgId }: { orgId: string }) => {
                   {!n.isRead && (
                     <button 
                       onClick={() => handleMarkRead(n.id)} 
-                      className="text-[9px] font-black uppercase text-[#0528d6] flex items-center gap-1.5 hover:underline"
+                      className="text-[9px] font-black  text-[#0528d6] flex items-center gap-1.5 hover:underline"
                     >
                       <Check size={12}/> Marquer comme lu
                     </button>
                   )}
                   {n.locationId && (
-                    <div className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-[8px] font-black text-slate-500 uppercase tracking-tighter italic">
+                    <div className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-[8px] font-black text-slate-500  tracking-tighter italic">
                       Dossier: #{n.locationId.substring(0,8)}
                     </div>
                   )}

@@ -83,7 +83,7 @@ const DriverDetailView: React.FC<DriverDetailsProps> = ({ data }) => {
           </div>
         </div>
         <div className="bg-blue-600 text-white p-4 rounded-xl text-center min-w-[150px]">
-          <p className="text-xs opacity-80 uppercase font-bold">À partir de</p>
+          <p className="text-xs opacity-80  font-bold">À partir de</p>
           <p className="text-xl font-black">{pricing.pricePerDay} {pricing.currency}</p>
           <p className="text-[10px]">par jour</p>
         </div>
@@ -106,7 +106,7 @@ const DriverDetailView: React.FC<DriverDetailsProps> = ({ data }) => {
       <h1 className="text-lg font-bold text-gray-900 truncate">
         {driver.firstname} {driver.lastname}
       </h1>
-      <span className="bg-green-100 text-green-700 text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wide shrink-0">
+      <span className="bg-green-100 text-green-700 text-[9px] px-2 py-0.5 rounded-full font-bold  tracking-wide shrink-0">
         {driver.status}
       </span>
     </div>
@@ -126,7 +126,7 @@ const DriverDetailView: React.FC<DriverDetailsProps> = ({ data }) => {
 
     {/* Bas : Prix intégré proprement */}
     <div className="flex items-center gap-2 pt-2 border-t border-gray-50">
-      <span className="text-[10px] text-gray-400 font-semibold uppercase">Tarif :</span>
+      <span className="text-[10px] text-gray-400 font-semibold ">Tarif :</span>
       <span className="text-sm font-black text-blue-600">
         {pricing.pricePerDay.toLocaleString()} {pricing.currency}
       </span>

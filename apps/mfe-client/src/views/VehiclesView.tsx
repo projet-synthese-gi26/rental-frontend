@@ -71,10 +71,10 @@ export const VehiclesView = ({ initialFilters, onSelectVehicle, onBack }: any) =
       
       {/* 1. TOP NAV (Z-INDEX 60) */}
       <div className="sticky top-0 z-[60] -mx-4 md:-mx-6 px-4 md:px-6 py-4 bg-[#f4f7fe] dark:bg-[#080b14] flex items-center justify-between border-b border-slate-200 dark:border-slate-800">
-        <button onClick={onBack} className="flex items-center gap-2 text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase hover:text-[#0528d6] transition-all italic">
+        <button onClick={onBack} className="flex items-center gap-2 text-[10px] font-bold text-slate-500 dark:text-slate-400  hover:text-[#0528d6] transition-all italic">
           <ArrowLeft size={14} /> <span className="hidden sm:inline">Retour à l&apos;accueil</span><span className="sm:hidden">Retour</span>
         </button>
-        <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] italic">Catalogue Flotte</span>
+        <span className="text-[10px] font-black text-slate-400  tracking-[0.2em] italic">Catalogue Flotte</span>
       </div>
 
       <div className="flex flex-col xl:flex-row gap-8 mt-6 items-start flex-1 pb-10">
@@ -127,7 +127,7 @@ export const VehiclesView = ({ initialFilters, onSelectVehicle, onBack }: any) =
                     {v.images?.[0] ? <img src={v.images[0]} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" /> : <Car size={40} className="text-slate-200"/>}
                   </div>
                   <div className="flex-1 flex flex-col space-y-4">
-                    <h3 className="font-bold text-slate-900 dark:text-white text-lg truncate italic uppercase">{v.brand} {v.model}</h3>
+                    <h3 className="font-bold text-slate-900 dark:text-white text-lg truncate italic ">{v.brand} {v.model}</h3>
                     <div className="grid grid-cols-3 gap-2 py-3 border-y-2 border-slate-50 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 rounded-xl">
                       <DetailItem icon={<Gauge size={12}/>} value={`${v.kilometrage} km`} />
                       <DetailItem icon={<Users size={12}/>} value={`${v.places} pl.`} />
@@ -153,6 +153,6 @@ export const VehiclesView = ({ initialFilters, onSelectVehicle, onBack }: any) =
 const DetailItem = ({ icon, value }: any) => (
   <div className="flex flex-col items-center gap-0.5">
     <span className="text-slate-400">{icon}</span>
-    <span className="text-[9px] font-black uppercase text-slate-600 dark:text-slate-300">{value}</span>
+    <span className="text-[9px] font-black  text-slate-600 dark:text-slate-300">{value}</span>
   </div>
 );

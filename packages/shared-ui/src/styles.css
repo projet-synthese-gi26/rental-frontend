@@ -10,7 +10,7 @@
 
 @layer components {
   .title-hero {
-    @apply font-[900] italic tracking-tighter leading-[0.85] uppercase;
+    @apply font-[900] italic tracking-tighter leading-[0.85] ;
   }
   .card-pwa {
     @apply bg-white rounded-modern border border-slate-100 shadow-sm transition-all duration-300;

@@ -9,7 +9,7 @@ export const PlanCard = ({ plan, isCurrent, onSelect, loading }: any) => (
     ${isCurrent ? 'border-[#0528d6] shadow-lg scale-[1.02] z-10' : 'border-slate-100 dark:border-slate-800 hover:border-blue-200'}
   `}>
     {isCurrent && (
-      <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#0528d6] text-white px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-md">
+      <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#0528d6] text-white px-4 py-1 rounded-full text-[10px] font-bold  tracking-widest shadow-md">
         Plan actuel
       </div>
     )}

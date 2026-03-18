@@ -55,7 +55,7 @@ export const AuthView = ({ onAuth, lang, setLang, darkMode, toggleTheme, onBack 
 
           <div className="relative z-10 flex items-center gap-4 text-blue-200">
              <ShieldCheck size={20} className="text-blue-300" />
-             <p className="text-[10px] font-bold uppercase tracking-[0.2em]">EasyRental Cloud Infrastructure</p>
+             <p className="text-[10px] font-bold  tracking-[0.2em]">EasyRental Cloud Infrastructure</p>
           </div>
         </div>
 
@@ -65,7 +65,7 @@ export const AuthView = ({ onAuth, lang, setLang, darkMode, toggleTheme, onBack 
               
               <button 
                 onClick={onBack}
-                className="mb-8 flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase hover:text-[#0528d6] transition-colors italic w-fit"
+                className="mb-8 flex items-center gap-2 text-[10px] font-black text-slate-400  hover:text-[#0528d6] transition-colors italic w-fit"
               >
                 <ArrowLeft size={14} /> Retour au catalogue
               </button>
@@ -120,7 +120,7 @@ export const AuthView = ({ onAuth, lang, setLang, darkMode, toggleTheme, onBack 
                 </button>
 
                 <div className="flex items-center gap-6 pt-6 border-t border-slate-50 dark:border-slate-800 w-full justify-center">
-                  <button onClick={() => setLang(lang === 'FR' ? 'EN' : 'FR')} className="flex items-center gap-2 text-[10px] font-black text-slate-300 hover:text-slate-600 uppercase transition-colors">
+                  <button onClick={() => setLang(lang === 'FR' ? 'EN' : 'FR')} className="flex items-center gap-2 text-[10px] font-black text-slate-300 hover:text-slate-600  transition-colors">
                     <Languages size={14} /> {lang}
                   </button>
                   <button onClick={toggleTheme} className="p-2 text-slate-300 hover:text-orange-500 transition-colors">

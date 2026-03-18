@@ -18,7 +18,7 @@ export const Pagination = ({ current, total, onPageChange }: any) => {
       
       <div className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-[#1a1d2d] rounded-2xl border border-slate-100 dark:border-slate-800">
         <span className="text-xs font-black text-[#0528d6] italic">{current}</span>
-        <span className="text-[10px] font-bold text-slate-300 uppercase">sur</span>
+        <span className="text-[10px] font-bold text-slate-300 ">sur</span>
         <span className="text-xs font-black text-slate-600 dark:text-slate-400 italic">{total}</span>
       </div>
 

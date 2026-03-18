@@ -21,7 +21,7 @@ export const VehicleCard = ({ vehicle, agencyName, categoryName, onEdit, onDelet
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
           alt="v"
         />
-        <div className={`absolute top-4 left-4 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest backdrop-blur-md border border-white/20 ${getStatusColor(vehicle.statut)}`}>
+        <div className={`absolute top-4 left-4 px-3 py-1 rounded-full text-[9px] font-black  tracking-widest backdrop-blur-md border border-white/20 ${getStatusColor(vehicle.statut)}`}>
           {vehicle.statut}
         </div>
         <div className="absolute top-4 right-4 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -33,7 +33,7 @@ export const VehicleCard = ({ vehicle, agencyName, categoryName, onEdit, onDelet
       <div className="p-6 flex flex-col flex-1">
         <div className="flex justify-between items-start mb-4">
           <div>
-            <h4 className="text-lg font-black text-slate-900 dark:text-white leading-tight uppercase italic tracking-tighter">
+            <h4 className="text-lg font-black text-slate-900 dark:text-white leading-tight  italic tracking-tighter">
               {vehicle.brand} <span className="text-[#0528d6]">{vehicle.model}</span>
             </h4>
             <div className="mt-1 px-2 py-0.5 inline-block bg-slate-100 dark:bg-slate-700 rounded font-mono font-bold text-[9px] text-slate-500 dark:text-slate-300 italic">
@@ -57,16 +57,16 @@ export const VehicleCard = ({ vehicle, agencyName, categoryName, onEdit, onDelet
           </div>
           <div className="flex flex-col items-center">
             <div className="size-3 rounded-full bg-slate-200 border border-slate-300 mb-1" style={{backgroundColor: vehicle.color}} />
-            <span className="text-[9px] font-black text-slate-500 uppercase italic truncate w-full text-center">{vehicle.color}</span>
+            <span className="text-[9px] font-black text-slate-500  italic truncate w-full text-center">{vehicle.color}</span>
           </div>
         </div>
 
         <div className="mt-auto flex items-center justify-between">
           <div className="flex items-center gap-1.5 text-slate-400">
             <MapPin size={12} className="text-[#0528d6]"/>
-            <span className="text-[10px] font-bold uppercase italic truncate max-w-[100px]">{agencyName}</span>
+            <span className="text-[10px] font-bold  italic truncate max-w-[100px]">{agencyName}</span>
           </div>
-          <span className="text-[9px] font-black text-[#0528d6] uppercase tracking-tighter bg-blue-50 dark:bg-blue-900/20 px-2 py-0.5 rounded italic">
+          <span className="text-[9px] font-black text-[#0528d6]  tracking-tighter bg-blue-50 dark:bg-blue-900/20 px-2 py-0.5 rounded italic">
             {categoryName}
           </span>
         </div>

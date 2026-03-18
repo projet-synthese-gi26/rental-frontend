@@ -53,7 +53,7 @@ export const AgencyDetailsView = ({ agencyId, userData, onBack }: { agencyId: st
           <ArrowLeft size={20} />
         </button>
         <div>
-          <h2 className="text-3xl font-black uppercase italic text-slate-900 dark:text-white leading-none">{agency?.name}</h2>
+          <h2 className="text-3xl font-black  italic text-slate-900 dark:text-white leading-none">{agency?.name}</h2>
           <p className="text-[10px] font-black text-slate-400 tracking-[0.2em] mt-2">{"Détails de l'agence "}</p>
         </div>
       </div>
@@ -69,8 +69,8 @@ export const AgencyDetailsView = ({ agencyId, userData, onBack }: { agencyId: st
               <div className="space-y-4">
                 <p className="text-slate-500 font-medium leading-relaxed">{agency?.description || "Aucune description fournie pour cette agence."}</p>
                 <div className="flex flex-wrap gap-2">
-                  {agency?.is24Hours && <span className="px-3 py-1 bg-green-50 text-green-600 text-[9px] font-black rounded-full uppercase tracking-tighter">Ouvert 24h/24</span>}
-                  {agency?.allowOnlineBooking && <span className="px-3 py-1 bg-blue-50 text-[#0528d6] text-[9px] font-black rounded-full uppercase tracking-tighter">Booking en ligne</span>}
+                  {agency?.is24Hours && <span className="px-3 py-1 bg-green-50 text-green-600 text-[9px] font-black rounded-full  tracking-tighter">Ouvert 24h/24</span>}
+                  {agency?.allowOnlineBooking && <span className="px-3 py-1 bg-blue-50 text-[#0528d6] text-[9px] font-black rounded-full  tracking-tighter">Booking en ligne</span>}
                 </div>
               </div>
             </div>
@@ -94,17 +94,17 @@ export const AgencyDetailsView = ({ agencyId, userData, onBack }: { agencyId: st
             <div className="pt-6 border-t border-white/10">
               <div className="flex items-center gap-3 mb-2">
                 <CreditCard className="text-blue-400" size={18} />
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Conditions</span>
+                <span className="text-[10px] font-black  tracking-widest text-slate-400">Conditions</span>
               </div>
               <p className="text-xl font-black italic">{agency?.depositPercentage}% {"d'acompte"}</p>
-              <p className="text-[10px] text-slate-400 mt-1 uppercase">Requis pour confirmer la réservation</p>
+              <p className="text-[10px] text-slate-400 mt-1 ">Requis pour confirmer la réservation</p>
             </div>
           </div>
         </div>
       </div>
       <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-800 flex items-center justify-between">
         <div>
-            <p className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">
+            <p className="text-[9px] font-black  tracking-[0.2em] text-slate-400 mb-1">
             Localisation GPS
             </p>
             <p className="text-sm font-bold text-slate-900 dark:text-white">
@@ -128,8 +128,8 @@ export const AgencyDetailsView = ({ agencyId, userData, onBack }: { agencyId: st
             <Car size={20} />
           </div>
           <div>
-            <h3 className="text-2xl font-black uppercase italic text-slate-900 dark:text-white">Notre Flotte</h3>
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{vehicles.length} véhicules disponibles dans cette agence</p>
+            <h3 className="text-2xl font-black  italic text-slate-900 dark:text-white">Notre Flotte</h3>
+            <p className="text-[10px] font-bold text-slate-400  tracking-widest">{vehicles.length} véhicules disponibles dans cette agence</p>
           </div>
         </div>
 
@@ -147,7 +147,7 @@ export const AgencyDetailsView = ({ agencyId, userData, onBack }: { agencyId: st
         ) : (
           <div className="py-20 bg-white dark:bg-slate-900 rounded-[3rem] border border-dashed border-slate-200 dark:border-slate-800 text-center">
             <Zap className="mx-auto text-slate-200 mb-4" size={48} />
-            <p className="text-slate-400 font-bold uppercase text-xs tracking-widest italic">{"Aucun véhicule n'est actuellement listé pour cette agence."}</p>
+            <p className="text-slate-400 font-bold  text-xs tracking-widest italic">{"Aucun véhicule n'est actuellement listé pour cette agence."}</p>
           </div>
         )}
       </div>
@@ -159,7 +159,7 @@ export const AgencyDetailsView = ({ agencyId, userData, onBack }: { agencyId: st
 const InfoBlock = ({ icon, label, value, subValue }: any) => (
   <div className="bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-800">
     <div className="size-10 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center mb-4">{icon}</div>
-    <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">{label}</p>
+    <p className="text-[9px] font-black text-slate-400  tracking-[0.2em] mb-1">{label}</p>
     <p className="text-sm font-bold text-slate-900 dark:text-white leading-tight">{value}</p>
     <p className="text-[10px] text-slate-400 mt-1 font-medium">{subValue}</p>
   </div>
@@ -169,7 +169,7 @@ const ContactRow = ({ icon, label, value }: any) => (
   <div className="flex items-center gap-4">
     <div className="size-10 bg-white/5 rounded-xl flex items-center justify-center">{icon}</div>
     <div>
-      <p className="text-[8px] font-black text-slate-500 uppercase tracking-widest mb-0.5">{label}</p>
+      <p className="text-[8px] font-black text-slate-500  tracking-widest mb-0.5">{label}</p>
       <p className="text-xs font-bold">{value || 'N/A'}</p>
     </div>
   </div>

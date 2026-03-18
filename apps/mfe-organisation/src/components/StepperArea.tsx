@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const StepperArea = ({ label, name, placeholder, value, onChange, icon: Icon }: any) => (
   <div className="space-y-1.5 group">
-    <label className="text-[11px] font-bold uppercase text-slate-400 tracking-wider ml-1 italic">
+    <label className="text-[11px] font-bold  text-slate-400 tracking-wider ml-1 italic">
       {label} <span className="text-[#0528d6]">*</span>
     </label>
     <div className="relative">

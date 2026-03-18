@@ -7,15 +7,15 @@ export const VehicleBookingCard = ({ vehicle, pricing, isAuth, onAuthRequired, o
   <aside className="lg:col-span-4">
     <div className="bg-white dark:bg-[#1a1d2d] p-8 rounded-[3rem] border-b-8 border-[#0528d6] shadow-2xl sticky top-44 space-y-8 text-left">
       <div>
-        <h3 className="text-3xl font-black text-slate-900 dark:text-white leading-none tracking-tight uppercase italic">{vehicle.brand}</h3>
-        <p className="text-slate-400 font-bold uppercase text-[10px] mt-2 italic tracking-widest leading-none">{vehicle.model} • {vehicle.color}</p>
+        <h3 className="text-3xl font-black text-slate-900 dark:text-white leading-none tracking-tight  italic">{vehicle.brand}</h3>
+        <p className="text-slate-400 font-bold  text-[10px] mt-2 italic tracking-widest leading-none">{vehicle.model} • {vehicle.color}</p>
       </div>
 
       <div className="p-6 bg-slate-50 dark:bg-slate-900/50 rounded-3xl border border-slate-100 dark:border-slate-800">
-        <p className="text-[9px] font-black text-slate-400 uppercase mb-1 tracking-widest italic">Coût journalier</p>
+        <p className="text-[9px] font-black text-slate-400  mb-1 tracking-widest italic">Coût journalier</p>
         <div className="flex items-baseline gap-2">
           <p className="text-3xl font-black text-[#0528d6] italic">{pricing?.pricePerDay?.toLocaleString()} XAF</p>
-          <p className="text-[10px] font-bold text-slate-400 uppercase italic">/ Jour</p>
+          <p className="text-[10px] font-bold text-slate-400  italic">/ Jour</p>
         </div>
       </div>
 
@@ -32,14 +32,14 @@ export const VehicleBookingCard = ({ vehicle, pricing, isAuth, onAuthRequired, o
 
       <button 
         onClick={!isAuth ? onAuthRequired : onStartBooking}
-        className="w-full py-5 bg-[#0528d6] text-white rounded-[2rem] font-black uppercase italic shadow-xl shadow-blue-600/30 hover:bg-blue-700 transition-all flex items-center justify-center gap-3"
+        className="w-full py-5 bg-[#0528d6] text-white rounded-[2rem] font-black  italic shadow-xl shadow-blue-600/30 hover:bg-blue-700 transition-all flex items-center justify-center gap-3"
       >
         {!isAuth ? "Se connecter pour réserver" : "Initialiser la réservation"} <Zap size={18} />
       </button>
 
       <div className="p-4 bg-orange-50 dark:bg-orange-950/20 rounded-2xl border border-orange-100 dark:border-orange-900/30 flex gap-3">
         <Info size={18} className="text-[#F76513] shrink-0" />
-        <p className="text-[9px] text-[#F76513] font-bold italic leading-relaxed uppercase">
+        <p className="text-[9px] text-[#F76513] font-bold italic leading-relaxed ">
           La caution est gérée par l&apos;agence partenaire lors de la prise du véhicule.
         </p>
       </div>

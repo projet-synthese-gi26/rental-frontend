@@ -46,7 +46,7 @@ export const Header = ({
           <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white tracking-tight leading-none">
             {title}
           </h2>
-          <div className="hidden md:flex items-center gap-2 mt-1.5 text-[11px] font-bold text-slate-400 uppercase tracking-widest italic">
+          <div className="hidden md:flex items-center gap-2 mt-1.5 text-[11px] font-bold text-slate-400  tracking-widest italic">
             <MapPin size={12} className="text-[#0528d6]" /> {agencyData?.name || 'Localisation...'}
           </div>
         </div>
@@ -85,7 +85,7 @@ export const Header = ({
             className="flex items-center gap-3 ml-2 pl-4 border-l border-slate-200 dark:border-slate-800 cursor-pointer group"
         >
            <div className="text-right hidden sm:block text-slate-900 dark:text-white">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter leading-none mb-1 group-hover:text-[#0528d6] transition-colors">
+              <p className="text-[10px] font-bold text-slate-400  tracking-tighter leading-none mb-1 group-hover:text-[#0528d6] transition-colors">
                 Personnel Agency
               </p>
               <p className="text-xs font-bold truncate max-w-[120px] italic">

@@ -45,12 +45,12 @@ export const CategoryCard = ({ category, onEdit, onDelete }: any) => {
       </div>
 
       <div className="mt-6 pt-4 border-t border-slate-50 dark:border-slate-800 flex justify-between items-center">
-        <span className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md ${
+        <span className={`text-[9px] font-bold  tracking-wider px-2 py-0.5 rounded-md ${
           isSystem ? 'bg-blue-50 text-blue-600' : 'bg-orange-50 text-[#F76513]'
         }`}>
           {isSystem ? 'Standard Rental' : 'Ma Catégorie'}
         </span>
-        <span className="text-[10px] font-bold text-slate-300">#{category.id.substring(0, 4).toUpperCase()}</span>
+        <span className="text-[10px] font-bold text-slate-300">#{category.id.substring(0, 4).to()}</span>
       </div>
     </div>
   );

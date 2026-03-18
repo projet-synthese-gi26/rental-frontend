@@ -68,16 +68,16 @@ export const CatalogView = ({ userData }: { userData: any }) => {
   return (
     <div className=" flex flex-col lg:flex-row gap-8 items-start animate-in fade-in duration-500 pb-20 text-left">
        {/* NAVIGATION LATERALE GAUCHE */}
-      <div className="w-full lg:w-64 flex flex-col gap-2 shrink-0">
+      <div className="w-full lg:w-64 flex flex-row lg:flex-col gap-2 shrink-0">
         <button 
           onClick={() => { setActiveTab('vehicles'); setSearchTerm(''); }}
-          className={`flex items-center gap-4 px-6 py-4 rounded-2xl font-black uppercase italic text-xs tracking-widest transition-all ${activeTab === 'vehicles' ? 'bg-[#0528d6] text-white shadow-lg' : 'bg-white dark:bg-slate-900 text-slate-400 hover:bg-slate-50'}`}
+          className={`flex w-full items-center gap-4 px-6 py-4 rounded-2xl font-black  italic text-xs tracking-widest transition-all ${activeTab === 'vehicles' ? 'bg-[#0528d6] text-white shadow-lg' : 'bg-white dark:bg-slate-900 text-slate-400 hover:bg-slate-50'}`}
         >
           <Car size={18} /> Véhicules
         </button>
         <button 
           onClick={() => { setActiveTab('agencies'); setSearchTerm(''); }}
-          className={`flex items-center gap-4 px-6 py-4 rounded-2xl font-black uppercase italic text-xs tracking-widest transition-all ${activeTab === 'agencies' ? 'bg-[#0528d6] text-white shadow-lg' : 'bg-white dark:bg-slate-900 text-slate-400 hover:bg-slate-50'}`}
+          className={`flex w-full items-center gap-4 px-6 py-4 rounded-2xl font-black  italic text-xs tracking-widest transition-all ${activeTab === 'agencies' ? 'bg-[#0528d6] text-white shadow-lg' : 'bg-white dark:bg-slate-900 text-slate-400 hover:bg-slate-50'}`}
         >
           <Store size={18} /> Agences
         </button>
@@ -99,7 +99,7 @@ export const CatalogView = ({ userData }: { userData: any }) => {
             <select 
               value={selectedCat} 
               onChange={e => { setSelectedCat(e.target.value); setItemsToShow(8); }}
-              className="px-8 py-4 bg-slate-50 dark:bg-slate-900 border-none rounded-2xl text-xs font-black uppercase italic outline-none focus:ring-2 focus:ring-[#0528d6]/20 cursor-pointer dark:text-white"
+              className="px-8 py-4 bg-slate-50 dark:bg-slate-900 border-none rounded-2xl text-xs font-black  italic outline-none focus:ring-2 focus:ring-[#0528d6]/20 cursor-pointer dark:text-white"
             >
               <option value="all">Tous les segments</option>
               {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
@@ -119,7 +119,7 @@ export const CatalogView = ({ userData }: { userData: any }) => {
         </div>) : (
           <div className="space-y-10">
             <div className="p-6 gap-6 bg-white dark:bg-[#1a1d2d] p-6 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-sm">
-              <p className="text-[10px] font-black uppercase text-slate-400 mb-4">Recherche Rapide</p>
+              <p className="text-[10px] font-black  text-slate-400 mb-4">Recherche Rapide</p>
               <div className="relative">
                 <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0528d6]" size={18} />
                   <input 
@@ -147,7 +147,7 @@ export const CatalogView = ({ userData }: { userData: any }) => {
         <div className="flex justify-center pt-8">
           <button 
             onClick={() => setItemsToShow(prev => prev + 8)} 
-            className="px-12 py-4 bg-[#0528d6] text-white rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-xl hover:bg-blue-700 transition-all italic"
+            className="px-12 py-4 bg-[#0528d6] text-white rounded-2xl font-black text-[10px]  tracking-widest shadow-xl hover:bg-blue-700 transition-all italic"
           >
             Charger plus de modèles
           </button>

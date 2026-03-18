@@ -71,7 +71,7 @@ export const OnboardingStepper = ({ orgId, initialName, onComplete, onLogout }: 
       
       {/* Header informatif */}
       <div className="w-full mb-10 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 dark:bg-blue-900/20 text-[#0528d6] rounded-full text-[10px] font-bold uppercase tracking-widest border border-blue-100 dark:border-blue-900/30 mb-4">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 dark:bg-blue-900/20 text-[#0528d6] rounded-full text-[10px] font-bold  tracking-widest border border-blue-100 dark:border-blue-900/30 mb-4">
           <Sparkles size={14} /> Étape {step} sur 3
         </div>
         <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight leading-none">
@@ -92,7 +92,7 @@ export const OnboardingStepper = ({ orgId, initialName, onComplete, onLogout }: 
                             {step > i+1 ? <CheckCircle2 size={24} /> : info.icon}
                         </div>
                         <div className="flex flex-col text-left leading-tight">
-                            <span className="text-[10px] font-bold uppercase text-slate-400">Phase 0{i+1}</span>
+                            <span className="text-[10px] font-bold  text-slate-400">Phase 0{i+1}</span>
                             <span className={`text-sm font-bold ${step === i+1 ? 'text-slate-900 dark:text-white' : 'text-slate-500'}`}>{info.title}</span>
                         </div>
                     </div>
@@ -108,7 +108,7 @@ export const OnboardingStepper = ({ orgId, initialName, onComplete, onLogout }: 
                  <div className="p-2 rounded-xl bg-white dark:bg-slate-800 shadow-sm group-hover:bg-red-50 dark:group-hover:bg-red-900/20 transition-colors">
                     <LogOut size={16} />
                  </div>
-                 <span className="text-[11px] font-bold uppercase tracking-wider italic">Quitter la session</span>
+                 <span className="text-[11px] font-bold  tracking-wider italic">Quitter la session</span>
                </button>
                
                <p className="mt-6 text-[10px] text-slate-400 leading-relaxed italic">
@@ -175,7 +175,7 @@ export const OnboardingStepper = ({ orgId, initialName, onComplete, onLogout }: 
             {/* Actions (Bottom Bar) */}
             <div className="mt-12 flex items-center justify-between pt-8 border-t border-slate-100 dark:border-slate-800">
                 {step > 1 ? (
-                <button onClick={() => setStep(step - 1)} className="flex items-center gap-2 text-slate-400 font-bold uppercase text-[10px] hover:text-[#0528d6] transition-colors italic">
+                <button onClick={() => setStep(step - 1)} className="flex items-center gap-2 text-slate-400 font-bold  text-[10px] hover:text-[#0528d6] transition-colors italic">
                     <ChevronLeft size={16} /> Précédent
                 </button>
                 ) : <div />}
@@ -183,7 +183,7 @@ export const OnboardingStepper = ({ orgId, initialName, onComplete, onLogout }: 
                 <button 
                   onClick={step < 3 ? () => setStep(step + 1) : handleFinalSubmit} 
                   disabled={loading || !isStepValid()}
-                  className={`px-10 py-4 ${step < 3 ? 'bg-[#0528d6]' : 'bg-green-600'} text-white rounded-xl font-bold uppercase text-xs shadow-xl shadow-blue-600/10 flex items-center gap-3 transition-all hover:scale-[1.02] disabled:opacity-30 disabled:grayscale disabled:cursor-not-allowed`}
+                  className={`px-10 py-4 ${step < 3 ? 'bg-[#0528d6]' : 'bg-green-600'} text-white rounded-xl font-bold  text-xs shadow-xl shadow-blue-600/10 flex items-center gap-3 transition-all hover:scale-[1.02] disabled:opacity-30 disabled:grayscale disabled:cursor-not-allowed`}
                 >
                     {loading ? <Loader2 className="animate-spin" size={18} /> : (
                         <>{step < 3 ? "Continuer" : "Activer mon Dashboard"} <ArrowRight size={18} /></>

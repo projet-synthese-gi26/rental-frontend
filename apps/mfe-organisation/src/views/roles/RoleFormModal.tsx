@@ -41,7 +41,7 @@ export const RoleFormModal = ({ editingPoste, permissionsByModule, initialData, 
               <h3 className="text-xl font-bold text-slate-900 dark:text-white">
                 {editingPoste ? "Modifier le poste" : "Créer un nouveau poste"}
               </h3>
-              <p className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mt-1 italic">Configuration des accès</p>
+              <p className="text-[10px] text-slate-400  font-bold tracking-widest mt-1 italic">Configuration des accès</p>
             </div>
             <button type="button" onClick={onClose} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
               <X size={22} className="text-slate-400" />
@@ -51,19 +51,19 @@ export const RoleFormModal = ({ editingPoste, permissionsByModule, initialData, 
           <div className="p-10 overflow-y-auto custom-scrollbar space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="text-[11px] font-bold text-slate-400 uppercase tracking-wider ml-1 italic">Nom du poste</label>
+                <label className="text-[11px] font-bold text-slate-400  tracking-wider ml-1 italic">Nom du poste</label>
                 <input required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} 
                        className="w-full p-3 bg-slate-50 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-xl font-bold text-sm outline-none focus:border-[#0528d6] dark:text-white transition-all" />
               </div>
               <div className="space-y-2">
-                <label className="text-[11px] font-bold text-slate-400 uppercase tracking-wider ml-1 italic">Description</label>
+                <label className="text-[11px] font-bold text-slate-400  tracking-wider ml-1 italic">Description</label>
                 <input required value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} 
                        className="w-full p-3 bg-slate-50 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-xl font-bold text-sm outline-none focus:border-[#0528d6] dark:text-white transition-all" />
               </div>
             </div>
 
             <div className="space-y-6">
-              <h4 className="text-sm font-bold text-[#0528d6] flex items-center gap-2 border-b pb-2 uppercase tracking-tighter">
+              <h4 className="text-sm font-bold text-[#0528d6] flex items-center gap-2 border-b pb-2  tracking-tighter">
                 <Lock size={16}/> Matrice des privilèges
               </h4>
               
@@ -75,9 +75,9 @@ export const RoleFormModal = ({ editingPoste, permissionsByModule, initialData, 
                   return (
                     <div key={module} className="space-y-3">
                       <div className="flex items-center justify-between bg-slate-50 dark:bg-slate-900 px-4 py-2 rounded-xl border border-slate-100 dark:border-slate-800">
-                        <span className="text-[10px] font-bold uppercase text-slate-500 italic tracking-widest">{module}</span>
+                        <span className="text-[10px] font-bold  text-slate-500 italic tracking-widest">{module}</span>
                         <button type="button" onClick={() => toggleModuleGroup(module)}
-                                className={`flex items-center gap-2 text-[10px] font-bold uppercase transition-colors ${isAllSelected ? 'text-[#F76513]' : 'text-[#0528d6]'}`}>
+                                className={`flex items-center gap-2 text-[10px] font-bold  transition-colors ${isAllSelected ? 'text-[#F76513]' : 'text-[#0528d6]'}`}>
                           {isAllSelected ? <CheckSquare size={14} /> : <Square size={14} />} {isAllSelected ? 'Décocher' : 'Tout cocher'}
                         </button>
                       </div>

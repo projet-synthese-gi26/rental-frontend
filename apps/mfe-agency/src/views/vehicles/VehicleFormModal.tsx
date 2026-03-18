@@ -20,14 +20,14 @@ export const VehicleFormModal = ({ editingVehicle, categories, initialData, onSu
               <h3 className="text-xl font-bold text-slate-900 dark:text-white">
                 {editingVehicle ? "Mise à jour véhicule" : "Ajouter un véhicule"}
               </h3>
-              <p className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mt-1 italic">Assignation immédiate à l&apos;agence</p>
+              <p className="text-[10px] text-slate-400  font-bold tracking-widest mt-1 italic">Assignation immédiate à l&apos;agence</p>
             </div>
             <button type="button" onClick={onClose} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors"><X size={22}/></button>
           </div>
 
           <div className="p-10 overflow-y-auto custom-scrollbar space-y-6">
             {error && (
-              <div className="p-4 bg-red-50 border-2 border-red-100 rounded-xl text-red-600 text-xs font-bold uppercase italic text-left">
+              <div className="p-4 bg-red-50 border-2 border-red-100 rounded-xl text-red-600 text-xs font-bold  italic text-left">
                 {error}
               </div>
             )}
@@ -35,11 +35,11 @@ export const VehicleFormModal = ({ editingVehicle, categories, initialData, onSu
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
               <Input label="Marque" value={formData.brand} onChange={(v:any) => setFormData({...formData, brand: v})} required placeholder="ex: Toyota" />
               <Input label="Modèle" value={formData.model} onChange={(v:any) => setFormData({...formData, model: v})} required placeholder="ex: Hilux" />
-              <Input label="Immatriculation" value={formData.licencePlate} onChange={(v:any) => setFormData({...formData, licencePlate: v.toUpperCase()})} required icon={<Hash size={16}/>} placeholder="LT-000-AA" />
-              <Input label="Numéro VIN (Châssis)" value={formData.vinNumber} onChange={(v:any) => setFormData({...formData, vinNumber: v.toUpperCase()})} required icon={<Binary size={16}/>} placeholder="17 caractères" />
+              <Input label="Immatriculation" value={formData.licencePlate} onChange={(v:any) => setFormData({...formData, licencePlate: v.to()})} required icon={<Hash size={16}/>} placeholder="LT-000-AA" />
+              <Input label="Numéro VIN (Châssis)" value={formData.vinNumber} onChange={(v:any) => setFormData({...formData, vinNumber: v.to()})} required icon={<Binary size={16}/>} placeholder="17 caractères" />
               
               <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-slate-400 uppercase ml-1 italic flex items-center gap-2"><Layers size={12}/> Catégorie</label>
+                <label className="text-[10px] font-bold text-slate-400  ml-1 italic flex items-center gap-2"><Layers size={12}/> Catégorie</label>
                 <select required value={formData.categoryId} onChange={e => setFormData({...formData, categoryId: e.target.value})}
                         className="w-full p-3 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-xl font-bold text-sm outline-none focus:border-[#0528d6] dark:text-white transition-all">
                   <option value="">Sélectionner...</option>
@@ -53,7 +53,7 @@ export const VehicleFormModal = ({ editingVehicle, categories, initialData, onSu
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-slate-400 uppercase ml-1 italic flex items-center gap-2">Transmission</label>
+                <label className="text-[10px] font-bold text-slate-400  ml-1 italic flex items-center gap-2">Transmission</label>
                 <select value={formData.transmission} onChange={e => setFormData({...formData, transmission: e.target.value})}
                         className="w-full p-3 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-xl font-bold text-sm outline-none focus:border-[#0528d6] dark:text-white transition-all">
                   <option value="MANUAL">Manuelle</option>
@@ -62,7 +62,7 @@ export const VehicleFormModal = ({ editingVehicle, categories, initialData, onSu
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-slate-400 uppercase ml-1 italic flex items-center gap-2">Statut</label>
+                <label className="text-[10px] font-bold text-slate-400  ml-1 italic flex items-center gap-2">Statut</label>
                 <select value={formData.statut} onChange={e => setFormData({...formData, statut: e.target.value})}
                         className="w-full p-3 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-xl font-bold text-sm outline-none focus:border-[#0528d6] dark:text-white transition-all">
                   <option value="AVAILABLE">Disponible</option>
@@ -87,7 +87,7 @@ export const VehicleFormModal = ({ editingVehicle, categories, initialData, onSu
 
 const Input = ({ label, value, onChange, type = "text", required = false, icon, placeholder }: any) => (
   <div className="space-y-1.5">
-    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1 italic">{label}</label>
+    <label className="text-[10px] font-bold text-slate-400  tracking-widest ml-1 italic">{label}</label>
     <div className="relative group">
       {icon && <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#0528d6] transition-colors">{icon}</div>}
       <input type={type} required={required} value={value} placeholder={placeholder} onChange={e => onChange(e.target.value)} 

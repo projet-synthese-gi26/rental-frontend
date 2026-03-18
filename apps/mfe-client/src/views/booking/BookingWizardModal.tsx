@@ -182,7 +182,7 @@ export const BookingWizardModal = ({ vehicle, userData, isDriverRequired, initia
 
             {step === 3 && initRes && (
               <div className="space-y-2 animate-in slide-in-from-right-4">
-                <h3 className="text-xl font-[900] italic tracking-tighter uppercase text-[#0528d6]">Facturation</h3>
+                <h3 className="text-xl font-[900] italic tracking-tighter  text-[#0528d6]">Facturation</h3>
                 <div className="bg-[#0528d6] rounded-[1.5rem] p-5 text-white relative overflow-hidden shadow-xl">
                   <ShieldCheck size={200} className="absolute -bottom-3 -right-10 text-white/5 rotate-12" />
                   <div className="relative z-10 text-center">

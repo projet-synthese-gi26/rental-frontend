@@ -18,7 +18,7 @@ export const StatCard = ({ label, value, icon, className = "" }: StatCardProps) 
         }
       </div>
       <div className="text-left overflow-hidden">
-        <p className="text-[11px] font-bold uppercase text-slate-400 tracking-widest italic mb-0.5 truncate">
+        <p className="text-[11px] font-bold  text-slate-400 tracking-widest italic mb-0.5 truncate">
           {label}
         </p>
         <p className="text-2xl font-black text-slate-900 dark:text-white leading-none truncate">

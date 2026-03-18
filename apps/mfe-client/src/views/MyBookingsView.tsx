@@ -29,7 +29,7 @@
 //   return (
 //     <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in duration-700 pb-20 text-left">
 //       <div className="flex justify-between items-center border-b pb-6">
-//         <h2 className="text-3xl font-[900] italic tracking-tighter uppercase">Mes Trajets</h2>
+//         <h2 className="text-3xl font-[900] italic tracking-tighter ">Mes Trajets</h2>
 //         <div className="size-12 bg-blue-50 text-[#0528d6] rounded-2xl flex items-center justify-center"><Bell size={20}/></div>
 //       </div>
 
@@ -39,7 +39,7 @@
 //             <div className="flex items-center gap-4 mb-8">
 //                <div className="size-16 bg-orange-50 text-orange-600 rounded-3xl flex items-center justify-center shadow-inner"><Clock size={32}/></div>
 //                <div>
-//                   <p className="text-[10px] font-black text-orange-500 uppercase tracking-widest italic">Aucune location active</p>
+//                   <p className="text-[10px] font-black text-orange-500  tracking-widest italic">Aucune location active</p>
 //                   <h4 className="text-lg font-bold">Prêt pour un nouveau départ ?</h4>
 //                </div>
 //             </div>
@@ -93,7 +93,7 @@ export const MyBookingsView = ({ userData }: { userData: any }) => {
   if (loading) return (
     <div className="h-screen flex flex-col items-center justify-center gap-4">
       <Loader2 className="animate-spin text-[#0528d6] size-12" />
-      <p className="text-sm font-bold italic text-slate-400 uppercase tracking-widest">Chargement de vos trajets...</p>
+      <p className="text-sm font-bold italic text-slate-400  tracking-widest">Chargement de vos trajets...</p>
     </div>
   );
 
@@ -104,7 +104,7 @@ export const MyBookingsView = ({ userData }: { userData: any }) => {
       <div className="flex justify-between items-center border-b pb-6 mt-4">
         <div>
           <h2 className="text-3xl font-[900] tracking-tighter text-slate-900">Mes trajets</h2>
-          <p className="text-slate-400 text-xs font-medium">Historique et réservations en cours</p>
+          <p className="text-slate-400 text-xs font-medium">Historique et locations en cours</p>
         </div>
         <div className="relative size-12 bg-white shadow-sm border border-slate-100 text-[#0528d6] rounded-2xl flex items-center justify-center hover:scale-110 transition-transform cursor-pointer">
           <Bell size={20}/>
@@ -127,7 +127,7 @@ export const MyBookingsView = ({ userData }: { userData: any }) => {
                     <span className={`text-[10px] font-black px-3 py-1 rounded-full border ${getStatusStyle(rental.status)}`}>
                       {rental.status}
                     </span>
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
+                    <span className="text-[10px] font-bold text-slate-400  tracking-tighter">
                       Réf: {rental.id.slice(0, 8)}
                     </span>
                   </div>
@@ -138,7 +138,7 @@ export const MyBookingsView = ({ userData }: { userData: any }) => {
                         <Calendar size={18} />
                       </div>
                       <div>
-                        <p className="text-[10px] text-slate-400 font-bold uppercase">Dates</p>
+                        <p className="text-[10px] text-slate-400 font-bold ">Dates</p>
                         <p className="text-sm font-bold text-slate-700">
                           Du {format(new Date(rental.startDate), 'dd MMM yyyy', { locale: fr })}
                         </p>
@@ -153,7 +153,7 @@ export const MyBookingsView = ({ userData }: { userData: any }) => {
                         <CreditCard size={18} />
                       </div>
                       <div>
-                        <p className="text-[10px] text-slate-400 font-bold uppercase">Paiement</p>
+                        <p className="text-[10px] text-slate-400 font-bold ">Paiement</p>
                         <p className="text-sm font-black text-slate-900">
                           {rental.totalAmount.toLocaleString()} XAF
                         </p>
@@ -171,7 +171,7 @@ export const MyBookingsView = ({ userData }: { userData: any }) => {
                     Détails du trajet <ChevronRight size={16} />
                   </button>
                   {rental.status === 'ACTIVE' && (
-                    <button className="text-[10px] font-black text-[#0528d6] uppercase underline decoration-2 underline-offset-4">
+                    <button className="text-[10px] font-black text-[#0528d6]  underline decoration-2 underline-offset-4">
                       Signaler la fin
                     </button>
                   )}
@@ -185,11 +185,11 @@ export const MyBookingsView = ({ userData }: { userData: any }) => {
               <div className="size-20 bg-orange-50 text-orange-600 rounded-[2.5rem] flex items-center justify-center shadow-inner mx-auto mb-2">
                 <Clock size={48} className="animate-pulse" />
               </div>
-              <h4 className="text-2xl font-black text-slate-900 mb-2 italic tracking-tighter uppercase">Aucun trajet trouvé</h4>
+              <h4 className="text-2xl font-black text-slate-900 mb-2 italic tracking-tighter ">Aucun trajet trouvé</h4>
               <p className="text-slate-400 text-sm font-medium italic leading-relaxed max-w-sm mx-auto">
                   Aucune réservation trouvée. Vos futures locations, factures et suivis apparaîtront ici.
               </p>
-              <button className="mt-8 bg-[#0528d6] text-white px-8 py-4 rounded-3xl font-black text-sm uppercase tracking-widest hover:shadow-lg hover:shadow-blue-200 transition-all">
+              <button className="mt-8 bg-[#0528d6] text-white px-8 py-4 rounded-3xl font-black text-sm  tracking-widest hover:shadow-lg hover:shadow-blue-200 transition-all">
                 Louer un véhicule
               </button>
           </div>
