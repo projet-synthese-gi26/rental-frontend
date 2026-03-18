@@ -92,7 +92,7 @@ export default function TeamPage() {
 
         {/* Hero */}
         <section className="py-20 px-4 text-center container mx-auto">
-            <p className="text-orange-500 font-bold uppercase tracking-widest mb-2">Les créateurs</p>
+            <p className="text-orange-500 font-bold  tracking-widest mb-2">Les créateurs</p>
             <h1 className="text-4xl md:text-5xl font-bold text-blue-900 mb-6">{"Rencontrez l'équipe de développement"}</h1>
             <p className="text-slate-600 max-w-2xl mx-auto text-lg">
                 {"Une équipe dédiée d'ingénieurs et de designers travaillant ensemble depuis le Cameroun pour révolutionner la location de véhicules."}

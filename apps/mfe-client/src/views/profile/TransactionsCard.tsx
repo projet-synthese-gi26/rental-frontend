@@ -53,11 +53,11 @@ export const TransactionCard = ({ tx }: { tx: any }) => {
             {isCredit ? <ArrowDownLeft size={24} /> : <ArrowUpRight size={24} />}
           </div>
           <div>
-            <h4 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-tight">
+            <h4 className="text-sm font-black text-slate-900 dark:text-white  tracking-tight">
               {tx.description}
             </h4>
             <div className="flex items-center gap-2 mt-1">
-               <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 uppercase">
+               <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 ">
                 {tx.method}
               </span>
               <span className="text-[10px] font-medium text-slate-400">
@@ -72,7 +72,7 @@ export const TransactionCard = ({ tx }: { tx: any }) => {
             <p className={`text-lg font-black italic ${isCredit ? 'text-emerald-600' : 'text-rose-600'}`}>
               {isCredit ? '+' : '-'}{tx.amount.toLocaleString()} <span className="text-[10px] not-italic">FCFA</span>
             </p>
-            <span className="text-[9px] font-bold text-slate-400 tracking-widest uppercase">{tx.status}</span>
+            <span className="text-[9px] font-bold text-slate-400 tracking-widest ">{tx.status}</span>
           </div>
           <ChevronDown className={`text-slate-300 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#0528d6]' : ''}`} size={20} />
         </div>
@@ -87,7 +87,7 @@ export const TransactionCard = ({ tx }: { tx: any }) => {
             {loading ? (
               <div className="flex flex-col items-center py-10 gap-2">
                 <Loader2 className="animate-spin text-[#0528d6]" />
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Récupération des données...</span>
+                <span className="text-[10px] font-bold text-slate-400  tracking-widest">Récupération des données...</span>
               </div>
             ) : details ? (
               <div className="space-y-6">
@@ -103,10 +103,10 @@ export const TransactionCard = ({ tx }: { tx: any }) => {
                       {details.rentalDetails ? <Car size={32} /> : <Receipt size={32} />}
                     </div>
                     <div>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">
+                      <p className="text-[10px] font-black  tracking-widest text-slate-400 mb-1">
                         {details.rentalDetails ? "Véhicule loué" : "Forfait souscrit"}
                       </p>
-                      <h3 className="text-xl font-black italic uppercase text-slate-900 dark:text-white leading-none">
+                      <h3 className="text-xl font-black italic  text-slate-900 dark:text-white leading-none">
                         {details.rentalDetails?.vehicle 
                           ? `${details.rentalDetails.vehicle.brand} ${details.rentalDetails.vehicle.model}`
                           : details.planDetails?.name}
@@ -122,9 +122,9 @@ export const TransactionCard = ({ tx }: { tx: any }) => {
 
                   {/* Prix Info (Plan) ou Status Location */}
                   <div className="text-right">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Statut Dossier</p>
+                    <p className="text-[10px] font-bold text-slate-400  mb-1">Statut Dossier</p>
                     <div className="px-4 py-2 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
-                       <span className="text-sm font-black text-[#0528d6] uppercase">
+                       <span className="text-sm font-black text-[#0528d6] ">
                         {details.rentalDetails?.rental?.status || details.status}
                        </span>
                     </div>
@@ -139,7 +139,7 @@ export const TransactionCard = ({ tx }: { tx: any }) => {
                     <Label icon={<Clock size={14}/>} text="Période & Lieu" />
                     <div className="space-y-3 pl-6 border-l-2 border-slate-100 dark:border-slate-800">
                       <div>
-                        <p className="text-[9px] font-bold text-slate-400 uppercase">Durée</p>
+                        <p className="text-[9px] font-bold text-slate-400 ">Durée</p>
                         <p className="text-xs font-bold text-slate-800 dark:text-slate-200">
                           {details.rentalDetails ? (
                             `Du ${new Date(details.rentalDetails.rental.startDate).toLocaleDateString()} au ${new Date(details.rentalDetails.rental.endDate).toLocaleDateString()}`
@@ -149,7 +149,7 @@ export const TransactionCard = ({ tx }: { tx: any }) => {
                         </p>
                       </div>
                       <div>
-                        <p className="text-[9px] font-bold text-slate-400 uppercase">Localisation</p>
+                        <p className="text-[9px] font-bold text-slate-400 ">Localisation</p>
                         <div className="flex items-center gap-1 text-xs font-bold text-slate-800 dark:text-slate-200">
                           <MapPin size={12} className="text-rose-500" />
                           {details.rentalDetails?.agency?.name || "Siège Central"} ({details.rentalDetails?.agency?.city || '—'})
@@ -163,7 +163,7 @@ export const TransactionCard = ({ tx }: { tx: any }) => {
                     <Label icon={<User size={14}/>} text="Intervenants" />
                     <div className="space-y-3 pl-6 border-l-2 border-slate-100 dark:border-slate-800">
                       <div>
-                        <p className="text-[9px] font-bold text-slate-400 uppercase">Client</p>
+                        <p className="text-[9px] font-bold text-slate-400 ">Client</p>
                         <p className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
                           {details.rentalDetails?.rental?.clientName || "N/A"}
                           <a href={`tel:${details.rentalDetails?.rental?.clientPhone}`} className="text-blue-500"><Phone size={12}/></a>
@@ -171,7 +171,7 @@ export const TransactionCard = ({ tx }: { tx: any }) => {
                       </div>
                       {details.rentalDetails?.driver && (
                         <div>
-                          <p className="text-[9px] font-bold text-slate-400 uppercase">Chauffeur</p>
+                          <p className="text-[9px] font-bold text-slate-400 ">Chauffeur</p>
                           <p className="text-xs font-bold text-slate-800 dark:text-slate-200">
                             {details.rentalDetails.driver.firstname} {details.rentalDetails.driver.lastname}
                           </p>
@@ -188,7 +188,7 @@ export const TransactionCard = ({ tx }: { tx: any }) => {
                         onClick={() => copyToClipboard(details.id)}
                         className="group/btn flex flex-col items-start w-full"
                       >
-                        <p className="text-[9px] font-bold text-slate-400 uppercase flex items-center gap-1">
+                        <p className="text-[9px] font-bold text-slate-400  flex items-center gap-1">
                           ID Transaction {copied ? <CheckCircle2 size={10} className="text-emerald-500" /> : <Copy size={10} />}
                         </p>
                         <p className="text-[10px] font-mono text-slate-500 truncate w-full text-left group-hover/btn:text-blue-500 transition-colors">
@@ -196,7 +196,7 @@ export const TransactionCard = ({ tx }: { tx: any }) => {
                         </p>
                       </button>
                       <div>
-                        <p className="text-[9px] font-bold text-slate-400 uppercase">Référence Paiement</p>
+                        <p className="text-[9px] font-bold text-slate-400 ">Référence Paiement</p>
                         <p className="text-xs font-bold text-slate-800 dark:text-slate-200">{details.reference || '—'}</p>
                       </div>
                     </div>
@@ -210,7 +210,7 @@ export const TransactionCard = ({ tx }: { tx: any }) => {
                     <div className="flex items-start gap-3">
                       <Info size={16} className="text-slate-400 mt-0.5" />
                       <div>
-                        <p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Note complémentaire</p>
+                        <p className="text-[10px] font-bold text-slate-400  mb-1">Note complémentaire</p>
                         <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed italic">
                           {details.description}
                         </p>
@@ -220,7 +220,7 @@ export const TransactionCard = ({ tx }: { tx: any }) => {
                 )}
               </div>
             ) : (
-              <p className="text-center py-6 text-slate-400 font-bold uppercase text-[10px] tracking-widest">Erreur de données</p>
+              <p className="text-center py-6 text-slate-400 font-bold  text-[10px] tracking-widest">Erreur de données</p>
             )}
           </div>
         </div>
@@ -233,6 +233,6 @@ export const TransactionCard = ({ tx }: { tx: any }) => {
 const Label = ({ icon, text }: { icon: any, text: string }) => (
   <div className="flex items-center gap-2 mb-2">
     <div className="text-[#0528d6]">{icon}</div>
-    <span className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400">{text}</span>
+    <span className="text-[10px] font-black  tracking-[0.15em] text-slate-400">{text}</span>
   </div>
 );

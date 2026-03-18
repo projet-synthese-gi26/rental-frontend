@@ -33,10 +33,10 @@ export const AgencyForm = ({ editingAgency, initialData, onSubmit, onClose, moda
           
           <div className="px-10 py-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-white dark:bg-[#1a1d2d]">
             <div>
-              <h3 className="text-xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter">
+              <h3 className="text-xl font-black text-slate-900 dark:text-white  italic tracking-tighter">
                 {editingAgency ? "Édition Point de Vente" : "Nouvelle Infrastructure"}
               </h3>
-              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1 italic">Configuration AgencyRequestDTO</p>
+              <p className="text-[10px] text-slate-400 font-bold  tracking-widest mt-1 italic">Configuration AgencyRequestDTO</p>
             </div>
             <button type="button" onClick={onClose} className="p-2 bg-slate-50 dark:bg-slate-800 rounded-xl hover:text-red-500 transition-colors"><X size={22}/></button>
           </div>
@@ -58,7 +58,7 @@ export const AgencyForm = ({ editingAgency, initialData, onSubmit, onClose, moda
             </div>
 
             <section className="space-y-6">
-                <h4 className="text-[10px] font-black text-[#0528d6] uppercase italic border-b pb-2 flex items-center gap-2"><Globe size={14}/> Localisation & Opérations</h4>
+                <h4 className="text-[10px] font-black text-[#0528d6]  italic border-b pb-2 flex items-center gap-2"><Globe size={14}/> Localisation & Opérations</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="md:col-span-2">
                         <FormInput label="Adresse physique complète" value={formData.address} onChange={(v: any) => setFormData({...formData, address: v})} required />
@@ -70,10 +70,10 @@ export const AgencyForm = ({ editingAgency, initialData, onSubmit, onClose, moda
 
             <section className="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 space-y-6">
                 <div className="flex items-center justify-between">
-                    <h4 className="text-[10px] font-black text-slate-800 dark:text-white uppercase italic flex items-center gap-2"><Clock size={16}/> {"Horaires d'ouverture"}</h4>
+                    <h4 className="text-[10px] font-black text-slate-800 dark:text-white  italic flex items-center gap-2"><Clock size={16}/> Horaires d&apos;ouverture</h4>
                     <label className="flex items-center gap-3 cursor-pointer group">
                         <input type="checkbox" checked={formData.is24Hours} onChange={e => setFormData({...formData, is24Hours: e.target.checked})} className="size-5 rounded border-slate-300 text-[#0528d6] focus:ring-[#0528d6]" />
-                        <span className="text-[10px] font-black uppercase text-slate-500 group-hover:text-[#0528d6] transition-colors">Service 24h/24</span>
+                        <span className="text-[10px] font-black  text-slate-500 group-hover:text-[#0528d6] transition-colors">Service 24h/24</span>
                     </label>
                 </div>
                 <div className={`grid grid-cols-2 gap-6 transition-opacity ${formData.is24Hours ? 'opacity-30 pointer-events-none' : 'opacity-100'}`}>
@@ -84,8 +84,8 @@ export const AgencyForm = ({ editingAgency, initialData, onSubmit, onClose, moda
           </div>
 
           <div className="px-10 py-8 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 flex gap-4">
-            <button type="button" onClick={onClose} className="flex-1 py-4 text-sm font-black text-slate-400 uppercase italic">Annuler</button>
-            <button disabled={modalLoading} className="flex-[2] py-4 bg-[#0528d6] text-white rounded-2xl font-black text-xs uppercase shadow-xl shadow-blue-600/20 hover:bg-blue-700 transition-all flex items-center justify-center gap-2 italic">
+            <button type="button" onClick={onClose} className="flex-1 py-4 text-sm font-black text-slate-400  italic">Annuler</button>
+            <button disabled={modalLoading} className="flex-[2] py-4 bg-[#0528d6] text-white rounded-2xl font-black text-xs  shadow-xl shadow-blue-600/20 hover:bg-blue-700 transition-all flex items-center justify-center gap-2 italic">
               {modalLoading ? <Loader2 className="animate-spin size-4" /> : "Confirmer la configuration"}
             </button>
           </div>
@@ -97,7 +97,7 @@ export const AgencyForm = ({ editingAgency, initialData, onSubmit, onClose, moda
 
 const FormInput = ({ label, value, onChange, type = "text", required = false }: any) => (
   <div className="space-y-1.5">
-    <label className="text-[9px] font-black text-slate-400 uppercase italic ml-1 tracking-widest">{label}</label>
+    <label className="text-[9px] font-black text-slate-400  italic ml-1 tracking-widest">{label}</label>
     <input type={type} required={required} value={value} onChange={e => onChange(e.target.value)} 
            className="w-full p-3 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-xl font-bold text-xs outline-none focus:border-[#0528d6] dark:text-white transition-all shadow-sm" />
   </div>

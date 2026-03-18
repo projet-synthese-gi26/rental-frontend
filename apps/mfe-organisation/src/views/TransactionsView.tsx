@@ -58,7 +58,7 @@ export const TransactionsView = ({ orgData }: { orgData: any }) => {
               { id: 'SUBSCRIPTION_COST', label: 'Dépenses' }
             ].map(tab => (
               <button key={tab.id} onClick={() => { setFilterType(tab.id as any); setCurrentPage(1); }} 
-                      className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase italic transition-all ${filterType === tab.id ? 'bg-white dark:bg-slate-800 text-[#0528d6] shadow-md' : 'text-slate-400 hover:text-slate-600'}`}>
+                      className={`px-6 py-2.5 rounded-xl text-[10px] font-black  italic transition-all ${filterType === tab.id ? 'bg-white dark:bg-slate-800 text-[#0528d6] shadow-md' : 'text-slate-400 hover:text-slate-600'}`}>
                 {tab.label}
               </button>
             ))}
@@ -74,7 +74,7 @@ export const TransactionsView = ({ orgData }: { orgData: any }) => {
         {paginated.length === 0 ? (
           <div className="p-20 text-center">
              <FileText className="mx-auto text-slate-200 mb-4" size={48} />
-             <p className="text-slate-400 font-black uppercase italic tracking-widest">Aucune transaction trouvée</p>
+             <p className="text-slate-400 font-black  italic tracking-widest">Aucune transaction trouvée</p>
           </div>
         ) : (
           <div className="divide-y divide-slate-100 dark:divide-slate-800">
@@ -89,11 +89,11 @@ export const TransactionsView = ({ orgData }: { orgData: any }) => {
                       {isIncome ? <ArrowUpRight size={24} /> : <ArrowDownRight size={24} />}
                     </div>
                     <div className="overflow-hidden">
-                      <h4 className="font-black text-slate-900 dark:text-white uppercase italic tracking-tighter truncate max-w-xs md:max-w-md">{tx.description}</h4>
+                      <h4 className="font-black text-slate-900 dark:text-white  italic tracking-tighter truncate max-w-xs md:max-w-md">{tx.description}</h4>
                       <div className="flex items-center gap-3 mt-1">
-                        <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest shrink-0">{new Date(tx.date).toLocaleDateString()}</span>
+                        <span className="text-[9px] font-bold text-slate-400  tracking-widest shrink-0">{new Date(tx.date).toLocaleDateString()}</span>
                         <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-[8px] font-mono text-slate-500 truncate">{tx.reference}</span>
-                        {tx.method && <span className="px-2 py-0.5 bg-blue-50 text-[#0528d6] rounded text-[8px] font-black uppercase shrink-0">{tx.method}</span>}
+                        {tx.method && <span className="px-2 py-0.5 bg-blue-50 text-[#0528d6] rounded text-[8px] font-black  shrink-0">{tx.method}</span>}
                       </div>
                     </div>
                   </div>
@@ -101,7 +101,7 @@ export const TransactionsView = ({ orgData }: { orgData: any }) => {
                     <p className={`text-lg font-black italic tracking-tighter ${isIncome ? 'text-green-500' : 'text-red-500'}`}>
                       {isIncome ? '+' : '-'}{absAmount.toLocaleString()} XAF
                     </p>
-                    <p className={`text-[8px] font-black uppercase tracking-widest mt-1 ${tx.status === 'COMPLETED' || tx.status === 'ACTIVE' || tx.status === 'SUCCESS' ? 'text-green-600' : 'text-red-600'}`}>{tx.status}</p>
+                    <p className={`text-[8px] font-black  tracking-widest mt-1 ${tx.status === 'COMPLETED' || tx.status === 'ACTIVE' || tx.status === 'SUCCESS' ? 'text-green-600' : 'text-red-600'}`}>{tx.status}</p>
                   </div>
                 </div>
               );
@@ -113,7 +113,7 @@ export const TransactionsView = ({ orgData }: { orgData: any }) => {
       {totalPages > 1 && (
         <div className="flex justify-center items-center gap-4 pt-4">
           <button disabled={currentPage === 1} onClick={() => setCurrentPage(p => p - 1)} className="size-12 bg-white dark:bg-slate-800 border border-slate-200 rounded-2xl flex items-center justify-center disabled:opacity-30 hover:bg-slate-50 shadow-sm transition-all"><ChevronLeft size={18}/></button>
-          <span className="text-[10px] font-black text-slate-500 uppercase italic px-4 tracking-widest">Page {currentPage} / {totalPages}</span>
+          <span className="text-[10px] font-black text-slate-500  italic px-4 tracking-widest">Page {currentPage} / {totalPages}</span>
           <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(p => p + 1)} className="size-12 bg-white dark:bg-slate-800 border border-slate-200 rounded-2xl flex items-center justify-center disabled:opacity-30 hover:bg-slate-50 shadow-sm transition-all"><ChevronRight size={18}/></button>
         </div>
       )}

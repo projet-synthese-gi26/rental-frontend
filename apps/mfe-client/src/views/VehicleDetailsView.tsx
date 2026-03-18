@@ -54,7 +54,7 @@ export const VehicleDetailsView = ({ vehicleId, onBack, userData }: any) => {
     <div className="animate-in fade-in duration-500 pb-20 text-left">
       {/* HEADER NAVIGATION */}
       <div className="flex items-center justify-between mb-8">
-        <button onClick={onBack} className="group flex items-center gap-2 text-xs font-black uppercase text-slate-900 hover:text-[#0528d6] transition-all italic">
+        <button onClick={onBack} className="group flex items-center gap-2 text-xs font-black  text-slate-900 hover:text-[#0528d6] transition-all italic">
           <div className="size-8 bg-white dark:bg-slate-800 rounded-lg flex items-center justify-center shadow-sm border border-slate-200 dark:border-slate-700">
             <ChevronLeft size={18}/>
           </div>
@@ -62,7 +62,7 @@ export const VehicleDetailsView = ({ vehicleId, onBack, userData }: any) => {
         </button>
         <div className="flex items-center gap-3 bg-blue-50 dark:bg-blue-900/20 px-4 py-2 rounded-xl border border-blue-100 dark:border-blue-800">
            <Award size={16} className="text-[#0528d6]" />
-           <span className="text-[10px] font-black uppercase text-[#0528d6] italic">Véhicule Premium Certifié</span>
+           <span className="text-[10px] font-black  text-[#0528d6] italic">Véhicule Premium Certifié</span>
         </div>
       </div>
 
@@ -74,9 +74,9 @@ export const VehicleDetailsView = ({ vehicleId, onBack, userData }: any) => {
             <div className="absolute top-6 right-6 px-4 py-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md rounded-2xl flex items-center gap-2 shadow-2xl border border-white/20">
                <Star size={16} className="text-orange-500 fill-orange-500" />
                <span className="text-xl font-black text-slate-900 dark:text-white leading-none">{rating?.toFixed(1)}</span>
-               <span className="text-[10px] font-bold text-slate-500 uppercase italic">({reviews?.length} avis)</span>
+               <span className="text-[10px] font-bold text-slate-500  italic">({reviews?.length} avis)</span>
             </div>
-            <div className="absolute bottom-6 left-6 px-4 py-2 bg-slate-900/80 backdrop-blur-md rounded-xl text-white text-[10px] font-black uppercase tracking-widest italic border border-white/10">
+            <div className="absolute bottom-6 left-6 px-4 py-2 bg-slate-900/80 backdrop-blur-md rounded-xl text-white text-[10px] font-black  tracking-widest italic border border-white/10">
                 Immatriculation : {vehicle.licencePlate}
             </div>
           </div>
@@ -96,17 +96,17 @@ export const VehicleDetailsView = ({ vehicleId, onBack, userData }: any) => {
              </div>
              <div className="flex-1">
                 <div className="mb-6">
-                    <p className="text-[10px] font-black uppercase text-slate-500 italic mb-2">Description Commerciale</p>
+                    <p className="text-[10px] font-black  text-slate-500 italic mb-2">Description Commerciale</p>
                     <p className="text-xs text-slate-800 dark:text-slate-300 font-bold italic leading-relaxed">
                         {vehicle.description?.length > 0 ? vehicle.description[0] : "Aucune description fournie par l'agence partenaire."}
                     </p>
                 </div>
-                <p className="text-[10px] font-black uppercase text-[#0528d6] italic mb-1 tracking-widest">Opérateur de Flotte</p>
-                <h4 className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter uppercase leading-none">{org?.name}</h4>
+                <p className="text-[10px] font-black  text-[#0528d6] italic mb-1 tracking-widest">Opérateur de Flotte</p>
+                <h4 className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter  leading-none">{org?.name}</h4>
                 <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mt-4">
-                   <span className="flex items-center gap-1.5 text-[11px] font-black text-slate-800 dark:text-slate-200 italic uppercase"><Store size={14} className="text-[#0528d6]"/> Agence {agency?.name}</span>
-                   <span className="flex items-center gap-1.5 text-[11px] font-black text-slate-800 dark:text-slate-200 italic uppercase"><MapPin size={14} className="text-[#0528d6]"/> {agency?.city}</span>
-                   <span className="flex items-center gap-1.5 text-[11px] font-black text-[#0528d6] italic uppercase"><Phone size={14}/> {agency?.phone}</span>
+                   <span className="flex items-center gap-1.5 text-[11px] font-black text-slate-800 dark:text-slate-200 italic "><Store size={14} className="text-[#0528d6]"/> Agence {agency?.name}</span>
+                   <span className="flex items-center gap-1.5 text-[11px] font-black text-slate-800 dark:text-slate-200 italic "><MapPin size={14} className="text-[#0528d6]"/> {agency?.city}</span>
+                   <span className="flex items-center gap-1.5 text-[11px] font-black text-[#0528d6] italic "><Phone size={14}/> {agency?.phone}</span>
                 </div>
              </div>
           </div>
@@ -119,7 +119,7 @@ export const VehicleDetailsView = ({ vehicleId, onBack, userData }: any) => {
             <DataRow label="Puissance Totale" value={`${vehicle.engineDetails?.horsepower} Chevaux`} />
             <DataRow label="Capacité Cylindrée" value={`${vehicle.engineDetails?.capacity} Litres`} />
             <div className="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 space-y-4">
-                <div className="flex items-center gap-2 mb-2"><Fuel size={14} className="text-[#0528d6]"/><h5 className="text-[10px] font-black uppercase text-slate-800 dark:text-white italic">Consommation moyenne</h5></div>
+                <div className="flex items-center gap-2 mb-2"><Fuel size={14} className="text-[#0528d6]"/><h5 className="text-[10px] font-black  text-slate-800 dark:text-white italic">Consommation moyenne</h5></div>
                 <DataRow label="Cycle Urbain (Ville)" value={vehicle.fuelEfficiency?.city} />
                 <DataRow label="Cycle Extra-Urbain" value={vehicle.fuelEfficiency?.highway} />
             </div>
@@ -149,7 +149,7 @@ export const VehicleDetailsView = ({ vehicleId, onBack, userData }: any) => {
             <DataRow label="Kilométrage" value={`${vehicle.kilometrage} KM`} />
             <DataRow label="Capacité Assise" value={`${vehicle.places} Sièges`} />
             <div className="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 space-y-3">
-                <div className="flex items-center gap-2 mb-2"><ShieldCheck size={14} className="text-[#0528d6]"/><h5 className="text-[10px] font-black uppercase text-slate-800 dark:text-white italic">Assurance Partenaire</h5></div>
+                <div className="flex items-center gap-2 mb-2"><ShieldCheck size={14} className="text-[#0528d6]"/><h5 className="text-[10px] font-black  text-slate-800 dark:text-white italic">Assurance Partenaire</h5></div>
                 <DataRow label="Compagnie" value={vehicle.insuranceDetails?.provider} />
                 <DataRow label="N° de Police" value={vehicle.insuranceDetails?.policy_number} />
                 <DataRow label="Date d'expiration" value={new Date(vehicle.insuranceDetails?.expiry).toLocaleDateString()} />
@@ -162,25 +162,25 @@ export const VehicleDetailsView = ({ vehicleId, onBack, userData }: any) => {
          <div className="lg:col-span-2 bg-white dark:bg-[#1a1d2d] rounded-[2.5rem] p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
             <div className="flex items-center gap-3 mb-8 border-b border-slate-100 dark:border-slate-800 pb-4">
                 <div className="text-[#0528d6]"><MessageSquare size={18}/></div>
-                <h4 className="text-xs font-black uppercase italic tracking-widest text-slate-900 dark:text-white">Expériences Utilisateurs</h4>
+                <h4 className="text-xs font-black  italic tracking-widest text-slate-900 dark:text-white">Expériences Utilisateurs</h4>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {reviews?.length > 0 ? reviews.map((r:any, i:number) => (
                     <div key={i} className="text-left space-y-3 p-5 bg-slate-50 dark:bg-slate-900/50 rounded-[2rem] border border-slate-100 dark:border-slate-800 relative">
                         <div className="flex justify-between items-center">
                             <div className="flex items-center gap-3">
-                                <div className="size-8 bg-[#0528d6] rounded-full flex items-center justify-center text-white font-black text-[10px] uppercase">{r.authorName?.charAt(0)}</div>
-                                <span className="text-[11px] font-black text-slate-900 dark:text-white uppercase italic">{r.authorName}</span>
+                                <div className="size-8 bg-[#0528d6] rounded-full flex items-center justify-center text-white font-black text-[10px] ">{r.authorName?.charAt(0)}</div>
+                                <span className="text-[11px] font-black text-slate-900 dark:text-white  italic">{r.authorName}</span>
                             </div>
                             <div className="flex text-orange-500 gap-0.5">
                                 {[...Array(5)].map((_, star) => <Star key={star} size={10} fill={star < r.rating ? "currentColor" : "none"} className={star < r.rating ? "text-orange-500" : "text-slate-300"} />)}
                             </div>
                         </div>
                         <p className="text-xs text-slate-800 dark:text-slate-300 font-bold italic leading-relaxed">{r.comment}</p>
-                        <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Le {new Date(r.createdAt).toLocaleDateString()}</p>
+                        <p className="text-[8px] font-black text-slate-400  tracking-widest">Le {new Date(r.createdAt).toLocaleDateString()}</p>
                     </div>
                 )) : (
-                    <div className="col-span-2 py-10 text-center text-slate-400 text-[11px] font-black uppercase italic tracking-widest">{"Aucun retour d'expérience pour le moment"}</div>
+                    <div className="col-span-2 py-10 text-center text-slate-400 text-[11px] font-black  italic tracking-widest">{"Aucun retour d'expérience pour le moment"}</div>
                 )}
             </div>
          </div>
@@ -196,16 +196,16 @@ export const VehicleDetailsView = ({ vehicleId, onBack, userData }: any) => {
                 <h1 className="text-3xl font-[900]  tracking-tighter text-slate-900 dark:text-white leading-none mb-2">
                     {vehicle.brand} <span className="text-[#0528d6]">{vehicle.model}</span>
                 </h1>
-                <p className="text-slate-500 text-[10px] font-black uppercase tracking-[0.2em] mb-10 italic">Millésime {new Date(vehicle.yearProduction).getFullYear()} — Status: {vehicle.statut}</p>
+                <p className="text-slate-500 text-[10px] font-black  tracking-[0.2em] mb-10 italic">Millésime {new Date(vehicle.yearProduction).getFullYear()} — Status: {vehicle.statut}</p>
                 
                 {/* SELECTEUR DE TYPE DE LOCATION */}
                 <div className="grid grid-cols-2 gap-4 mb-6">
                     <button onClick={() => setRentalType('DAILY')} className={`p-5 rounded-2xl border-2 flex flex-col items-center gap-2 transition-all ${rentalType === 'DAILY' ? 'border-[#0528d6] bg-blue-50/10 shadow-inner' : 'border-slate-100 dark:border-slate-800'}`}>
-                        <div className="flex items-center justify-between w-full"><span className="text-[9px] font-black uppercase text-slate-500">Par Jour</span><CalendarRange size={14} className={rentalType === 'DAILY' ? 'text-[#0528d6]' : 'text-slate-300'}/></div>
+                        <div className="flex items-center justify-between w-full"><span className="text-[9px] font-black  text-slate-500">Par Jour</span><CalendarRange size={14} className={rentalType === 'DAILY' ? 'text-[#0528d6]' : 'text-slate-300'}/></div>
                         <p className={`text-xl font-black italic ${rentalType === 'DAILY' ? 'text-[#0528d6]' : 'text-slate-800 dark:text-slate-200'}`}>{pricing?.pricePerDay?.toLocaleString()} <span className="text-[10px]">XAF</span></p>
                     </button>
                     <button onClick={() => setRentalType('HOURLY')} className={`p-5 rounded-2xl border-2 flex flex-col items-center gap-2 transition-all ${rentalType === 'HOURLY' ? 'border-[#0528d6] bg-blue-50/10 shadow-inner' : 'border-slate-100 dark:border-slate-800'}`}>
-                        <div className="flex items-center justify-between w-full"><span className="text-[9px] font-black uppercase text-slate-500">Par Heure</span><Clock size={14} className={rentalType === 'HOURLY' ? 'text-[#0528d6]' : 'text-slate-300'}/></div>
+                        <div className="flex items-center justify-between w-full"><span className="text-[9px] font-black  text-slate-500">Par Heure</span><Clock size={14} className={rentalType === 'HOURLY' ? 'text-[#0528d6]' : 'text-slate-300'}/></div>
                         <p className={`text-xl font-black italic ${rentalType === 'HOURLY' ? 'text-[#0528d6]' : 'text-slate-800 dark:text-slate-200'}`}>{pricing?.pricePerHour?.toLocaleString()} <span className="text-[10px]">XAF</span></p>
                     </button>
                 </div>
@@ -214,7 +214,7 @@ export const VehicleDetailsView = ({ vehicleId, onBack, userData }: any) => {
                     <div className="mb-8 p-5 bg-orange-50 dark:bg-orange-950/20 border-2 border-orange-200 dark:border-orange-800/50 rounded-3xl flex items-start gap-4 shadow-sm">
                         <UserCheck size={24} className="text-orange-600 shrink-0 mt-0.5" />
                         <div>
-                            <p className="text-[11px] font-black text-orange-800 dark:text-orange-400 uppercase tracking-widest leading-none mb-1 italic">Assistance Chauffeur Obligatoire</p>
+                            <p className="text-[11px] font-black text-orange-800 dark:text-orange-400  tracking-widest leading-none mb-1 italic">Assistance Chauffeur Obligatoire</p>
                             <p className="text-[10px] text-orange-700/80 dark:text-orange-300/80 font-bold leading-tight">{"Ce véhicule haut standing nécessite l'accompagnement d'un chauffeur agréé par l'organisation."}</p>
                         </div>
                     </div>
@@ -222,7 +222,7 @@ export const VehicleDetailsView = ({ vehicleId, onBack, userData }: any) => {
 
                 <button 
                     onClick={() => setShowWizard(true)}
-                    className="w-full py-6 bg-[#0528d6] text-white rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-2xl shadow-blue-600/30 hover:bg-blue-700 hover:scale-[1.02] transition-all flex items-center justify-center gap-3 italic"
+                    className="w-full py-6 bg-[#0528d6] text-white rounded-[2rem] font-black text-sm  tracking-widest shadow-2xl shadow-blue-600/30 hover:bg-blue-700 hover:scale-[1.02] transition-all flex items-center justify-center gap-3 italic"
                 >
                     Réserver avec ces options <ChevronRight size={20}/>
                 </button>
@@ -232,7 +232,7 @@ export const VehicleDetailsView = ({ vehicleId, onBack, userData }: any) => {
           <div className="bg-slate-900 rounded-[2.5rem] p-8 text-white flex items-center gap-6 border border-white/5 shadow-2xl">
              <div className="size-14 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-inner"><ShieldCheck size={32}/></div>
              <div className="flex-1 text-left">
-                <p className="text-[11px] font-black uppercase italic text-blue-400 mb-1 tracking-widest">Protection Garantie</p>
+                <p className="text-[11px] font-black  italic text-blue-400 mb-1 tracking-widest">Protection Garantie</p>
                 <p className="text-xs text-slate-300 font-bold leading-tight italic">Assurance tous risques (NIU: {org?.taxNumber}) et assistance technique incluses.</p>
              </div>
           </div>
@@ -270,7 +270,7 @@ const DataBox = ({ title, icon, children }: any) => (
     <div className="bg-white dark:bg-[#1a1d2d] rounded-[2.5rem] p-8 py-3 border border-slate-200 dark:border-slate-800 shadow-sm h-full">
         <div className="flex items-center gap-3 mb-8 border-b border-slate-100 dark:border-slate-800 pb-4">
             <div className="text-[#0528d6]">{icon}</div>
-            <h4 className="text-xs font-black uppercase italic tracking-widest text-slate-900 dark:text-white">{title}</h4>
+            <h4 className="text-xs font-black  italic tracking-widest text-slate-900 dark:text-white">{title}</h4>
         </div>
         <div className="space-y-4 h-full">{children}</div>
     </div>
@@ -280,7 +280,7 @@ const DataRow = ({ label, value, icon }: any) => (
     <div className="flex justify-between items-center group">
         <div className="flex items-center gap-2">
             {icon && <span className="text-slate-400">{icon}</span>}
-            <span className="text-[10px] font-black text-slate-800 dark:text-slate-400 uppercase tracking-tighter italic">{label}</span>
+            <span className="text-[10px] font-black text-slate-800 dark:text-slate-400  tracking-tighter italic">{label}</span>
         </div>
         <span className="text-xs font-black text-slate-900 dark:text-slate-100 italic transition-colors group-hover:text-[#0528d6]">{value || '---'}</span>
     </div>
@@ -291,7 +291,7 @@ const IconFeature = ({ label, active, icon }: any) => (
         <div className={`size-8 rounded-xl flex items-center justify-center ${active ? 'bg-blue-50 dark:bg-blue-900/30 text-[#0528d6]' : 'bg-slate-50 dark:bg-slate-900 text-slate-500'}`}>
             {React.cloneElement(icon, { size: 14 })}
         </div>
-        <span className="text-[9px] font-black uppercase text-slate-900 dark:text-slate-200 italic tracking-tight">{label}</span>
+        <span className="text-[9px] font-black  text-slate-900 dark:text-slate-200 italic tracking-tight">{label}</span>
         {active && <CheckCircle2 size={12} className="text-green-500 ml-auto" />}
     </div>
 );
@@ -300,13 +300,13 @@ const IconFeature = ({ label, active, icon }: any) => (
 //     <div className={`flex justify-between items-center p-5 rounded-2xl border-2 transition-all ${active ? 'border-[#0528d6] bg-blue-50/10 shadow-inner' : 'border-slate-100 dark:border-slate-800'}`}>
 //         <div className="flex items-center gap-3">
 //             <div className={`size-2 rounded-full ${active ? 'bg-[#0528d6] animate-pulse' : 'bg-slate-300'}`} />
-//             <span className="text-[10px] font-black uppercase text-slate-800 dark:text-slate-300 italic tracking-widest">{label}</span>
+//             <span className="text-[10px] font-black  text-slate-800 dark:text-slate-300 italic tracking-widest">{label}</span>
 //         </div>
 //         <div className="text-right">
 //             <p className={`text-2xl font-[900] italic tracking-tighter leading-none ${active ? 'text-[#0528d6]' : 'text-slate-900 dark:text-slate-200'}`}>
 //                 {value?.toLocaleString()} <span className="text-xs">XAF</span>
 //             </p>
-//             <p className="text-[8px] font-black uppercase text-slate-500 mt-1 italic opacity-70">{unit}</p>
+//             <p className="text-[8px] font-black  text-slate-500 mt-1 italic opacity-70">{unit}</p>
 //         </div>
 //     </div>
 // );

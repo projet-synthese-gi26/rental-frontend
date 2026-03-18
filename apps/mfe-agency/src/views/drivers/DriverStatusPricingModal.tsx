@@ -47,7 +47,7 @@ export const DriverStatusPricingModal = ({ driver, onSubmit, onClose, modalLoadi
           <div className="px-10 py-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-white dark:bg-[#1a1d2d]">
             <div>
               <h3 className="text-xl font-bold text-slate-900 dark:text-white">Opérations & Tarification</h3>
-              <p className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mt-1 italic">
+              <p className="text-[10px] text-slate-400  font-bold tracking-widest mt-1 italic">
                 {driver.firstname} {driver.lastname}
               </p>
             </div>
@@ -56,13 +56,13 @@ export const DriverStatusPricingModal = ({ driver, onSubmit, onClose, modalLoadi
 
           <div className="p-10 overflow-y-auto custom-scrollbar space-y-8 text-left">
             {error && (
-              <div className="p-4 bg-red-50 border-2 border-red-100 rounded-xl text-red-600 text-xs font-bold uppercase italic">
+              <div className="p-4 bg-red-50 border-2 border-red-100 rounded-xl text-red-600 text-xs font-bold  italic">
                 {error}
               </div>
             )}
 
             <section className="space-y-4">
-              <h4 className="text-[11px] font-black uppercase text-[#0528d6] tracking-wider flex items-center gap-2">
+              <h4 className="text-[11px] font-black  text-[#0528d6] tracking-wider flex items-center gap-2">
                 <AlertCircle size={14}/> Statut Global de l&apos;activité
               </h4>
               <select 
@@ -77,37 +77,37 @@ export const DriverStatusPricingModal = ({ driver, onSubmit, onClose, modalLoadi
             </section>
 
             <section className="space-y-4">
-              <h4 className="text-[11px] font-black uppercase text-[#0528d6] tracking-wider flex items-center gap-2">
+              <h4 className="text-[11px] font-black  text-[#0528d6] tracking-wider flex items-center gap-2">
                 <DollarSign size={14}/> Grille Tarifaire (XAF)
               </h4>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase ml-1">Prix par heure</label>
+                  <label className="text-[10px] font-bold text-slate-400  ml-1">Prix par heure</label>
                   <input type="number" required value={formData.pricePerHour} onChange={e => setFormData({...formData, pricePerHour: Number(e.target.value)})} className="w-full p-3 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-xl font-bold text-sm outline-none focus:border-[#0528d6] transition-all" />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase ml-1">Prix par jour</label>
+                  <label className="text-[10px] font-bold text-slate-400  ml-1">Prix par jour</label>
                   <input type="number" required value={formData.pricePerDay} onChange={e => setFormData({...formData, pricePerDay: Number(e.target.value)})} className="w-full p-3 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-xl font-bold text-sm outline-none focus:border-[#0528d6] transition-all" />
                 </div>
               </div>
             </section>
 
             <section className="space-y-4">
-              <h4 className="text-[11px] font-black uppercase text-[#0528d6] tracking-wider flex items-center gap-2">
+              <h4 className="text-[11px] font-black  text-[#0528d6] tracking-wider flex items-center gap-2">
                 <Calendar size={14}/> Planning d&apos;indisponibilité
               </h4>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase ml-1 italic">Date de début</label>
+                  <label className="text-[10px] font-bold text-slate-400  ml-1 italic">Date de début</label>
                   <input type="datetime-local" value={formData.schedule.startDate} onChange={e => setFormData({...formData, schedule: {...formData.schedule, startDate: e.target.value}})} className="w-full p-3 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-xl font-bold text-sm outline-none focus:border-[#0528d6] transition-all" />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase ml-1 italic">Date de fin</label>
+                  <label className="text-[10px] font-bold text-slate-400  ml-1 italic">Date de fin</label>
                   <input type="datetime-local" value={formData.schedule.endDate} onChange={e => setFormData({...formData, schedule: {...formData.schedule, endDate: e.target.value}})} className="w-full p-3 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-xl font-bold text-sm outline-none focus:border-[#0528d6] transition-all" />
                 </div>
               </div>
               <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase ml-1 italic">Motif du changement</label>
+                  <label className="text-[10px] font-bold text-slate-400  ml-1 italic">Motif du changement</label>
                   <input placeholder="ex: Repos hebdomadaire, Congés..." value={formData.schedule.reason} onChange={e => setFormData({...formData, schedule: {...formData.schedule, reason: e.target.value}})} className="w-full p-3 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-xl font-bold text-sm outline-none focus:border-[#0528d6] transition-all" />
               </div>
             </section>

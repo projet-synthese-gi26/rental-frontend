@@ -26,14 +26,14 @@ export const BookingFormModal = ({ vehicles, drivers, onClose, onSubmit, loading
           <div className="px-10 py-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
             <div>
               <h3 className="text-xl font-bold">Client Walk-in</h3>
-              <p className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mt-1 italic">Création directe en agence</p>
+              <p className="text-[10px] text-slate-400  font-bold tracking-widest mt-1 italic">Création directe en agence</p>
             </div>
             <button type="button" onClick={onClose} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full"><X size={22}/></button>
           </div>
 
           <div className="p-10 overflow-y-auto custom-scrollbar space-y-8 text-left">
             <section className="space-y-4">
-              <h4 className="text-[10px] font-black text-[#0528d6] uppercase tracking-[0.2em] italic border-b pb-2">Identité Client</h4>
+              <h4 className="text-[10px] font-black text-[#0528d6]  tracking-[0.2em] italic border-b pb-2">Identité Client</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Input label="Nom Complet" value={form.clientName} onChange={(v:any) => setForm({...form, clientName: v})} required icon={<User size={16}/>} />
                 <Input label="Téléphone" value={form.clientPhone} onChange={(v:any) => setForm({...form, clientPhone: v})} required icon={<Phone size={16}/>} />
@@ -41,10 +41,10 @@ export const BookingFormModal = ({ vehicles, drivers, onClose, onSubmit, loading
             </section>
 
             <section className="space-y-4">
-              <h4 className="text-[10px] font-black text-[#0528d6] uppercase tracking-[0.2em] italic border-b pb-2">Ressources & Dates</h4>
+              <h4 className="text-[10px] font-black text-[#0528d6]  tracking-[0.2em] italic border-b pb-2">Ressources & Dates</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase ml-1 italic">Véhicule</label>
+                  <label className="text-[10px] font-bold text-slate-400  ml-1 italic">Véhicule</label>
                   <select required value={form.vehicleId} onChange={e => setForm({...form, vehicleId: e.target.value})}
                           className="w-full p-3 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-xl font-bold text-sm outline-none focus:border-[#0528d6]">
                     <option value="">Choisir un véhicule...</option>
@@ -52,7 +52,7 @@ export const BookingFormModal = ({ vehicles, drivers, onClose, onSubmit, loading
                   </select>
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase ml-1 italic">Chauffeur (Optionnel)</label>
+                  <label className="text-[10px] font-bold text-slate-400  ml-1 italic">Chauffeur (Optionnel)</label>
                   <select value={form.driverId} onChange={e => setForm({...form, driverId: e.target.value})}
                           className="w-full p-3 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-xl font-bold text-sm outline-none focus:border-[#0528d6]">
                     <option value="">Pas de chauffeur</option>
@@ -79,7 +79,7 @@ export const BookingFormModal = ({ vehicles, drivers, onClose, onSubmit, loading
 
 const Input = ({ label, value, onChange, type = "text", required = false, icon }: any) => (
   <div className="space-y-1.5">
-    <label className="text-[10px] font-bold text-slate-400 uppercase ml-1 italic">{label}</label>
+    <label className="text-[10px] font-bold text-slate-400  ml-1 italic">{label}</label>
     <div className="relative">
       {icon && <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-300">{icon}</div>}
       <input type={type} required={required} value={value} onChange={e => onChange(e.target.value)} 

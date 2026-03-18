@@ -48,9 +48,16 @@ export default function OrganisationDashboard() {
     };
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
 
-    const isDark = localStorage.getItem('theme') === 'dark';
-    setDarkMode(isDark);
-    if (isDark) document.documentElement.classList.add('dark');
+    const savedTheme = localStorage.getItem('theme');
+
+  if (savedTheme === 'dark') {
+    document.documentElement.classList.add('dark');
+    setDarkMode(true);
+  } else {
+    document.documentElement.classList.remove('dark');
+    setDarkMode(false);
+  }
+
 
     const token = localStorage.getItem('auth_token');
     if (token) fetchProfile();
@@ -125,7 +132,7 @@ export default function OrganisationDashboard() {
         <Header title={currentView} setCurrentView={setCurrentView} orgData={orgData} lang={lang} setLang={setLang} darkMode={darkMode} toggleTheme={toggleTheme} setSidebarOpen={setSidebarOpen} onInstall={() => deferredPrompt?.prompt()} hasPrompt={!!deferredPrompt} t={t} />
         <div className="flex-1 overflow-y-auto p-6 md:p-10 bg-[#f4f7fe] dark:bg-[#0f1323] custom-scrollbar text-left">
           <div className="max-w-[1600px] mx-auto">
-            {currentView === 'DASHBOARD' && <DashboardView orgData={orgData} t={t} />}
+            {currentView === 'DASHBOARD' && <DashboardView orgData={orgData} />}
             {currentView === 'RESERVATIONS' && <ReservationsView orgData={orgData} />}
             {currentView === 'RENTALS' && <RentalsView orgData={orgData} />}
             {currentView === 'TRANSACTIONS' && <TransactionsView orgData={orgData} />}

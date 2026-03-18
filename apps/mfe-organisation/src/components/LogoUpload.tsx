@@ -61,7 +61,7 @@ export const LogoUpload = ({ value, onUploadSuccess }: { value: string, onUpload
 
   return (
     <div className="space-y-2 group w-full">
-      <label className="text-[11px] font-bold uppercase text-slate-400 tracking-wider ml-1 italic">
+      <label className="text-[11px] font-bold  text-slate-400 tracking-wider ml-1 italic">
         Logo de l&apos;organisation <span className="text-[#0528d6]">*</span>
       </label>
       
@@ -85,7 +85,7 @@ export const LogoUpload = ({ value, onUploadSuccess }: { value: string, onUpload
           {uploading ? (
             <div className="flex flex-col items-center gap-3">
               <Loader2 className="animate-spin text-[#0528d6]" size={32} />
-              <span className="text-[10px] font-black text-[#0528d6] uppercase tracking-widest">Upload en cours...</span>
+              <span className="text-[10px] font-black text-[#0528d6]  tracking-widest">Upload en cours...</span>
             </div>
           ) : displayImage ? (
             <div className="relative w-full h-full flex items-center justify-center">
@@ -96,14 +96,14 @@ export const LogoUpload = ({ value, onUploadSuccess }: { value: string, onUpload
                />
                <div className="absolute bottom-0 right-0 bg-white dark:bg-slate-800 p-1.5 rounded-lg shadow-md border border-slate-100 flex items-center gap-2">
                   <CheckCircle2 className="text-green-500" size={14} />
-                  <span className="text-[9px] font-black uppercase text-slate-500">Prêt</span>
+                  <span className="text-[9px] font-black  text-slate-500">Prêt</span>
                </div>
             </div>
           ) : (
             <>
               <UploadCloud className="text-slate-300 mb-2 transition-colors group-hover:text-[#0528d6]" size={40} />
               <div className="text-center">
-                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-tight">Cliquer pour choisir</p>
+                  <p className="text-[10px] font-bold text-slate-500  tracking-tight">Cliquer pour choisir</p>
                   <p className="text-[9px] text-slate-400 italic">PNG ou JPG (max. 2Mo)</p>
               </div>
             </>

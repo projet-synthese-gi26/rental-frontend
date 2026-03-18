@@ -30,16 +30,16 @@ const Testimonial = () => {
             <div className="max-w-7xl mx-auto px-6">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
                     <div className="text-left">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/20 text-orange-600 text-[10px] font-black tracking-widest uppercase italic mb-4">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/20 text-orange-600 text-[10px] font-black tracking-widest  italic mb-4">
                             <Star size={12} fill="currentColor" /> Avis Clients
                         </div>
-                        <h2 className="text-5xl md:text-6xl font-[900] italic leading-none tracking-tighter text-slate-900 dark:text-white uppercase">
+                        <h2 className="text-5xl md:text-6xl font-[900] italic leading-none tracking-tighter text-slate-900 dark:text-white ">
                             Ils nous font <br /><span className="text-blue-600">Confiance</span>
                         </h2>
                     </div>
                     <div className="flex items-center gap-4 bg-white dark:bg-slate-800 p-4 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-700">
                         <div className="text-3xl font-black text-blue-600 italic">4.8/5</div>
-                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-tight">
+                        <div className="text-[10px] font-bold text-slate-400  tracking-widest leading-tight">
                             Basé sur plus de <br /> 2,500 avis certifiés
                         </div>
                     </div>

@@ -16,7 +16,7 @@ export const VehicleCard = ({ vehicle, categoryName, onEdit, onDelete, onStatusU
   return (
     <div className="bg-white dark:bg-[#1a1d2d] rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all group text-left">
       <div className="flex justify-between items-start mb-4">
-        <div className={`px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider border ${getStatusStyle(vehicle.statut)}`}>
+        <div className={`px-2.5 py-1 rounded-lg text-[10px] font-bold  tracking-wider border ${getStatusStyle(vehicle.statut)}`}>
           {vehicle.statut}
         </div>
         <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -51,25 +51,25 @@ export const VehicleCard = ({ vehicle, categoryName, onEdit, onDelete, onStatusU
         </div>
         <div className="flex flex-col items-center">
           <Settings size={14} className="text-slate-300 mb-1" />
-          <span className="text-[10px] font-bold text-slate-500 uppercase">{vehicle.transmission?.substring(0,3)}</span>
+          <span className="text-[10px] font-bold text-slate-500 ">{vehicle.transmission?.substring(0,3)}</span>
         </div>
       </div>
 
       <div className="flex flex-col gap-3">
-        <div className="flex items-center justify-between text-[10px] font-bold text-slate-400 uppercase italic">
+        <div className="flex items-center justify-between text-[10px] font-bold text-slate-400  italic">
           <span>Catégorie</span>
           <span className="text-[#0528d6]">{categoryName || 'Standard'}</span>
         </div>
         <div className="grid grid-cols-2 gap-2 pt-2">
            <button 
             onClick={() => onStatusUpdate(vehicle.id, 'AVAILABLE')}
-            className="flex items-center justify-center gap-1.5 py-2 bg-green-50 text-green-700 rounded-lg text-[9px] font-black uppercase tracking-tighter hover:bg-green-100 transition-colors"
+            className="flex items-center justify-center gap-1.5 py-2 bg-green-50 text-green-700 rounded-lg text-[9px] font-black  tracking-tighter hover:bg-green-100 transition-colors"
            >
              <CheckCircle2 size={12}/> Dispo
            </button>
            <button 
             onClick={() => onStatusUpdate(vehicle.id, 'MAINTENANCE')}
-            className="flex items-center justify-center gap-1.5 py-2 bg-orange-50 text-orange-700 rounded-lg text-[9px] font-black uppercase tracking-tighter hover:bg-orange-100 transition-colors"
+            className="flex items-center justify-center gap-1.5 py-2 bg-orange-50 text-orange-700 rounded-lg text-[9px] font-black  tracking-tighter hover:bg-orange-100 transition-colors"
            >
              <Clock size={12}/> Atelier
            </button>

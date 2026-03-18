@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const StepperInput = ({ label, name, placeholder, value, onChange, type = "text", icon: Icon, required = true }: any) => (
   <div className="space-y-1.5 group">
-    <label className="text-[11px] font-bold uppercase text-slate-400 dark:text-slate-500 tracking-wider ml-1 flex justify-between italic">
+    <label className="text-[11px] font-bold  text-slate-400 dark:text-slate-500 tracking-wider ml-1 flex justify-between italic">
       <span>{label}</span>
       {required && <span className="text-[#0528d6]">*</span>}
     </label>

@@ -12,19 +12,19 @@ export const AgencyCard = ({ agency, onEdit, onDelete, onView }: any) => (
           {agency.logoUrl ? <img src={agency.logoUrl} alt="logo" className="w-full h-full object-cover"/> : agency.name.charAt(0).toUpperCase()}
         </div>
         <div className="overflow-hidden min-w-0 flex-1">
-          <h4 className="text-lg font-black text-slate-900 dark:text-white leading-tight uppercase italic tracking-tighter truncate" title={agency.name}>
+          <h4 className="text-lg font-black text-slate-900 dark:text-white leading-tight  italic tracking-tighter truncate" title={agency.name}>
             {agency.name}
           </h4>
           <div className="flex items-center gap-1.5 mt-1 text-[#0528d6]">
             <MapPin size={12} className="shrink-0" />
-            <span className="text-[10px] font-black uppercase tracking-widest italic truncate">
+            <span className="text-[10px] font-black  tracking-widest italic truncate">
               {agency.city}
             </span>
           </div>
         </div>
       </div>
       <div className="flex flex-col gap-2 shrink-0 items-end">
-        <div className={`px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest italic border flex items-center gap-1 ${agency.is24Hours ? 'bg-green-50 text-green-600 border-green-100' : 'bg-slate-50 text-slate-500 border-slate-200'}`}>
+        <div className={`px-2.5 py-1 rounded-lg text-[9px] font-black  tracking-widest italic border flex items-center gap-1 ${agency.is24Hours ? 'bg-green-50 text-green-600 border-green-100' : 'bg-slate-50 text-slate-500 border-slate-200'}`}>
           <Clock size={10} /> {agency.is24Hours ? '24H/24' : 'LIMITÉ'}
         </div>
         <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -46,7 +46,7 @@ export const AgencyCard = ({ agency, onEdit, onDelete, onView }: any) => (
     </div>
 
     <div className="mt-auto pt-4 border-t border-slate-50 dark:border-slate-800">
-      <button onClick={() => onView(agency.id)} className="w-full py-3 bg-slate-900 text-white dark:bg-white dark:text-[#0528d6] rounded-xl text-[10px] font-black uppercase italic tracking-widest hover:scale-[1.02] transition-all flex items-center justify-center gap-2 shadow-md">
+      <button onClick={() => onView(agency.id)} className="w-full py-3 bg-slate-900 text-white dark:bg-white dark:text-[#0528d6] rounded-xl text-[10px] font-black  italic tracking-widest hover:scale-[1.02] transition-all flex items-center justify-center gap-2 shadow-md">
           <Info size={16}/> Détails & Opérations
       </button>
     </div>

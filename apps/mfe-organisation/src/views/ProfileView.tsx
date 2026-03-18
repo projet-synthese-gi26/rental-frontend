@@ -76,7 +76,7 @@ export const ProfileView = ({ userData, orgData, onUpdate }: ProfileViewProps) =
     <div className="max-w-6xl mx-auto space-y-6 animate-in fade-in duration-500 pb-20">
       
       {message && (
-        <div className={`p-4 rounded-xl text-sm font-bold uppercase tracking-widest italic flex items-center justify-between ${message.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+        <div className={`p-4 rounded-xl text-sm font-bold  tracking-widest italic flex items-center justify-between ${message.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
           {message.text}
           <button onClick={() => setMessage(null)}><X size={16}/></button>
         </div>
@@ -96,7 +96,7 @@ export const ProfileView = ({ userData, orgData, onUpdate }: ProfileViewProps) =
             <h3 className="text-3xl font-bold text-slate-900 dark:text-white">{userData.fullname}</h3>
             {orgData.isVerified && <ShieldCheck className="text-blue-500" size={24} />}
           </div>
-          <p className="text-slate-500 dark:text-slate-400 font-medium uppercase text-xs tracking-widest mb-4">
+          <p className="text-slate-500 dark:text-slate-400 font-medium  text-xs tracking-widest mb-4">
             {userData.role} — <span className="font-black">{orgData.name}</span>
           </p>
           <div className="flex flex-wrap justify-center md:justify-start gap-6 text-sm font-bold text-slate-400">
@@ -124,11 +124,11 @@ export const ProfileView = ({ userData, orgData, onUpdate }: ProfileViewProps) =
               <form onSubmit={handleProfileSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">Prénom</label>
+                    <label className="text-[10px] font-bold text-slate-400  tracking-widest italic">Prénom</label>
                     <input required value={profileForm.firstname} onChange={e => setProfileForm({...profileForm, firstname: e.target.value})} className="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-sm outline-none focus:border-[#0528d6] dark:text-white transition-all" />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">Nom</label>
+                    <label className="text-[10px] font-bold text-slate-400  tracking-widest italic">Nom</label>
                     <input required value={profileForm.lastname} onChange={e => setProfileForm({...profileForm, lastname: e.target.value})} className="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-sm outline-none focus:border-[#0528d6] dark:text-white transition-all" />
                   </div>
                 </div>
@@ -154,7 +154,7 @@ export const ProfileView = ({ userData, orgData, onUpdate }: ProfileViewProps) =
             <div className="flex justify-between items-center border-b border-slate-50 dark:border-slate-800 pb-4 mb-6">
               <SectionTitle icon={<ShieldCheck />} title="Sécurité du compte" />
               {!editPasswordMode && (
-                <button onClick={() => setEditPasswordMode(true)} className="text-xs font-bold uppercase text-[#0528d6] hover:underline italic tracking-widest">Modifier le mot de passe</button>
+                <button onClick={() => setEditPasswordMode(true)} className="text-xs font-bold  text-[#0528d6] hover:underline italic tracking-widest">Modifier le mot de passe</button>
               )}
             </div>
 
@@ -162,11 +162,11 @@ export const ProfileView = ({ userData, orgData, onUpdate }: ProfileViewProps) =
               <form onSubmit={handlePasswordSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">Ancien mot de passe</label>
+                    <label className="text-[10px] font-bold text-slate-400  tracking-widest italic">Ancien mot de passe</label>
                     <input required type="password" value={passwordForm.oldPassword} onChange={e => setPasswordForm({...passwordForm, oldPassword: e.target.value})} className="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-sm outline-none focus:border-[#0528d6] dark:text-white transition-all" />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">Nouveau mot de passe</label>
+                    <label className="text-[10px] font-bold text-slate-400  tracking-widest italic">Nouveau mot de passe</label>
                     <input required type="password" value={passwordForm.newPassword} onChange={e => setPasswordForm({...passwordForm, newPassword: e.target.value})} className="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-sm outline-none focus:border-[#0528d6] dark:text-white transition-all" />
                   </div>
                 </div>
@@ -194,7 +194,7 @@ export const ProfileView = ({ userData, orgData, onUpdate }: ProfileViewProps) =
               <DataField label="Nom de l'entité" value={orgData.name} />
               <DataField label="Site Web" value={orgData.website} isLink />
               <div className="md:col-span-2">
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">Description / Vision</label>
+                <label className="text-[10px] font-bold text-slate-400  tracking-widest italic">Description / Vision</label>
                 <p className="mt-1 text-sm text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
                   {orgData.description || "Aucune description fournie."}
                 </p>
@@ -272,7 +272,7 @@ export const ProfileView = ({ userData, orgData, onUpdate }: ProfileViewProps) =
 const SectionTitle = ({ icon, title, light }: any) => (
   <div className="flex items-center gap-3">
     <span className={light ? "text-white" : "text-[#0528d6]"}>{icon}</span>
-    <h4 className={`text-sm font-bold uppercase italic tracking-tighter ${light ? "text-white" : "text-slate-800 dark:text-white"}`}>
+    <h4 className={`text-sm font-bold  italic tracking-tighter ${light ? "text-white" : "text-slate-800 dark:text-white"}`}>
       {title}
     </h4>
   </div>
@@ -280,7 +280,7 @@ const SectionTitle = ({ icon, title, light }: any) => (
 
 const DataField = ({ label, value, isLink }: any) => (
   <div className="space-y-1">
-    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">{label}</p>
+    <p className="text-[10px] font-bold text-slate-400  tracking-widest italic">{label}</p>
     {isLink ? (
       <a href={value} target="_blank" className="text-sm font-bold text-[#0528d6] hover:underline block truncate">{value || '---'}</a>
     ) : (
@@ -303,7 +303,7 @@ const StatItem = ({ label, value, icon }: any) => (
 
 const QuotaBox = ({ label, current }: any) => (
   <div className="bg-white/10 rounded-2xl p-4 border border-white/5">
-    <p className="text-[9px] font-bold uppercase opacity-60 mb-1">{label}</p>
+    <p className="text-[9px] font-bold  opacity-60 mb-1">{label}</p>
     <p className="text-xl font-black">{current}</p>
   </div>
 );

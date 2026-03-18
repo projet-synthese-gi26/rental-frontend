@@ -17,7 +17,7 @@ export const RentalCard = ({ rental, onView }: any) => {
   return (
     <div className="bg-white dark:bg-[#1a1d2d] rounded-[2.5rem] p-8 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all group flex flex-col h-full text-left">
       <div className="flex justify-between items-start mb-8">
-        <div className={`px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest border ${getStatusStyle(rental.status)}`}>
+        <div className={`px-3 py-1 rounded-full text-[8px] font-black  tracking-widest border ${getStatusStyle(rental.status)}`}>
           {rental.status}
         </div>
         <button onClick={() => onView(rental)} className="size-10 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center text-slate-400 hover:text-[#0528d6] transition-all">
@@ -55,7 +55,7 @@ export const RentalCard = ({ rental, onView }: any) => {
       <div className="mt-auto flex items-center justify-between">
         <div className="flex items-center gap-1.5 text-slate-400">
           <MapPin size={12} className="text-orange-500"/>
-          <span className="text-[9px] font-black uppercase italic tracking-widest">Dossier #{rental.id.substring(0,8)}</span>
+          <span className="text-[9px] font-black  italic tracking-widest">Dossier #{rental.id.substring(0,8)}</span>
         </div>
         <div className="size-8 bg-slate-900 text-white rounded-lg flex items-center justify-center group-hover:bg-[#0528d6] transition-all">
             <ArrowUpRight size={14}/>

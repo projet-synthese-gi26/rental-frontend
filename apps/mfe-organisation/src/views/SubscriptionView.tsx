@@ -65,7 +65,7 @@ export const SubscriptionView = ({ orgData }: any) => {
       <section className="space-y-6">
         <div className="flex items-center gap-3 border-b border-slate-200 dark:border-slate-800 pb-4">
           <Shield className="text-[#0528d6]" size={20} />
-          <h4 className="text-lg font-bold text-slate-800 dark:text-white uppercase tracking-tight">État de la licence</h4>
+          <h4 className="text-lg font-bold text-slate-800 dark:text-white  tracking-tight">État de la licence</h4>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -73,13 +73,13 @@ export const SubscriptionView = ({ orgData }: any) => {
           <div className="lg:col-span-1 bg-[#0528d6] rounded-[2rem] p-8 text-white relative overflow-hidden shadow-xl shadow-blue-600/20">
             <Zap size={180} className="absolute -bottom-10 -right-10 text-white/10 rotate-12" />
             <div className="relative z-10 space-y-4">
-              <span className="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-white/20">
+              <span className="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold  tracking-widest border border-white/20">
                 Licence active
               </span>
-              <h3 className="text-4xl font-black italic uppercase tracking-tighter">
+              <h3 className="text-4xl font-black italic  tracking-tighter">
                 {currentSub?.planName || "---"}
               </h3>
-              <div className="flex items-center gap-2 text-blue-100 text-[11px] font-bold uppercase tracking-tight italic pt-2">
+              <div className="flex items-center gap-2 text-blue-100 text-[11px] font-bold  tracking-tight italic pt-2">
                 <Clock size={14} /> 
                 {currentSub?.expiresAt ? `Expire le ${new Date(currentSub.expiresAt).toLocaleDateString()}` : "Validité illimitée"}
               </div>
@@ -88,7 +88,7 @@ export const SubscriptionView = ({ orgData }: any) => {
 
           {/* Jauge d'évolution des Quotas */}
           <div className="lg:col-span-2 bg-white dark:bg-[#1a1d2d] p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-center">
-            <div className="flex justify-between items-center mb-4 text-xs font-bold uppercase tracking-tight">
+            <div className="flex justify-between items-center mb-4 text-xs font-bold  tracking-tight">
               <div className="flex items-center gap-3 text-[#0528d6]">
                 <LayoutGrid size={20}/> Consommation des points de vente
               </div>
@@ -112,7 +112,7 @@ export const SubscriptionView = ({ orgData }: any) => {
       <section className="space-y-8">
         <div className="text-center space-y-1">
           <h4 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight leading-none italic">Plans disponibles</h4>
-          <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest italic">Optimisez votre infrastructure réseau</p>
+          <p className="text-[11px] font-bold text-slate-400  tracking-widest italic">Optimisez votre infrastructure réseau</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
@@ -145,7 +145,7 @@ export const SubscriptionView = ({ orgData }: any) => {
           <button 
             onClick={() => handlePlanChange('FREE')}
             disabled={!!actionLoading}
-            className="px-8 py-3 bg-white text-red-500 rounded-xl font-bold text-xs uppercase shadow-sm border border-red-100 hover:bg-red-500 hover:text-white transition-all shrink-0"
+            className="px-8 py-3 bg-white text-red-500 rounded-xl font-bold text-xs  shadow-sm border border-red-100 hover:bg-red-500 hover:text-white transition-all shrink-0"
           >
             {actionLoading === 'FREE' ? <Loader2 className="animate-spin size-4" /> : "Résilier l'abonnement"}
           </button>

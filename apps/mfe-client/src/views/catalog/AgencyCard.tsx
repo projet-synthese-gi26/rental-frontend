@@ -22,13 +22,13 @@ export const AgencyCard = ({ agency, onClick }: AgencyCardProps) => {
       {/* Badges */}
       <div className="absolute top-6 right-6 flex flex-col gap-2 items-end">
         {agency.is24Hours && (
-          <span className="px-3 py-1 bg-green-50 dark:bg-green-500/10 text-green-600 text-[9px] font-black uppercase rounded-full border border-green-100">
+          <span className="px-3 py-1 bg-green-50 dark:bg-green-500/10 text-green-600 text-[9px] font-black  rounded-full border border-green-100">
             24h/24
           </span>
         )}
 
         {agency.allowOnlineBooking && (
-          <span className="px-3 py-1 bg-blue-50 text-[#0528d6] text-[9px] font-black uppercase rounded-full border border-blue-100">
+          <span className="px-3 py-1 bg-blue-50 text-[#0528d6] text-[9px] font-black  rounded-full border border-blue-100">
             Réservation en ligne
           </span>
         )}
@@ -49,7 +49,7 @@ export const AgencyCard = ({ agency, onClick }: AgencyCardProps) => {
         </div>
 
         <div className="flex-1">
-          <h3 className="text-lg font-black italic uppercase text-slate-900 dark:text-white leading-tight group-hover:text-[#0528d6] transition-colors">
+          <h3 className="text-lg font-black italic  text-slate-900 dark:text-white leading-tight group-hover:text-[#0528d6] transition-colors">
             {agency.name}
           </h3>
 
@@ -88,7 +88,7 @@ export const AgencyCard = ({ agency, onClick }: AgencyCardProps) => {
         <div className="flex items-center gap-2">
           <CreditCard size={16} className="text-slate-300" />
           <div className="flex flex-col">
-            <span className="text-[9px] font-black text-slate-300 uppercase tracking-widest">
+            <span className="text-[9px] font-black text-slate-300  tracking-widest">
               Acompte
             </span>
             <span className="text-sm font-black text-slate-900 dark:text-white italic">

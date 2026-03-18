@@ -32,7 +32,7 @@ export const QuotaAlertModal = ({ onClose, onUpgrade, type, limit }: any) => (
           </button>
           <button 
             onClick={onClose}
-            className="w-full py-4 text-slate-400 font-bold text-xs uppercase tracking-widest hover:text-slate-600 transition-colors"
+            className="w-full py-4 text-slate-400 font-bold text-xs  tracking-widest hover:text-slate-600 transition-colors"
           >
             Plus tard
           </button>
@@ -40,7 +40,7 @@ export const QuotaAlertModal = ({ onClose, onUpgrade, type, limit }: any) => (
 
         <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-center gap-2">
            <ShieldCheck size={14} className="text-blue-500" />
-           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">EasyRental Secure Billing</span>
+           <span className="text-[10px] font-bold text-slate-400  tracking-tight">EasyRental Secure Billing</span>
         </div>
       </div>
     </div>

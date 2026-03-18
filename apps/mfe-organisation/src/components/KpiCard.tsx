@@ -51,7 +51,7 @@ export const KpiCard = ({
             </span>
           )}
           {badge && (
-            <span className="bg-[#F76513] text-white text-[10px] font-bold px-3 py-1 rounded-lg uppercase tracking-wider shadow-sm">
+            <span className="bg-[#F76513] text-white text-[10px] font-bold px-3 py-1 rounded-lg  tracking-wider shadow-sm">
               {badge}
             </span>
           )}
@@ -60,7 +60,7 @@ export const KpiCard = ({
 
       {/* Section Inférieure : Label & Valeur */}
       <div className="mt-4">
-        <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-1 italic">
+        <p className="text-[11px] font-bold  tracking-widest text-slate-400 mb-1 italic">
           {label}
         </p>
         <div className="flex items-baseline gap-2">

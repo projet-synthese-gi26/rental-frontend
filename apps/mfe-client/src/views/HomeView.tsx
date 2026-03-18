@@ -7,6 +7,7 @@ import {
   Users
 } from 'lucide-react';
 import { vehicleService } from '@pwa-easy-rental/shared-services';
+import { About } from '@shared-ui/components/ui/About';
 
 export const HomeView = ({ onSearch, setViewAll, onSelectVehicle }: any) => {
   const [featuredVehicles, setFeaturedVehicles] = useState<any[]>([]);
@@ -28,6 +29,27 @@ export const HomeView = ({ onSearch, setViewAll, onSelectVehicle }: any) => {
     onSearch({ query: searchQuery });
   };
 
+  useEffect(() => {
+  const handleBeforeInstallPrompt = (e: any) => {
+    e.preventDefault(); // ❗ bloque le popup auto
+    setDeferredPrompt(e); // on stocke l’événement
+  };
+
+  window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+  return () => {
+    window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+  };
+}, []);
+const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const handleInstallPWA = async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+  }
+};
+
+
   return (
     <div className="space-y-20 animate-in fade-in duration-700 pb-20">
       
@@ -45,10 +67,10 @@ export const HomeView = ({ onSearch, setViewAll, onSelectVehicle }: any) => {
 
         <div className="relative z-10 max-w-4xl w-full text-center space-y-8">
           <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/10 text-[10px] font-black uppercase tracking-widest italic mx-auto">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/10 text-[10px] font-black  tracking-widest italic mx-auto">
                 <Zap size={14} className="text-orange-400" /> Mobility Without Borders
             </div>
-            <h1 className="text-5xl md:text-7xl font-[900] italic leading-[0.85] tracking-tighter uppercase">
+            <h1 className="text-5xl md:text-7xl font-[900] italic leading-[0.85] tracking-tighter ">
                 Prêt pour le <br /><span className="text-blue-300">Grand Départ ?</span>
             </h1>
             <p className="text-lg text-blue-100/70 font-medium italic leading-relaxed max-w-xl mx-auto">
@@ -75,7 +97,7 @@ export const HomeView = ({ onSearch, setViewAll, onSelectVehicle }: any) => {
                 <button type="button" className="p-5 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-3xl hover:bg-slate-200 transition-colors">
                     <Filter size={20} />
                 </button>
-                <button type="submit" className="px-8 py-3 bg-[#0528d6] text-white rounded-3xl font-black text-xs uppercase tracking-widest shadow-lg shadow-blue-600/40 hover:bg-blue-700 hover:scale-[1.02] active:scale-95 transition-all">
+                <button type="submit" className="px-8 py-3 bg-[#0528d6] text-white rounded-3xl font-black text-xs  tracking-widest shadow-lg shadow-blue-600/40 hover:bg-blue-700 hover:scale-[1.02] active:scale-95 transition-all">
                     Rechercher
                 </button>
             </div>
@@ -94,14 +116,14 @@ export const HomeView = ({ onSearch, setViewAll, onSelectVehicle }: any) => {
       <section className="space-y-12">
         <div className="flex flex-col md:flex-row justify-between items-center md:items-end px-4 gap-6">
           <div className="text-center md:text-left">
-            <h2 className="text-4xl font-[900] italic tracking-tighter uppercase leading-none text-slate-900 dark:text-white">
+            <h2 className="text-4xl font-[900] italic tracking-tighter  leading-none text-slate-900 dark:text-white">
                 Sélection <span className="text-[#0528d6]">Premium</span>
             </h2>
-            <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.2em] mt-3 italic">Découvrez nos véhicules les plus prisés</p>
+            <p className="text-slate-400 text-[10px] font-black  tracking-[0.2em] mt-3 italic">Découvrez nos véhicules les plus prisés</p>
           </div>
           <button 
             onClick={setViewAll}
-            className="flex items-center gap-2 px-6 py-3 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-[#0528d6] hover:text-white transition-all shadow-sm italic"
+            className="flex items-center gap-2 px-6 py-3 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-2xl text-[10px] font-black  tracking-widest hover:bg-[#0528d6] hover:text-white transition-all shadow-sm italic"
           >
             Voir tout le catalogue <ChevronRight size={14}/>
           </button>
@@ -123,6 +145,9 @@ export const HomeView = ({ onSearch, setViewAll, onSelectVehicle }: any) => {
           </div>
         )}
       </section>
+      <section className="space-y-12">
+        <About onInstall={handleInstallPWA} />
+      </section>
     </div>
   );
 };
@@ -133,7 +158,7 @@ const FeatureItem = ({ icon, title, desc }: any) => (
     <div className="size-16 bg-slate-50 dark:bg-slate-900 rounded-2xl flex items-center justify-center text-[#0528d6] mb-8 group-hover:bg-[#0528d6] group-hover:text-white transition-all shadow-inner border border-slate-100 dark:border-slate-800">
       {React.cloneElement(icon, { size: 32 })}
     </div>
-    <h4 className="text-xl font-bold mb-3 uppercase italic tracking-tighter text-slate-900 dark:text-white">{title}</h4>
+    <h4 className="text-xl font-bold mb-3  italic tracking-tighter text-slate-900 dark:text-white">{title}</h4>
     <p className="text-sm text-slate-500 font-medium italic leading-relaxed">{desc}</p>
   </div>
 );
@@ -149,22 +174,22 @@ const FeaturedCard = ({ vehicle, onClick }: any) => (
         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
         alt="car" 
       />
-      <div className="absolute top-6 left-6 px-4 py-1.5 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-full text-[9px] font-black text-[#0528d6] uppercase italic shadow-sm border border-white/20">
+      <div className="absolute top-6 left-6 px-4 py-1.5 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-full text-[9px] font-black text-[#0528d6]  italic shadow-sm border border-white/20">
         {vehicle.statut}
       </div>
       <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent">
          <p className="text-white text-2xl font-black italic tracking-tighter">
-            {vehicle.pricing?.pricePerDay?.toLocaleString()} <span className="text-[10px] uppercase font-bold">XAF / Jour</span>
+            {vehicle.pricing?.pricePerDay?.toLocaleString()} <span className="text-[10px]  font-bold">XAF / Jour</span>
          </p>
       </div>
     </div>
     <div className="p-8 text-left">
       <div className="flex justify-between items-start mb-4">
         <div>
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white italic tracking-tighter uppercase leading-none">
+            <h3 className="text-2xl font-bold text-slate-900 dark:text-white italic tracking-tighter  leading-none">
                 {vehicle.brand} {vehicle.model}
             </h3>
-            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] mt-2 italic">Ref: {vehicle.licencePlate}</p>
+            <p className="text-[10px] text-slate-400 font-bold  tracking-[0.2em] mt-2 italic">Ref: {vehicle.licencePlate}</p>
         </div>
         <div className="flex items-center gap-1 bg-orange-50 dark:bg-orange-500/10 px-2 py-1 rounded-lg">
             <Star size={12} className="text-orange-500 fill-orange-500" />
@@ -172,13 +197,14 @@ const FeaturedCard = ({ vehicle, onClick }: any) => (
         </div>
       </div>
       <div className="flex items-center gap-4 pt-4 border-t border-slate-50 dark:border-slate-800 text-slate-400">
-         <div className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest italic">
+         <div className="flex items-center gap-1.5 text-[9px] font-black  tracking-widest italic">
             <Users size={14} className="text-[#0528d6]" /> {vehicle.places} Places
          </div>
-         <div className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest italic">
+         <div className="flex items-center gap-1.5 text-[9px] font-black  tracking-widest italic">
             <Zap size={14} className="text-[#0528d6]" /> {vehicle.transmission === 'MANUAL' ? 'Manuelle' : 'Auto'}
          </div>
       </div>
     </div>
   </div>
 );
+

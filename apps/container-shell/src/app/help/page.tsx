@@ -72,7 +72,7 @@ export default function HelpPage() {
             
             {faqData.map((cat, catIdx) => (
                 <div key={catIdx}>
-                    <h3 className="text-orange-500 font-bold uppercase text-sm tracking-wider mb-3 mt-8">{cat.category}</h3>
+                    <h3 className="text-orange-500 font-bold  text-sm tracking-wider mb-3 mt-8">{cat.category}</h3>
                     {cat.items.map((item, itemIdx) => {
                         const id = `${catIdx}-${itemIdx}`;
                         const isOpen = openIndex === id;

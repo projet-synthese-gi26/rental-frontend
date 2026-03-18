@@ -60,7 +60,7 @@ export const ReservationsView = ({ orgData }: { orgData: any }) => {
         {paginated.length === 0 && (
             <div className="col-span-full py-20 text-center bg-white dark:bg-[#1a1d2d] rounded-[3rem] border-2 border-dashed border-slate-100 dark:border-slate-800">
                 <Calendar className="mx-auto text-slate-200 mb-4" size={48} />
-                <p className="text-slate-400 font-black uppercase italic tracking-widest">Aucune réservation trouvée</p>
+                <p className="text-slate-400 font-black  italic tracking-widest">Aucune réservation trouvée</p>
             </div>
         )}
       </div>
@@ -68,7 +68,7 @@ export const ReservationsView = ({ orgData }: { orgData: any }) => {
       {totalPages > 1 && (
         <div className="flex justify-center items-center gap-4 pt-8">
           <button disabled={currentPage === 1} onClick={() => setCurrentPage(p => p - 1)} className="size-12 bg-white dark:bg-slate-800 border border-slate-200 rounded-2xl flex items-center justify-center disabled:opacity-30 hover:bg-slate-50 shadow-sm transition-all"><ChevronLeft size={18}/></button>
-          <span className="text-[10px] font-black text-slate-500 uppercase italic px-4 tracking-widest">Page {currentPage} / {totalPages}</span>
+          <span className="text-[10px] font-black text-slate-500  italic px-4 tracking-widest">Page {currentPage} / {totalPages}</span>
           <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(p => p + 1)} className="size-12 bg-white dark:bg-slate-800 border border-slate-200 rounded-2xl flex items-center justify-center disabled:opacity-30 hover:bg-slate-50 shadow-sm transition-all"><ChevronRight size={18}/></button>
         </div>
       )}

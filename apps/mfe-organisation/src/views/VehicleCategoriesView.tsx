@@ -88,7 +88,7 @@ export const VehicleCategoriesView = ({ orgData }: { orgData: any }) => {
             <button
               key={tab.id}
               onClick={() => setFilterTab(tab.id as any)}
-              className={`px-6 py-2 rounded-md text-[11px] font-bold uppercase italic transition-all ${
+              className={`px-6 py-2 rounded-md text-[11px] font-bold  italic transition-all ${
                 filterTab === tab.id 
                   ? 'bg-white dark:bg-slate-800 text-[#0528d6] shadow-sm' 
                   : 'text-slate-400 hover:text-slate-600'

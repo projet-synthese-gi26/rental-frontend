@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useState, useEffect, useCallback } from 'react';
+import { Footer } from '@shared-ui/components/ui/Footer';
 import { authService } from '@pwa-easy-rental/shared-services';
 
 import { Header } from '../components/Header';
@@ -50,9 +51,16 @@ export default function ClientDashboard() {
     const handlePrompt = (e: any) => { e.preventDefault(); setDeferredPrompt(e); };
     window.addEventListener('beforeinstallprompt', handlePrompt);
 
-    const isDark = localStorage.getItem('theme') === 'dark';
-    setDarkMode(isDark);
-    if (isDark) document.documentElement.classList.add('dark');
+    const savedTheme = localStorage.getItem('theme');
+
+  if (savedTheme === 'dark') {
+    document.documentElement.classList.add('dark');
+    setDarkMode(true);
+  } else {
+    document.documentElement.classList.remove('dark');
+    setDarkMode(false);
+  }
+
 
     const token = localStorage.getItem('auth_token');
     if (token) fetchProfile();
@@ -60,6 +68,12 @@ export default function ClientDashboard() {
 
     return () => window.removeEventListener('beforeinstallprompt', handlePrompt);
   }, [fetchProfile]);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode)
+    document.documentElement.classList.toggle('dark')
+    localStorage.setItem('theme', !darkMode ? 'dark' : 'light');
+  }
 
   const handleAuthAction = async (isSignUp: boolean, form: any) => {
     try {
@@ -85,7 +99,7 @@ export default function ClientDashboard() {
   );
 
   if (!isAuth && currentView === 'AUTH') return (
-      <AuthView onAuth={handleAuthAction} lang={lang} setLang={setLang} darkMode={darkMode} toggleTheme={() => setDarkMode(!darkMode)} />
+      <AuthView onAuth={handleAuthAction} lang={lang} setLang={setLang} darkMode={darkMode} toggleTheme={() => toggleDarkMode()} />
   );
 
   return (
@@ -95,7 +109,7 @@ export default function ClientDashboard() {
             userData={userData}
             currentView={currentView}
             setCurrentView={setCurrentView}
-            toggleTheme={() => setDarkMode(!darkMode)}
+            toggleTheme={() => toggleDarkMode()}
             darkMode={darkMode}
             lang={lang}
             setLang={setLang}
@@ -115,6 +129,7 @@ export default function ClientDashboard() {
           {/* Utilisation de clientId au lieu de userData pour correspondre au composant */}
           {currentView === 'NOTIFICATIONS' && <NotificationsView clientId={userData?.id} />}
         </main>
+        <Footer/>
       </div>
   );
 }

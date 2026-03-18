@@ -20,26 +20,26 @@ export const BookingCard = ({ rental, onPay, onStart, onValidate, onCancel }: an
   return (
     <div className="bg-white dark:bg-[#1a1d2d] rounded-[2rem] p-8 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all text-left flex flex-col h-full">
       <div className="flex justify-between items-center mb-8">
-        <div className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border ${getStatusStyle(rental.status)}`}>{rental.status}</div>
-        <span className="text-[10px] font-mono font-bold text-slate-300">#REF-{rental.id.substring(0,6).toUpperCase()}</span>
+        <div className={`px-3 py-1 rounded-full text-[9px] font-black  tracking-widest border ${getStatusStyle(rental.status)}`}>{rental.status}</div>
+        <span className="text-[10px] font-mono font-bold text-slate-300">#REF-{rental.id.substring(0,6).to()}</span>
       </div>
 
       <div className="flex items-center gap-4 mb-8">
         <div className="size-12 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-[#0528d6] shrink-0 shadow-inner"><User size={24} /></div>
         <div className="overflow-hidden">
           <h4 className="font-bold text-slate-900 dark:text-white leading-tight truncate">{rental.clientName || 'Walk-in Client'}</h4>
-          <div className="flex items-center gap-2 mt-1 text-slate-400 font-bold text-[10px] uppercase italic"><Phone size={10} className="text-[#0528d6]"/> {rental.clientPhone}</div>
+          <div className="flex items-center gap-2 mt-1 text-slate-400 font-bold text-[10px]  italic"><Phone size={10} className="text-[#0528d6]"/> {rental.clientPhone}</div>
         </div>
       </div>
 
       <div className="bg-slate-50 dark:bg-slate-900/50 rounded-2xl p-5 mb-8 grid grid-cols-2 gap-4 border border-slate-100 dark:border-slate-800">
-        <div className="space-y-0.5"><p className="text-[9px] font-black text-slate-400 uppercase italic">Prise en charge</p><p className="text-xs font-bold truncate">{new Date(rental.startDate).toLocaleDateString()}</p></div>
-        <div className="space-y-0.5"><p className="text-[9px] font-black text-slate-400 uppercase italic">Restitution</p><p className="text-xs font-bold truncate">{new Date(rental.endDate).toLocaleDateString()}</p></div>
+        <div className="space-y-0.5"><p className="text-[9px] font-black text-slate-400  italic">Prise en charge</p><p className="text-xs font-bold truncate">{new Date(rental.startDate).toLocaleDateString()}</p></div>
+        <div className="space-y-0.5"><p className="text-[9px] font-black text-slate-400  italic">Restitution</p><p className="text-xs font-bold truncate">{new Date(rental.endDate).toLocaleDateString()}</p></div>
       </div>
 
       <div className="flex items-center justify-between gap-4 mt-auto">
         <div>
-          <p className="text-[9px] font-black text-slate-400 uppercase italic mb-0.5">Montant</p>
+          <p className="text-[9px] font-black text-slate-400  italic mb-0.5">Montant</p>
           <p className="text-lg font-black text-[#0528d6] leading-none">{rental.totalAmount?.toLocaleString()} XAF</p>
         </div>
         <div className="flex gap-2">

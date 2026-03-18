@@ -78,7 +78,7 @@ export const MyReservationsView = ({ userData }: any) => {
   if (loading) return (
     <div className="h-[60vh] flex flex-col items-center justify-center gap-4">
       <Loader2 className="animate-spin text-[#0528d6] size-10" />
-      <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Synchronisation...</p>
+      <p className="text-[10px] font-black  tracking-widest text-slate-400">Synchronisation...</p>
     </div>
   );
 
@@ -122,11 +122,11 @@ export const MyReservationsView = ({ userData }: any) => {
                       <Car size={selectedRes ? 18 : 24} />
                     </div>
                     <div>
-                      <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest leading-none">ID</p>
+                      <p className="text-[8px] font-black text-slate-400  tracking-widest leading-none">ID</p>
                       <p className="text-[11px] font-bold text-slate-900 tracking-tight">#{res?.id?.slice(0, 8)}</p>
                     </div>
                   </div>
-                  <div className={`px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest border ${
+                  <div className={`px-3 py-1 rounded-full text-[8px] font-black  tracking-widest border ${
                     res?.status === 'PENDING' ? 'bg-orange-50 text-orange-600 border-orange-100' : 'bg-green-50 text-green-600 border-green-100'
                   }`}>
                     {res?.status}
@@ -160,7 +160,7 @@ export const MyReservationsView = ({ userData }: any) => {
             {loadingDetail ? (
               <div className="bg-white rounded-[2.5rem] h-[500px] flex flex-col items-center justify-center border border-slate-100 shadow-xl">
                 <Loader2 className="animate-spin text-[#0528d6] mb-4" size={30} />
-                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Chargement du véhicule...</p>
+                <p className="text-[10px] font-black  tracking-widest text-slate-400">Chargement du véhicule...</p>
               </div>
             ) : (
               <ReservationDetail
@@ -193,11 +193,11 @@ const EmptyState = () => (
     <div className="size-24 bg-orange-50 text-orange-500 rounded-[2.8rem] flex items-center justify-center mx-auto mb-6 shadow-inner">
       <Clock size={48} />
     </div>
-    <h4 className="text-3xl font-black text-slate-900 italic uppercase tracking-tighter">Silence radio...</h4>
+    <h4 className="text-3xl font-black text-slate-900 italic  tracking-tighter">Silence radio...</h4>
     <p className="text-slate-400 text-sm font-medium max-w-xs mx-auto italic mt-3 leading-relaxed">
       {"Vous n'avez aucune réservation active. Vos réservations s'afficheront ici."}
     </p>
-    <button className="mt-10 bg-[#0528d6] text-white px-12 py-5 rounded-full font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:scale-105 transition-all">
+    <button className="mt-10 bg-[#0528d6] text-white px-12 py-5 rounded-full font-black text-xs  tracking-[0.2em] shadow-2xl hover:scale-105 transition-all">
       Louer un véhicule
     </button>
   </div>

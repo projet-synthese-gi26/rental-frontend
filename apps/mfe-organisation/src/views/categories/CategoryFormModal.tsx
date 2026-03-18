@@ -20,14 +20,14 @@ export const CategoryFormModal = ({ editingCat, initialData, onSubmit, onClose, 
               <h3 className="text-xl font-bold text-slate-900 dark:text-white">
                 {editingCat ? "Modifier la catégorie" : "Nouvelle catégorie"}
               </h3>
-              <p className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mt-1 italic">Typologie de flotte</p>
+              <p className="text-[10px] text-slate-400  font-bold tracking-widest mt-1 italic">Typologie de flotte</p>
             </div>
             <button type="button" onClick={onClose} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full"><X size={22}/></button>
           </div>
 
           <div className="p-10 space-y-6">
             <div className="space-y-1.5">
-              <label className="text-[11px] font-bold text-slate-400 uppercase tracking-wider ml-1 italic">Nom de la catégorie</label>
+              <label className="text-[11px] font-bold text-slate-400  tracking-wider ml-1 italic">Nom de la catégorie</label>
               <input 
                 required value={formData.name} 
                 onChange={e => setFormData({...formData, name: e.target.value})}
@@ -37,7 +37,7 @@ export const CategoryFormModal = ({ editingCat, initialData, onSubmit, onClose, 
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[11px] font-bold text-slate-400 uppercase tracking-wider ml-1 italic">Description des critères</label>
+              <label className="text-[11px] font-bold text-slate-400  tracking-wider ml-1 italic">Description des critères</label>
               <textarea 
                 rows={4} value={formData.description} 
                 onChange={e => setFormData({...formData, description: e.target.value})}

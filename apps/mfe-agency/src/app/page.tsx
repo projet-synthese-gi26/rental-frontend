@@ -73,9 +73,16 @@ export default function AgencyDashboard() {
   },[]);
 
   useEffect(() => {
-    const isDark = localStorage.getItem('theme') === 'dark';
-    setDarkMode(isDark);
-    if (isDark) document.documentElement.classList.add('dark');
+    const savedTheme = localStorage.getItem('theme');
+
+  if (savedTheme === 'dark') {
+    document.documentElement.classList.add('dark');
+    setDarkMode(true);
+  } else {
+    document.documentElement.classList.remove('dark');
+    setDarkMode(false);
+  }
+
 
     const token = localStorage.getItem('auth_token');
     if (token) fetchContext();

@@ -20,7 +20,7 @@ export const StaffFormModal = ({ editingStaff, agencies, postes, initialData, on
               <h3 className="text-xl font-bold text-slate-900 dark:text-white">
                 {editingStaff ? "Mettre à jour le contrat" : "Recruter un membre"}
               </h3>
-              <p className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mt-1 italic">Gestion des accès staff</p>
+              <p className="text-[10px] text-slate-400  font-bold tracking-widest mt-1 italic">Gestion des accès staff</p>
             </div>
             <button type="button" onClick={onClose} className="p-2 hover:bg-slate-100 rounded-full transition-colors"><X size={22}/></button>
           </div>
@@ -38,7 +38,7 @@ export const StaffFormModal = ({ editingStaff, agencies, postes, initialData, on
 
             <div className="space-y-4 pt-4 border-t border-slate-50 dark:border-slate-800">
               <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1 italic flex items-center gap-2">
+                <label className="text-[10px] font-bold text-slate-400  tracking-widest ml-1 italic flex items-center gap-2">
                   <Store size={14} className="text-[#0528d6]"/> Affectation agence
                 </label>
                 <select 
@@ -52,7 +52,7 @@ export const StaffFormModal = ({ editingStaff, agencies, postes, initialData, on
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1 italic flex items-center gap-2">
+                <label className="text-[10px] font-bold text-slate-400  tracking-widest ml-1 italic flex items-center gap-2">
                   <Shield size={14} className="text-[#0528d6]"/> Poste & Permissions
                 </label>
                 <select 
@@ -67,7 +67,7 @@ export const StaffFormModal = ({ editingStaff, agencies, postes, initialData, on
 
               {editingStaff && (
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1 italic flex items-center gap-2">
+                  <label className="text-[10px] font-bold text-slate-400  tracking-widest ml-1 italic flex items-center gap-2">
                     <UserCheck size={14} className="text-[#0528d6]"/> Statut du compte
                   </label>
                   <select 
@@ -98,7 +98,7 @@ export const StaffFormModal = ({ editingStaff, agencies, postes, initialData, on
 
 const Input = ({ label, value, onChange, type = "text", required = false, icon }: any) => (
   <div className="space-y-1.5">
-    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1 italic">{label}</label>
+    <label className="text-[10px] font-bold text-slate-400  tracking-widest ml-1 italic">{label}</label>
     <div className="relative group">
       {icon && <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#0528d6] transition-colors">{icon}</div>}
       <input type={type} required={required} value={value} onChange={e => onChange(e.target.value)} 

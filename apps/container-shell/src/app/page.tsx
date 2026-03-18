@@ -20,9 +20,16 @@ export default function LandingPage() {
 
   useEffect(() => {
     // 1. Theme Sync
-    const isDark = localStorage.getItem('theme') === 'dark';
-    setDarkMode(isDark);
-    if (isDark) document.documentElement.classList.add('dark');
+    const savedTheme = localStorage.getItem('theme');
+
+  if (savedTheme === 'dark') {
+    document.documentElement.classList.add('dark');
+    setDarkMode(true);
+  } else {
+    document.documentElement.classList.remove('dark');
+    setDarkMode(false);
+  }
+
 
     // 2. PWA Logic
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -70,7 +77,7 @@ export default function LandingPage() {
 
             <div className="relative z-10 grid lg:grid-cols-2 gap-10 items-center">
               <div className="text-left">
-                <h2 className="text-4xl md:text-6xl font-[900] italic leading-[0.9] tracking-tighter text-white mb-6 uppercase">
+                <h2 className="text-4xl md:text-6xl font-[900] italic leading-[0.9] tracking-tighter text-white mb-6 ">
                   Prêt à prendre <br /> la <span className="text-orange-400">Route ?</span>
                 </h2>
                 <p className="text-blue-100 text-lg font-medium max-w-md leading-relaxed">
@@ -81,13 +88,13 @@ export default function LandingPage() {
               <div className="flex flex-col sm:flex-row gap-4 lg:justify-end">
                 <Link
                   href={MFE_URLS.client}
-                  className="inline-flex items-center justify-center bg-white text-blue-600 px-10 py-5 rounded-[2rem] font-black text-sm uppercase italic hover:scale-105 transition-transform shadow-xl"
+                  className="inline-flex items-center justify-center bg-white text-blue-600 px-10 py-5 rounded-[2rem] font-black text-sm  italic hover:scale-105 transition-transform shadow-xl"
                 >
                   Explorer le catalogue
                 </Link>
                 <Link
                   href="/help"
-                  className="inline-flex items-center justify-center bg-blue-700 text-white border border-blue-500 px-10 py-5 rounded-[2rem] font-black text-sm uppercase italic hover:bg-blue-800 transition-colors"
+                  className="inline-flex items-center justify-center bg-blue-700 text-white border border-blue-500 px-10 py-5 rounded-[2rem] font-black text-sm  italic hover:bg-blue-800 transition-colors"
                 >
                   Besoin d&apos;aide ?
                 </Link>

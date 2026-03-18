@@ -55,7 +55,7 @@ const ReservationDetail = ({ data, onClose, onCancel, cancelling }: any) => {
       <div className="size-6 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500">
         <Icon size={14} />
       </div>
-      <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
+      <h4 className="text-[10px] font-black text-slate-400  tracking-[0.2em]">
         {title}
       </h4>
     </div>
@@ -91,10 +91,10 @@ const ReservationDetail = ({ data, onClose, onCancel, cancelling }: any) => {
         <div className="absolute bottom-8 left-8 right-8">
           <div className="flex justify-between items-end">
             <div>
-              <span className="px-3 py-1 bg-blue-600 text-white text-[10px] font-black rounded-lg uppercase tracking-wider">
+              <span className="px-3 py-1 bg-blue-600 text-white text-[10px] font-black rounded-lg  tracking-wider">
                 {vehicle?.brand} {vehicle?.model}
               </span>
-              <h3 className="text-4xl font-black text-white mt-3 tracking-tighter italic uppercase">
+              <h3 className="text-4xl font-black text-white mt-3 tracking-tighter italic ">
                 {vehicle?.licencePlate || "SANS IMMAT"}
               </h3>
               <p className="text-sm text-white/60 font-medium">
@@ -102,8 +102,8 @@ const ReservationDetail = ({ data, onClose, onCancel, cancelling }: any) => {
               </p>
             </div>
             <div className="text-right hidden md:block">
-               <p className="text-[10px] font-black text-white/40 uppercase">Référence</p>
-               <p className="text-xs font-bold text-white uppercase tracking-widest">{rental?.id?.slice(0,8)}</p>
+               <p className="text-[10px] font-black text-white/40 ">Référence</p>
+               <p className="text-xs font-bold text-white  tracking-widest">{rental?.id?.slice(0,8)}</p>
             </div>
           </div>
         </div>
@@ -117,12 +117,12 @@ const ReservationDetail = ({ data, onClose, onCancel, cancelling }: any) => {
             <div className="p-5 bg-slate-900 rounded-[2rem] text-white col-span-1 md:col-span-2 shadow-xl shadow-slate-200">
               <div className="flex justify-between items-center mb-4">
                 <CreditCard size={18} className="text-blue-400" />
-                <span className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${rental?.status === 'CONFIRMED' ? 'bg-green-500/20 text-green-400' : 'bg-blue-500/20 text-blue-400'}`}>
+                <span className={`px-3 py-1 rounded-full text-[9px] font-black  tracking-widest ${rental?.status === 'CONFIRMED' ? 'bg-green-500/20 text-green-400' : 'bg-blue-500/20 text-blue-400'}`}>
                   {rental?.status}
                 </span>
               </div>
               <div className="space-y-1">
-                <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Reste à régler en agence</p>
+                <p className="text-[10px] font-bold text-white/40  tracking-widest">Reste à régler en agence</p>
                 <p className="text-3xl font-black italic">{remaining.toLocaleString()} <span className="text-xs italic opacity-50">XAF</span></p>
               </div>
               <div className="mt-4 pt-4 border-t border-white/10 flex justify-between text-[10px] font-bold opacity-60">
@@ -133,12 +133,12 @@ const ReservationDetail = ({ data, onClose, onCancel, cancelling }: any) => {
 
             <div className="p-5 bg-blue-50 border border-blue-100 rounded-[2rem] flex flex-col justify-center">
               <SectionTitle title="Durée" icon={Clock} />
-              <p className="text-2xl font-black text-[#0528d6] italic">{duration} <span className="text-xs font-black uppercase tracking-tighter">{durationLabel}</span></p>
+              <p className="text-2xl font-black text-[#0528d6] italic">{duration} <span className="text-xs font-black  tracking-tighter">{durationLabel}</span></p>
             </div>
 
             <div className="p-5 bg-slate-50 border border-slate-100 rounded-[2rem] flex flex-col justify-center">
               <SectionTitle title="Kilométrage" icon={Gauge} />
-              <p className="text-2xl font-black text-slate-900 italic">{vehicle?.kilometrage || '0'} <span className="text-xs font-black uppercase tracking-tighter">KM</span></p>
+              <p className="text-2xl font-black text-slate-900 italic">{vehicle?.kilometrage || '0'} <span className="text-xs font-black  tracking-tighter">KM</span></p>
             </div>
           </div>
         </section>
@@ -150,12 +150,12 @@ const ReservationDetail = ({ data, onClose, onCancel, cancelling }: any) => {
             <div className="relative pl-6 border-l-2 border-slate-100 space-y-8">
               <div className="relative">
                 <div className="absolute -left-[31px] top-0 size-4 rounded-full bg-white border-4 border-blue-600" />
-                <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Départ</p>
+                <p className="text-[9px] font-black text-slate-400  tracking-widest">Départ</p>
                 <p className="text-sm font-black text-slate-900">{formatDate(rental?.startDate)}</p>
               </div>
               <div className="relative">
                 <div className="absolute -left-[31px] top-0 size-4 rounded-full bg-white border-4 border-slate-200" />
-                <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Retour</p>
+                <p className="text-[9px] font-black text-slate-400  tracking-widest">Retour</p>
                 <p className="text-sm font-black text-slate-900">{formatDate(rental?.endDate)}</p>
               </div>
             </div>
@@ -230,15 +230,15 @@ const ReservationDetail = ({ data, onClose, onCancel, cancelling }: any) => {
           </div>
           <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-6 pt-6 border-t border-slate-200/50">
              <div>
-                <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Transmission</p>
+                <p className="text-[8px] font-black text-slate-400  tracking-widest mb-1">Transmission</p>
                 <p className="text-xs font-black text-slate-900">{vehicle?.transmission}</p>
              </div>
              <div>
-                <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Places</p>
+                <p className="text-[8px] font-black text-slate-400  tracking-widest mb-1">Places</p>
                 <p className="text-xs font-black text-slate-900">{vehicle?.places} Sièges</p>
              </div>
              <div>
-                <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">VIN</p>
+                <p className="text-[8px] font-black text-slate-400  tracking-widest mb-1">VIN</p>
                 <p className="text-xs font-black text-slate-900">{vehicle?.vinNumber || 'N/A'}</p>
              </div>
           </div>
@@ -249,7 +249,7 @@ const ReservationDetail = ({ data, onClose, onCancel, cancelling }: any) => {
           <button
             disabled={cancelling}
             onClick={() => onCancel(rental?.id)}
-            className="w-full py-5 bg-red-50 text-red-500 rounded-[1.5rem] text-[11px] font-black uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all duration-300 flex items-center justify-center gap-3 group shadow-lg shadow-red-100"
+            className="w-full py-5 bg-red-50 text-red-500 rounded-[1.5rem] text-[11px] font-black  tracking-widest hover:bg-red-500 hover:text-white transition-all duration-300 flex items-center justify-center gap-3 group shadow-lg shadow-red-100"
           >
             {cancelling ? (
               <Loader2 className="animate-spin" size={18} />
@@ -260,7 +260,7 @@ const ReservationDetail = ({ data, onClose, onCancel, cancelling }: any) => {
               </>
             )}
           </button>
-          <p className="text-center text-[9px] font-bold text-slate-400 uppercase mt-4 tracking-tighter">
+          <p className="text-center text-[9px] font-bold text-slate-400  mt-4 tracking-tighter">
             Note: Une annulation tardive peut entraîner des frais de gestion.
           </p>
         </div>

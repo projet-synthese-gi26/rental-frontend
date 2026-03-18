@@ -7,7 +7,7 @@ export const StatCard = ({ label, value, icon }: { label: string; value: string 
       {React.cloneElement(icon as React.ReactElement, { size: 22 })}
     </div>
     <div className="overflow-hidden text-left">
-      <p className="text-[11px] font-bold uppercase text-slate-400 tracking-wider italic mb-0.5 truncate">{label}</p>
+      <p className="text-[11px] font-bold  text-slate-400 tracking-wider italic mb-0.5 truncate">{label}</p>
       <p className="text-2xl font-bold text-slate-900 dark:text-white leading-none truncate">{value}</p>
     </div>
   </div>

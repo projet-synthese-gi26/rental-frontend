@@ -6,7 +6,7 @@ import { ShieldCheck, Lock, Edit3 } from 'lucide-react';
 export const RoleCard = ({ role, onEdit, isSystem }: any) => (
   <div className="bg-white dark:bg-[#1a1d2d] rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all group relative overflow-hidden">
     {isSystem && (
-      <div className="absolute top-0 right-0 bg-blue-600 text-white px-3 py-1 rounded-bl-xl text-[9px] font-bold uppercase tracking-wider italic z-10">
+      <div className="absolute top-0 right-0 bg-blue-600 text-white px-3 py-1 rounded-bl-xl text-[9px] font-bold  tracking-wider italic z-10">
         Système
       </div>
     )}
@@ -18,7 +18,7 @@ export const RoleCard = ({ role, onEdit, isSystem }: any) => (
         </div>
         <div>
           <h4 className="font-bold text-slate-900 dark:text-white leading-tight">{role.name}</h4>
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tight mt-0.5 italic">
+          <p className="text-[10px] font-bold text-slate-400  tracking-tight mt-0.5 italic">
             {role.permissions?.length || 0} privilèges attribués
           </p>
         </div>

@@ -6,7 +6,7 @@ export const Features = ({ t }: any) => (
   <section id="features" className="py-32 bg-slate-50 dark:bg-slate-900/50 scroll-mt-10">
     <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
       <div>
-        <h2 className="text-6xl font-[900] italic leading-none tracking-tighter text-slate-900 dark:text-white mb-8 uppercase">
+        <h2 className="text-6xl font-[900] italic leading-none tracking-tighter text-slate-900 dark:text-white mb-8 ">
           Technologie <br /><span className="text-blue-600">PWA First</span>
         </h2>
         <p className="text-xl text-slate-500 dark:text-slate-400 font-medium mb-12 leading-relaxed">{t.desc}</p>

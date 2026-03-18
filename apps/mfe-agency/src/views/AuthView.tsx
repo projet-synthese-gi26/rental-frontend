@@ -45,7 +45,7 @@ export const AuthView = ({ onAuth, lang, setLang, darkMode, toggleTheme }: any) 
 
           <div className="relative z-10 flex items-center gap-4 text-blue-200">
              <ShieldCheck size={20} className="text-blue-300" />
-             <p className="text-[10px] font-bold uppercase tracking-[0.2em]">Rental Operational Gateway</p>
+             <p className="text-[10px] font-bold  tracking-[0.2em]">Rental Operational Gateway</p>
           </div>
         </div>
 
@@ -82,7 +82,7 @@ export const AuthView = ({ onAuth, lang, setLang, darkMode, toggleTheme }: any) 
               </form>
 
               <div className="mt-12 flex items-center gap-6 pt-6 border-t border-slate-50 dark:border-slate-800 w-full justify-center shrink-0">
-                <button onClick={() => setLang(lang === 'FR' ? 'EN' : 'FR')} className="flex items-center gap-2 text-[10px] font-black text-slate-300 hover:text-slate-600 uppercase transition-colors italic">
+                <button onClick={() => setLang(lang === 'FR' ? 'EN' : 'FR')} className="flex items-center gap-2 text-[10px] font-black text-slate-300 hover:text-slate-600  transition-colors italic">
                   <Languages size={14} /> {lang}
                 </button>
                 <button onClick={toggleTheme} className="p-2 text-slate-300 hover:text-orange-500 transition-colors">

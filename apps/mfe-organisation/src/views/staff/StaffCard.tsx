@@ -14,18 +14,18 @@ export const StaffCard = ({ staff, agencies, onEdit, onDelete, onView }: any) =>
             {staff.firstname?.[0]}{staff.lastname?.[0]}
           </div>
           <div className="overflow-hidden">
-            <h4 className="font-black text-slate-900 dark:text-white leading-tight uppercase italic tracking-tighter truncate">
+            <h4 className="font-black text-slate-900 dark:text-white leading-tight  italic tracking-tighter truncate">
               {staff.firstname} {staff.lastname}
             </h4>
             <div className="flex items-center gap-1.5 mt-1 text-[#0528d6]">
               <Shield size={12} />
-              <span className="text-[9px] font-black uppercase tracking-widest italic truncate">
+              <span className="text-[9px] font-black  tracking-widest italic truncate">
                 {staff.poste?.name || 'Sans poste'}
               </span>
             </div>
           </div>
         </div>
-        <div className={`px-2.5 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest italic border ${
+        <div className={`px-2.5 py-1 rounded-lg text-[8px] font-black  tracking-widest italic border ${
           staff.status === 'ACTIVE' ? 'bg-green-50 text-green-600 border-green-100' : 'bg-red-50 text-red-600 border-red-100'
         }`}>
           {staff.status}
@@ -42,7 +42,7 @@ export const StaffCard = ({ staff, agencies, onEdit, onDelete, onView }: any) =>
       </div>
 
       <div className="flex gap-2 mt-auto pt-4 border-t border-slate-50 dark:border-slate-800">
-        <button onClick={() => onView(staff.id)} className="flex-1 py-2.5 bg-slate-900 text-white dark:bg-white dark:text-[#0528d6] rounded-xl text-[9px] font-black uppercase italic tracking-widest hover:scale-[1.02] transition-all flex items-center justify-center gap-2 shadow-md">
+        <button onClick={() => onView(staff.id)} className="flex-1 py-2.5 bg-slate-900 text-white dark:bg-white dark:text-[#0528d6] rounded-xl text-[9px] font-black  italic tracking-widest hover:scale-[1.02] transition-all flex items-center justify-center gap-2 shadow-md">
             <Info size={14}/> Détails
         </button>
         <button onClick={() => onEdit(staff)} className="p-2.5 text-slate-400 hover:text-[#0528d6] bg-slate-50 dark:bg-slate-800 rounded-xl transition-all shadow-sm"><Edit3 size={16}/></button>

@@ -55,7 +55,7 @@ export const Sidebar = ({
 
       <nav className="flex-1 overflow-y-auto no-scrollbar px-4 space-y-8 pb-8">
         <div>
-          <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-4 px-2">Hub principal</p>
+          <p className="text-[11px] font-bold  tracking-widest text-slate-400 mb-4 px-2">Hub principal</p>
           <div className="space-y-1">
             <SidebarItem icon={<LayoutDashboard size={20}/>} label="Tableau de bord" active={currentView === 'DASHBOARD'} onClick={() => setCurrentView('DASHBOARD')} />
             <SidebarItem icon={<CalendarDays size={20}/>} label="Réservations" active={currentView === 'RESERVATIONS'} onClick={() => setCurrentView('RESERVATIONS')} />
@@ -66,7 +66,7 @@ export const Sidebar = ({
         </div>
 
         <div>
-          <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-4 px-2">Opérations réseau</p>
+          <p className="text-[11px] font-bold  tracking-widest text-slate-400 mb-4 px-2">Opérations réseau</p>
           <div className="space-y-1">
             <SidebarItem icon={<ShieldCheck size={20}/>} label="Postes & Rôles" active={currentView === 'ROLES'} onClick={() => setCurrentView('ROLES')} />
             <SidebarItem icon={<UserCircle size={20}/>} label="Gestion du personnel" active={currentView === 'STAFF'} onClick={() => setCurrentView('STAFF')} />
@@ -98,7 +98,7 @@ export const Sidebar = ({
            <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="size-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_#22c55e]" />
-                <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-tight">
+                <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400  tracking-tight">
                   Réseau en direct
                 </span>
               </div>
