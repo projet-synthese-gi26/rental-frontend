@@ -1,0 +1,56 @@
+
+
+# ══════════════════════════════════════════════════════════
+#  PWA Easy Rental — Microfrontends
+#  Ports :
+#    3000 → container-shell
+#    3001 → mfe-agency
+#    3002 → mfe-client
+#    3003 → mfe-organisation
+# ══════════════════════════════════════════════════════════
+
+services:
+
+  container-shell:
+    build:
+      context: .
+      dockerfile: apps/container-shell/Dockerfile
+      args:
+        # URLs des microfrontends (utilisées par le shell pour les redirections)
+        NEXT_PUBLIC_MFE_AGENCY_URL:       ${NEXT_PUBLIC_MFE_AGENCY_URL:-http://localhost:3001}
+        NEXT_PUBLIC_MFE_CLIENT_URL:       ${NEXT_PUBLIC_MFE_CLIENT_URL:-http://localhost:3002}
+        NEXT_PUBLIC_MFE_ORGANISATION_URL: ${NEXT_PUBLIC_MFE_ORGANISATION_URL:-http://localhost:3003}
+        NEXT_PUBLIC_API_URL:              ${NEXT_PUBLIC_API_URL}
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+  mfe-agency:
+    build:
+      context: .
+      dockerfile: apps/mfe-agency/Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+    ports:
+      - "3001:3001"
+    restart: unless-stopped
+
+  mfe-client:
+    build:
+      context: .
+      dockerfile: apps/mfe-client/Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+    ports:
+      - "3002:3002"
+    restart: unless-stopped
+
+  mfe-organisation:
+    build:
+      context: .
+      dockerfile: apps/mfe-organisation/Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+    ports:
+      - "3003:3003"
+    restart: unless-stopped
