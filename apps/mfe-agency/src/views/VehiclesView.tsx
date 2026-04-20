@@ -10,17 +10,17 @@ import { ResourceDetailsModal } from './vehicles/ResourceDetailsModal';
 
 export const VehiclesView = ({ userData }: { userData: any }) => {
   const [vehicles, setVehicles] = useState<any[]>([]);
-  const [categories, setCategories] = useState<any[]>([]);
+  const[categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingVehicle, setEditingVehicle] = useState<any>(null);
-  const [modalLoading, setModalLoading] = useState(false);
+  const[modalLoading, setModalLoading] = useState(false);
   const [backendError, setBackendError] = useState<string | null>(null);
 
   // État pour le modal de détails
-  const [viewingVehicleId, setViewingVehicleId] = useState<string | null>(null);
+  const[viewingVehicleId, setViewingVehicleId] = useState<string | null>(null);
 
   const loadData = useCallback(async () => {
     if (!userData?.agencyId) return;
@@ -30,8 +30,8 @@ export const VehiclesView = ({ userData }: { userData: any }) => {
         vehicleService.getVehiclesByAgency(userData.agencyId),
         vehicleService.getVehicleCategories(userData.organizationId)
       ]);
-      if (vehRes.ok) setVehicles(vehRes.data || []);
-      if (catRes.ok) setCategories(catRes.data || []);
+      if (vehRes.ok) setVehicles(vehRes.data ||[]);
+      if (catRes.ok) setCategories(catRes.data ||[]);
     } finally {
       setLoading(false);
     }
@@ -43,15 +43,33 @@ export const VehiclesView = ({ userData }: { userData: any }) => {
     setModalLoading(true);
     setBackendError(null);
     try {
+      // Formatage strict pour le backend (Nombres, ISO Dates et Injection Agency)
+      const payload = {
+        ...formData,
+        agencyId: userData.agencyId, // Forcé côté agence
+        kilometrage: Number(formData.kilometrage || 0),
+        places: Number(formData.places || 5),
+        engineDetails: {
+          ...formData.engineDetails,
+          horsepower: Number(formData.engineDetails?.horsepower || 0),
+          capacity: Number(formData.engineDetails?.capacity || 0)
+        },
+        yearProduction: formData.yearProduction ? new Date(formData.yearProduction).toISOString() : new Date().toISOString(),
+        insuranceDetails: {
+          ...formData.insuranceDetails,
+          expiry: formData.insuranceDetails?.expiry ? new Date(formData.insuranceDetails.expiry).toISOString() : new Date().toISOString()
+        }
+      };
+
       const res = editingVehicle 
-        ? await vehicleService.updateVehicle(editingVehicle.id, formData)
-        : await vehicleService.createVehicle(userData.organizationId, { ...formData, agencyId: userData.agencyId });
+        ? await vehicleService.updateVehicle(editingVehicle.id, payload)
+        : await vehicleService.createVehicle(userData.organizationId, payload);
       
       if (res.ok) {
         setIsModalOpen(false);
         loadData();
       } else {
-        setBackendError(res.data?.message || "Une erreur est survenue");
+        setBackendError(res.data?.message || "Une erreur est survenue lors de l'enregistrement.");
       }
     } finally {
       setModalLoading(false);
@@ -103,7 +121,7 @@ export const VehiclesView = ({ userData }: { userData: any }) => {
             onEdit={(veh: any) => { setEditingVehicle(veh); setBackendError(null); setIsModalOpen(true); }}
             onDelete={async (id: string) => { if(confirm('Retirer ce véhicule de l\'inventaire ?')) { await vehicleService.deleteVehicle(id); loadData(); } }}
             onStatusUpdate={handleQuickStatus}
-            onViewDetails={(veh: any) => setViewingVehicleId(veh.id)} // Ouvrir les détails
+            onViewDetails={(veh: any) => setViewingVehicleId(veh.id)}
           />
         ))}
       </div>
@@ -113,7 +131,27 @@ export const VehiclesView = ({ userData }: { userData: any }) => {
         <VehicleFormModal 
           editingVehicle={editingVehicle}
           categories={categories}
-          initialData={editingVehicle || { brand: '', model: '', licencePlate: '', vinNumber: '', kilometrage: 0, places: 5, transmission: 'MANUAL', statut: 'AVAILABLE', categoryId: '' }}
+          initialData={editingVehicle ? {
+            ...editingVehicle,
+            yearProduction: editingVehicle.yearProduction ? editingVehicle.yearProduction.split('T')[0] : '',
+            engineDetails: editingVehicle.engineDetails || { type: '', horsepower: 0, capacity: 0 },
+            insuranceDetails: editingVehicle.insuranceDetails ? {
+              ...editingVehicle.insuranceDetails,
+              expiry: editingVehicle.insuranceDetails.expiry ? editingVehicle.insuranceDetails.expiry.split('T')[0] : ''
+            } : { provider: '', policy_number: '', expiry: '' },
+            fuelEfficiency: editingVehicle.fuelEfficiency || { city: '', highway: '' },
+            functionalities: editingVehicle.functionalities || {},
+            images: editingVehicle.images ||[],
+            description: editingVehicle.description ||[]
+          } : { 
+            brand: '', model: '', licencePlate: '', vinNumber: '', kilometrage: 0, places: 5, color: '', transmission: 'MANUAL', categoryId: '', statut: 'AVAILABLE',
+            yearProduction: '',
+            engineDetails: { type: '', horsepower: 0, capacity: 0 },
+            insuranceDetails: { provider: '', policy_number: '', expiry: '' },
+            fuelEfficiency: { city: '', highway: '' },
+            functionalities: { air_condition: true, gps: true, bluetooth: true, luggage: true, onboard_computer: true },
+            images: [], description:[]
+          }}
           onClose={() => setIsModalOpen(false)}
           onSubmit={handleSubmit}
           modalLoading={modalLoading}

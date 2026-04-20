@@ -25,7 +25,7 @@ export const TransactionDetailsModal = ({ transactionId, onClose }: any) => {
     </Portal>
   );
 
-  const isIncome = data.type === 'RENTAL_INCOME';
+  const isIncome = data.type === 'RENTAL_PAYMENT';
   const absAmount = Math.abs(data.amount || 0);
   const isSuccess = data.status === 'SUCCESS' || data.status === 'COMPLETED' || data.status === 'ACTIVE';
 

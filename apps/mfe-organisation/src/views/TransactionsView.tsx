@@ -28,6 +28,8 @@ export const TransactionsView = ({ orgData }: { orgData: any }) => {
 
   useEffect(() => { loadData(); }, [loadData]);
 
+  console.log(transactions);
+
   const filtered = useMemo(() => transactions.filter(t => {
     const matchSearch = `${t.reference} ${t.description}`.toLowerCase().includes(searchTerm.toLowerCase());
     const matchType = filterType === 'ALL' || t.type === filterType;

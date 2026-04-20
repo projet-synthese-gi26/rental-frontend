@@ -2,6 +2,9 @@ import { defaultClient as client } from './api-client';
 
 export const rentalService = {
   initiateRental: (data: any) => client.post<any>('/api/rentals/init', data),
+
+  createAgencyRental: (agencyId: string, data: any) => 
+    client.post<any>(`/api/rentals/agency/${agencyId}/create`, data),
   
   payRental: (id: string, data: { amount: number; method: 'MOMO' | 'OM' | 'CARD' | 'CASH' }) => 
     client.post<any>(`/api/rentals/${id}/pay`, data),
@@ -13,6 +16,8 @@ export const rentalService = {
   validateReturn: (id: string) => client.put<any>(`/api/rentals/${id}/validate-return`, {}),
   
   cancelRental: (id: string) => client.put<any>(`/api/rentals/${id}/cancel`, {}),
+
+  getRentalDetails: (id: string) => client.get<any>(`/api/rentals/${id}/details`),
 
   getOrgReservations: (orgId: string) => client.get<any[]>(`/api/rentals/org/${orgId}/reservations`),
   

@@ -13,7 +13,7 @@ export const TransactionsView = ({ userData }: { userData: any }) => {
   const[transactions, setTransactions] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterType, setFilterType] = useState<'ALL' | 'RENTAL_INCOME' | 'REFUND'>('ALL');
+  const [filterType, setFilterType] = useState<'ALL' | 'RENTAL_PAYMENT' | 'REFUND'>('ALL');
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedTx, setSelectedTx] = useState<any>(null);
 
@@ -26,6 +26,8 @@ export const TransactionsView = ({ userData }: { userData: any }) => {
     } finally { setLoading(false); }
   }, [userData?.agencyId]);
 
+  console.log('test:', transactions);
+
   useEffect(() => { loadData(); },[loadData]);
 
   const filtered = useMemo(() => transactions.filter(t => {
@@ -37,8 +39,8 @@ export const TransactionsView = ({ userData }: { userData: any }) => {
   const paginated = filtered.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
 
-  const totalIncome = transactions.filter(t => t.type === 'RENTAL_INCOME').reduce((acc, t) => acc + Math.abs(t.amount || 0), 0);
-  const totalRefund = transactions.filter(t => t.type !== 'RENTAL_INCOME').reduce((acc, t) => acc + Math.abs(t.amount || 0), 0);
+  const totalIncome = transactions.filter(t => t.type === 'RENTAL_PAYMENT').reduce((acc, t) => acc + Math.abs(t.amount || 0), 0);
+  const totalRefund = transactions.filter(t => t.type !== 'RENTAL_PAYMENT').reduce((acc, t) => acc + Math.abs(t.amount || 0), 0);
 
   if (loading) return <div className="h-96 flex items-center justify-center"><Loader2 className="animate-spin text-[#0528d6] size-10" /></div>;
 
@@ -54,7 +56,7 @@ export const TransactionsView = ({ userData }: { userData: any }) => {
         <div className="flex bg-slate-100 dark:bg-slate-900 p-1.5 rounded-2xl w-full md:w-auto">
             {[
               { id: 'ALL', label: 'Toutes' },
-              { id: 'RENTAL_INCOME', label: 'Revenus' },
+              { id: 'RENTAL_PAYMENT', label: 'Revenus' },
               { id: 'REFUND', label: 'Autres / Remboursements' }
             ].map(tab => (
               <button key={tab.id} onClick={() => { setFilterType(tab.id as any); setCurrentPage(1); }} 
@@ -79,7 +81,7 @@ export const TransactionsView = ({ userData }: { userData: any }) => {
         ) : (
           <div className="divide-y divide-slate-100 dark:divide-slate-800">
             {paginated.map(tx => {
-              const isIncome = tx.type === 'RENTAL_INCOME';
+              const isIncome = tx.type === 'RENTAL_PAYMENT';
               const absAmount = Math.abs(tx.amount || 0);
 
               return (

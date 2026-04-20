@@ -13,15 +13,15 @@ const ITEMS_PER_PAGE = 6;
 
 export const VehiclesView = ({ orgData }: any) => {
   const [vehicles, setVehicles] = useState<any[]>([]);
-  const [agencies, setAgencies] = useState<any[]>([]);
+  const[agencies, setAgencies] = useState<any[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   
-  const [activeModal, setActiveModal] = useState<'FORM' | 'DETAILS' | 'QUICK_STATUS' | null>(null);
+  const[activeModal, setActiveModal] = useState<'FORM' | 'DETAILS' | 'QUICK_STATUS' | null>(null);
   const [targetId, setTargetId] = useState<string | null>(null);
-  const [editingVehicle, setEditingVehicle] = useState<any>(null);
+  const[editingVehicle, setEditingVehicle] = useState<any>(null);
   const [modalLoading, setModalLoading] = useState(false);
 
   const loadData = useCallback(async () => {
@@ -33,26 +33,43 @@ export const VehiclesView = ({ orgData }: any) => {
         agencyService.getAgencies(orgData.id),
         vehicleService.getVehicleCategories(orgData.id)
       ]);
-      if (vehRes.ok) setVehicles(vehRes.data || []);
-      if (agRes.ok) setAgencies(agRes.data || []);
+      if (vehRes.ok) setVehicles(vehRes.data ||[]);
+      if (agRes.ok) setAgencies(agRes.data ||[]);
       if (catRes.ok) setCategories(catRes.data || []);
     } finally { setLoading(false); }
-  }, [orgData?.id]);
+  },[orgData?.id]);
 
   useEffect(() => { loadData(); }, [loadData]);
 
-  // Handler pour PUT /api/vehicles/{id} (Formulaire complet)
+  // Handler pour PUT /api/vehicles/{id} ou POST
   const handleFormSubmit = async (formData: any) => {
     setModalLoading(true);
     try {
+      // Formatage strict pour le backend (Nombres et ISO Dates)
+      const payload = {
+        ...formData,
+        kilometrage: Number(formData.kilometrage || 0),
+        places: Number(formData.places || 5),
+        engineDetails: {
+          ...formData.engineDetails,
+          horsepower: Number(formData.engineDetails?.horsepower || 0),
+          capacity: Number(formData.engineDetails?.capacity || 0)
+        },
+        yearProduction: formData.yearProduction ? new Date(formData.yearProduction).toISOString() : new Date().toISOString(),
+        insuranceDetails: {
+          ...formData.insuranceDetails,
+          expiry: formData.insuranceDetails?.expiry ? new Date(formData.insuranceDetails.expiry).toISOString() : new Date().toISOString()
+        }
+      };
+
       const res = editingVehicle 
-        ? await vehicleService.updateVehicle(editingVehicle.id, formData)
-        : await vehicleService.createVehicle(orgData.id, formData);
+        ? await vehicleService.updateVehicle(editingVehicle.id, payload)
+        : await vehicleService.createVehicle(orgData.id, payload);
+      
       if (res.ok) { setActiveModal(null); loadData(); }
     } finally { setModalLoading(false); }
   };
 
-  // Handler pour PATCH /api/vehicles/{id}/status-pricing (Quick Switch)
   const handleQuickStatusSubmit = async (id: string, payload: any) => {
     setModalLoading(true);
     try {
@@ -121,19 +138,24 @@ export const VehiclesView = ({ orgData }: any) => {
           categories={categories}
           initialData={editingVehicle ? {
             ...editingVehicle,
+            yearProduction: editingVehicle.yearProduction ? editingVehicle.yearProduction.split('T')[0] : '',
             engineDetails: editingVehicle.engineDetails || { type: '', horsepower: 0, capacity: 0 },
-            insuranceDetails: editingVehicle.insuranceDetails || { provider: '', policy_number: '', expiry: '' },
+            insuranceDetails: editingVehicle.insuranceDetails ? {
+              ...editingVehicle.insuranceDetails,
+              expiry: editingVehicle.insuranceDetails.expiry ? editingVehicle.insuranceDetails.expiry.split('T')[0] : ''
+            } : { provider: '', policy_number: '', expiry: '' },
             fuelEfficiency: editingVehicle.fuelEfficiency || { city: '', highway: '' },
             functionalities: editingVehicle.functionalities || {},
             images: editingVehicle.images || [],
-            description: editingVehicle.description || []
+            description: editingVehicle.description ||[]
           } : { 
             brand: '', model: '', licencePlate: '', vinNumber: '', kilometrage: 0, places: 5, color: '', transmission: 'MANUAL', agencyId: '', categoryId: '', statut: 'AVAILABLE',
+            yearProduction: '',
             engineDetails: { type: '', horsepower: 0, capacity: 0 },
             insuranceDetails: { provider: '', policy_number: '', expiry: '' },
             fuelEfficiency: { city: '', highway: '' },
             functionalities: { air_condition: true, gps: true, bluetooth: true, luggage: true, onboard_computer: true },
-            images: [], description: []
+            images: [], description:[]
           }}
           onClose={() => setActiveModal(null)}
           onSubmit={handleFormSubmit}
