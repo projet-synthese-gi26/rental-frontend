@@ -1,61 +1,62 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React from 'react';
-import { Check, Loader2 } from 'lucide-react';
+import { Check, Loader2, Zap, ShieldCheck, MessageSquare, LayoutGrid, Car } from 'lucide-react';
 
-export const PlanCard = ({ plan, isCurrent, onSelect, loading }: any) => (
+export const PlanCard = ({ plan, isCurrent, onSelect, loading, t }: any) => (
   <div className={`
-    relative bg-white dark:bg-[#1a1d2d] p-8 rounded-2xl border-2 transition-all flex flex-col h-full
-    ${isCurrent ? 'border-[#0528d6] shadow-lg scale-[1.02] z-10' : 'border-slate-100 dark:border-slate-800 hover:border-blue-200'}
+    relative bg-white dark:bg-[#1a1d2d] p-8 md:p-10 rounded-[2.5rem] border-2 transition-all flex flex-col h-full group text-left
+    ${isCurrent ? 'border-[#0528d6] shadow-2xl scale-[1.02] z-10' : 'border-slate-100 dark:border-slate-800 hover:border-blue-200'}
   `}>
     {isCurrent && (
-      <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#0528d6] text-white px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-md">
-        Plan actuel
+      <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#0528d6] text-white px-5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-xl italic">
+        {t.subscription.activePlanBadge}
       </div>
     )}
 
-    <div className="mb-6">
-      <h5 className="text-xl font-bold text-slate-900 dark:text-white leading-tight">{plan.name}</h5>
-      <p className="text-xs text-slate-400 mt-1 italic">{plan.description}</p>
+    <div className="mb-8">
+      <h5 className="text-2xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter leading-none">{plan.name}</h5>
+      <p className="text-xs text-slate-400 mt-2 italic font-medium leading-relaxed">{plan.description}</p>
     </div>
 
-    <div className="mb-8">
+    <div className="mb-10 bg-slate-50 dark:bg-slate-900/50 p-6 rounded-3xl border dark:border-slate-800 shadow-inner">
       <div className="flex items-baseline gap-1">
-        <span className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
-          {plan.price.toLocaleString()} XAF
+        <span className="text-4xl font-black text-[#0528d6] dark:text-blue-400 tracking-tighter italic">
+          {plan.price.toLocaleString()}
         </span>
-        <span className="text-xs font-medium text-slate-400">/mois</span>
+        <span className="text-xs font-black text-slate-400 uppercase italic ml-1">XAF {t.subscription.perMonth}</span>
       </div>
     </div>
 
-    <ul className="flex-1 space-y-4 mb-8">
-      <FeatureItem label={`${plan.maxAgencies} Agences autorisées`} active={true} />
-      <FeatureItem label={`${plan.maxVehicles} Véhicules dans la flotte`} active={true} />
-      <FeatureItem label="Géofencing (Rayon de sécurité)" active={plan.hasGeofencing} />
-      <FeatureItem label="Chat support intégré" active={plan.hasChat} />
+    <ul className="flex-1 space-y-5 mb-10">
+      <FeatureItem icon={<LayoutGrid size={16}/>} label={`${plan.maxAgencies} ${t.subscription.quotas.agencies}`} active={true} />
+      <FeatureItem icon={<Car size={16}/>} label={`${plan.maxVehicles} ${t.subscription.quotas.vehicles}`} active={true} />
+      <FeatureItem icon={<ShieldCheck size={16}/>} label={t.subscription.quotas.geofencing} active={plan.hasGeofencing} />
+      <FeatureItem icon={<MessageSquare size={16}/>} label={t.subscription.quotas.chat} active={plan.hasChat} />
     </ul>
 
     {!isCurrent ? (
       <button 
         onClick={() => onSelect(plan.name)}
         disabled={loading}
-        className="w-full py-3 bg-[#0528d6] text-white rounded-xl font-bold text-sm shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all flex items-center justify-center gap-2"
+        className="w-full py-4 bg-[#0528d6] text-white rounded-2xl font-black text-xs uppercase shadow-xl shadow-blue-600/20 hover:bg-blue-700 hover:scale-[1.02] transition-all flex items-center justify-center gap-3 italic tracking-widest"
       >
-        {loading ? <Loader2 className="animate-spin size-4" /> : "Choisir ce plan"}
+        {loading ? <Loader2 className="animate-spin size-4" /> : <><Zap size={16}/> {t.subscription.subscribeBtn}</>}
       </button>
     ) : (
-      <div className="w-full py-3 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-400 font-bold text-sm text-center border border-slate-100 dark:border-slate-700 italic">
-        Utilisation en cours
+      <div className="w-full py-4 rounded-2xl bg-slate-50 dark:bg-slate-800 text-slate-400 font-black text-[10px] uppercase text-center border border-slate-100 dark:border-slate-700 italic tracking-[0.2em] shadow-inner">
+        {t.subscription.alreadyInUse}
       </div>
     )}
   </div>
 );
 
-const FeatureItem = ({ label, active }: { label: string, active: boolean }) => (
-  <li className={`flex items-center gap-3 text-xs font-medium ${active ? 'text-slate-600 dark:text-slate-300' : 'text-slate-300 dark:text-slate-600'}`}>
-    <div className={`size-5 rounded-full flex items-center justify-center shrink-0 ${active ? 'bg-blue-50 text-[#0528d6]' : 'bg-slate-50 text-slate-300'}`}>
-      {active ? <Check size={12} strokeWidth={3} /> : <div className="size-1 bg-slate-300 rounded-full" />}
+const FeatureItem = ({ label, active, icon }: { label: string, active: boolean, icon: React.ReactNode }) => (
+  <li className={`flex items-center gap-4 text-xs font-black uppercase italic transition-opacity ${active ? 'text-slate-600 dark:text-slate-300' : 'text-slate-300 dark:text-slate-600 opacity-40'}`}>
+    <div className={`size-8 rounded-xl flex items-center justify-center shrink-0 shadow-sm ${active ? 'bg-blue-50 dark:bg-blue-900/20 text-[#0528d6] dark:text-blue-400' : 'bg-slate-50 dark:bg-slate-800 text-slate-300'}`}>
+      {React.cloneElement(icon as React.ReactElement, { strokeWidth: 3 })}
     </div>
-    <span className={active ? '' : 'line-through opacity-50'}>{label}</span>
+    <span className={active ? '' : 'line-through tracking-wider'}>{label}</span>
+    {active && <Check size={14} className="ml-auto text-green-500" strokeWidth={4} />}
   </li>
 );

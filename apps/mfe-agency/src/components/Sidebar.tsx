@@ -15,7 +15,8 @@ export const Sidebar = ({
   setSidebarOpen, 
   handleLogout,
   parentOrg,
-  userData
+  userData,
+  t
 }: any) => (
   <aside 
     className={`
@@ -31,8 +32,9 @@ export const Sidebar = ({
     
     <div className="relative z-10 h-full flex flex-col overflow-hidden">
       
+      {/* Branding */}
       <div className="flex-shrink-0 flex items-center justify-between py-10 px-6 mb-2">
-        <div className="flex items-center gap-3 group cursor-pointer">
+        <div className="flex items-center gap-3 group cursor-pointer" onClick={() => setCurrentView('DASHBOARD')}>
           <div className="w-10 h-10 bg-[#0528d6] rounded-xl flex items-center justify-center text-white shadow-lg transition-transform group-hover:rotate-6">
             <span className="font-bold text-xl italic">E</span>
           </div>
@@ -40,61 +42,83 @@ export const Sidebar = ({
             <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-white leading-none">
               Easy<span className="text-[#0528d6]">Rental</span>
             </span>
-            <span className="text-[10px] font-medium text-slate-400 mt-1 italic">Console Agence</span>
+            <span className="text-[10px] font-medium text-slate-400 mt-1 italic uppercase tracking-widest">
+                {t.sidebar.systemSubtitle || "Console Agence"}
+            </span>
           </div>
         </div>
-        <button onClick={() => setSidebarOpen(false)} className="lg:hidden p-2 text-slate-400"><X size={20} /></button>
+        <button onClick={() => setSidebarOpen(false)} className="lg:hidden p-2 text-slate-400 hover:text-red-500 transition-colors">
+            <X size={20} />
+        </button>
       </div>
 
+      {/* Nav Section */}
       <nav className="flex-1 overflow-y-auto no-scrollbar px-4 space-y-8 pb-8 text-left">
         <div>
-          <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-4 px-2">Opérations</p>
+          <p className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 px-2 italic">
+            {t.sidebar.ops || "Opérations"}
+          </p>
           <div className="space-y-1">
-            {hasPermission(userData, 'stats:dashboard') && <SidebarItem icon={<LayoutDashboard size={20}/>} label="Vue d'ensemble" active={currentView === 'DASHBOARD'} onClick={() => setCurrentView('DASHBOARD')} />}
+            {hasPermission(userData, 'stats:dashboard') && (
+              <SidebarItem icon={<LayoutDashboard size={20}/>} label={t.sidebar.dash} active={currentView === 'DASHBOARD'} onClick={() => { setCurrentView('DASHBOARD'); setSidebarOpen(false); }} />
+            )}
+            
             {hasPermission(userData, 'rental:list') && (
               <>
-                <SidebarItem icon={<CalendarDays size={20}/>} label="Réservations" active={currentView === 'RESERVATIONS'} onClick={() => setCurrentView('RESERVATIONS')} />
-                <SidebarItem icon={<CalendarCheck size={20}/>} label="Locations" active={currentView === 'RENTALS'} onClick={() => setCurrentView('RENTALS')} />
+                <SidebarItem icon={<CalendarDays size={20}/>} label="Réservations" active={currentView === 'RESERVATIONS'} onClick={() => { setCurrentView('RESERVATIONS'); setSidebarOpen(false); }} />
+                <SidebarItem icon={<CalendarCheck size={20}/>} label="Locations" active={currentView === 'RENTALS'} onClick={() => { setCurrentView('RENTALS'); setSidebarOpen(false); }} />
               </>
             )}
-            {hasPermission(userData, 'finance:transactions') && <SidebarItem icon={<Banknote size={20}/>} label="Transactions" active={currentView === 'TRANSACTIONS'} onClick={() => setCurrentView('TRANSACTIONS')} />}
+            
+            {hasPermission(userData, 'finance:transactions') && (
+                <SidebarItem icon={<Banknote size={20}/>} label="Transactions" active={currentView === 'TRANSACTIONS'} onClick={() => { setCurrentView('TRANSACTIONS'); setSidebarOpen(false); }} />
+            )}
           </div>
         </div>
 
         <div>
-          <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-4 px-2">Ressources</p>
+          <p className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 px-2 italic">
+            Ressources
+          </p>
           <div className="space-y-1">
-            {hasPermission(userData, 'vehicle:list') && <SidebarItem icon={<Car size={20}/>} label="Ma Flotte" active={currentView === 'VEHICLES'} onClick={() => setCurrentView('VEHICLES')} />}
-            {hasPermission(userData, 'driver:list') && <SidebarItem icon={<Users size={20}/>} label="Mes Chauffeurs" active={currentView === 'DRIVERS'} onClick={() => setCurrentView('DRIVERS')} />}
+            {hasPermission(userData, 'vehicle:list') && (
+                <SidebarItem icon={<Car size={20}/>} label="Ma Flotte" active={currentView === 'VEHICLES'} onClick={() => { setCurrentView('VEHICLES'); setSidebarOpen(false); }} />
+            )}
+            {hasPermission(userData, 'driver:list') && (
+                <SidebarItem icon={<Users size={20}/>} label="Mes Chauffeurs" active={currentView === 'DRIVERS'} onClick={() => { setCurrentView('DRIVERS'); setSidebarOpen(false); }} />
+            )}
           </div>
         </div>
       </nav>
 
+      {/* Footer info & Logout */}
       <div className="flex-shrink-0 mt-auto p-4 border-t border-slate-200 dark:border-slate-800 space-y-2">
         {parentOrg && (
           <div className="mb-4 p-3 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-100 dark:border-slate-800 flex items-center gap-3">
-             <div className="size-8 rounded-lg overflow-hidden shrink-0 border border-slate-100">
-                <img src={parentOrg.logoUrl} alt="Org" className="w-full h-full object-cover" />
+             <div className="size-8 rounded-lg overflow-hidden shrink-0 border border-slate-100 shadow-inner">
+                <img src={parentOrg.logoUrl || `https://ui-avatars.com/api/?name=${parentOrg.name}&background=0528d6&color=fff`} alt="Org" className="w-full h-full object-cover" />
              </div>
              <div className="overflow-hidden">
-                <p className="text-[9px] font-bold text-slate-400 uppercase leading-none mb-1">Affiliation</p>
-                <p className="text-[11px] font-black text-slate-700 dark:text-slate-200 truncate">{parentOrg.name}</p>
+                <p className="text-[8px] font-black text-slate-400 uppercase leading-none mb-1 italic">Réseau</p>
+                <p className="text-[11px] font-black text-slate-700 dark:text-slate-200 truncate uppercase">{parentOrg.name}</p>
              </div>
           </div>
         )}
 
-        <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors">
+        <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-all">
           <LogOut size={18}/>
-          <span>Déconnexion</span>
+          <span>{t.sidebar.logout || "Déconnexion"}</span>
         </button>
 
         <div className="mt-4 p-3 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800/50">
            <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="size-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_#22c55e]" />
-                <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-tight">Agence active</span>
+                <span className="text-[9px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest italic">
+                  {t.sidebar.status || "Synchronisé"}
+                </span>
               </div>
-              <Activity size={14} className="text-slate-300 dark:text-slate-700" />
+              <Activity size={12} className="text-slate-300 dark:text-slate-700" />
            </div>
         </div>
       </div>
@@ -108,16 +132,16 @@ const SidebarItem = ({ icon, label, active, onClick }: any) => (
     className={`
       w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 group
       ${active 
-        ? 'bg-[#0528d6] text-white shadow-lg shadow-blue-600/20 font-medium' 
+        ? 'bg-[#0528d6] text-white shadow-lg shadow-blue-600/20 font-bold italic' 
         : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200/60 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
       }
     `}
   >
     <div className="flex items-center gap-4">
-      <div className={`transition-transform duration-300 ${active ? 'scale-110' : 'text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200'}`}>
+      <div className={`transition-transform duration-300 ${active ? 'scale-110' : 'text-slate-400 group-hover:text-[#0528d6] dark:group-hover:text-blue-400'}`}>
         {icon}
       </div>
-      <span className="text-sm">{label}</span>
+      <span className="text-sm tracking-tight">{label}</span>
     </div>
     {active && <ChevronRight size={14} className="opacity-60 animate-in slide-in-from-left-2" />}
   </button>

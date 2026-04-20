@@ -94,9 +94,6 @@ export const ReservationsView = ({ orgData }: { orgData: any }) => {
                   <span className="text-[10px] font-black uppercase text-slate-400">au</span>
                   <input type="date" value={dateRange.end} onChange={e => setDateRange({...dateRange, end: e.target.value})} className="p-2 bg-slate-50 dark:bg-slate-900 rounded-lg text-[11px] font-bold outline-none"/>
               </div>
-              <button onClick={openForm} className="ml-auto w-full lg:w-auto px-8 py-3 bg-[#0528d6] text-white rounded-xl font-black text-[10px] uppercase shadow-lg shadow-blue-600/20 hover:scale-[1.02] transition-all flex items-center justify-center gap-2 italic">
-                  <Plus size={16}/> Créer Réservation (60%)
-              </button>
           </div>
       </div>
 

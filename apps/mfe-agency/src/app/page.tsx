@@ -15,22 +15,26 @@ import { ReservationsView } from '../views/ReservationsView';
 import { RentalsView } from '../views/RentalsView';
 import { TransactionsView } from '../views/TransactionsView';
 import { NotificationsView } from '../views/NotificationsView';
+
 import { Loader2 } from 'lucide-react';
+import { fr } from '../locales/fr';
+import { en } from '../locales/en';
 import { hasPermission } from '../utils/permissions';
 
 export default function AgencyDashboard() {
   const [currentView, setCurrentView] = useState<string>('DASHBOARD');
   const [lang, setLang] = useState<'FR' | 'EN'>('FR');
-  const[darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const [isAuth, setIsAuth] = useState(false);
-  const[isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState<any>(null);
   const [agencyData, setAgencyData] = useState<any>(null);
-  const[parentOrg, setParentOrg] = useState<any>(null);
-
+  const [parentOrg, setParentOrg] = useState<any>(null);
   const [stats, setStats] = useState({ vehicles: 0, drivers: 0 });
+
+  const t = lang === 'FR' ? fr : en;
 
   const fetchContext = useCallback(async () => {
     try {
@@ -43,8 +47,9 @@ export default function AgencyDashboard() {
           const [agencyRes, orgRes, vehRes, drivRes] = await Promise.all([
             agencyService.getAgencyDetails(user.agencyId),
             orgService.getOrgDetails(user.organizationId),
-            hasPermission(user, 'vehicle:list') ? vehicleService.getVehiclesByAgency(user.agencyId) : Promise.resolve({ data: [] }),
-            hasPermission(user, 'driver:list') ? driverService.getDriversByAgency(user.agencyId) : Promise.resolve({ data:[] })
+            // On ne fetch les ressources que si on a la permission de liste
+            hasPermission(user, 'vehicle:list') ? vehicleService.getVehiclesByAgency(user.agencyId) : Promise.resolve({ ok: true, data: [] }),
+            hasPermission(user, 'driver:list') ? driverService.getDriversByAgency(user.agencyId) : Promise.resolve({ ok: true, data: [] })
           ]);
           
           if (agencyRes.ok) setAgencyData(agencyRes.data);
@@ -70,7 +75,7 @@ export default function AgencyDashboard() {
     } finally {
       setIsLoading(false);
     }
-  },[]);
+  }, []);
 
   useEffect(() => {
     const isDark = localStorage.getItem('theme') === 'dark';
@@ -90,9 +95,7 @@ export default function AgencyDashboard() {
         await fetchContext();
         return true;
       }
-    } catch (e) {
-      console.error(e);
-    }
+    } catch (e) { console.error(e); }
     return false;
   };
 
@@ -124,11 +127,12 @@ export default function AgencyDashboard() {
         handleLogout={() => { localStorage.removeItem('auth_token'); window.location.reload(); }}
         parentOrg={parentOrg}
         userData={userData}
+        t={t}
       />
 
-      <main className="flex-1 flex flex-col overflow-hidden relative text-left">
+      <main className="flex-1 flex flex-col overflow-hidden relative">
         <Header 
-            title={currentView === 'DASHBOARD' ? "Vue d'ensemble" : currentView}
+            title={currentView === 'DASHBOARD' ? t.sidebar.dash : currentView}
             userData={userData}
             agencyData={agencyData}
             lang={lang} 
@@ -137,18 +141,36 @@ export default function AgencyDashboard() {
             toggleTheme={toggleTheme}
             setSidebarOpen={setSidebarOpen}
             setCurrentView={setCurrentView}
+            t={t}
         />
 
-        <div className="flex-1 overflow-y-auto p-6 md:p-10 bg-[#f4f7fe] dark:bg-[#0f1323] custom-scrollbar">
+        <div className="flex-1 overflow-y-auto p-4 md:p-8 lg:p-10 bg-[#f4f7fe] dark:bg-[#0f1323] custom-scrollbar">
           <div className="max-w-[1600px] mx-auto">
-            {currentView === 'DASHBOARD' && hasPermission(userData, 'stats:dashboard') && <DashboardView userData={userData} agencyData={agencyData} stats={stats} />}
-            {currentView === 'RESERVATIONS' && hasPermission(userData, 'rental:list') && <ReservationsView userData={userData} />}
-            {currentView === 'RENTALS' && hasPermission(userData, 'rental:list') && <RentalsView userData={userData} />}
-            {currentView === 'TRANSACTIONS' && hasPermission(userData, 'finance:transactions') && <TransactionsView userData={userData} />}
-            {currentView === 'VEHICLES' && hasPermission(userData, 'vehicle:list') && <VehiclesView userData={userData} />}
-            {currentView === 'DRIVERS' && hasPermission(userData, 'driver:list') && <DriversView userData={userData} />}
-            {currentView === 'NOTIFICATIONS' && <NotificationsView agencyId={agencyData?.id} />}
-            {currentView === 'PROFILE' && <ProfileView userData={userData} agencyData={agencyData} parentOrg={parentOrg} onUpdate={fetchContext} />}
+            {/* Rendu conditionnel basé sur les permissions */}
+            {currentView === 'DASHBOARD' && hasPermission(userData, 'stats:dashboard') && (
+                <DashboardView userData={userData} agencyData={agencyData} stats={stats} t={t} />
+            )}
+            {currentView === 'RESERVATIONS' && hasPermission(userData, 'rental:list') && (
+                <ReservationsView userData={userData} t={t} />
+            )}
+            {currentView === 'RENTALS' && hasPermission(userData, 'rental:list') && (
+                <RentalsView userData={userData} t={t} />
+            )}
+            {currentView === 'TRANSACTIONS' && hasPermission(userData, 'finance:transactions') && (
+                <TransactionsView userData={userData} t={t} />
+            )}
+            {currentView === 'VEHICLES' && hasPermission(userData, 'vehicle:list') && (
+                <VehiclesView userData={userData} t={t} />
+            )}
+            {currentView === 'DRIVERS' && hasPermission(userData, 'driver:list') && (
+                <DriversView userData={userData} t={t} />
+            )}
+            {currentView === 'NOTIFICATIONS' && (
+                <NotificationsView agencyId={agencyData?.id} t={t} />
+            )}
+            {currentView === 'PROFILE' && (
+                <ProfileView userData={userData} agencyData={agencyData} parentOrg={parentOrg} onUpdate={fetchContext} t={t} />
+            )}
           </div>
         </div>
       </main>
