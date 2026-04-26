@@ -58,7 +58,7 @@ export default function OrganisationDashboard() {
       localStorage.removeItem('auth_token');
       setIsAuth(false);
       return false;
-    } catch (_e) {
+    } catch {
       // console.error("Erreur profile:", e);
       setIsAuth(false);
       return false;
@@ -117,7 +117,7 @@ export default function OrganisationDashboard() {
         return success; // Si fetchProfile échoue, handleAuthAction renvoie false
       }
       return false;
-    } catch (_e) { 
+    } catch { 
       // console.error("Auth process error", e); 
       return false;
     }
