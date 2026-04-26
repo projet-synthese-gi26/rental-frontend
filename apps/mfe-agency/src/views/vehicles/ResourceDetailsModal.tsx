@@ -2,7 +2,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { driverService, vehicleService } from '@pwa-easy-rental/shared-services';
-import { X, Calendar, Star, Loader2, User, Car, MessageSquare, Clock } from 'lucide-react';
+import { X, Calendar, Star, Loader2, MessageSquare, Clock } from 'lucide-react';
 import { Portal } from '../../components/Portal';
 
 interface ResourceDetailsModalProps {
@@ -42,7 +42,7 @@ export const ResourceDetailsModal = ({ resourceId, type, onClose, t }: ResourceD
           <div className="px-6 md:px-10 py-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
             <div>
               <h3 className="text-xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter">
-                {t.side.availTitle || 'Détails Opérationnels'}
+                {t.resDetails.title}
               </h3>
               <p className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mt-1 italic">
                 {titleName}
@@ -53,17 +53,16 @@ export const ResourceDetailsModal = ({ resourceId, type, onClose, t }: ResourceD
 
           <div className="p-6 md:p-10 overflow-y-auto custom-scrollbar space-y-10">
               
-              {/* STATUS BAR */}
               <div className="grid grid-cols-2 gap-4">
                   <div className="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800 text-center">
-                      <p className="text-[9px] font-black text-slate-400 uppercase mb-1 italic">Note globale</p>
+                      <p className="text-[9px] font-black text-slate-400 uppercase mb-1 italic">{t.resDetails.globalRating}</p>
                       <div className="flex items-center justify-center gap-1.5 text-orange-500">
                           <Star size={16} fill="currentColor" />
                           <span className="text-xl font-black italic">{details.rating?.toFixed(1) || 'N/A'}</span>
                       </div>
                   </div>
                   <div className="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800 text-center">
-                      <p className="text-[9px] font-black text-slate-400 uppercase mb-1 italic">Avis Clients</p>
+                      <p className="text-[9px] font-black text-slate-400 uppercase mb-1 italic">{t.resDetails.customerReviews}</p>
                       <div className="flex items-center justify-center gap-1.5 text-[#0528d6] dark:text-blue-400">
                           <MessageSquare size={16} />
                           <span className="text-xl font-black italic">{details.reviews?.length || 0}</span>
@@ -71,11 +70,10 @@ export const ResourceDetailsModal = ({ resourceId, type, onClose, t }: ResourceD
                   </div>
               </div>
 
-              {/* PLANNING */}
               <section>
                 <div className="flex items-center gap-3 mb-6 border-b dark:border-slate-800 pb-2">
                   <Calendar className="text-[#0528d6]" size={18} />
-                  <h5 className="text-sm font-black uppercase tracking-tighter italic">{t.onboarding.step3Title || "Planning d'indisponibilité"}</h5>
+                  <h5 className="text-sm font-black uppercase tracking-tighter italic">{t.resDetails.unavailablePlanning}</h5>
                 </div>
                 
                 <div className="space-y-3">
@@ -84,7 +82,7 @@ export const ResourceDetailsModal = ({ resourceId, type, onClose, t }: ResourceD
                       <div className="flex items-start gap-4">
                         <div className="size-10 bg-orange-50 dark:bg-orange-900/20 rounded-xl flex items-center justify-center text-orange-600 shrink-0"><Clock size={18}/></div>
                         <div>
-                          <p className="text-sm font-black text-slate-700 dark:text-white uppercase italic">{s.reason || "Indisponibilité"}</p>
+                          <p className="text-sm font-black text-slate-700 dark:text-white uppercase italic">{s.reason || t.resDetails.unavailableLabel}</p>
                           <p className="text-[10px] text-slate-400 font-bold mt-0.5 italic">
                             {new Date(s.startDate).toLocaleDateString()} — {new Date(s.endDate).toLocaleDateString()}
                           </p>
@@ -97,17 +95,16 @@ export const ResourceDetailsModal = ({ resourceId, type, onClose, t }: ResourceD
                   )) : (
                     <div className="py-12 text-center border-2 border-dashed border-slate-100 dark:border-slate-800 rounded-[2.5rem]">
                       <Calendar className="size-10 text-slate-200 mx-auto mb-3" />
-                      <p className="text-xs text-slate-400 italic font-bold uppercase tracking-widest">Aucune indisponibilité prévue</p>
+                      <p className="text-xs text-slate-400 italic font-bold uppercase tracking-widest">{t.resDetails.noSchedule}</p>
                     </div>
                   )}
                 </div>
               </section>
 
-              {/* REVIEWS */}
               <section>
                 <div className="flex items-center gap-3 mb-6 border-b dark:border-slate-800 pb-2">
                   <MessageSquare className="text-[#0528d6]" size={18} />
-                  <h5 className="text-sm font-black uppercase tracking-tighter italic">Derniers retours clients</h5>
+                  <h5 className="text-sm font-black uppercase tracking-tighter italic">{t.resDetails.latestReviews}</h5>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -129,7 +126,7 @@ export const ResourceDetailsModal = ({ resourceId, type, onClose, t }: ResourceD
                       </p>
                     </div>
                   )) : (
-                    <div className="col-span-full py-8 text-center text-slate-400 text-xs italic font-bold uppercase tracking-widest">{t.reviews.empty || "Aucun avis publié"}</div>
+                    <div className="col-span-full py-8 text-center text-slate-400 text-xs italic font-bold uppercase tracking-widest">{t.resDetails.emptyReviews}</div>
                   )}
                 </div>
               </section>
@@ -137,7 +134,7 @@ export const ResourceDetailsModal = ({ resourceId, type, onClose, t }: ResourceD
 
           <div className="px-6 md:px-10 py-7 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
             <button onClick={onClose} className="w-full py-4 bg-[#0528d6] text-white rounded-2xl font-black text-xs uppercase shadow-xl shadow-blue-600/20 hover:bg-blue-700 transition-all italic tracking-widest">
-                {t.agencies.modal.submit || 'Fermer la vue'}
+                {t.resDetails.closeBtn}
             </button>
           </div>
         </div>

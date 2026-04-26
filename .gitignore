@@ -44,5 +44,5 @@ next-env.d.ts
 *.swo
 
 # personal
-# bundle_code.sh
+bundle_code.sh
 project_bundle.txt

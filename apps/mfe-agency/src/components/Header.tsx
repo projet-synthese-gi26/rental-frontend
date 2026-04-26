@@ -14,8 +14,7 @@ export const Header = ({
   darkMode, 
   toggleTheme, 
   setSidebarOpen,
-  setCurrentView,
-  t
+  setCurrentView
 }: any) => {
   const [unreadCount, setUnreadCount] = useState(0);
 

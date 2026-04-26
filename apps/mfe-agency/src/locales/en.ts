@@ -19,6 +19,7 @@ export const en = {
     none: "None"
   },
   auth: {
+    suspended: 'You have been suspended',
     title: "Staff Portal",
     subtitle: "Manage pickups, returns and agency stock in real-time.",
     email: "Professional Email",
@@ -33,16 +34,18 @@ export const en = {
   sidebar: {
     systemSubtitle: "Agency Console",
     ops: "Operations",
-    dash: "Overview",
-    reservations: "Bookings",
+    dash: "Dashboard",
+    reservations: "Reservations",
     rentals: "Rentals",
     transactions: "Transactions",
     resources: "Resources",
-    vehicles: "My Fleet",
+    fleet: "My Fleet",
     drivers: "My Drivers",
+    network: "Network",
+    logout: "Logout",
+    status: "Synced",
+    vehicles: "My Fleet",
     profile: "My Profile",
-    logout: "Sign Out",
-    status: "Synced"
   },
   header: {
     greet: "Operational Console",
@@ -52,6 +55,7 @@ export const en = {
   },
   kpi: {
     inventory: "Agency Fleet",
+    drivers: "Drivers",
     active: "Active Rentals",
     revenue: "Amount Received",
     pending: "Pending",
@@ -59,6 +63,7 @@ export const en = {
     action: "REQUIRED"
   },
   table: {
+    add: "Initiate a rental",
     customer: "Customer",
     vehicle: "Vehicle",
     start: "Pickup",
@@ -82,10 +87,65 @@ export const en = {
     refund: "Refund / Other",
     viewAll: "View all activity"
   },
+  agencies: {
+    statsPoints: "Points of Sale",
+    statsZone: "Coverage Zone",
+    statsFleet: "Fleet Capacity",
+    deleteConfirm: "Permanently close this agency?",
+    quotaType: "agency(ies)",
+    title: "Network Management",
+    addBtn: "New Agency",
+    searchPlaceholder: "Search an agency...",
+    stats: {
+      total: "Agencies",
+      vehicles: "Vehicles",
+      active: "In Circulation"
+    },
+    empty: {
+      title: "No agencies",
+      subtitle: "Your network is empty. Create your first agency to start renting.",
+      action: "Start creating"
+    },
+    card: {
+      email: "Email",
+      phone: "Contact",
+      noEmail: "No email",
+      noPhone: "No number",
+      deleteConfirm: "Permanently delete this agency?"
+    },
+    modal: {
+      clientName: "Client name",
+      titleAdd: "New Point",
+      titleEdit: "Edit Agency",
+      name: "Agency Name",
+      namePlaceholder: "e.g., Akwa Central Agency",
+      city: "City",
+      cityPlaceholder: "e.g., Douala",
+      phone: "Phone",
+      phonePlaceholder: "e.g., 699...",
+      address: "Postal Address / Street",
+      addressPlaceholder: "e.g., Street 1.254, opposite Bakery",
+      email: "Agency Email",
+      emailPlaceholder: "agency@easy-rental.com",
+      deposit: "Deposit (%)",
+      hours24: "Open 24/7",
+      cancel: "Cancel",
+      submit: "Confirm Agency"
+    },
+    alerts: {
+      errorSubmit: "The server rejected the creation. Check that all fields are filled.",
+      errorConn: "Error connecting to the server."
+    }
+  },
   vehicles: {
-    title: "Fleet Management",
+    statAgency: "Agency Total",
+    statOperational: "Operational",
+    statMaintenance: "Under Maintenance",
+    searchPlaceholder: "Search brand, plate...",
     addBtn: "Add vehicle",
-    searchPlaceholder: "Brand, plate...",
+    deleteConfirmMsg: "Remove this vehicle from inventory?",
+    errorSave: "An error occurred during registration.",
+    title: "Fleet Management",
     stats: {
       total: "Agency Total",
       available: "Available",
@@ -127,9 +187,29 @@ export const en = {
       selectPlaceholder: "Select..."
     },
     profile: {
-      agency: "Driver Assignment",
-      editContract: "Ops & Pricing"
+      msgUpdateSuccess: "Profile successfully updated",
+      msgPasswordSuccess: "Password successfully changed",
+      assignedAt: "Assigned on",
+      security: "Security",
+      oldPassword: "Old password",
+      newPassword: "New password",
+      agencyRole: "Agency role",
+      staffId: "Staff ID",
+      networkSupport: "Network Support",
+      orgHq: "Organization Headquarters"
     }
+  },
+  profile: {
+    msgUpdateSuccess: "Profile successfully updated",
+    msgPasswordSuccess: "Password successfully changed",
+    assignedAt: "Assigned on",
+    security: "Security",
+    oldPassword: "Old password",
+    newPassword: "New password",
+    agencyRole: "Agency role",
+    staffId: "Staff ID",
+    networkSupport: "Network Support",
+    orgHq: "Organization Headquarters"
   },
   onboarding: {
     step1Title: "Information",
@@ -145,5 +225,156 @@ export const en = {
   },
   reviews: {
     empty: "No reviews published"
+  },
+  rentals: {
+    pendingReturns: "Pending Returns",
+    closedFiles: "Closed Files",
+    validateReturnConfirm: "Validate return?",
+    confirmedLabel: "Confirmed (60%)"
+  },
+  transactions: {
+    agencyTitle: "Agency Transactions",
+    rentalIncome: "Rental Income",
+    refunds: "Refunds",
+    tabAll: "All",
+    tabIncome: "Income",
+    tabRefunds: "Others / Refunds",
+    searchPlaceholder: "Search reference or reason..."
+  },
+  dashboard: {
+    agencyLabel: "Agency",
+    pendingTransactions: "Pending Transactions"
+  },
+  resDetails: {
+    title: "Operational Details",
+    globalRating: "Global Rating",
+    customerReviews: "Customer Reviews",
+    unavailablePlanning: "Availability Planning",
+    unavailableLabel: "Unavailability",
+    noSchedule: "No scheduled unavailability",
+    latestReviews: "Latest customer reviews",
+    emptyReviews: "No reviews published",
+    closeBtn: "Close view"
+  },
+  transDetails: {
+    title: "Transaction Details",
+    amount: "Amount",
+    infoTitle: "Information",
+    rentalIncome: "Rental Income",
+    refund: "Refund",
+    method: "Method",
+    descLabel: "Description",
+    linkTitle: "Rental Link",
+    folderId: "File ID"
+  },
+  rentalDetails: {
+    title: "File",
+    customer: "Customer",
+    name: "Name",
+    contact: "Contact",
+    planning: "Planning",
+    start: "Pick-up",
+    end: "Return",
+    type: "Type",
+    finances: "Finances",
+    totalAmount: "Total Amount",
+    paidAmount: "Already Collected",
+    remainingAmount: "Balance Due",
+    assignedVehicle: "Assigned Vehicle",
+    driver: "Driver",
+    noDriver: "No driver assigned",
+    sysLog: "System Log",
+    openedOn: "File opened on",
+    lastActivity: "Last activity on",
+    certified: "Certified & Secured File"
+  },
+  driverStatus: {
+    title: "Operations & Pricing",
+    availability: "Availability & Status",
+    pricing: "Pricing Grid",
+    pricePerHour: "Price / Hour",
+    pricePerDay: "Price / Day",
+    planning: "Planning",
+    reasonLabel: "Reason (Optional)",
+    applyBtn: "Apply configuration",
+    modalTitle: "Operations & Pricing",
+    availabilitySection: "Availability & Status",
+    pricingSection: "Pricing Grid",
+    planningSection: "Planning",
+    reasonPlaceholder: "e.g., Rest, Leave...",
+    submitBtn: "Apply Configuration"
+  },
+  driverForm: {
+    docHint: "Digital file required",
+    age: "Age",
+    gender: "Gender",
+    male: "Male",
+    female: "Female",
+    scanDocs: "Documents to scan",
+    photoProfil: "Profile Photo",
+    scanCni: "CNI Scan",
+    scanLicense: "License Scan"
+  },
+  driverCard: {
+    years: "years",
+    verifiedLicense: "Verified license",
+    licenseBtn: "License",
+    cniBtn: "CNI"
+  },
+  charts: {
+    title: "Graphics"
+  },
+  vehicleformdata: {
+    titleEdit: "Advanced Configuration",
+    titleNew: "New Fleet Vehicle",
+    subtitle: "Comprehensive VehicleRequestDTO update",
+    brand: "Brand",
+    model: "Model",
+    licencePlate: "License Plate",
+    vin: "VIN (Chassis)",
+    vinPlaceholder: "17 characters",
+    color: "Color",
+    year: "Production Year",
+    agency: "Assigned Agency",
+    selectAgency: "Select an agency...",
+    category: "Category",
+    selectCategory: "Select a category...",
+    status: "Initial Status",
+    statusAvailable: "Available",
+    statusMaintenance: "Under Maintenance",
+    techSpecs: "Technical Specifications",
+    engineType: "Engine Type",
+    horsepower: "HP (Horsepower)",
+    capacity: "Displacement (L)",
+    transmission: "Transmission",
+    transManual: "Manual",
+    transAuto: "Automatic",
+    seats: "Seats",
+    mileage: "Mileage",
+    fuelCity: "City Fuel Cons.",
+    fuelHighway: "Highway Fuel Cons.",
+    comfortEquip: "Comfort Features",
+    gallery: "Photo Gallery",
+    addImage: "Add image",
+    noImages: "No images for this vehicle",
+    insuranceCompliance: "Compliance & Insurance",
+    insuranceProvider: "Insurance Provider",
+    insurancePolicy: "Policy Number",
+    insuranceExpiry: "Expiry Date",
+    saveBtn: "Save technical modifications"
+  },
+  reservations: {
+    confirmStartTitle: "Start Rental",
+    confirmHandover: "Confirm key handover and vehicle departure?",
+    confirmCashTitle: "Physical Collection",
+    confirmCashDesc: "Do you confirm receiving the remaining balance of {{amount}} XAF in cash? This will finalize the folder.",
+    actionStart: "Start Rental",
+    successStarted: "Rental started successfully!",
+    errorProcess: "An error occurred during the process.",
+    processing: "Processing...",
+    stepCreate: "Creating folder...",
+    stepPay: "Recording payment...",
+    stepStart: "Handover in progress...",
+    create: "Create a reservation"
   }
 };

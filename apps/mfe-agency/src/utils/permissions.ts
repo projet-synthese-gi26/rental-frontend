@@ -1,28 +1,15 @@
-// FILE: apps/mfe-agency/src/utils/permissions.ts
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-/* 
-  Structure attendue de userData basée sur votre interface staff :
-  {
-    role: string,
-    poste: {
-      permissions: [{ tag: string, ... }]
-    }
-  }
-*/
-
-export const hasPermission = (userData: any, tag: string): boolean => {
+export const hasPermission = (userData: any, staffPermissions: any, tag: string): boolean => {
   if (!userData) return false;
 
-  // 1. Les rôles de haut niveau ont accès à tout par défaut
-  if (userData.role === 'ORGANIZATION_OWNER' || userData.role === 'ADMIN') {
+  if (['ORGANIZATION_OWNER', 'ADMIN'].includes(userData.role)) {
     return true;
   }
 
-  // 2. Vérification dans la structure de "poste" pour le staff d'agence
-  if (!userData.poste || !userData.poste.permissions) {
-    return false;
-  }
+  if (!Array.isArray(staffPermissions)) return false;
 
-  // Vérifie si l'un des tags de permission correspond
-  return userData.poste.permissions.some((p: any) => p.tag === tag);
+  // console.log(tag, staffPermissions.some((p: any) => p.tag === tag), staffPermissions);
+
+  return staffPermissions.some((p: any) => p.tag === tag);
 };

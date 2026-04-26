@@ -1,22 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { Users, Plus, Search, Loader2, UserCheck, ShieldAlert, Filter } from 'lucide-react';
-import { driverService, orgService } from '@pwa-easy-rental/shared-services';
+import { Users, Plus, Search, Loader2, UserCheck, ShieldAlert } from 'lucide-react';
+import { driverService } from '@pwa-easy-rental/shared-services';
 import { StatCard } from '../components/StatCard';
 import { DriverCard } from './drivers/DriverCard';
 import { DriverFormModal } from './drivers/DriverFormModal';
-import { DriverStatusPricingModal } from './drivers/DriverStatusPricingModal';
 import { hasPermission } from '../utils/permissions';
 
-export const DriversView = ({ userData, t }: any) => {
+export const DriversView = ({ userData, t, staffPermissions }: any) => {
   const [drivers, setDrivers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
-  const [selectedDriver, setSelectedDriver] = useState<any>(null);
+  const [, setIsStatusModalOpen] = useState(false);
+  const [, setSelectedDriver] = useState<any>(null);
   const [modalLoading, setModalLoading] = useState(false);
   const [backendError, setBackendError] = useState<string | null>(null);
 
@@ -63,7 +62,7 @@ export const DriversView = ({ userData, t }: any) => {
             value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        {hasPermission(userData, 'driver:create') && (
+        {hasPermission(userData, staffPermissions, 'driver:create') && (
             <button 
                 onClick={() => { setBackendError(null); setIsCreateModalOpen(true); }}
                 className="w-full sm:w-auto px-8 py-3.5 bg-[#0528d6] text-white rounded-2xl font-black text-[11px] uppercase shadow-lg shadow-blue-600/20 hover:scale-[1.02] transition-all flex items-center justify-center gap-2 italic tracking-widest"
@@ -78,6 +77,7 @@ export const DriversView = ({ userData, t }: any) => {
           <DriverCard 
             key={d.id} 
             driver={d} 
+            staffPermissions={staffPermissions}
             t={t}
             userData={userData}
             onEdit={(driver: any) => { setSelectedDriver(driver); setBackendError(null); setIsStatusModalOpen(true); }}

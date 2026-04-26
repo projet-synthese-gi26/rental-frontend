@@ -20,7 +20,7 @@ export const DashboardView = ({ agencyData, t }: any) => {
 
   if (loading || !data) return <div className="h-screen flex items-center justify-center"><Activity className="animate-spin text-[#0528d6]" size={32}/></div>;
 
-  const { summary, revenueEvolution, rentalEvolution } = data;
+  const { summary, revenueEvolution } = data;
 
   return (
     <div className="space-y-8 animate-in fade-in duration-700 pb-10 text-left">
@@ -28,13 +28,13 @@ export const DashboardView = ({ agencyData, t }: any) => {
         <div className="absolute top-0 right-0 p-10 opacity-5 dark:opacity-10 pointer-events-none"><Building2 size={150} className="text-[#0528d6]" /></div>
         <div className="relative z-10">
           <h1 className="text-3xl md:text-4xl font-black italic text-slate-900 dark:text-white tracking-tighter uppercase leading-none">{t.header.greet}</h1>
-          <p className="text-slate-400 mt-3 italic text-sm font-medium">Agence : <span className="text-[#0528d6] dark:text-blue-400 font-black uppercase tracking-widest">{agencyData?.name}</span></p>
+          <p className="text-slate-400 mt-3 italic text-sm font-medium">{t.dashboard.agencyLabel} : <span className="text-[#0528d6] dark:text-blue-400 font-black uppercase tracking-widest">{agencyData?.name}</span></p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard label={t.kpi.inventory} value={summary.totalVehicles} icon={<Car />} />
-        <StatCard label={t.sidebar.staff || 'Chauffeurs'} value={summary.totalDrivers} icon={<Users />} />
+        <StatCard label={t.kpi.drivers} value={summary.totalDrivers} icon={<Users />} />
         <StatCard label={t.table.colRev} value={`${summary.totalRevenue?.toLocaleString()} XAF`} icon={<Wallet className="text-[#0528d6]"/>} />
         <StatCard label={t.kpi.active} value={summary.activeRentals} icon={<CalendarCheck className="text-green-500" />} />
       </div>
@@ -57,7 +57,7 @@ export const DashboardView = ({ agencyData, t }: any) => {
               <h4 className="font-bold mb-4 italic uppercase text-[11px] tracking-[0.2em] opacity-80">{t.system.status}</h4>
               <div className="space-y-6 relative z-10">
                 <div className="bg-white/10 p-5 rounded-2xl border border-white/10 backdrop-blur-md">
-                    <p className="text-[9px] font-black uppercase opacity-60 mb-1 italic">Transactions en attente</p>
+                    <p className="text-[9px] font-black uppercase opacity-60 mb-1 italic">{t.dashboard.pendingTransactions}</p>
                     <p className="text-3xl font-black italic tracking-tighter">{summary.totalReservations}</p>
                 </div>
               </div>

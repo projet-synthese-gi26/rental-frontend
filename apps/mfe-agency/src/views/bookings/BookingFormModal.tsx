@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useState, useMemo } from 'react';
-import { X, Loader2, User, Phone, Calendar, Search, Car, CheckCircle2, Clock, Calculator, Shield, AlertCircle } from 'lucide-react';
+import { X, Loader2, User, Phone, Search, Car, CheckCircle2, Clock, Calculator, Shield } from 'lucide-react';
 import { Portal } from '../../components/Portal';
 
 interface BookingFormModalProps {
@@ -118,7 +118,7 @@ export const BookingFormModal = ({ mode, vehicles, drivers, isDriverRequired, on
                 <section className="space-y-6">
                     <h4 className="text-[11px] font-black text-[#0528d6] dark:text-blue-400 uppercase tracking-widest italic border-b dark:border-slate-800 pb-2 flex items-center gap-2"><User size={14}/> 2. {t.table.customer || "Détails Dossier"}</h4>
                     <div className="space-y-4">
-                        <Input label={t.agencies.modal.name || "Nom Client"} value={form.clientName} onChange={(v:any) => setForm({...form, clientName: v})} required icon={<User size={14}/>} t={t} />
+                        <Input label={t.agencies.modal.clientName || "Nom Client"} value={form.clientName} onChange={(v:any) => setForm({...form, clientName: v})} required icon={<User size={14}/>} t={t} />
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <Input label={t.agencies.modal.phone} value={form.clientPhone} onChange={(v:any) => setForm({...form, clientPhone: v})} required icon={<Phone size={14}/>} t={t} />
                             <Input label={t.onboarding.form.legal} value={form.cniNumber} onChange={(v:any) => setForm({...form, cniNumber: v.toUpperCase()})} required icon={<Shield size={14}/>} t={t} />
@@ -158,7 +158,7 @@ export const BookingFormModal = ({ mode, vehicles, drivers, isDriverRequired, on
   );
 };
 
-const Input = ({ label, value, onChange, type = "text", required = false, icon, placeholder, t }: any) => (
+const Input = ({ label, value, onChange, type = "text", required = false, icon, placeholder }: any) => (
   <div className="space-y-1.5">
     <label className="text-[10px] font-black text-slate-400 uppercase italic ml-1">{label}</label>
     <div className="relative group">

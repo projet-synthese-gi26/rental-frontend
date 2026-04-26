@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useEffect, useState, useMemo } from 'react';
-import { Bell, Check, Clock, Info, AlertTriangle, Loader2, Search, Filter } from 'lucide-react';
+import { Bell, Check, Clock, Info, AlertTriangle, Loader2, Search } from 'lucide-react';
 import { notifService } from '@pwa-easy-rental/shared-services';
 
 export const NotificationsView = ({ agencyId, t }: { agencyId: string, t: any }) => {

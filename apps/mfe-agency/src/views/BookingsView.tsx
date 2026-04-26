@@ -6,7 +6,7 @@ import { rentalService } from '@pwa-easy-rental/shared-services';
 import { StatCard } from '../components/StatCard';
 import { BookingCard } from './bookings/BookingCard';
 
-export const BookingsView = ({ userData, t }: any) => {
+export const BookingsView = ({ userData, t, staffPermissions }: any) => {
   const [rentals, setRentals] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -62,6 +62,7 @@ export const BookingsView = ({ userData, t }: any) => {
               key={rental.id} 
               rental={rental} 
               userData={userData}
+              staffPermissions={staffPermissions}
               t={t}
               onView={() => {}} // Implémenter selon besoin
             />

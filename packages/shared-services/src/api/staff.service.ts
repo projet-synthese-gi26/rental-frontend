@@ -13,4 +13,5 @@ export const staffService = {
   getPostes: (orgId: string) => client.get<any[]>(`/api/postes/org/${orgId}/postes`),
   createPoste: (orgId: string, data: any) => client.post<any>(`/api/postes/org/${orgId}/poste`, data),
   updatePoste: (id: string, data: any) => client.put<any>(`/api/postes/${id}`, data),
+  getPermissions: () => client.get<any>(`/api/users/me/permissions`),
 };

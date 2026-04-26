@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Mail, Lock, ShieldCheck, ArrowRight, Loader2, Languages, Sun, Moon } from 'lucide-react';
 import { AuthInput } from '../components/AuthInput';
 
-export const AuthView = ({ onAuth, lang, setLang, darkMode, toggleTheme, t }: any) => {
+export const AuthView = ({ onAuth, lang, setLang, darkMode, toggleTheme, t, initError }: any) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [form, setForm] = useState({ email: '', password: '' });
@@ -78,6 +78,12 @@ export const AuthView = ({ onAuth, lang, setLang, darkMode, toggleTheme, t }: an
                     value={form.password} 
                     onChange={v => setForm({...form, password: v})} 
                 />
+
+                {initError && (
+                  <div className="p-4 bg-red-50 dark:bg-red-900/20 border-2 border-red-100 dark:border-red-900/30 text-red-600 dark:text-red-400 text-[10px] font-black uppercase italic rounded-xl flex items-center gap-3">
+                    <div className="size-2 bg-red-600 rounded-full animate-pulse" /> {initError}
+                  </div>
+                )}
 
                 {error && (
                   <div className="p-4 bg-red-50 dark:bg-red-900/20 border-2 border-red-100 dark:border-red-900/30 text-red-600 dark:text-red-400 text-[10px] font-black uppercase italic rounded-xl flex items-center gap-3">

@@ -125,7 +125,7 @@ export const StaffView = ({ orgData, t }: { orgData: any, t: any }) => {
         </Portal>
       )}
 
-      {activeModal === 'DETAILS' && <StaffDetailsModal staffId={selectedStaff} onClose={() => setActiveModal(null)} />}
+      {activeModal === 'DETAILS' && <StaffDetailsModal staffId={selectedStaff} onClose={() => setActiveModal(null)} t={t} />}
       {activeModal === 'FORM' && (
         <StaffFormModal 
           t={t}

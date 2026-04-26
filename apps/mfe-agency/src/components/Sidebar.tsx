@@ -6,7 +6,7 @@ import {
   LayoutDashboard, Car, Users, 
   LogOut, X, ChevronRight, Activity, CalendarDays, CalendarCheck, Banknote
 } from 'lucide-react';
-import { hasPermission } from '../utils/permissions';
+import { hasPermission } from '@/utils/permissions';
 
 export const Sidebar = ({ 
   currentView, 
@@ -16,6 +16,7 @@ export const Sidebar = ({
   handleLogout,
   parentOrg,
   userData,
+  staffPermissions,
   t
 }: any) => (
   <aside 
@@ -43,7 +44,7 @@ export const Sidebar = ({
               Easy<span className="text-[#0528d6]">Rental</span>
             </span>
             <span className="text-[10px] font-medium text-slate-400 mt-1 italic uppercase tracking-widest">
-                {t.sidebar.systemSubtitle || "Console Agence"}
+                {t.sidebar.systemSubtitle}
             </span>
           </div>
         </div>
@@ -56,36 +57,36 @@ export const Sidebar = ({
       <nav className="flex-1 overflow-y-auto no-scrollbar px-4 space-y-8 pb-8 text-left">
         <div>
           <p className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 px-2 italic">
-            {t.sidebar.ops || "Opérations"}
+            {t.sidebar.ops}
           </p>
           <div className="space-y-1">
-            {hasPermission(userData, 'stats:dashboard') && (
+            {hasPermission(userData, staffPermissions, 'stats:dashboard') && (
               <SidebarItem icon={<LayoutDashboard size={20}/>} label={t.sidebar.dash} active={currentView === 'DASHBOARD'} onClick={() => { setCurrentView('DASHBOARD'); setSidebarOpen(false); }} />
             )}
             
-            {hasPermission(userData, 'rental:list') && (
+            {hasPermission(userData, staffPermissions, 'rental:list') && (
               <>
-                <SidebarItem icon={<CalendarDays size={20}/>} label="Réservations" active={currentView === 'RESERVATIONS'} onClick={() => { setCurrentView('RESERVATIONS'); setSidebarOpen(false); }} />
-                <SidebarItem icon={<CalendarCheck size={20}/>} label="Locations" active={currentView === 'RENTALS'} onClick={() => { setCurrentView('RENTALS'); setSidebarOpen(false); }} />
+                <SidebarItem icon={<CalendarDays size={20}/>} label={t.sidebar.reservations} active={currentView === 'RESERVATIONS'} onClick={() => { setCurrentView('RESERVATIONS'); setSidebarOpen(false); }} />
+                <SidebarItem icon={<CalendarCheck size={20}/>} label={t.sidebar.rentals} active={currentView === 'RENTALS'} onClick={() => { setCurrentView('RENTALS'); setSidebarOpen(false); }} />
               </>
             )}
             
-            {hasPermission(userData, 'finance:transactions') && (
-                <SidebarItem icon={<Banknote size={20}/>} label="Transactions" active={currentView === 'TRANSACTIONS'} onClick={() => { setCurrentView('TRANSACTIONS'); setSidebarOpen(false); }} />
+            {hasPermission(userData, staffPermissions, 'finance:transactions') && (
+                <SidebarItem icon={<Banknote size={20}/>} label={t.sidebar.transactions} active={currentView === 'TRANSACTIONS'} onClick={() => { setCurrentView('TRANSACTIONS'); setSidebarOpen(false); }} />
             )}
           </div>
         </div>
 
         <div>
           <p className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 px-2 italic">
-            Ressources
+            {t.sidebar.resources}
           </p>
           <div className="space-y-1">
-            {hasPermission(userData, 'vehicle:list') && (
-                <SidebarItem icon={<Car size={20}/>} label="Ma Flotte" active={currentView === 'VEHICLES'} onClick={() => { setCurrentView('VEHICLES'); setSidebarOpen(false); }} />
+            {hasPermission(userData, staffPermissions, 'vehicle:list') && (
+                <SidebarItem icon={<Car size={20}/>} label={t.sidebar.fleet} active={currentView === 'VEHICLES'} onClick={() => { setCurrentView('VEHICLES'); setSidebarOpen(false); }} />
             )}
-            {hasPermission(userData, 'driver:list') && (
-                <SidebarItem icon={<Users size={20}/>} label="Mes Chauffeurs" active={currentView === 'DRIVERS'} onClick={() => { setCurrentView('DRIVERS'); setSidebarOpen(false); }} />
+            {hasPermission(userData, staffPermissions, 'driver:list') && (
+                <SidebarItem icon={<Users size={20}/>} label={t.sidebar.drivers} active={currentView === 'DRIVERS'} onClick={() => { setCurrentView('DRIVERS'); setSidebarOpen(false); }} />
             )}
           </div>
         </div>
@@ -99,7 +100,7 @@ export const Sidebar = ({
                 <img src={parentOrg.logoUrl || `https://ui-avatars.com/api/?name=${parentOrg.name}&background=0528d6&color=fff`} alt="Org" className="w-full h-full object-cover" />
              </div>
              <div className="overflow-hidden">
-                <p className="text-[8px] font-black text-slate-400 uppercase leading-none mb-1 italic">Réseau</p>
+                <p className="text-[8px] font-black text-slate-400 uppercase leading-none mb-1 italic">{t.sidebar.network}</p>
                 <p className="text-[11px] font-black text-slate-700 dark:text-slate-200 truncate uppercase">{parentOrg.name}</p>
              </div>
           </div>
@@ -107,7 +108,7 @@ export const Sidebar = ({
 
         <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-all">
           <LogOut size={18}/>
-          <span>{t.sidebar.logout || "Déconnexion"}</span>
+          <span>{t.sidebar.logout}</span>
         </button>
 
         <div className="mt-4 p-3 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800/50">
@@ -115,7 +116,7 @@ export const Sidebar = ({
               <div className="flex items-center gap-2">
                 <div className="size-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_#22c55e]" />
                 <span className="text-[9px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest italic">
-                  {t.sidebar.status || "Synchronisé"}
+                  {t.sidebar.status}
                 </span>
               </div>
               <Activity size={12} className="text-slate-300 dark:text-slate-700" />

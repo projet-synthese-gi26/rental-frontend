@@ -4,7 +4,7 @@ import React from 'react';
 import { Car, Gauge, Users, Settings, Edit3, Trash2, Info, CheckCircle2, Clock } from 'lucide-react';
 import { hasPermission } from '../../utils/permissions';
 
-export const VehicleCard = ({ vehicle, categoryName, onEdit, onDelete, onStatusUpdate, onViewDetails, t, userData }: any) => {
+export const VehicleCard = ({ vehicle, categoryName, onEdit, staffPermissions, onDelete, onStatusUpdate, onViewDetails, t, userData }: any) => {
   const getStatusStyle = (status: string) => {
     switch (status) {
       case 'AVAILABLE': return 'bg-green-50 text-green-700 border-green-100 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800';
@@ -22,10 +22,10 @@ export const VehicleCard = ({ vehicle, categoryName, onEdit, onDelete, onStatusU
         </div>
         <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
           <button onClick={() => onViewDetails(vehicle)} className="p-2 text-slate-400 hover:text-[#0528d6] hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-all"><Info size={16}/></button>
-          {hasPermission(userData, 'vehicle:update') && (
+          {hasPermission(userData, staffPermissions, 'vehicle:update') && (
             <button onClick={() => onEdit(vehicle)} className="p-2 text-slate-400 hover:text-[#0528d6] hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-all"><Edit3 size={16}/></button>
           )}
-          {hasPermission(userData, 'vehicle:delete') && (
+          {hasPermission(userData, staffPermissions, 'vehicle:delete') && (
             <button onClick={() => onDelete(vehicle.id)} className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-all"><Trash2 size={16}/></button>
           )}
         </div>
@@ -66,7 +66,7 @@ export const VehicleCard = ({ vehicle, categoryName, onEdit, onDelete, onStatusU
           <span className="text-[#0528d6] dark:text-blue-400 font-black">{categoryName || 'Standard'}</span>
         </div>
         
-        {hasPermission(userData, 'vehicle:update') && (
+        {hasPermission(userData, staffPermissions, 'vehicle:update') && (
           <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-50 dark:border-slate-800">
             <button 
               onClick={() => onStatusUpdate(vehicle.id, 'AVAILABLE')}

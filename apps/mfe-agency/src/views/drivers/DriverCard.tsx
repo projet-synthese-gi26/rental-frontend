@@ -4,7 +4,7 @@ import React from 'react';
 import { Phone, User, Trash2, Edit3, ShieldCheck, FileText, BadgeCheck } from 'lucide-react';
 import { hasPermission } from '../../utils/permissions';
 
-export const DriverCard = ({ driver, onEdit, onDelete, t, userData }: any) => {
+export const DriverCard = ({ driver, onEdit, onDelete, staffPermissions, t, userData }: any) => {
   return (
     <div className="bg-white dark:bg-[#1a1d2d] rounded-[2rem] p-6 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-all group text-left">
       <div className="flex justify-between items-start mb-6">
@@ -23,10 +23,10 @@ export const DriverCard = ({ driver, onEdit, onDelete, t, userData }: any) => {
           </div>
         </div>
         <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-          {hasPermission(userData, 'driver:update') && (
+          {hasPermission(userData, staffPermissions, 'driver:update') && (
               <button onClick={() => onEdit(driver)} className="p-2 text-slate-400 hover:text-[#0528d6] hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-all"><Edit3 size={16}/></button>
           )}
-          {hasPermission(userData, 'driver:delete') && (
+          {hasPermission(userData, staffPermissions, 'driver:delete') && (
               <button onClick={() => onDelete(driver.id)} className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-all"><Trash2 size={16}/></button>
           )}
         </div>
@@ -37,7 +37,7 @@ export const DriverCard = ({ driver, onEdit, onDelete, t, userData }: any) => {
           {driver.firstname} {driver.lastname}
         </h4>
         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1 italic">
-          {driver.age} {t.staff.ageLabel || "ans"} — {driver.gender === 0 ? t.staff.male : t.staff.female}
+          {driver.age} {t.driverCard.years} — {driver.gender === 0 ? t.driverForm.male : t.driverForm.female}
         </p>
       </div>
 
@@ -49,16 +49,16 @@ export const DriverCard = ({ driver, onEdit, onDelete, t, userData }: any) => {
           {driver.tel}
         </div>
         <div className="flex items-center gap-3 text-[10px] font-black text-[#0528d6] dark:text-blue-400 uppercase italic">
-            <BadgeCheck size={14} /> {t.staff.verifiedLicense || "Permis vérifié"}
+            <BadgeCheck size={14} /> {t.driverCard.verifiedLicense}
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-2 pt-4 border-t border-slate-50 dark:border-slate-800">
         <a href={driver.drivingLicenseUrl} target="_blank" className="flex items-center justify-center gap-2 py-2.5 bg-slate-50 dark:bg-slate-800 text-slate-500 hover:text-[#0528d6] rounded-xl text-[9px] font-black uppercase transition-all italic tracking-tighter">
-          <FileText size={12}/> Permis
+          <FileText size={12}/> {t.driverCard.licenseBtn}
         </a>
         <a href={driver.cniUrl} target="_blank" className="flex items-center justify-center gap-2 py-2.5 bg-slate-50 dark:bg-slate-800 text-slate-500 hover:text-[#0528d6] rounded-xl text-[9px] font-black uppercase transition-all italic tracking-tighter">
-          <FileText size={12}/> CNI
+          <FileText size={12}/> {t.driverCard.cniBtn}
         </a>
       </div>
     </div>

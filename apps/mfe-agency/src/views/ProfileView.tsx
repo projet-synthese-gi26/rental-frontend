@@ -1,29 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useState } from 'react';
-import { Mail, ShieldCheck, Building2, Globe2, Briefcase, Calendar, Lock, CheckCircle2, AlertCircle, Edit3, Save, X, Loader2 } from 'lucide-react';
-import { authService, agencyService } from '@pwa-easy-rental/shared-services';
-import { hasPermission } from '../utils/permissions';
+import { Mail, ShieldCheck, Globe2, Briefcase, Calendar, Lock, CheckCircle2, Edit3, X, Loader2 } from 'lucide-react';
+import { authService } from '@pwa-easy-rental/shared-services';
 
 export const ProfileView = ({ userData, agencyData, parentOrg, onUpdate, t }: any) => {
   const [editProfileMode, setEditProfileMode] = useState(false);
   const [editPasswordMode, setEditPasswordMode] = useState(false);
-  const [editAgencyMode, setEditAgencyMode] = useState(false);
 
   const [profileForm, setProfileForm] = useState({ firstname: userData?.firstname || '', lastname: userData?.lastname || '' });
   const [passwordForm, setPasswordForm] = useState({ oldPassword: '', newPassword: '' });
-  const [agencyForm, setAgencyForm] = useState({ name: agencyData?.name || '', phone: agencyData?.phone || '', email: agencyData?.email || '', address: agencyData?.address || '', workingHours: agencyData?.workingHours || '' });
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{type: 'success'|'error', text: string} | null>(null);
-
-  const isOwner = userData.role === 'ORGANIZATION_OWNER' || userData.role === 'ADMIN';
 
   const handleProfileSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); setLoading(true); setMessage(null);
     try {
       const res = await authService.updateProfile(profileForm);
-      if (res.ok) { setMessage({ type: 'success', text: 'Profil mis à jour' }); setEditProfileMode(false); onUpdate(); }
+      if (res.ok) { 
+        setMessage({ type: 'success', text: t.profile.msgUpdateSuccess }); 
+        setEditProfileMode(false); 
+        onUpdate(); 
+      }
     } finally { setLoading(false); }
   };
 
@@ -31,7 +30,11 @@ export const ProfileView = ({ userData, agencyData, parentOrg, onUpdate, t }: an
     e.preventDefault(); setLoading(true); setMessage(null);
     try {
       const res = await authService.updatePassword(passwordForm);
-      if (res.ok) { setMessage({ type: 'success', text: 'Mot de passe modifié' }); setEditPasswordMode(false); setPasswordForm({ oldPassword: '', newPassword: '' }); }
+      if (res.ok) { 
+        setMessage({ type: 'success', text: t.profile.msgPasswordSuccess }); 
+        setEditPasswordMode(false); 
+        setPasswordForm({ oldPassword: '', newPassword: '' }); 
+      }
       else setMessage({ type: 'error', text: t.auth.error });
     } finally { setLoading(false); }
   };
@@ -63,7 +66,7 @@ export const ProfileView = ({ userData, agencyData, parentOrg, onUpdate, t }: an
           </p>
           <div className="flex flex-wrap justify-center md:justify-start gap-6 text-sm font-bold text-slate-400 italic">
              <span className="flex items-center gap-2"><Mail size={16} className="text-[#0528d6]"/> {userData?.email}</span>
-             <span className="flex items-center gap-2"><Calendar size={16} className="text-[#0528d6]"/> Assigné le {new Date(userData?.hiredAt).toLocaleDateString()}</span>
+             <span className="flex items-center gap-2"><Calendar size={16} className="text-[#0528d6]"/> {t.profile.assignedAt} {new Date(userData?.hiredAt).toLocaleDateString()}</span>
           </div>
         </div>
       </div>
@@ -71,7 +74,6 @@ export const ProfileView = ({ userData, agencyData, parentOrg, onUpdate, t }: an
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
           
-          {/* PERSONAL INFO */}
           <section className="bg-white dark:bg-[#1a1d2d] rounded-[2.5rem] p-8 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden">
             <div className="flex justify-between items-center border-b dark:border-slate-800 pb-4 mb-8">
               <h4 className="text-sm font-black uppercase italic tracking-tighter text-[#0528d6] flex items-center gap-2"><Lock size={18}/> {t.sidebar.profile}</h4>
@@ -80,8 +82,8 @@ export const ProfileView = ({ userData, agencyData, parentOrg, onUpdate, t }: an
 
             {editProfileMode ? (
               <form onSubmit={handleProfileSubmit} className="grid md:grid-cols-2 gap-6 animate-in slide-in-from-top-2">
-                <Input label={t.auth.firstname} value={profileForm.firstname} onChange={v => setProfileForm({...profileForm, firstname: v})} />
-                <Input label={t.auth.lastname} value={profileForm.lastname} onChange={v => setProfileForm({...profileForm, lastname: v})} />
+                <Input label={t.auth.firstname} value={profileForm.firstname} onChange={(v:any) => setProfileForm({...profileForm, firstname: v})} />
+                <Input label={t.auth.lastname} value={profileForm.lastname} onChange={(v:any) => setProfileForm({...profileForm, lastname: v})} />
                 <div className="md:col-span-2 flex justify-end gap-3 pt-4 border-t dark:border-slate-800">
                   <button type="button" onClick={() => setEditProfileMode(false)} className="px-6 py-2 text-xs font-black uppercase text-slate-400 italic">{t.common.cancel}</button>
                   <button type="submit" disabled={loading} className="px-8 py-3 bg-[#0528d6] text-white rounded-xl font-black text-xs uppercase italic tracking-widest shadow-xl shadow-blue-500/20">
@@ -97,26 +99,24 @@ export const ProfileView = ({ userData, agencyData, parentOrg, onUpdate, t }: an
             )}
           </section>
 
-          {/* PASSWORD */}
           <section className="bg-white dark:bg-[#1a1d2d] rounded-[2.5rem] p-8 border border-slate-200 dark:border-slate-800 shadow-sm text-left">
             <div className="flex justify-between items-center border-b dark:border-slate-800 pb-4 mb-8">
-              <h4 className="text-sm font-black uppercase italic tracking-tighter text-[#0528d6] flex items-center gap-2"><ShieldCheck size={18}/> Sécurité</h4>
-              {!editPasswordMode && <button onClick={() => setEditPasswordMode(true)} className="text-[10px] font-black uppercase text-[#0528d6] italic underline tracking-widest hover:text-blue-700">Changer</button>}
+              <h4 className="text-sm font-black uppercase italic tracking-tighter text-[#0528d6] flex items-center gap-2"><ShieldCheck size={18}/> {t.profile.security}</h4>
+              {!editPasswordMode && <button onClick={() => setEditPasswordMode(true)} className="text-[10px] font-black uppercase text-[#0528d6] italic underline tracking-widest hover:text-blue-700">{t.common.edit}</button>}
             </div>
             {editPasswordMode && (
               <form onSubmit={handlePasswordSubmit} className="grid md:grid-cols-2 gap-6 animate-in slide-in-from-top-2">
-                <Input label="Ancien mot de passe" type="password" value={passwordForm.oldPassword} onChange={v => setPasswordForm({...passwordForm, oldPassword: v})} />
-                <Input label="Nouveau mot de passe" type="password" value={passwordForm.newPassword} onChange={v => setPasswordForm({...passwordForm, newPassword: v})} />
+                <Input label={t.profile.oldPassword} type="password" value={passwordForm.oldPassword} onChange={(v:any) => setPasswordForm({...passwordForm, oldPassword: v})} />
+                <Input label={t.profile.newPassword} type="password" value={passwordForm.newPassword} onChange={(v:any) => setPasswordForm({...passwordForm, newPassword: v})} />
                 <div className="md:col-span-2 flex justify-end gap-3">
-                  <button type="button" onClick={() => setEditPasswordMode(false)} className="px-6 py-2 text-xs font-black uppercase text-slate-400 italic">Annuler</button>
-                  <button type="submit" className="px-8 py-3 bg-[#0528d6] text-white rounded-xl font-black text-xs uppercase italic shadow-xl">Appliquer</button>
+                  <button type="button" onClick={() => setEditPasswordMode(false)} className="px-6 py-2 text-xs font-black uppercase text-slate-400 italic">{t.common.cancel}</button>
+                  <button type="submit" className="px-8 py-3 bg-[#0528d6] text-white rounded-xl font-black text-xs uppercase italic shadow-xl">{t.common.apply}</button>
                 </div>
               </form>
             )}
           </section>
         </div>
 
-        {/* Contract Section */}
         <div className="space-y-6">
           <section className="bg-[#0528d6] rounded-[2.5rem] p-8 text-white shadow-2xl relative overflow-hidden">
              <Briefcase className="absolute -bottom-8 -right-8 opacity-10 rotate-12" size={180} />
@@ -126,11 +126,11 @@ export const ProfileView = ({ userData, agencyData, parentOrg, onUpdate, t }: an
              </div>
              <div className="space-y-4 relative z-10">
                 <div className="bg-white/10 rounded-2xl p-5 border border-white/5 backdrop-blur-md">
-                   <p className="text-[9px] font-black uppercase opacity-60 mb-1 italic">Rôle agence</p>
+                   <p className="text-[9px] font-black uppercase opacity-60 mb-1 italic">{t.profile.agencyRole}</p>
                    <p className="text-lg font-black italic tracking-tighter uppercase">{userData?.poste?.name || t.header.adminRole}</p>
                 </div>
                 <div className="bg-white/10 rounded-2xl p-5 border border-white/5 backdrop-blur-md">
-                   <p className="text-[9px] font-black uppercase opacity-60 mb-1 italic">ID Personnel</p>
+                   <p className="text-[9px] font-black uppercase opacity-60 mb-1 italic">{t.profile.staffId}</p>
                    <p className="text-lg font-black italic tracking-tighter uppercase truncate">#{userData?.id?.substring(0,12)}</p>
                 </div>
              </div>
@@ -139,10 +139,10 @@ export const ProfileView = ({ userData, agencyData, parentOrg, onUpdate, t }: an
           <section className="bg-white dark:bg-[#1a1d2d] rounded-[2.5rem] p-8 border border-slate-200 dark:border-slate-800 shadow-sm text-left">
              <div className="flex items-center gap-3 border-b dark:border-slate-800 pb-4 mb-6">
                <Globe2 className="text-[#0528d6] dark:text-blue-400" size={20} />
-               <h4 className="text-sm font-black uppercase italic tracking-tighter text-slate-900 dark:text-white">Support Réseau</h4>
+               <h4 className="text-sm font-black uppercase italic tracking-tighter text-slate-900 dark:text-white">{t.profile.networkSupport}</h4>
              </div>
              <div className="space-y-4">
-                <p className="text-xs text-slate-500 font-bold italic leading-relaxed uppercase">Siège de l&apos;organisation</p>
+                <p className="text-xs text-slate-500 font-bold italic leading-relaxed uppercase">{t.profile.orgHq}</p>
                 <div className="p-5 bg-slate-50 dark:bg-slate-900 rounded-2xl border dark:border-slate-800 shadow-inner">
                     <p className="text-sm font-black text-[#0528d6] dark:text-blue-400 uppercase italic truncate">{parentOrg?.name}</p>
                     <p className="text-[10px] font-black text-slate-400 uppercase mt-2 italic truncate">{parentOrg?.email}</p>

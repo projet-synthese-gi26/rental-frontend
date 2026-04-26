@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useState } from 'react';
-import { X, Loader2, UploadCloud, CheckCircle2, User, Phone, Shield } from 'lucide-react';
+import { X, Loader2, UploadCloud, CheckCircle2, User, Phone } from 'lucide-react';
 import { Portal } from '../../components/Portal';
 
 export const DriverFormModal = ({ editingDriver, onSubmit, onClose, modalLoading, error, t }: any) => {
@@ -37,7 +37,7 @@ export const DriverFormModal = ({ editingDriver, onSubmit, onClose, modalLoading
               <h3 className="text-xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter">
                 {editingDriver ? t.staff.modal.titleEdit : t.staff.addBtn}
               </h3>
-              <p className="text-[10px] text-slate-400 uppercase font-black tracking-widest mt-1 italic">{t.staff.modal.multipartHint || "Dossier numérique requis"}</p>
+              <p className="text-[10px] text-slate-400 uppercase font-black tracking-widest mt-1 italic">{t.driverForm.docHint}</p>
             </div>
             <button type="button" onClick={onClose} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all"><X size={22}/></button>
           </div>
@@ -50,23 +50,23 @@ export const DriverFormModal = ({ editingDriver, onSubmit, onClose, modalLoading
               <Input label={t.auth.lastname} value={form.lastname} onChange={(v:any) => setForm({...form, lastname: v})} required icon={<User size={14}/>} />
               <Input label={t.agencies.modal.phone} type="tel" value={form.tel} onChange={(v:any) => setForm({...form, tel: v.replace(/\D/g, '')})} required icon={<Phone size={14}/>} />
               <div className="grid grid-cols-2 gap-4">
-                <Input label="Âge" type="number" value={form.age} onChange={(v:any) => setForm({...form, age: v})} required />
+                <Input label={t.driverForm.age} type="number" value={form.age} onChange={(v:any) => setForm({...form, age: v})} required />
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black text-slate-400 uppercase italic ml-1 tracking-widest">Genre</label>
+                  <label className="text-[10px] font-black text-slate-400 uppercase italic ml-1 tracking-widest">{t.driverForm.gender}</label>
                   <select value={form.gender} onChange={e => setForm({...form, gender: parseInt(e.target.value)})} className="w-full p-3 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-xl font-bold text-xs outline-none focus:border-[#0528d6] dark:text-white transition-all">
-                    <option value={0}>{t.staff.male || "Homme"}</option>
-                    <option value={1}>{t.staff.female || "Femme"}</option>
+                    <option value={0}>{t.driverForm.male}</option>
+                    <option value={1}>{t.driverForm.female}</option>
                   </select>
                 </div>
               </div>
             </div>
 
             <div className="space-y-4 pt-4 border-t border-slate-50 dark:border-slate-800 text-left">
-              <h4 className="text-[10px] font-black uppercase text-[#0528d6] tracking-[0.2em] italic mb-6">Documents à numériser</h4>
+              <h4 className="text-[10px] font-black uppercase text-[#0528d6] tracking-[0.2em] italic mb-6">{t.driverForm.scanDocs}</h4>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <FileUpload label="Photo Profil" onFile={(f:any) => setFiles(p => ({...p, profil: f}))} hasFile={!!files.profil} />
-                <FileUpload label="Scan CNI" onFile={(f:any) => setFiles(p => ({...p, cni: f}))} hasFile={!!files.cni} />
-                <FileUpload label="Scan Permis" onFile={(f:any) => setFiles(p => ({...p, license: f}))} hasFile={!!files.license} />
+                <FileUpload label={t.driverForm.photoProfil} onFile={(f:any) => setFiles(p => ({...p, profil: f}))} hasFile={!!files.profil} />
+                <FileUpload label={t.driverForm.scanCni} onFile={(f:any) => setFiles(p => ({...p, cni: f}))} hasFile={!!files.cni} />
+                <FileUpload label={t.driverForm.scanLicense} onFile={(f:any) => setFiles(p => ({...p, license: f}))} hasFile={!!files.license} />
               </div>
             </div>
           </div>
