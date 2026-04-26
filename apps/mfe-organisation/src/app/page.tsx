@@ -23,6 +23,7 @@ import { TransactionsView } from '../views/TransactionsView';
 import { Loader2 } from 'lucide-react';
 import { fr } from '../locales/fr';
 import { en } from '../locales/en';
+import { defaultClient } from '@shared-services/api/api-client';
 
 export default function OrganisationDashboard() {
   const [currentView, setCurrentView] = useState<string>('DASHBOARD');
@@ -44,18 +45,23 @@ export default function OrganisationDashboard() {
       const meRes = await authService.getOrgUserMe();
       if (meRes.ok && meRes.data) {
         const { user, organization } = meRes.data;
-        if (organization) {
+        if (user) {
           setOrgData(organization);
           setUserData(user);
-          // On considère onboardé si la ville est renseignée (OrgUpdateDTO requis)
-          setIsOnboarded(organization.city && organization.city !== "string");
+          // Onboarding check
+          setIsOnboarded(organization && organization.city && organization.city !== "string");
           setIsAuth(true);
+          return true;
         }
-      } else {
-        localStorage.removeItem('auth_token');
       }
+      // Si on arrive ici, c'est que l'appel a échoué
+      localStorage.removeItem('auth_token');
+      setIsAuth(false);
+      return false;
     } catch (e) {
       console.error("Erreur profile:", e);
+      setIsAuth(false);
+      return false;
     } finally {
       setIsLoading(false);
     }
@@ -81,27 +87,33 @@ export default function OrganisationDashboard() {
 
   const handleAuthAction = async (isSignUp: boolean, form: any) => {
     try {
-      let res;
+      let loginRes;
       if (isSignUp) {
-        res = await authService.registerOrg(form);
-        if (res.ok) {
-          const logRes = await authService.login({ email: form.email, password: form.password });
-          if (logRes.ok && logRes.data.token) {
-            localStorage.setItem('auth_token', logRes.data.token);
-            await fetchProfile();
-            return true;
-          }
-        }
+        const regRes = await authService.registerOrg(form);
+        if (!regRes.ok) return false;
+        loginRes = await authService.login({ email: form.email, password: form.password });
       } else {
-        res = await authService.login({ email: form.email, password: form.password });
-        if (res.ok && res.data.token) {
-          localStorage.setItem('auth_token', res.data.token);
-          await fetchProfile();
-          return true;
-        }
+        loginRes = await authService.login({ email: form.email, password: form.password });
       }
-    } catch (e) { console.error("Auth error", e); }
-    return false;
+
+      if (loginRes.ok && loginRes.data.token) {
+        const token = loginRes.data.token;
+        
+        // 1. Mise à jour PRIORITAIRE de l'instance API en mémoire
+        defaultClient.setAuthToken(token);
+        
+        // 2. Sauvegarde persistante
+        localStorage.setItem('auth_token', token);
+        
+        // 3. Récupération du profil et attente de la validation
+        const success = await fetchProfile();
+        return success; // Si fetchProfile échoue, handleAuthAction renvoie false
+      }
+      return false;
+    } catch (e) { 
+      console.error("Auth process error", e); 
+      return false;
+    }
   };
 
   const toggleTheme = () => {

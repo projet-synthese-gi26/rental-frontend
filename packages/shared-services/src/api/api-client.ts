@@ -26,6 +26,7 @@ export interface ApiResponse<T> {
 export class ApiClient {
   private baseUrl: string;
   private headers: Record<string, string>;
+  private memoryToken: string | null = null;
 
   constructor(config: { baseUrl: string }) {
     this.baseUrl = config.baseUrl;
@@ -35,7 +36,8 @@ export class ApiClient {
   }
 
   setAuthToken(token: string): void {
-    this.headers['Authorization'] = `Bearer ${token.trim()}`;
+    this.memoryToken = token.trim();
+    this.headers['Authorization'] = `Bearer ${this.memoryToken}`;
   }
 
   private async request<T>(
@@ -49,7 +51,7 @@ export class ApiClient {
     const url = `${this.baseUrl}/${cleanEndpoint}`;
 
     // 2. Récupération dynamique du token
-    const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
+    const token = this.memoryToken || (typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null);
     
     const requestHeaders: Record<string, string> = { 
       ...this.headers,
