@@ -184,7 +184,13 @@ export const fr = {
       submit: "Valider le dossier",
       cancel: "Annuler",
       multipartHint: "Dossier numérique requis",
-      selectPlaceholder: "Sélectionner..."
+      selectPlaceholder: "Sélectionner...",
+      statusActive: "Actif / Disponible",
+      statusSuspended: "Suspendu / Hors service"
+    },
+    stats: {
+      total: "Total",
+      activeRoles: "Rôles actifs"
     },
     profile: {
       msgUpdateSuccess: "Profil mis à jour avec succès",

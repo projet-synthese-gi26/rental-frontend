@@ -59,7 +59,7 @@ export class ApiClient {
     };
 
     if (token) {
-      console.log('Adding auth token to request:', token);
+      // console.log('Adding auth token to request:', token);
       requestHeaders['Authorization'] = `Bearer ${token.trim()}`;
     }
 
@@ -88,7 +88,7 @@ export class ApiClient {
         ok: response.ok,
       };
     } catch (error) {
-      console.error(`[API Error] ${method} ${url}:`, error);
+      // console.error(`[API Error] ${method} ${url}:`, error);
       return { data: null as any, status: 0, ok: false };
     }
   }

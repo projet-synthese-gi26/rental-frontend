@@ -184,7 +184,13 @@ export const en = {
       submit: "Validate File",
       cancel: "Cancel",
       multipartHint: "Digital file required",
-      selectPlaceholder: "Select..."
+      selectPlaceholder: "Select...",
+      statusActive: "Active / Available",
+      statusSuspended: "Suspended / Off-duty"
+    },
+    stats: {
+      total: "Total",
+      activeRoles: "Active Roles"
     },
     profile: {
       msgUpdateSuccess: "Profile successfully updated",

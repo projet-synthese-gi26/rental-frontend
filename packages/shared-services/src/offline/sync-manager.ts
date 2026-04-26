@@ -168,7 +168,7 @@ export class OfflineSyncManager {
         return false;
       }
     } catch (error) {
-      console.error(`Sync failed for item ${item.id}:`, error);
+      // console.error(`Sync failed for item ${item.id}:`, error);
       await this.handleSyncFailure(item);
       return false;
     }

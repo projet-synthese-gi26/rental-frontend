@@ -39,7 +39,7 @@ export const LogoUpload = ({ value, onUploadSuccess, t }: { value: string, onUpl
         throw new Error(res.data?.message || "Erreur serveur");
       }
     } catch (error) {
-      console.error("❌ Échec de l'upload :", error);
+      // console.error("❌ Échec de l'upload :", error);
       setLocalPreview(null);
       alert(t.logoupload.errorAlert); // Traduction de l'alerte
     } finally {

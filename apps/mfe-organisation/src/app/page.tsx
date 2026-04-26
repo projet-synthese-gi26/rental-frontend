@@ -59,7 +59,7 @@ export default function OrganisationDashboard() {
       setIsAuth(false);
       return false;
     } catch (e) {
-      console.error("Erreur profile:", e);
+      // console.error("Erreur profile:", e);
       setIsAuth(false);
       return false;
     } finally {
@@ -111,7 +111,7 @@ export default function OrganisationDashboard() {
       }
       return false;
     } catch (e) { 
-      console.error("Auth process error", e); 
+      // console.error("Auth process error", e); 
       return false;
     }
   };

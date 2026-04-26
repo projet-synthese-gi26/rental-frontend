@@ -103,7 +103,7 @@ export default function AgencyDashboard() {
         setIsAuth(false);
       }
     } catch (e) {
-      console.error("Erreur lors de la récupération du contexte agency", e);
+      // console.error("Erreur lors de la récupération du contexte agency", e);
       setIsAuth(false);
     } finally {
       setIsLoading(false);
@@ -132,7 +132,7 @@ export default function AgencyDashboard() {
         return true;
       }
     } catch (e) {
-      console.error(e);
+      // console.error(e);
     }
     return false;
   };
@@ -199,7 +199,7 @@ export default function AgencyDashboard() {
                 <RentalsView userData={userData} staffPermissions={staffPermissions} t={t} />
             )}
 
-            {currentView === 'TRANSACTIONS' && hasPermission(userData, staffPermissions, '"finance:transactions') && (
+            {currentView === 'TRANSACTIONS' && hasPermission(userData, staffPermissions, 'finance:transactions') && (
                 <TransactionsView userData={userData} t={t} />
             )}
 

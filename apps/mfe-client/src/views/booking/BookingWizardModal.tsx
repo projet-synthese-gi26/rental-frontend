@@ -63,7 +63,7 @@ export const BookingWizardModal = ({ vehicle, userData, isDriverRequired, initia
     setLoading(true);
     setError(null);
     try {
-      console.log("Processing payment with rentalId:", initRes.rentalId, "amount:", initRes.totalAmount, "method:", method);
+      // console.log("Processing payment with rentalId:", initRes.rentalId, "amount:", initRes.totalAmount, "method:", method);
       const res = await rentalService.payRental(initRes.rentalId, {
         amount: initRes.totalAmount,
         method

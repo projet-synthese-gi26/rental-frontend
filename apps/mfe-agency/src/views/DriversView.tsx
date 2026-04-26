@@ -6,6 +6,7 @@ import { driverService } from '@pwa-easy-rental/shared-services';
 import { StatCard } from '../components/StatCard';
 import { DriverCard } from './drivers/DriverCard';
 import { DriverFormModal } from './drivers/DriverFormModal';
+import { DriverStatusPricingModal } from './drivers/DriverStatusPricingModal'; // Assurez-vous que ce fichier existe
 import { hasPermission } from '../utils/permissions';
 
 export const DriversView = ({ userData, t, staffPermissions }: any) => {
@@ -13,9 +14,13 @@ export const DriversView = ({ userData, t, staffPermissions }: any) => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   
+  // États pour la création
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const [, setIsStatusModalOpen] = useState(false);
-  const [, setSelectedDriver] = useState<any>(null);
+  
+  // États pour l'édition (Prix / Statut / Planning)
+  const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
+  const [selectedDriver, setSelectedDriver] = useState<any>(null);
+  
   const [modalLoading, setModalLoading] = useState(false);
   const [backendError, setBackendError] = useState<string | null>(null);
 
@@ -30,29 +35,61 @@ export const DriversView = ({ userData, t, staffPermissions }: any) => {
 
   useEffect(() => { loadData(); }, [loadData]);
 
+  // Handler pour la création (Multipart)
   const handleCreateSubmit = async (formData: FormData) => {
     setModalLoading(true);
+    setBackendError(null);
     try {
       const res = await driverService.createDriver(userData.organizationId, formData);
-      if (res.ok) { setIsCreateModalOpen(false); loadData(); }
-      else setBackendError(res.data?.message);
+      if (res.ok) { 
+        setIsCreateModalOpen(false); 
+        loadData(); 
+      } else {
+        setBackendError(res.data?.message || t.staff.errorSave);
+      }
     } finally { setModalLoading(false); }
+  };
+
+  // Handler pour l'édition (Prix et Statut)
+  const handleStatusPricingSubmit = async (driverId: string, payload: any) => {
+    setModalLoading(true);
+    setBackendError(null);
+    try {
+      // Selon le Swagger, on met à jour le pricing
+      const res = await driverService.updateDriverStatusAndPricing(driverId, payload);
+      
+      if (res.ok) {
+        setIsStatusModalOpen(false);
+        setSelectedDriver(null);
+        loadData();
+      } else {
+        setBackendError(res.data?.message || t.staff.errorSave);
+      }
+    } finally {
+      setModalLoading(false);
+    }
   };
 
   const filteredDrivers = useMemo(() => drivers.filter(d => 
     `${d.firstname} ${d.lastname}`.toLowerCase().includes(searchTerm.toLowerCase())
   ), [drivers, searchTerm]);
 
-  if (loading) return <div className="h-96 flex items-center justify-center"><Loader2 className="animate-spin text-[#0528d6] size-10" /></div>;
+  if (loading) return (
+    <div className="h-96 flex items-center justify-center">
+        <Loader2 className="animate-spin text-[#0528d6] size-12" />
+    </div>
+  );
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500 pb-10 text-left">
+      {/* STATS CARDS */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <StatCard label={t.staff.stats.total} value={drivers.length} icon={<Users />} />
         <StatCard label={t.staff.stats.activeRoles} value={drivers.filter(d => d.status === 'ACTIVE').length} icon={<UserCheck className="text-green-500"/>} />
         <StatCard label={t.kpi.verificationRequired} value={drivers.filter(d => d.status !== 'ACTIVE').length} icon={<ShieldAlert className="text-red-500"/>} />
       </div>
 
+      {/* SEARCH & ACTIONS */}
       <div className="flex flex-col sm:flex-row justify-between items-center gap-4 bg-white dark:bg-[#1a1d2d] p-4 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
         <div className="relative w-full sm:w-96 group">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0528d6]" size={18} />
@@ -65,13 +102,14 @@ export const DriversView = ({ userData, t, staffPermissions }: any) => {
         {hasPermission(userData, staffPermissions, 'driver:create') && (
             <button 
                 onClick={() => { setBackendError(null); setIsCreateModalOpen(true); }}
-                className="w-full sm:w-auto px-8 py-3.5 bg-[#0528d6] text-white rounded-2xl font-black text-[11px] uppercase shadow-lg shadow-blue-600/20 hover:scale-[1.02] transition-all flex items-center justify-center gap-2 italic tracking-widest"
+                className="w-full sm:w-auto px-8 py-3.5 bg-[#0528d6] text-white rounded-2xl font-black text-[11px] uppercase shadow-xl shadow-blue-600/20 hover:scale-[1.02] transition-all flex items-center justify-center gap-2 italic tracking-widest"
             >
                 <Plus size={18} /> {t.staff.addBtn}
             </button>
         )}
       </div>
 
+      {/* DRIVERS GRID */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
         {filteredDrivers.map(d => (
           <DriverCard 
@@ -80,13 +118,46 @@ export const DriversView = ({ userData, t, staffPermissions }: any) => {
             staffPermissions={staffPermissions}
             t={t}
             userData={userData}
-            onEdit={(driver: any) => { setSelectedDriver(driver); setBackendError(null); setIsStatusModalOpen(true); }}
-            onDelete={async (id: string) => { if(confirm(t.staff.deleteConfirm)) { await driverService.deleteDriver(id); loadData(); } }}
+            onEdit={(driver: any) => { 
+                setSelectedDriver(driver); 
+                setBackendError(null); 
+                setIsStatusModalOpen(true); 
+            }}
+            onDelete={async (id: string) => { 
+                if(confirm(t.staff.deleteConfirm)) { 
+                    await driverService.deleteDriver(id); 
+                    loadData(); 
+                } 
+            }}
           />
         ))}
       </div>
 
-      {isCreateModalOpen && <DriverFormModal t={t} onClose={() => setIsCreateModalOpen(false)} onSubmit={handleCreateSubmit} modalLoading={modalLoading} error={backendError} />}
+      {/* MODAL : CREATION (DOCUMENTS) */}
+      {isCreateModalOpen && (
+        <DriverFormModal 
+            t={t} 
+            onClose={() => setIsCreateModalOpen(false)} 
+            onSubmit={handleCreateSubmit} 
+            modalLoading={modalLoading} 
+            error={backendError} 
+        />
+      )}
+
+      {/* MODAL : EDITION (PRIX / STATUT) */}
+      {isStatusModalOpen && selectedDriver && (
+          <DriverStatusPricingModal
+            t={t}
+            driver={selectedDriver}
+            onClose={() => {
+                setIsStatusModalOpen(false);
+                setSelectedDriver(null);
+            }}
+            onSubmit={handleStatusPricingSubmit}
+            modalLoading={modalLoading}
+            error={backendError}
+          />
+      )}
     </div>
   );
 };
