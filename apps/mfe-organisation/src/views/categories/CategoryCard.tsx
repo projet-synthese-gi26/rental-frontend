@@ -2,9 +2,8 @@
 'use client';
 import React from 'react';
 import { LayoutGrid, Lock, Edit3, Trash2, CheckCircle2 } from 'lucide-react';
-import { hasPermission } from '../../utils/permissions';
 
-export const CategoryCard = ({ category, onEdit, onDelete, t, userData }: any) => {
+export const CategoryCard = ({ category, onEdit, onDelete, t }: any) => {
   const isSystem = category.organizationId === null;
 
   return (
@@ -19,7 +18,7 @@ export const CategoryCard = ({ category, onEdit, onDelete, t, userData }: any) =
         </div>
         
         <div className="flex gap-1">
-          {!isSystem && hasPermission(userData, 'category:manage') ? (
+          {!isSystem ? (
             <>
               <button onClick={() => onEdit(category)} className="p-2 text-slate-400 hover:text-[#0528d6] hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-all">
                 <Edit3 size={16}/>

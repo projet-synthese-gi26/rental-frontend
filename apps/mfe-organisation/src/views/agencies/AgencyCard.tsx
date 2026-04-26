@@ -2,9 +2,8 @@
 'use client';
 import React from 'react';
 import { MapPin, Phone, Mail, Trash2, Edit3, Info, Clock } from 'lucide-react';
-import { hasPermission } from '../../utils/permissions';
 
-export const AgencyCard = ({ agency, onEdit, onDelete, onView, t, userData }: any) => (
+export const AgencyCard = ({ agency, onEdit, onDelete, onView, t }: any) => (
   <div className="bg-white dark:bg-[#1a1d2d] rounded-[2.5rem] p-6 md:p-8 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all group flex flex-col h-full text-left">
     <div className="flex justify-between items-start mb-6">
       <div className="flex items-center gap-4 flex-1 min-w-0 pr-4">
@@ -31,16 +30,12 @@ export const AgencyCard = ({ agency, onEdit, onDelete, onView, t, userData }: an
         
         {/* Actions conditionnelles aux permissions */}
         <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-            {hasPermission(userData, 'agency:update') && (
-                <button onClick={() => onEdit(agency)} className="p-2 bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-[#0528d6] rounded-xl transition-all shadow-sm">
-                    <Edit3 size={14}/>
-                </button>
-            )}
-            {(userData.role === 'ORGANIZATION_OWNER' || userData.role === 'ADMIN') && (
-                <button onClick={() => onDelete(agency.id)} className="p-2 bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-red-500 rounded-xl transition-all shadow-sm">
-                    <Trash2 size={14}/>
-                </button>
-            )}
+            <button onClick={() => onEdit(agency)} className="p-2 bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-[#0528d6] rounded-xl transition-all shadow-sm">
+              <Edit3 size={14}/>
+            </button>
+            <button onClick={() => onDelete(agency.id)} className="p-2 bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-red-500 rounded-xl transition-all shadow-sm">
+              <Trash2 size={14}/>
+            </button>
         </div>
       </div>
     </div>
@@ -57,11 +52,9 @@ export const AgencyCard = ({ agency, onEdit, onDelete, onView, t, userData }: an
     </div>
 
     <div className="mt-auto pt-4 border-t border-slate-50 dark:border-slate-800">
-      {hasPermission(userData, 'agency:view') && (
-          <button onClick={() => onView(agency.id)} className="w-full py-3 bg-slate-900 text-white dark:bg-white dark:text-[#0528d6] rounded-xl text-[10px] font-black uppercase italic tracking-widest hover:scale-[1.02] transition-all flex items-center justify-center gap-2 shadow-md">
-              <Info size={16}/> {t.agencies.card.details || 'Détails & Opérations'}
-          </button>
-      )}
+      <button onClick={() => onView(agency.id)} className="w-full py-3 bg-slate-900 text-white dark:bg-white dark:text-[#0528d6] rounded-xl text-[10px] font-black uppercase italic tracking-widest hover:scale-[1.02] transition-all flex items-center justify-center gap-2 shadow-md">
+          <Info size={16}/> {t.agencies.card.details || 'Détails & Opérations'}
+      </button>
     </div>
   </div>
 );

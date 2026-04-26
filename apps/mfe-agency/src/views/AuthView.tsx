@@ -47,7 +47,7 @@ export const AuthView = ({ onAuth, lang, setLang, darkMode, toggleTheme, t }: an
 
           <div className="relative z-10 flex items-center gap-4 text-blue-200">
              <ShieldCheck size={20} className="text-blue-300" />
-             <p className="text-[10px] font-bold uppercase tracking-[0.2em]">Rental Operational Gateway</p>
+             <p className="text-[10px] font-bold uppercase tracking-[0.2em]">{t.auth.rental_operational}</p>
           </div>
         </div>
 

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useState, useEffect, useCallback } from 'react';
-import { agencyService, authService } from '@pwa-easy-rental/shared-services';
+import { authService } from '@pwa-easy-rental/shared-services';
 
 import { Sidebar } from '../components/Sidebar';
 import { Header } from '../components/Header';
@@ -23,7 +23,6 @@ import { TransactionsView } from '../views/TransactionsView';
 import { Loader2 } from 'lucide-react';
 import { fr } from '../locales/fr';
 import { en } from '../locales/en';
-import { hasPermission } from '../utils/permissions';
 
 export default function OrganisationDashboard() {
   const [currentView, setCurrentView] = useState<string>('DASHBOARD');
@@ -148,7 +147,7 @@ export default function OrganisationDashboard() {
       />
       <main className="flex-1 flex flex-col overflow-hidden relative">
         <Header 
-          title={t.views[currentView] || currentView} 
+          title={t.views[currentView as 'DASHBOARD' || 'AGENCIES' || 'ROLES' || 'STAFF' || 'SUBSCRIPTION'] || currentView} 
           setCurrentView={setCurrentView} 
           orgData={orgData} 
           lang={lang} 
@@ -162,16 +161,16 @@ export default function OrganisationDashboard() {
         />
         <div className="flex-1 overflow-y-auto p-4 md:p-10 bg-[#f4f7fe] dark:bg-[#0f1323] custom-scrollbar text-left">
           <div className="max-w-[1600px] mx-auto">
-            {currentView === 'DASHBOARD' && hasPermission(userData, 'stats:dashboard') && <DashboardView orgData={orgData} t={t} />}
-            {currentView === 'RESERVATIONS' && hasPermission(userData, 'rental:list') && <ReservationsView orgData={orgData} t={t} />}
-            {currentView === 'RENTALS' && hasPermission(userData, 'rental:list') && <RentalsView orgData={orgData} t={t} />}
-            {currentView === 'TRANSACTIONS' && hasPermission(userData, 'finance:transactions') && <TransactionsView orgData={orgData} t={t} />}
-            {currentView === 'AGENCIES' && hasPermission(userData, 'agency:view') && <AgenciesView orgData={orgData} setCurrentView={setCurrentView} t={t} />}
-            {currentView === 'ROLES' && (userData.role === 'ORGANIZATION_OWNER' || userData.role === 'ADMIN') && <RolesView orgData={orgData} t={t} />}
-            {currentView === 'STAFF' && hasPermission(userData, 'staff:list') && <StaffView orgData={orgData} t={t} />}
-            {currentView === 'VEHICLES' && hasPermission(userData, 'vehicle:list') && <VehiclesView orgData={orgData} t={t} />}
-            {currentView === 'CATEGORIES' && hasPermission(userData, 'category:manage') && <VehicleCategoriesView orgData={orgData} t={t} />}
-            {currentView === 'SUBSCRIPTION' && (userData.role === 'ORGANIZATION_OWNER') && <SubscriptionView orgData={orgData} t={t} />}
+            {currentView === 'DASHBOARD' && <DashboardView orgData={orgData} t={t} />}
+            {currentView === 'RESERVATIONS' && <ReservationsView orgData={orgData} t={t} />}
+            {currentView === 'RENTALS' && <RentalsView orgData={orgData} t={t} />}
+            {currentView === 'TRANSACTIONS' && <TransactionsView orgData={orgData} t={t} />}
+            {currentView === 'AGENCIES' && <AgenciesView orgData={orgData} setCurrentView={setCurrentView} t={t} />}
+            {currentView === 'ROLES' && <RolesView orgData={orgData} t={t} />}
+            {currentView === 'STAFF' && <StaffView orgData={orgData} t={t} />}
+            {currentView === 'VEHICLES' && <VehiclesView orgData={orgData} t={t} />}
+            {currentView === 'CATEGORIES' && <VehicleCategoriesView orgData={orgData} t={t} />}
+            {currentView === 'SUBSCRIPTION' && <SubscriptionView orgData={orgData} t={t} />}
             {currentView === 'PROFILE' && <ProfileView orgData={orgData} userData={userData} onUpdate={fetchProfile} t={t} />}
             {currentView === 'NOTIFICATIONS' && <NotificationsView orgId={orgData?.id} t={t} />}
           </div>

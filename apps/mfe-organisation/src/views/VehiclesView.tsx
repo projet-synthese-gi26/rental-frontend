@@ -11,7 +11,7 @@ import { QuickStatusModal } from './vehicles/QuickStatusModal';
 
 const ITEMS_PER_PAGE = 6;
 
-export const VehiclesView = ({ orgData }: any) => {
+export const VehiclesView = ({ orgData, t }: any) => {
   const [vehicles, setVehicles] = useState<any[]>([]);
   const[agencies, setAgencies] = useState<any[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
@@ -41,11 +41,9 @@ export const VehiclesView = ({ orgData }: any) => {
 
   useEffect(() => { loadData(); }, [loadData]);
 
-  // Handler pour PUT /api/vehicles/{id} ou POST
   const handleFormSubmit = async (formData: any) => {
     setModalLoading(true);
     try {
-      // Formatage strict pour le backend (Nombres et ISO Dates)
       const payload = {
         ...formData,
         kilometrage: Number(formData.kilometrage || 0),
@@ -90,19 +88,19 @@ export const VehiclesView = ({ orgData }: any) => {
   return (
     <div className="space-y-8 animate-in fade-in duration-500 pb-10">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <StatCard label="Flotte Totale" value={vehicles.length} icon={<Car />} />
-        <StatCard label="Prêts" value={vehicles.filter(v => v.statut === 'AVAILABLE').length} icon={<CheckCircle2 className="text-green-500"/>} />
-        <StatCard label="Atelier" value={vehicles.filter(v => v.statut === 'MAINTENANCE').length} icon={<Settings2 className="text-orange-500"/>} />
+        <StatCard label={t.vehicles.statTotal} value={vehicles.length} icon={<Car />} />
+        <StatCard label={t.vehicles.statAvailable} value={vehicles.filter(v => v.statut === 'AVAILABLE').length} icon={<CheckCircle2 className="text-green-500"/>} />
+        <StatCard label={t.vehicles.statMaintenance} value={vehicles.filter(v => v.statut === 'MAINTENANCE').length} icon={<Settings2 className="text-orange-500"/>} />
       </div>
 
       <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-white dark:bg-[#1a1d2d] p-4 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-sm">
         <div className="relative w-full md:w-96 group text-left">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0528d6]" size={18} />
-          <input placeholder="Rechercher marque, modèle, plaque..." className="w-full pl-12 pr-6 py-3 bg-slate-50 dark:bg-slate-900 border-none rounded-xl text-sm font-black italic outline-none focus:ring-2 focus:ring-[#0528d6]/20 transition-all dark:text-white" 
+          <input placeholder={t.vehicles.searchPlaceholder} className="w-full pl-12 pr-6 py-3 bg-slate-50 dark:bg-slate-900 border-none rounded-xl text-sm font-black italic outline-none focus:ring-2 focus:ring-[#0528d6]/20 transition-all dark:text-white" 
                  value={searchTerm} onChange={(e) => {setSearchTerm(e.target.value); setCurrentPage(1);}} />
         </div>
         <button onClick={() => { setEditingVehicle(null); setActiveModal('FORM'); }} className="w-full md:w-auto px-6 py-3 bg-[#0528d6] text-white rounded-xl font-black text-xs uppercase shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2 hover:scale-[1.02] transition-all italic">
-          <Plus size={18} /> Ajouter à l&apos;inventaire
+          <Plus size={18} /> {t.vehicles.addBtn}
         </button>
       </div>
 
@@ -117,14 +115,16 @@ export const VehiclesView = ({ orgData }: any) => {
                          setEditingVehicle(veh); 
                          setActiveModal('FORM'); 
                        }}
-                       onDelete={async (id: string) => { if(confirm('Supprimer définitivement ?')) { await vehicleService.deleteVehicle(id); loadData(); } }} />
+                       onDelete={async (id: string) => { if(confirm(t.vehicles.deleteConfirm)) { await vehicleService.deleteVehicle(id); loadData(); } }} 
+                       t={t}
+          />
         ))}
       </div>
 
       {totalPages > 1 && (
         <div className="flex justify-center items-center gap-4 pt-8">
           <button disabled={currentPage === 1} onClick={() => setCurrentPage(p => p - 1)} className="size-12 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl flex items-center justify-center disabled:opacity-30 hover:bg-slate-50 transition-all"><ChevronLeft/></button>
-          <span className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase italic tracking-widest px-4">Page {currentPage} / {totalPages}</span>
+          <span className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase italic tracking-widest px-4">{t.common.page} {currentPage} / {totalPages}</span>
           <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(p => p + 1)} className="size-12 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl flex items-center justify-center disabled:opacity-30 hover:bg-slate-50 transition-all"><ChevronRight/></button>
         </div>
       )}
@@ -133,6 +133,7 @@ export const VehiclesView = ({ orgData }: any) => {
       {activeModal === 'QUICK_STATUS' && editingVehicle && <QuickStatusModal vehicle={editingVehicle} onSubmit={handleQuickStatusSubmit} modalLoading={modalLoading} onClose={() => setActiveModal(null)} />}
       {activeModal === 'FORM' && (
         <VehicleFormModal 
+          t={t}
           editingVehicle={editingVehicle}
           agencies={agencies}
           categories={categories}
@@ -154,7 +155,20 @@ export const VehiclesView = ({ orgData }: any) => {
             engineDetails: { type: '', horsepower: 0, capacity: 0 },
             insuranceDetails: { provider: '', policy_number: '', expiry: '' },
             fuelEfficiency: { city: '', highway: '' },
-            functionalities: { air_condition: true, gps: true, bluetooth: true, luggage: true, onboard_computer: true },
+            functionalities: {
+              air_condition: true,
+              usb_input: false,
+              seat_belt: true,
+              audio_input: false,
+              child_seat: false,
+              bluetooth: true,
+              sleeping_bed: false,
+              onboard_computer: true,
+              gps: true,
+              luggage: true,
+              water: false,
+              additional_covers: false
+            },
             images: [], description:[]
           }}
           onClose={() => setActiveModal(null)}

@@ -7,16 +7,14 @@ import {
   ChevronRight, Activity, Car, LayoutGrid, CalendarDays,
   CalendarCheck, Banknote
 } from 'lucide-react';
-import { hasPermission } from '../utils/permissions';
 
-export const Sidebar = ({ 
+export const Sidebar = ({
   currentView, 
   setCurrentView, 
   sidebarOpen, 
   setSidebarOpen, 
   handleInstall, 
   handleLogout,
-  userData,
   t
 }: any) => (
   <aside className={`${sidebarOpen ? 'fixed inset-0 z-[200]' : 'hidden'} lg:relative lg:flex lg:w-72 flex-col h-screen shrink-0 transition-all duration-300 bg-slate-50 border-r-2 border-slate-200 dark:bg-[#080b14] dark:border-slate-800 shadow-xl`}>
@@ -40,26 +38,22 @@ export const Sidebar = ({
         <div>
           <p className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 px-2 italic">{t.sidebar.hub}</p>
           <div className="space-y-1">
-            {hasPermission(userData, 'stats:dashboard') && <SidebarItem icon={<LayoutDashboard size={20}/>} label={t.sidebar.dashboard} active={currentView === 'DASHBOARD'} onClick={() => {setCurrentView('DASHBOARD'); setSidebarOpen(false);}} />}
-            {hasPermission(userData, 'rental:list') && (
-              <>
-                <SidebarItem icon={<CalendarDays size={20}/>} label={t.sidebar.reservations} active={currentView === 'RESERVATIONS'} onClick={() => {setCurrentView('RESERVATIONS'); setSidebarOpen(false);}} />
-                <SidebarItem icon={<CalendarCheck size={20}/>} label={t.sidebar.rentals} active={currentView === 'RENTALS'} onClick={() => {setCurrentView('RENTALS'); setSidebarOpen(false);}} />
-              </>
-            )}
-            {hasPermission(userData, 'finance:transactions') && <SidebarItem icon={<Banknote size={20}/>} label={t.sidebar.transactions} active={currentView === 'TRANSACTIONS'} onClick={() => {setCurrentView('TRANSACTIONS'); setSidebarOpen(false);}} />}
-            {hasPermission(userData, 'agency:view') && <SidebarItem icon={<Store size={20}/>} label={t.sidebar.agencies} active={currentView === 'AGENCIES'} onClick={() => {setCurrentView('AGENCIES'); setSidebarOpen(false);}} />}
+            <SidebarItem icon={<LayoutDashboard size={20}/>} label={t.sidebar.dashboard} active={currentView === 'DASHBOARD'} onClick={() => {setCurrentView('DASHBOARD'); setSidebarOpen(false);}} />
+            <SidebarItem icon={<CalendarDays size={20}/>} label={t.sidebar.reservations} active={currentView === 'RESERVATIONS'} onClick={() => {setCurrentView('RESERVATIONS'); setSidebarOpen(false);}} />
+            <SidebarItem icon={<CalendarCheck size={20}/>} label={t.sidebar.rentals} active={currentView === 'RENTALS'} onClick={() => {setCurrentView('RENTALS'); setSidebarOpen(false);}} />
+            <SidebarItem icon={<Banknote size={20}/>} label={t.sidebar.transactions} active={currentView === 'TRANSACTIONS'} onClick={() => {setCurrentView('TRANSACTIONS'); setSidebarOpen(false);}} />
+            <SidebarItem icon={<Store size={20}/>} label={t.sidebar.agencies} active={currentView === 'AGENCIES'} onClick={() => {setCurrentView('AGENCIES'); setSidebarOpen(false);}} />
           </div>
         </div>
 
         <div>
           <p className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 px-2 italic">{t.sidebar.network}</p>
           <div className="space-y-1">
-            {(userData.role === 'ORGANIZATION_OWNER' || userData.role === 'ADMIN') && <SidebarItem icon={<ShieldCheck size={20}/>} label={t.sidebar.roles} active={currentView === 'ROLES'} onClick={() => {setCurrentView('ROLES'); setSidebarOpen(false);}} />}
-            {hasPermission(userData, 'staff:list') && <SidebarItem icon={<UserCircle size={20}/>} label={t.sidebar.staff} active={currentView === 'STAFF'} onClick={() => {setCurrentView('STAFF'); setSidebarOpen(false);}} />}
-            {hasPermission(userData, 'category:manage') && <SidebarItem icon={<LayoutGrid size={20}/>} label={t.sidebar.categories} active={currentView === 'CATEGORIES'} onClick={() => {setCurrentView('CATEGORIES'); setSidebarOpen(false);}} />}
-            {hasPermission(userData, 'vehicle:list') && <SidebarItem icon={<Car size={20}/>} label={t.sidebar.vehicles} active={currentView === 'VEHICLES'} onClick={() => {setCurrentView('VEHICLES'); setSidebarOpen(false);}} />}
-            {userData.role === 'ORGANIZATION_OWNER' && <SidebarItem icon={<CreditCard size={20}/>} label={t.sidebar.subscription} active={currentView === 'SUBSCRIPTION'} onClick={() => {setCurrentView('SUBSCRIPTION'); setSidebarOpen(false);}} />}
+            <SidebarItem icon={<ShieldCheck size={20}/>} label={t.sidebar.roles} active={currentView === 'ROLES'} onClick={() => {setCurrentView('ROLES'); setSidebarOpen(false);}} />
+            <SidebarItem icon={<UserCircle size={20}/>} label={t.sidebar.staff} active={currentView === 'STAFF'} onClick={() => {setCurrentView('STAFF'); setSidebarOpen(false);}} />
+            <SidebarItem icon={<LayoutGrid size={20}/>} label={t.sidebar.categories} active={currentView === 'CATEGORIES'} onClick={() => {setCurrentView('CATEGORIES'); setSidebarOpen(false);}} />
+            <SidebarItem icon={<Car size={20}/>} label={t.sidebar.vehicles} active={currentView === 'VEHICLES'} onClick={() => {setCurrentView('VEHICLES'); setSidebarOpen(false);}} />
+            <SidebarItem icon={<CreditCard size={20}/>} label={t.sidebar.subscription} active={currentView === 'SUBSCRIPTION'} onClick={() => {setCurrentView('SUBSCRIPTION'); setSidebarOpen(false);}} />
           </div>
         </div>
       </nav>

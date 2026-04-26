@@ -1,4 +1,3 @@
-// FILE: apps/mfe-organisation/src/views/ProfileView.tsx
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useState } from 'react';
@@ -14,10 +13,11 @@ interface ProfileViewProps {
   userData: any;
   orgData: any;
   onUpdate: () => void;
+  t: any;
 }
 
-export const ProfileView = ({ userData, orgData, onUpdate }: ProfileViewProps) => {
-  const[editProfileMode, setEditProfileMode] = useState(false);
+export const ProfileView = ({ userData, orgData, onUpdate, t }: ProfileViewProps) => {
+  const [editProfileMode, setEditProfileMode] = useState(false);
   const [editPasswordMode, setEditPasswordMode] = useState(false);
   
   const [profileForm, setProfileForm] = useState({
@@ -43,11 +43,11 @@ export const ProfileView = ({ userData, orgData, onUpdate }: ProfileViewProps) =
     try {
       const res = await authService.updateProfile(profileForm);
       if (res.ok) {
-        setMessage({ type: 'success', text: 'Profil mis à jour avec succès.' });
+        setMessage({ type: 'success', text: t.profile.msgUpdateSuccess });
         setEditProfileMode(false);
         onUpdate();
       } else {
-        setMessage({ type: 'error', text: res.data?.message || 'Erreur de mise à jour.' });
+        setMessage({ type: 'error', text: res.data?.message || t.profile.msgUpdateError });
       }
     } finally {
       setLoadingProfile(false);
@@ -61,11 +61,11 @@ export const ProfileView = ({ userData, orgData, onUpdate }: ProfileViewProps) =
     try {
       const res = await authService.updatePassword(passwordForm);
       if (res.ok) {
-        setMessage({ type: 'success', text: 'Mot de passe modifié avec succès.' });
+        setMessage({ type: 'success', text: t.profile.msgPasswordSuccess });
         setEditPasswordMode(false);
         setPasswordForm({ oldPassword: '', newPassword: '' });
       } else {
-        setMessage({ type: 'error', text: res.data?.message || 'Erreur lors du changement de mot de passe.' });
+        setMessage({ type: 'error', text: res.data?.message || t.profile.msgPasswordError });
       }
     } finally {
       setLoadingPassword(false);
@@ -101,7 +101,7 @@ export const ProfileView = ({ userData, orgData, onUpdate }: ProfileViewProps) =
           </p>
           <div className="flex flex-wrap justify-center md:justify-start gap-6 text-sm font-bold text-slate-400">
              <span className="flex items-center gap-2 italic"><Mail size={16} className="text-[#0528d6]"/> {userData.email}</span>
-             <span className="flex items-center gap-2 italic"><Clock size={16} className="text-[#0528d6]"/> Inscrit le {new Date(userData.hiredAt).toLocaleDateString()}</span>
+             <span className="flex items-center gap-2 italic"><Clock size={16} className="text-[#0528d6]"/> {t.profile.hiredAt} {new Date(userData.hiredAt).toLocaleDateString()}</span>
           </div>
         </div>
       </div>
@@ -114,7 +114,7 @@ export const ProfileView = ({ userData, orgData, onUpdate }: ProfileViewProps) =
           {/* SECTION USER PROFILE EDIT */}
           <section className="bg-white dark:bg-[#1a1d2d] rounded-[2.5rem] p-8 border border-slate-200 dark:border-slate-800 shadow-sm relative">
             <div className="flex justify-between items-center border-b border-slate-50 dark:border-slate-800 pb-4 mb-6">
-              <SectionTitle icon={<Lock />} title="Informations Personnelles" />
+              <SectionTitle icon={<Lock />} title={t.profile.personalInfo} />
               {!editProfileMode && (
                 <button onClick={() => setEditProfileMode(true)} className="p-2 text-slate-400 hover:text-[#0528d6] transition-colors"><Edit3 size={18}/></button>
               )}
@@ -124,27 +124,27 @@ export const ProfileView = ({ userData, orgData, onUpdate }: ProfileViewProps) =
               <form onSubmit={handleProfileSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">Prénom</label>
+                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">{t.profile.firstname}</label>
                     <input required value={profileForm.firstname} onChange={e => setProfileForm({...profileForm, firstname: e.target.value})} className="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-sm outline-none focus:border-[#0528d6] dark:text-white transition-all" />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">Nom</label>
+                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">{t.profile.lastname}</label>
                     <input required value={profileForm.lastname} onChange={e => setProfileForm({...profileForm, lastname: e.target.value})} className="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-sm outline-none focus:border-[#0528d6] dark:text-white transition-all" />
                   </div>
                 </div>
                 <div className="flex justify-end gap-3 pt-4">
-                  <button type="button" onClick={() => setEditProfileMode(false)} className="px-6 py-2 text-sm font-bold text-slate-400 hover:text-slate-600 transition-colors">Annuler</button>
+                  <button type="button" onClick={() => setEditProfileMode(false)} className="px-6 py-2 text-sm font-bold text-slate-400 hover:text-slate-600 transition-colors">{t.common.cancel}</button>
                   <button type="submit" disabled={loadingProfile} className="px-6 py-2 bg-[#0528d6] text-white rounded-xl font-bold text-sm shadow-md hover:bg-blue-700 transition-all flex items-center gap-2">
-                    {loadingProfile ? <Loader2 size={16} className="animate-spin"/> : <Save size={16}/>} Enregistrer
+                    {loadingProfile ? <Loader2 size={16} className="animate-spin"/> : <Save size={16}/>} {t.profile.btnSave}
                   </button>
                 </div>
               </form>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <DataField label="Prénom" value={userData.firstname} />
-                <DataField label="Nom" value={userData.lastname} />
-                <DataField label="Email de connexion" value={userData.email} />
-                <DataField label="Statut du compte" value={userData.status} />
+                <DataField label={t.profile.firstname} value={userData.firstname} />
+                <DataField label={t.profile.lastname} value={userData.lastname} />
+                <DataField label={t.profile.emailLabel} value={userData.email} />
+                <DataField label={t.profile.status} value={userData.status} />
               </div>
             )}
           </section>
@@ -152,9 +152,9 @@ export const ProfileView = ({ userData, orgData, onUpdate }: ProfileViewProps) =
           {/* SECTION PASSWORD EDIT */}
           <section className="bg-white dark:bg-[#1a1d2d] rounded-[2.5rem] p-8 border border-slate-200 dark:border-slate-800 shadow-sm relative">
             <div className="flex justify-between items-center border-b border-slate-50 dark:border-slate-800 pb-4 mb-6">
-              <SectionTitle icon={<ShieldCheck />} title="Sécurité du compte" />
+              <SectionTitle icon={<ShieldCheck />} title={t.profile.security} />
               {!editPasswordMode && (
-                <button onClick={() => setEditPasswordMode(true)} className="text-xs font-bold uppercase text-[#0528d6] hover:underline italic tracking-widest">Modifier le mot de passe</button>
+                <button onClick={() => setEditPasswordMode(true)} className="text-xs font-bold uppercase text-[#0528d6] hover:underline italic tracking-widest">{t.profile.btnUpdatePassword}</button>
               )}
             </div>
 
@@ -162,18 +162,18 @@ export const ProfileView = ({ userData, orgData, onUpdate }: ProfileViewProps) =
               <form onSubmit={handlePasswordSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">Ancien mot de passe</label>
+                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">{t.profile.oldPassword}</label>
                     <input required type="password" value={passwordForm.oldPassword} onChange={e => setPasswordForm({...passwordForm, oldPassword: e.target.value})} className="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-sm outline-none focus:border-[#0528d6] dark:text-white transition-all" />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">Nouveau mot de passe</label>
+                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">{t.profile.newPassword}</label>
                     <input required type="password" value={passwordForm.newPassword} onChange={e => setPasswordForm({...passwordForm, newPassword: e.target.value})} className="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-sm outline-none focus:border-[#0528d6] dark:text-white transition-all" />
                   </div>
                 </div>
                 <div className="flex justify-end gap-3 pt-4">
-                  <button type="button" onClick={() => setEditPasswordMode(false)} className="px-6 py-2 text-sm font-bold text-slate-400 hover:text-slate-600 transition-colors">Annuler</button>
+                  <button type="button" onClick={() => setEditPasswordMode(false)} className="px-6 py-2 text-sm font-bold text-slate-400 hover:text-slate-600 transition-colors">{t.common.cancel}</button>
                   <button type="submit" disabled={loadingPassword} className="px-6 py-2 bg-[#0528d6] text-white rounded-xl font-bold text-sm shadow-md hover:bg-blue-700 transition-all flex items-center gap-2">
-                    {loadingPassword ? <Loader2 size={16} className="animate-spin"/> : <Save size={16}/>} Mettre à jour
+                    {loadingPassword ? <Loader2 size={16} className="animate-spin"/> : <Save size={16}/>} {t.profile.btnUpdate}
                   </button>
                 </div>
               </form>
@@ -181,7 +181,7 @@ export const ProfileView = ({ userData, orgData, onUpdate }: ProfileViewProps) =
               <div className="flex items-center gap-3">
                 <div className="p-3 bg-green-50 text-green-600 rounded-xl"><Lock size={20}/></div>
                 <div>
-                  <p className="text-sm font-bold text-slate-900 dark:text-white">Mot de passe sécurisé</p>
+                  <p className="text-sm font-bold text-slate-900 dark:text-white">{t.profile.securePassword}</p>
                 </div>
               </div>
             )}
@@ -189,14 +189,14 @@ export const ProfileView = ({ userData, orgData, onUpdate }: ProfileViewProps) =
 
           {/* IDENTITÉ & DESCRIPTION */}
           <section className="bg-white dark:bg-[#1a1d2d] rounded-[2.5rem] p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-            <SectionTitle icon={<Building2 />} title="Identité de l'Organisation" />
+            <SectionTitle icon={<Building2 />} title={t.profile.orgIdentity} />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-              <DataField label="Nom de l'entité" value={orgData.name} />
-              <DataField label="Site Web" value={orgData.website} isLink />
+              <DataField label={t.profile.orgName} value={orgData.name} />
+              <DataField label={t.profile.website} value={orgData.website} isLink />
               <div className="md:col-span-2">
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">Description / Vision</label>
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">{t.profile.description}</label>
                 <p className="mt-1 text-sm text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
-                  {orgData.description || "Aucune description fournie."}
+                  {orgData.description || t.profile.noDescription}
                 </p>
               </div>
             </div>
@@ -204,27 +204,27 @@ export const ProfileView = ({ userData, orgData, onUpdate }: ProfileViewProps) =
 
           {/* LOCALISATION GÉOGRAPHIQUE */}
           <section className="bg-white dark:bg-[#1a1d2d] rounded-[2.5rem] p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-            <SectionTitle icon={<MapPin />} title="Localisation & Siège" />
+            <SectionTitle icon={<MapPin />} title={t.profile.location} />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-              <DataField label="Adresse" value={orgData.address} />
-              <DataField label="Ville" value={orgData.city} />
-              <DataField label="Région" value={orgData.region} />
-              <DataField label="Pays" value={orgData.country} />
-              <DataField label="Code Postal" value={orgData.postalCode} />
-              <DataField label="Fuseau Horaire" value={orgData.timezone} />
+              <DataField label={t.profile.address} value={orgData.address} />
+              <DataField label={t.profile.city} value={orgData.city} />
+              <DataField label={t.profile.region} value={orgData.region} />
+              <DataField label={t.profile.country} value={orgData.country} />
+              <DataField label={t.profile.postalCode} value={orgData.postalCode} />
+              <DataField label={t.profile.timezone} value={orgData.timezone} />
             </div>
           </section>
 
           {/* DONNÉES LÉGALES */}
           <section className="bg-white dark:bg-[#1a1d2d] rounded-[2.5rem] p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-            <SectionTitle icon={<FileText />} title="Conformité Légale" />
+            <SectionTitle icon={<FileText />} title={t.profile.compliance} />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-              <DataField label="Numéro Registre (RCCM)" value={orgData.registrationNumber} />
-              <DataField label="Numéro Contribuable (NIU)" value={orgData.taxNumber} />
+              <DataField label={t.profile.registrationNumber} value={orgData.registrationNumber} />
+              <DataField label={t.profile.taxNumber} value={orgData.taxNumber} />
               {orgData.businessLicense && (
                 <div className="md:col-span-2">
                     <a href={orgData.businessLicense} target="_blank" className="text-xs font-bold text-[#0528d6] hover:underline flex items-center gap-2">
-                        <Download size={14}/> Consulter la licence d&apos;exploitation
+                        <Download size={14}/> {t.profile.btnConsultLicense}
                     </a>
                 </div>
               )}
@@ -236,28 +236,28 @@ export const ProfileView = ({ userData, orgData, onUpdate }: ProfileViewProps) =
         <div className="space-y-6">
           
           <section className="bg-white dark:bg-[#1a1d2d] rounded-[2.5rem] p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-            <SectionTitle icon={<BarChart3 />} title="Performance Globale" />
+            <SectionTitle icon={<BarChart3 />} title={t.profile.performance} />
             <div className="space-y-6 mt-6">
-              <StatItem label="Locations totales" value={orgData.totalRentals} icon={<Zap />} />
-              <StatItem label="Revenu Mensuel" value={`${orgData.monthlyRevenue?.toLocaleString()} XAF`} icon={<BarChart3 />} />
-              <StatItem label="Revenu Annuel" value={`${orgData.yearlyRevenue?.toLocaleString()} XAF`} icon={<BarChart3 />} />
+              <StatItem label={t.profile.statTotalRentals} value={orgData.totalRentals} icon={<Zap />} />
+              <StatItem label={t.profile.statMonthlyRevenue} value={`${orgData.monthlyRevenue?.toLocaleString()} XAF`} icon={<BarChart3 />} />
+              <StatItem label={t.profile.statYearlyRevenue} value={`${orgData.yearlyRevenue?.toLocaleString()} XAF`} icon={<BarChart3 />} />
             </div>
           </section>
 
           <section className="bg-[#0528d6] rounded-[2.5rem] p-8 text-white shadow-xl">
-             <SectionTitle icon={<ShieldCheck className="text-white/50" />} title="Quotas du Plan" light />
+             <SectionTitle icon={<ShieldCheck className="text-white/50" />} title={t.profile.planQuotas} light />
              <div className="grid grid-cols-2 gap-4 mt-6">
-                <QuotaBox label="Agences" current={orgData.currentAgencies} />
-                <QuotaBox label="Véhicules" current={orgData.currentVehicles} />
-                <QuotaBox label="Chauffeurs" current={orgData.currentDrivers} />
+                <QuotaBox label={t.profile.quotaAgencies} current={orgData.currentAgencies} />
+                <QuotaBox label={t.profile.quotaVehicles} current={orgData.currentVehicles} />
+                <QuotaBox label={t.profile.quotaDrivers} current={orgData.currentDrivers} />
              </div>
              <div className="mt-6 pt-6 border-t border-white/10 text-[10px] font-medium opacity-70 italic">
-                Expire le : {new Date(orgData.subscriptionExpiresAt).toLocaleDateString()}
+                {t.profile.expiresOn} : {new Date(orgData.subscriptionExpiresAt).toLocaleDateString()}
              </div>
           </section>
 
           <section className="bg-slate-50 dark:bg-slate-900 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-800">
-             <SectionTitle icon={<Globe2 />} title="Contact Public" />
+             <SectionTitle icon={<Globe2 />} title={t.profile.publicContact} />
              <div className="mt-4 space-y-3">
                 <p className="text-sm font-bold dark:text-white">{orgData.phone}</p>
                 <p className="text-sm font-bold text-[#0528d6]">{orgData.email}</p>
@@ -293,7 +293,7 @@ const StatItem = ({ label, value, icon }: any) => (
   <div className="flex items-center justify-between group">
     <div className="flex items-center gap-3">
       <div className="size-8 bg-slate-50 dark:bg-slate-900 rounded-lg flex items-center justify-center text-slate-400 group-hover:text-[#0528d6] transition-colors">
-        {React.cloneElement(icon, { size: 14 })}
+        {React.cloneElement(icon as React.ReactElement, { size: 14 })}
       </div>
       <span className="text-xs font-bold text-slate-500">{label}</span>
     </div>

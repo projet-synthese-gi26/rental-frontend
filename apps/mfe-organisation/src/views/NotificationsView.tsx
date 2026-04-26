@@ -1,11 +1,10 @@
-// FILE: apps/mfe-organisation/src/views/NotificationsView.tsx
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useEffect, useState, useMemo } from 'react';
 import { Bell, Check, Clock, Info, AlertTriangle, Loader2, Search } from 'lucide-react';
 import { notifService } from '@pwa-easy-rental/shared-services';
 
-export const NotificationsView = ({ orgId }: { orgId: string }) => {
+export const NotificationsView = ({ orgId, t }: { orgId: string, t: any }) => {
   const [notifs, setNotifs] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -37,7 +36,6 @@ export const NotificationsView = ({ orgId }: { orgId: string }) => {
     }
   };
 
-  // Logique de filtrage et recherche
   const filteredNotifs = useMemo(() => {
     return notifs.filter(n => {
       const matchesSearch = (n.details?.toLowerCase().includes(searchTerm.toLowerCase())) || 
@@ -66,13 +64,13 @@ export const NotificationsView = ({ orgId }: { orgId: string }) => {
       {/* HEADER & TOTALS */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 px-2">
         <div>
-          <h2 className="text-3xl font-[900] italic tracking-tighter uppercase text-slate-900 dark:text-white">Centre de Notifications</h2>
+          <h2 className="text-3xl font-[900] italic tracking-tighter uppercase text-slate-900 dark:text-white">{t.notifications.title}</h2>
           <div className="flex items-center gap-4 mt-2">
             <span className="text-[10px] font-black uppercase px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-full border border-slate-200 dark:border-slate-700">
-                Total: {notifs.length}
+                {t.notifications.total}: {notifs.length}
             </span>
             <span className="text-[10px] font-black uppercase px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-[#0528d6] rounded-full border border-blue-100 dark:border-blue-800">
-                Non lues: {unreadCount}
+                {t.notifications.unread}: {unreadCount}
             </span>
           </div>
         </div>
@@ -85,9 +83,9 @@ export const NotificationsView = ({ orgId }: { orgId: string }) => {
       <div className="flex flex-col lg:flex-row items-center gap-4 bg-white dark:bg-[#1a1d2d] p-4 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-sm">
         <div className="flex bg-slate-100 dark:bg-slate-900 p-1.5 rounded-2xl w-full lg:w-auto shrink-0">
             {[
-                { id: 'ALL', label: 'Toutes' },
-                { id: 'UNREAD', label: 'Non lues' },
-                { id: 'ALERTS', label: 'Alertes' }
+                { id: 'ALL', label: t.notifications.tabAll },
+                { id: 'UNREAD', label: t.notifications.tabUnread },
+                { id: 'ALERTS', label: t.notifications.tabAlerts }
             ].map(tab => (
                 <button 
                     key={tab.id} 
@@ -102,7 +100,7 @@ export const NotificationsView = ({ orgId }: { orgId: string }) => {
         <div className="relative w-full group">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0528d6]" size={18} />
           <input 
-            placeholder="Rechercher un événement, un dossier ou un message..." 
+            placeholder={t.notifications.searchPlaceholder} 
             className="w-full pl-12 pr-6 py-3 bg-slate-50 dark:bg-slate-900 border-none rounded-xl text-sm font-black italic outline-none focus:ring-2 focus:ring-[#0528d6]/20 transition-all dark:text-white" 
             value={searchTerm} 
             onChange={(e) => setSearchTerm(e.target.value)} 
@@ -114,7 +112,7 @@ export const NotificationsView = ({ orgId }: { orgId: string }) => {
       {filteredNotifs.length === 0 ? (
         <div className="p-20 text-center bg-white dark:bg-[#1a1d2d] rounded-[3rem] border-2 border-dashed border-slate-100 dark:border-slate-800">
           <Bell className="mx-auto text-slate-200 mb-4" size={48} />
-          <p className="text-slate-400 font-bold italic uppercase text-xs tracking-widest">Aucune notification ne correspond à vos critères</p>
+          <p className="text-slate-400 font-bold italic uppercase text-xs tracking-widest">{t.notifications.noNotifs}</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -136,7 +134,7 @@ export const NotificationsView = ({ orgId }: { orgId: string }) => {
               <div className="flex-1">
                 <div className="flex justify-between items-start mb-2">
                   <h4 className="font-black text-slate-900 dark:text-white uppercase text-xs tracking-tight italic">
-                    {n.reason || 'Notification Système'}
+                    {n.reason || t.notifications.systemNotif}
                   </h4>
                   <span className="text-[9px] font-bold text-slate-400 uppercase">{new Date(n.createdAt).toLocaleString()}</span>
                 </div>
@@ -148,12 +146,12 @@ export const NotificationsView = ({ orgId }: { orgId: string }) => {
                       onClick={() => handleMarkRead(n.id)} 
                       className="text-[9px] font-black uppercase text-[#0528d6] flex items-center gap-1.5 hover:underline"
                     >
-                      <Check size={12}/> Marquer comme lu
+                      <Check size={12}/> {t.notifications.markAsRead}
                     </button>
                   )}
                   {n.locationId && (
                     <div className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-[8px] font-black text-slate-500 uppercase tracking-tighter italic">
-                      Dossier: #{n.locationId.substring(0,8)}
+                      {t.notifications.folderId}: #{n.locationId.substring(0,8)}
                     </div>
                   )}
                 </div>

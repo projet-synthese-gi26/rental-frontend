@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useState } from 'react';
-import { X, Loader2, Mail, User, Store, Shield, UserCheck, Briefcase } from 'lucide-react';
+import { X, Loader2, Mail, User, Store, UserCheck, Briefcase } from 'lucide-react';
 import { Portal } from '../../components/Portal';
 
 export const StaffFormModal = ({ editingStaff, agencies, postes, initialData, onSubmit, onClose, modalLoading, t }: any) => {

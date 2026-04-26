@@ -7,7 +7,7 @@ import { StatCard } from '../components/StatCard';
 import { CategoryCard } from './categories/CategoryCard';
 import { CategoryFormModal } from './categories/CategoryFormModal';
 
-export const VehicleCategoriesView = ({ orgData }: { orgData: any }) => {
+export const VehicleCategoriesView = ({ orgData, t }: { orgData: any, t: any }) => {
   const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -59,7 +59,7 @@ export const VehicleCategoriesView = ({ orgData }: { orgData: any }) => {
   };
 
   const handleDelete = async (id: string) => {
-    if (window.confirm("Supprimer cette catégorie ? Les véhicules associés devront être réaffectés.")) {
+    if (window.confirm(t.vehicleCategories.deleteConfirm)) {
       await vehicleService.deleteCategory(id);
       loadData();
     }
@@ -70,20 +70,18 @@ export const VehicleCategoriesView = ({ orgData }: { orgData: any }) => {
   return (
     <div className="space-y-8 animate-in fade-in duration-500 pb-10">
       
-      {/* 1. STATS SECTION */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <StatCard label="Total catégories" value={categories.length} icon={<LayoutGrid />} />
-        <StatCard label="Standards Rental" value={categories.filter(c => c.organizationId === null).length} icon={<ShieldCheck />} />
-        <StatCard label="Mes personnalisées" value={categories.filter(c => c.organizationId !== null).length} icon={<Box />} />
+        <StatCard label={t.vehicleCategories.statTotal} value={categories.length} icon={<LayoutGrid />} />
+        <StatCard label={t.vehicleCategories.statSystem} value={categories.filter(c => c.organizationId === null).length} icon={<ShieldCheck />} />
+        <StatCard label={t.vehicleCategories.statCustom} value={categories.filter(c => c.organizationId !== null).length} icon={<Box />} />
       </div>
 
-      {/* 2. FILTRES & ACTIONS */}
       <div className="flex flex-col lg:flex-row justify-between items-center gap-6 bg-white dark:bg-[#1a1d2d] p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
         <div className="flex bg-slate-100 dark:bg-slate-900 p-1 rounded-lg w-full lg:w-auto">
           {[
-            { id: 'ALL', label: 'Toutes' },
-            { id: 'SYSTEM', label: 'Standards' },
-            { id: 'CUSTOM', label: 'Mes types' }
+            { id: 'ALL', label: t.vehicleCategories.tabAll },
+            { id: 'SYSTEM', label: t.vehicleCategories.tabSystem },
+            { id: 'CUSTOM', label: t.vehicleCategories.tabCustom }
           ].map(tab => (
             <button
               key={tab.id}
@@ -102,7 +100,7 @@ export const VehicleCategoriesView = ({ orgData }: { orgData: any }) => {
         <div className="relative flex-1 w-full group">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0528d6]" size={18} />
           <input 
-            placeholder="Rechercher une catégorie (Luxe, SUV...)"
+            placeholder={t.vehicleCategories.searchPlaceholder}
             className="w-full pl-12 pr-6 py-3 bg-slate-50 dark:bg-slate-900 border-none rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#0528d6]/20 font-medium dark:text-white transition-all"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -113,11 +111,10 @@ export const VehicleCategoriesView = ({ orgData }: { orgData: any }) => {
           onClick={() => { setEditingCat(null); setIsModalOpen(true); }}
           className="w-full lg:w-auto px-6 py-3 bg-[#0528d6] text-white rounded-lg font-bold text-sm shadow-lg hover:scale-[1.02] transition-all flex items-center justify-center gap-2 shrink-0"
         >
-          <Plus size={18} /> Nouvelle catégorie
+          <Plus size={18} /> {t.vehicleCategories.addBtn}
         </button>
       </div>
 
-      {/* 3. GRILLE */}
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         {filteredCategories.map((cat) => (
           <CategoryCard 
@@ -125,13 +122,14 @@ export const VehicleCategoriesView = ({ orgData }: { orgData: any }) => {
             category={cat} 
             onEdit={(c: any) => { setEditingCat(c); setIsModalOpen(true); }}
             onDelete={handleDelete}
+            t={t}
           />
         ))}
       </div>
 
-      {/* 4. MODAL */}
       {isModalOpen && (
         <CategoryFormModal 
+          t={t}
           editingCat={editingCat}
           initialData={editingCat ? { name: editingCat.name, description: editingCat.description } : { name: '', description: '' }}
           onClose={() => setIsModalOpen(false)}

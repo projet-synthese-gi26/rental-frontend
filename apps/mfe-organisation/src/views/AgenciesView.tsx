@@ -11,7 +11,7 @@ import { QuotaAlertModal } from '@/components/QuotaAlertModal';
 
 const ITEMS_PER_PAGE = 6;
 
-export const AgenciesView = ({ orgData, setCurrentView }: any) => {
+export const AgenciesView = ({ orgData, setCurrentView, t }: any) => {
   const [agencies, setAgencies] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -63,19 +63,23 @@ export const AgenciesView = ({ orgData, setCurrentView }: any) => {
   return (
     <div className="space-y-8 animate-in fade-in duration-500 pb-10 text-left">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <StatCard label="Points de Vente" value={agencies.length} icon={<Store />} />
-        <StatCard label="Zone de Couverture" value={new Set(agencies.map(a => a.city)).size} icon={<LayoutGrid className="text-orange-500" />} />
-        <StatCard label="Capacité Flotte" value={agencies.reduce((acc, a) => acc + (a.currentVehicles || 0), 0)} icon={<ShieldCheck className="text-green-500" />} />
+        <StatCard label={t.agencies.statsPoints} value={agencies.length} icon={<Store />} />
+        <StatCard label={t.agencies.statsZone} value={new Set(agencies.map(a => a.city)).size} icon={<LayoutGrid className="text-orange-500" />} />
+        <StatCard label={t.agencies.statsFleet} value={agencies.reduce((acc, a) => acc + (a.currentVehicles || 0), 0)} icon={<ShieldCheck className="text-green-500" />} />
       </div>
 
       <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-white dark:bg-[#1a1d2d] p-4 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-sm">
         <div className="relative w-full md:w-96 group">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0528d6]" size={18} />
-          <input placeholder="Rechercher une agence ou ville..." className="w-full pl-12 pr-6 py-3 bg-slate-50 dark:bg-slate-900 border-none rounded-xl text-sm font-black italic outline-none focus:ring-2 focus:ring-[#0528d6]/20 transition-all dark:text-white" 
-                 value={searchTerm} onChange={(e) => {setSearchTerm(e.target.value); setCurrentPage(1);}} />
+          <input 
+            placeholder={t.agencies.searchPlaceholder} 
+            className="w-full pl-12 pr-6 py-3 bg-slate-50 dark:bg-slate-900 border-none rounded-xl text-sm font-black italic outline-none focus:ring-2 focus:ring-[#0528d6]/20 transition-all dark:text-white" 
+            value={searchTerm} 
+            onChange={(e) => {setSearchTerm(e.target.value); setCurrentPage(1);}} 
+          />
         </div>
         <button onClick={handleAddClick} className="w-full md:w-auto px-6 py-3 bg-[#0528d6] text-white rounded-xl font-black text-xs uppercase shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2 hover:scale-[1.02] transition-all italic">
-          <Plus size={18} /> Ouvrir une Agence
+          <Plus size={18} /> {t.agencies.addBtn}
         </button>
       </div>
 
@@ -84,7 +88,8 @@ export const AgenciesView = ({ orgData, setCurrentView }: any) => {
           <AgencyCard key={agency.id} agency={agency} 
                      onView={(id: string) => { setSelectedAgency(id); setActiveModal('DETAILS'); }}
                      onEdit={(a: any) => { setSelectedAgency(a); setActiveModal('FORM'); }} 
-                     onDelete={async (id: string) => { if(confirm('Fermer définitivement cette agence ?')) { await agencyService.deleteAgency(id); loadData(); } }} 
+                     onDelete={async (id: string) => { if(confirm(t.agencies.deleteConfirm)) { await agencyService.deleteAgency(id); loadData(); } }} 
+                     t={t}
           />
         ))}
       </div>
@@ -92,17 +97,24 @@ export const AgenciesView = ({ orgData, setCurrentView }: any) => {
       {totalPages > 1 && (
         <div className="flex justify-center items-center gap-4 pt-8">
           <button disabled={currentPage === 1} onClick={() => setCurrentPage(p => p - 1)} className="size-12 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl flex items-center justify-center disabled:opacity-30 hover:bg-slate-50 transition-all"><ChevronLeft/></button>
-          <span className="text-[10px] font-black text-slate-500 uppercase italic tracking-widest px-4">Page {currentPage} / {totalPages}</span>
+          <span className="text-[10px] font-black text-slate-500 uppercase italic tracking-widest px-4">
+            {t.common.page} {currentPage} / {totalPages}
+          </span>
           <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(p => p + 1)} className="size-12 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl flex items-center justify-center disabled:opacity-30 hover:bg-slate-50 transition-all"><ChevronRight/></button>
         </div>
       )}
 
-      {activeModal === 'DETAILS' && <AgencyDetailsModal agencyId={selectedAgency} onClose={() => setActiveModal(null)} />}
+      {activeModal === 'DETAILS' && <AgencyDetailsModal agencyId={selectedAgency} onClose={() => setActiveModal(null)} t={t} />}
       {activeModal === 'FORM' && (
-        <AgencyForm editingAgency={selectedAgency} initialData={selectedAgency || { name: '', description: '', address: '', city: '', country: 'Cameroun', postalCode: '', region: '', phone: '', email: '', geofenceRadius: 5, is24Hours: true, workingHours: '08:00-18:00', allowOnlineBooking: true, depositPercentage: 10, logoUrl: '' }}
-                    onClose={() => setActiveModal(null)} onSubmit={handleFormSubmit} modalLoading={modalLoading} />
+        <AgencyForm 
+                    t={t}
+                    editingAgency={selectedAgency} 
+                    initialData={selectedAgency || { name: '', description: '', address: '', city: '', country: 'Cameroun', postalCode: '', region: '', phone: '', email: '', geofenceRadius: 5, is24Hours: true, workingHours: '08:00-18:00', allowOnlineBooking: true, depositPercentage: 10, logoUrl: '' }}
+                    onClose={() => setActiveModal(null)} 
+                    onSubmit={handleFormSubmit} 
+                    modalLoading={modalLoading} />
       )}
-      {showQuotaModal && <QuotaAlertModal limit={subscription?.maxAgencies} type="agence(s)" onClose={() => setShowQuotaModal(false)} onUpgrade={() => setCurrentView('SUBSCRIPTION')} />}
+      {showQuotaModal && <QuotaAlertModal t={t} limit={subscription?.maxAgencies} type={t.agencies.quotaType} onClose={() => setShowQuotaModal(false)} onUpgrade={() => setCurrentView('SUBSCRIPTION')} />}
     </div>
   );
 };

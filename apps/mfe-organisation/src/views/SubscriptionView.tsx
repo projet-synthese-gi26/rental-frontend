@@ -5,7 +5,7 @@ import { Shield, LayoutGrid, Loader2, AlertCircle, Clock, Zap } from 'lucide-rea
 import { agencyService, extraService, orgService } from '@pwa-easy-rental/shared-services';
 import { PlanCard } from './subscription/PlanCard';
 
-export const SubscriptionView = ({ orgData }: any) => {
+export const SubscriptionView = ({ orgData, t }: any) => {
   const [plans, setPlans] = useState<any[]>([]);
   const [currentSub, setCurrentSub] = useState<any>(null);
   const [realAgenciesCount, setRealAgenciesCount] = useState(0);
@@ -38,17 +38,17 @@ export const SubscriptionView = ({ orgData }: any) => {
   const handlePlanChange = async (planName: string) => {
     if (!orgData?.id) return;
     const isCancellation = planName === 'FREE';
-    if (isCancellation && !window.confirm("Voulez-vous vraiment repasser au plan gratuit ? Certains accès seront limités.")) return;
+    if (isCancellation && !window.confirm(t.subscription.confirmFree)) return;
 
     setActionLoading(planName);
     try {
       const res = await orgService.upgradePlan(orgData.id, planName as any);
       if (res.ok) {
         await loadSubscriptionData();
-        alert(isCancellation ? "Retour au plan FREE effectué." : `Félicitations ! Vous êtes passé au plan ${planName}`);
+        alert(isCancellation ? t.subscription.alertFreeSuccess : `${t.subscription.alertUpgradeSuccess} ${planName}`);
       }
     } catch {
-      alert("Erreur lors du changement de plan.");
+      alert(t.subscription.alertError);
     } finally {
       setActionLoading(null);
     }
@@ -65,7 +65,7 @@ export const SubscriptionView = ({ orgData }: any) => {
       <section className="space-y-6">
         <div className="flex items-center gap-3 border-b border-slate-200 dark:border-slate-800 pb-4">
           <Shield className="text-[#0528d6]" size={20} />
-          <h4 className="text-lg font-bold text-slate-800 dark:text-white uppercase tracking-tight">État de la licence</h4>
+          <h4 className="text-lg font-bold text-slate-800 dark:text-white uppercase tracking-tight">{t.subscription.licenceStatus}</h4>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -74,14 +74,14 @@ export const SubscriptionView = ({ orgData }: any) => {
             <Zap size={180} className="absolute -bottom-10 -right-10 text-white/10 rotate-12" />
             <div className="relative z-10 space-y-4">
               <span className="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-white/20">
-                Licence active
+                {t.subscription.activeLicence}
               </span>
               <h3 className="text-4xl font-black italic uppercase tracking-tighter">
                 {currentSub?.planName || "---"}
               </h3>
               <div className="flex items-center gap-2 text-blue-100 text-[11px] font-bold uppercase tracking-tight italic pt-2">
                 <Clock size={14} /> 
-                {currentSub?.expiresAt ? `Expire le ${new Date(currentSub.expiresAt).toLocaleDateString()}` : "Validité illimitée"}
+                {currentSub?.expiresAt ? `${t.subscription.expiresOn} ${new Date(currentSub.expiresAt).toLocaleDateString()}` : t.subscription.unlimited}
               </div>
             </div>
           </div>
@@ -90,7 +90,7 @@ export const SubscriptionView = ({ orgData }: any) => {
           <div className="lg:col-span-2 bg-white dark:bg-[#1a1d2d] p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-center">
             <div className="flex justify-between items-center mb-4 text-xs font-bold uppercase tracking-tight">
               <div className="flex items-center gap-3 text-[#0528d6]">
-                <LayoutGrid size={20}/> Consommation des points de vente
+                <LayoutGrid size={20}/> {t.subscription.consumptionTitle}
               </div>
               <span className="text-slate-400 text-sm font-black">{realAgenciesCount} / {currentSub?.maxAgencies || 1}</span>
             </div>
@@ -102,7 +102,7 @@ export const SubscriptionView = ({ orgData }: any) => {
               />
             </div>
             <p className="mt-4 text-[10px] font-medium text-slate-400 italic">
-              Cette jauge indique le nombre d&apos;agences physiques actives sur votre réseau par rapport à votre limite autorisée.
+              {t.subscription.consumptionDesc}
             </p>
           </div>
         </div>
@@ -111,8 +111,8 @@ export const SubscriptionView = ({ orgData }: any) => {
       {/* SECTION 2 : CATALOGUE */}
       <section className="space-y-8">
         <div className="text-center space-y-1">
-          <h4 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight leading-none italic">Plans disponibles</h4>
-          <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest italic">Optimisez votre infrastructure réseau</p>
+          <h4 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight leading-none italic">{t.subscription.availablePlans}</h4>
+          <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest italic">{t.subscription.plansSubtitle}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
@@ -123,6 +123,7 @@ export const SubscriptionView = ({ orgData }: any) => {
               isCurrent={currentSub?.planName === plan.name}
               onSelect={handlePlanChange}
               loading={actionLoading === plan.name}
+              t={t}
             />
           ))}
         </div>
@@ -136,9 +137,9 @@ export const SubscriptionView = ({ orgData }: any) => {
               <AlertCircle size={28} />
             </div>
             <div className="text-left">
-              <h5 className="text-lg font-bold text-red-600 tracking-tight">Zone de danger</h5>
+              <h5 className="text-lg font-bold text-red-600 tracking-tight">{t.subscription.dangerZone}</h5>
               <p className="text-xs text-slate-500 max-w-sm font-medium italic leading-relaxed">
-                Le passage au plan FREE désactivera les fonctionnalités premium (Chat, Geofencing) et pourrait bloquer la création de nouvelles agences.
+                {t.subscription.dangerDesc}
               </p>
             </div>
           </div>
@@ -147,7 +148,7 @@ export const SubscriptionView = ({ orgData }: any) => {
             disabled={!!actionLoading}
             className="px-8 py-3 bg-white text-red-500 rounded-xl font-bold text-xs uppercase shadow-sm border border-red-100 hover:bg-red-500 hover:text-white transition-all shrink-0"
           >
-            {actionLoading === 'FREE' ? <Loader2 className="animate-spin size-4" /> : "Résilier l'abonnement"}
+            {actionLoading === 'FREE' ? <Loader2 className="animate-spin size-4" /> : t.subscription.cancelBtn}
           </button>
         </section>
       )}

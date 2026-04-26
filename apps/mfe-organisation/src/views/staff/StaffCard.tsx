@@ -2,9 +2,8 @@
 'use client';
 import React from 'react';
 import { Mail, Store, Shield, Edit3, Trash2, Info, CheckCircle2, UserX } from 'lucide-react';
-import { hasPermission } from '../../utils/permissions';
 
-export const StaffCard = ({ staff, agencies, onEdit, onDelete, onView, t, userData }: any) => {
+export const StaffCard = ({ staff, agencies, onEdit, onDelete, onView, t }: any) => {
   const agencyName = agencies.find((a: any) => a.id === staff.agencyId)?.name || t.staff.noAgency || 'Siège';
   
   return (
@@ -49,14 +48,8 @@ export const StaffCard = ({ staff, agencies, onEdit, onDelete, onView, t, userDa
         <button onClick={() => onView(staff.id)} className="flex-1 py-3 bg-slate-900 text-white dark:bg-white dark:text-[#0528d6] rounded-2xl text-[9px] font-black uppercase italic tracking-widest hover:scale-[1.02] transition-all flex items-center justify-center gap-2 shadow-md">
             <Info size={14}/> {t.staff.viewProfile.split(' ')[0]}
         </button>
-        
-        {hasPermission(userData, 'staff:update') && (
-            <button onClick={() => onEdit(staff)} className="p-3 text-slate-400 hover:text-[#0528d6] bg-slate-50 dark:bg-slate-800 rounded-2xl transition-all shadow-inner"><Edit3 size={16}/></button>
-        )}
-        
-        {hasPermission(userData, 'staff:delete') && (
-            <button onClick={() => onDelete(staff.id)} className="p-3 text-slate-400 hover:text-red-500 bg-slate-50 dark:bg-slate-800 rounded-2xl transition-all shadow-inner"><Trash2 size={16}/></button>
-        )}
+        <button onClick={() => onEdit(staff)} className="p-3 text-slate-400 hover:text-[#0528d6] bg-slate-50 dark:bg-slate-800 rounded-2xl transition-all shadow-inner"><Edit3 size={16}/></button>
+        <button onClick={() => onDelete(staff.id)} className="p-3 text-slate-400 hover:text-red-500 bg-slate-50 dark:bg-slate-800 rounded-2xl transition-all shadow-inner"><Trash2 size={16}/></button>
       </div>
     </div>
   );

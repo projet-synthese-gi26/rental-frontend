@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { X, Loader2, MapPin, Clock, ShieldCheck, Globe, Target, BarChart3, Zap } from 'lucide-react';
 import { Portal } from '../../components/Portal';
 import { agencyService, statsService } from '@pwa-easy-rental/shared-services';
-import { hasPermission } from '../../utils/permissions';
 
 export const AgencyDetailsModal = ({ agencyId, onClose, t, userData }: any) => {
   const [data, setData] = useState<any>(null);
@@ -14,11 +13,9 @@ export const AgencyDetailsModal = ({ agencyId, onClose, t, userData }: any) => {
   useEffect(() => {
     const fetch = async () => {
       const [res, statRes] = await Promise.all([
-        agencyService.getAgencyDetails(agencyId),
-        hasPermission(userData, 'stats:financial') 
-            ? statsService.getAgencyDetailedReport(agencyId) 
-            : Promise.resolve({ ok: true, data: null })
-      ]);
+            agencyService.getAgencyDetails(agencyId),
+            statsService.getAgencyDetailedReport(agencyId)
+        ]);
       if (res.ok) setData(res.data);
       if (statRes.ok) setStats(statRes.data);
       setLoading(false);
@@ -56,14 +53,12 @@ export const AgencyDetailsModal = ({ agencyId, onClose, t, userData }: any) => {
           <div className="p-6 md:p-10 overflow-y-auto custom-scrollbar space-y-12">
             
             {/* Stats section - Reserved for authorized staff */}
-            {hasPermission(userData, 'stats:dashboard') && (
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                    <StatBox label={t.agencies.stats.revenue || "Revenu"} value={`${stats?.totalRevenue?.toLocaleString() || 0} XAF`} icon={<BarChart3 className="text-green-500"/>} />
-                    <StatBox label={t.sidebar.rentals} value={stats?.totalRentals || 0} icon={<Zap className="text-orange-500"/>} />
-                    <StatBox label={t.agencies.stats.active} value={stats?.activeRentals || 0} icon={<Clock className="text-blue-500"/>} />
-                    <StatBox label={t.rental.cancel || "Annulations"} value={stats?.cancelledRentals || 0} icon={<X className="text-red-500"/>} />
-                </div>
-            )}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                <StatBox label={t.agencies.stats.revenue || "Revenu"} value={`${stats?.totalRevenue?.toLocaleString() || 0} XAF`} icon={<BarChart3 className="text-green-500"/>} />
+                <StatBox label={t.sidebar.rentals} value={stats?.totalRentals || 0} icon={<Zap className="text-orange-500"/>} />
+                <StatBox label={t.agencies.stats.active} value={stats?.activeRentals || 0} icon={<Clock className="text-blue-500"/>} />
+                <StatBox label={t.rental.cancel || "Annulations"} value={stats?.cancelledRentals || 0} icon={<X className="text-red-500"/>} />
+            </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
                 <section className="bg-slate-50 dark:bg-slate-900/50 p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-800">
