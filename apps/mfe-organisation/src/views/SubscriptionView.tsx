@@ -28,7 +28,7 @@ export const SubscriptionView = ({ orgData, t }: any) => {
       if (subRes.ok) setCurrentSub(subRes.data);
       if (agenciesRes.ok) setRealAgenciesCount(agenciesRes.data?.length || 0);
       
-    } catch (error) {
+    } catch (_error) {
       // console.error("Erreur de chargement", error);
     } finally {
       setLoading(false);
