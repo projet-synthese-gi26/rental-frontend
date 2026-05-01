@@ -104,7 +104,9 @@ export class ApiClient {
  * Détecte si on est sur /agency ou /organisation pour taper le bon proxy local
  */
 const getDynamicBaseUrl = () => {
-  if (typeof window === 'undefined') return process.env.NEXT_PUBLIC_API_URL ; //'https://apirental5gi-v2.onrender.com';
+  if (typeof window === 'undefined') {
+    return process.env.NEXT_PUBLIC_API_URL ?? 'https://traefikdev.yowyob.com/rental';
+  }
   
   const path = window.location.pathname;
   if (path.startsWith('/client')) return '/client/api-rental';
