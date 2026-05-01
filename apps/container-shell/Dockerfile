@@ -24,11 +24,13 @@ RUN npm ci
 FROM node:20-alpine AS builder
 WORKDIR /app
 
+# Copier les manifestes du monorepo
+COPY package.json package-lock.json turbo.json ./
+
 # Récupérer les dépendances installées
 COPY --from=deps /app/node_modules ./node_modules
 
 # Copier tout le code source nécessaire
-COPY turbo.json ./
 COPY packages/ ./packages/
 COPY apps/container-shell ./apps/container-shell
 
