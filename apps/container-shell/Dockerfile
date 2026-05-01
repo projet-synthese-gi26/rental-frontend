@@ -26,7 +26,6 @@ WORKDIR /app
 
 # Récupérer les dépendances installées
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/apps/container-shell/node_modules ./apps/container-shell/node_modules
 
 # Copier tout le code source nécessaire
 COPY turbo.json ./
