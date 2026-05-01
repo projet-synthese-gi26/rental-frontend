@@ -23,7 +23,7 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 # Copier les manifestes du monorepo
-COPY package.json package-lock.json turbo.json ./
+COPY package.json package-lock.json turbo.json tsconfig.json ./
 
 COPY --from=deps /app/node_modules ./node_modules
 
