@@ -23,7 +23,6 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/apps/mfe-organisation/node_modules ./apps/mfe-organisation/node_modules
 
 COPY turbo.json ./
 COPY packages/ ./packages/
