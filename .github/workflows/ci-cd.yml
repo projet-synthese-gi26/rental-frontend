@@ -1,0 +1,132 @@
+name: "Rental Frontend — Build & Deploy"
+
+on:
+  push:
+    branches: [main, master]
+
+jobs:
+  build-and-push:
+    name: "Build & Push ${{ matrix.app }}"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - app: container-shell
+            container_name: rental-shell
+          - app: mfe-agency
+            container_name: rental-agency
+          - app: mfe-client
+            container_name: rental-client
+          - app: mfe-organisation
+            container_name: rental-organisation
+
+    outputs:
+      registry_image: ${{ steps.vars.outputs.registry_image }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # nécessaire pour git diff
+
+      - name: Check if ${{ matrix.app }} has changed
+        id: changes
+        run: |
+          CHANGED=$(git diff --name-only HEAD~1 HEAD | grep "^apps/${{ matrix.app }}/" || true)
+          SHARED=$(git diff --name-only HEAD~1 HEAD | grep "^packages/" || true)
+          if [ -n "$CHANGED" ] || [ -n "$SHARED" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Set registry image name
+        id: vars
+        run: |
+          echo "registry_image=ghcr.io/${{ github.repository_owner }}/rental-${{ matrix.app }}" >> $GITHUB_OUTPUT
+
+      - name: Log in to GHCR
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          echo "${{ secrets.PERSONAL_ACCESS_TOKEN }}" | docker login ghcr.io \
+            -u ${{ secrets.REGISTRY_NAMESPACE }} --password-stdin
+
+      - name: Build & Push ${{ matrix.app }}
+        if: steps.changes.outputs.changed == 'true'
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          dockerfile: apps/${{ matrix.app }}/Dockerfile
+          push: true
+          tags: ${{ steps.vars.outputs.registry_image }}:latest
+          build-args: |
+            NEXT_PUBLIC_API_URL=https://traefikdev.yowyob.com/rental
+            NEXT_PUBLIC_MFE_AGENCY_URL=https://rental-dev.yowyob.com/agency
+            NEXT_PUBLIC_MFE_CLIENT_URL=https://rental-dev.yowyob.com/client
+            NEXT_PUBLIC_MFE_ORGANISATION_URL=https://rental-dev.yowyob.com/organisation
+
+  deploy:
+    name: "Deploy ${{ matrix.container_name }}"
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    strategy:
+      matrix:
+        include:
+          - app: container-shell
+            container_name: rental-shell
+          - app: mfe-agency
+            container_name: rental-agency
+          - app: mfe-client
+            container_name: rental-client
+          - app: mfe-organisation
+            container_name: rental-organisation
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Check if ${{ matrix.app }} has changed
+        id: changes
+        run: |
+          CHANGED=$(git diff --name-only HEAD~1 HEAD | grep "^apps/${{ matrix.app }}/" || true)
+          SHARED=$(git diff --name-only HEAD~1 HEAD | grep "^packages/" || true)
+          if [ -n "$CHANGED" ] || [ -n "$SHARED" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Add SSH key
+        if: steps.changes.outputs.changed == 'true'
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy ${{ matrix.container_name }} on server
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          REGISTRY_IMAGE: ghcr.io/${{ github.repository_owner }}/rental-${{ matrix.app }}
+          CONTAINER_NAME: ${{ matrix.container_name }}
+          HEALTH_DELAY: ${{ secrets.DEPLOY_DELAY }}
+        run: |
+          ssh -o StrictHostKeyChecking=no \
+            ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << EOF
+            echo "${{ secrets.PERSONAL_ACCESS_TOKEN }}" | docker login ghcr.io \
+              -u ${{ secrets.REGISTRY_NAMESPACE }} --password-stdin
+            cd /home/${{ secrets.REMOTE_USER }}/yowyob/frontend
+            sudo docker compose down ${CONTAINER_NAME}
+            sudo docker rmi -f ${REGISTRY_IMAGE}:latest || true
+            sudo docker pull ${REGISTRY_IMAGE}:latest
+            sudo docker compose up -d ${CONTAINER_NAME}
+            sleep ${HEALTH_DELAY}
+            STATUS=\$(sudo docker inspect --format='{{json .State.Health.Status}}' ${CONTAINER_NAME})
+            echo "Health status: \$STATUS"
+            if [ "\$STATUS" != '"healthy"' ]; then
+              echo "ERROR: ${CONTAINER_NAME} is not healthy"
+              exit 1
+            fi
+            echo "Deployment of ${CONTAINER_NAME} successful!"
+          EOF
