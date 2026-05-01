@@ -56,7 +56,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          dockerfile: apps/${{ matrix.app }}/Dockerfile
+          file: apps/${{ matrix.app }}/Dockerfile
           push: true
           tags: ${{ steps.vars.outputs.registry_image }}:latest
           build-args: |
