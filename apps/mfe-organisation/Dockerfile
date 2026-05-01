@@ -34,7 +34,7 @@ COPY apps/mfe-organisation ./apps/mfe-organisation
 ARG NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 
-RUN npx turbo run build --filter=mfe-organisation
+RUN npx turbo run build --filter=@pwa-easy-rental/mfe-organisation
 
 
 # ─────────────────────────────────────────

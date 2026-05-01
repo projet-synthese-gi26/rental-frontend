@@ -47,7 +47,7 @@ ENV NEXT_PUBLIC_MFE_CLIENT_URL=$NEXT_PUBLIC_MFE_CLIENT_URL
 ENV NEXT_PUBLIC_MFE_ORGANISATION_URL=$NEXT_PUBLIC_MFE_ORGANISATION_URL
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 
-RUN npx turbo run build --filter=container-shell
+RUN npx turbo run build --filter=@pwa-easy-rental/container-shell
 
 
 # ─────────────────────────────────────────
