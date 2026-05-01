@@ -32,7 +32,7 @@ export const LogoUpload = ({ value, onUploadSuccess, t }: { value: string, onUpl
       if (res.ok && res.data?.url) {
         let finalUrl = res.data.url;
         if (!finalUrl.startsWith('http')) {
-            finalUrl = `https://apirental5gi-v2.onrender.com${finalUrl.startsWith('/') ? '' : '/'}${finalUrl}`;
+            finalUrl = `${process.env.NEXT_PUBLIC_API_URL}${finalUrl.startsWith('/') ? '' : '/'}${finalUrl}`;
         }
         onUploadSuccess(finalUrl);
       } else {
