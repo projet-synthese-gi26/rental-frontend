@@ -55,8 +55,8 @@ COPY --from=builder --chown=nextjs:nodejs /app/apps/mfe-organisation/public     
 
 USER nextjs
 
-EXPOSE 3003
-ENV PORT=3003
+EXPOSE 3000
+ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
 CMD ["node", "apps/mfe-organisation/server.js"]
