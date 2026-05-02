@@ -12,13 +12,13 @@ jobs:
       matrix:
         include:
           - app: container-shell
-            container_name: rental-shell
+            container_name: rental-container-shell
           - app: mfe-agency
-            container_name: rental-agency
+            container_name: rental-mfe-agency
           - app: mfe-client
-            container_name: rental-client
+            container_name: rental-mfe-client
           - app: mfe-organisation
-            container_name: rental-organisation
+            container_name: rental-mfe-organisation
 
     outputs:
       registry_image: ${{ steps.vars.outputs.registry_image }}
@@ -61,9 +61,9 @@ jobs:
           tags: ${{ steps.vars.outputs.registry_image }}:latest
           build-args: |
             NEXT_PUBLIC_API_URL=https://traefikdev.yowyob.com/rental
-            NEXT_PUBLIC_MFE_AGENCY_URL=https://rental-dev.yowyob.com/agency
-            NEXT_PUBLIC_MFE_CLIENT_URL=https://rental-dev.yowyob.com/client
-            NEXT_PUBLIC_MFE_ORGANISATION_URL=https://rental-dev.yowyob.com/organisation
+            NEXT_PUBLIC_MFE_AGENCY_URL=https://rental-dev.yowyob.com
+            NEXT_PUBLIC_MFE_CLIENT_URL=https://rental-dev.yowyob.com
+            NEXT_PUBLIC_MFE_ORGANISATION_URL=https://rental-dev.yowyob.com
 
   deploy:
     name: "Deploy ${{ matrix.container_name }}"
@@ -74,13 +74,13 @@ jobs:
       matrix:
         include:
           - app: container-shell
-            container_name: rental-shell
+            container_name: rental-container-shell
           - app: mfe-agency
-            container_name: rental-agency
+            container_name: rental-mfe-agency
           - app: mfe-client
-            container_name: rental-client
+            container_name: rental-mfe-client
           - app: mfe-organisation
-            container_name: rental-organisation
+            container_name: rental-mfe-organisation
 
     steps:
       - name: Checkout code
