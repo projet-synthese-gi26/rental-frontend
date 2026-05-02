@@ -144,5 +144,4 @@ function MyComponent() {
 
 ## License
 
-MIT 
-test
+MIT
