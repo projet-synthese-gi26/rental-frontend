@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 
-const ORG_URL = process.env.NEXT_PUBLIC_ORG_URL  ;
-const CLIENT_URL = process.env.NEXT_PUBLIC_CLIENT_URL;
-const AGENCY_URL = process.env.NEXT_PUBLIC_AGENCY_URL;
+const ORG_URL = process.env.NEXT_PUBLIC_MFE_ORGANISATION_URL;
+const CLIENT_URL = process.env.NEXT_PUBLIC_MFE_CLIENT_URL;
+const AGENCY_URL = process.env.NEXT_PUBLIC_MFE_AGENCY_URL;
 
 const nextConfig = {
   output: 'standalone',

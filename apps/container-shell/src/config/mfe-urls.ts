@@ -1,8 +1,8 @@
 const isProd = process.env.NODE_ENV === 'production';
 
-const ORG_URL = process.env.NEXT_PUBLIC_ORG_URL || 'http://localhost:3003' ;
-const CLIENT_URL = process.env.NEXT_PUBLIC_CLIENT_URL|| 'http://localhost:3001';
-const AGENCY_URL = process.env.NEXT_PUBLIC_AGENCY_URL || 'http://localhost:3002';
+const ORG_URL = process.env.NEXT_PUBLIC_MFE_ORGANISATION_URL ;
+const CLIENT_URL = process.env.NEXT_PUBLIC_MFE_CLIENT_URL;
+const AGENCY_URL = process.env.NEXT_PUBLIC_MFE_AGENCY_URL;
 
 
 export const MFE_URLS = {
