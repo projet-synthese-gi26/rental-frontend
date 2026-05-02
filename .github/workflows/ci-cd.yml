@@ -61,9 +61,9 @@ jobs:
           tags: ${{ steps.vars.outputs.registry_image }}:latest
           build-args: |
             NEXT_PUBLIC_API_URL=https://traefikdev.yowyob.com/rental
-            NEXT_PUBLIC_MFE_AGENCY_URL=https://rental-dev.yowyob.com/agency
-            NEXT_PUBLIC_MFE_CLIENT_URL=https://rental-dev.yowyob.com/client
-            NEXT_PUBLIC_MFE_ORGANISATION_URL=https://rental-dev.yowyob.com/organisation
+            NEXT_PUBLIC_MFE_AGENCY_URL=https://rental-dev.yowyob.com
+            NEXT_PUBLIC_MFE_CLIENT_URL=https://rental-dev.yowyob.com
+            NEXT_PUBLIC_MFE_ORGANISATION_URL=https://rental-dev.yowyob.com
 
   deploy:
     name: "Deploy ${{ matrix.container_name }}"
