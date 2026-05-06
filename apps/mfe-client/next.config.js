@@ -21,7 +21,7 @@ const nextConfig = {
     return [
       {
         // On redirige tous les appels /api-rental vers le vrai serveur Render
-        source: 'client/api-rental/:path*',
+        source: '/client/api-rental/:path*',
         destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`,
         // basePath: false, // Important pour que le basePath ne soit pas ajouté à la destination
       },
