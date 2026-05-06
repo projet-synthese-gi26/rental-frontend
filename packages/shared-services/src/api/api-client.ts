@@ -111,11 +111,11 @@ const getDynamicBaseUrl = () => {
   }
   
   const path = window.location.pathname;
-  if (path.startsWith('/client')) return '/client/api-rental';
-  if (path.startsWith('/agency')) return '/agency/api-rental';
-  if (path.startsWith('/organisation')) return '/organisation/api-rental';
+  if (path.startsWith('/client')) return API_URL;
+  if (path.startsWith('/agency')) return API_URL;
+  if (path.startsWith('/organisation')) return API_URL;
   
-  return '/api-rental';
+  return API_URL;
 };
 
 export const defaultClient = new ApiClient({
