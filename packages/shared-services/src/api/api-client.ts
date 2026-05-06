@@ -1,3 +1,5 @@
+export const API_URL = process.env.NEXT_PUBLIC_API_URL as string //"http://127.0.0.1:8000"
+
 export interface ApiConfig {
   baseUrl: string;
   timeout?: number;
