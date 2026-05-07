@@ -106,16 +106,16 @@ export class ApiClient {
  * Détecte si on est sur /agency ou /organisation pour taper le bon proxy local
  */
 const getDynamicBaseUrl = () => {
-  // if (typeof window === 'undefined') {
-  //   return process.env.NEXT_PUBLIC_API_URL ?? 'https://traefikdev.yowyob.com/rental';
-  // }
+  if (typeof window === 'undefined') {
+    return API_URL ?? 'https://traefikdev.yowyob.com/rental';
+  }
   
   // const path = window.location.pathname;
   // if (path.startsWith('/client')) return '/client/api-rental';
   // if (path.startsWith('/agency')) return '/agency/api-rental';
   // if (path.startsWith('/organisation')) return '/organisation/api-rental';
   
-  return '/api-rental';
+  return API_URL; // '/api-rental';
 };
 
 export const defaultClient = new ApiClient({
